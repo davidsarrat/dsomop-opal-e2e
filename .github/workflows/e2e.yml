@@ -29,6 +29,9 @@ on:
       cdm_db:
         description: "CDM database behind the resources: omop (GiBleed as shipped, cdm_version v5.3.1) or omop53"
         default: "omop"
+      scenarios:
+        description: "Scenarios after the path (C D E F)"
+        default: "C D E F"
       install_driver:
         description: "1 = install RPostgres through Opal; 0 = stock Rock image (RPostgreSQL only)"
         default: "0"
@@ -84,18 +87,18 @@ jobs:
       - name: Path ${{ matrix.path }}
         run: Rscript scripts/path_${{ matrix.path }}.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Scenario C (dsOMOP 1.x resources)
-        if: always()
+        if: always() && contains(inputs.scenarios, 'C')
         run: Rscript scripts/scenario_C.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Scenario D (method audit)
-        if: always() && matrix.path == 'fresh'
+        if: always() && matrix.path == 'fresh' && contains(inputs.scenarios, 'D')
         timeout-minutes: 40
         run: Rscript scripts/scenario_D.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Scenario E (recipes)
-        if: always() && matrix.path == 'fresh'
+        if: always() && matrix.path == 'fresh' && contains(inputs.scenarios, 'E')
         timeout-minutes: 30
         run: Rscript scripts/scenario_E.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Scenario F (RPostgreSQL fallback)
-        if: always() && matrix.path == 'fresh'
+        if: always() && matrix.path == 'fresh' && contains(inputs.scenarios, 'F')
         timeout-minutes: 15
         run: Rscript scripts/scenario_F.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Summary

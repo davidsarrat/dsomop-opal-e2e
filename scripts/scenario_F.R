@@ -20,7 +20,9 @@ note <- function(res, step, r) {
     if (length(e)) summary_line("     datashield.errors(): ", paste(names(e), unlist(e), sep = ": ", collapse = " | "))
   }
 }
+k <- 0L
 for (res in c("omop_data.gibleed", "omop_data.gibleed_v1", "omop_data.gibleed_noschema")) {
+  k <- k + 1L  # recipe outputs persist in the session after disconnect: fresh names per resource
   say("== ", res, " through RPostgreSQL")
   r <- capture(paste0("ds.omop.connect(\"", res, "\")"), ds.omop.connect(resource = res, symbol = "omop", conns = conns))
   note(res, "connect (verified UTC session)", r)
@@ -33,13 +35,13 @@ for (res in c("omop_data.gibleed", "omop_data.gibleed_v1", "omop_data.gibleed_no
   note(res, "ds.omop.date.counts", dc)
   r1 <- capture("recipe: demographics", recipe_execute(omop_recipe(
     variables = list(omop_variable_age(), omop_variable_sex()),
-    outputs = omop_output(name = "demo", type = "wide")), out = c(demo = "F1"), symbol = "omop", conns = conns))
+    outputs = omop_output(name = "demo", type = "wide")), out = c(demo = paste0("F1_", k)), symbol = "omop", conns = conns))
   note(res, "recipe demographics (wide)", r1)
   r2 <- capture("recipe: GI bleed index, drug events in the 2 years before (long)", recipe_execute(omop_recipe(
     populations = omop_population(id = "base", index_event = omop_index_event(192671, "condition_occurrence",
                                                                               primary_limit = "first", include_descendants = TRUE)),
     variables = list(omop_variable_age(reference = "index"), omop_variable_sex()),
-    outputs = omop_output(name = "gib", type = "wide")), out = c(gib = "F2"), symbol = "omop", conns = conns))
+    outputs = omop_output(name = "gib", type = "wide")), out = c(gib = paste0("F2_", k)), symbol = "omop", conns = conns))
   note(res, "recipe GI bleed index (wide)", r2)
   d <- capture("ds.omop.disconnect (cleanup)", ds.omop.disconnect(symbol = "omop", conns = conns))
   note(res, "ds.omop.disconnect (cleanup)", d)
