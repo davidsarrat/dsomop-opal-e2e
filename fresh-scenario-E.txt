@@ -1,0 +1,8 @@
+OK    dsadmin.install_package(o, "dsBase") [CRAN] (2.8 s)
+dsBase on Rock: not installed
+ERROR ds.omop.connect("omop_data.gibleed_tls_disable") (1.8 s): Failed to initialize every OMOP handle: There are some DataSHIELD errors, list them with datashield.errors().
+--- DSI::datashield.errors()
+$Ethiopia
+[1] "Command 'omopInitDS(\"dsO.1d4js3\", cdm_schema = NULL, vocab_schema = NULL, \n    results_schema = NULL, temp_schema = NULL)' failed on 'Ethiopia': Error while evaluating 'is.null(base::assign('omop', value={dsOMOP::omopInitDS(\"dsO.1d4js3\", cdm_schema = NULL, vocab_schema = NULL, results_schema = NULL, temp_schema = NULL)}))' -> Error : No supported OHDSI CDM specification is available for version 'v5.3.1'. Refusing schema introspection because unknown tables and columns cannot be classified safely.\n"
+
+SUMMARY [fresh] E: cannot connect to omop_data.gibleed_tls_disable: Failed to initialize every OMOP handle: There are some DataSHIELD errors, list them with datashield.errors().
