@@ -1,0 +1,20 @@
+== A1: install dsOMOP 1.1.1 (a new package: Opal publishes it)
+ERROR dsadmin.install_github_package(o, "dsOMOP", username = "isglobal-brge", ref = "1.1.1") (0 s): [Client error: (403) Forbidden]
+dsOMOP installed on Rock: not installed
+dsOMOP methods published (after installing 1.1.1): 0 aggregate + 0 assign; versions: ; omopInitDS published: FALSE
+--- assign methods after installing 1.1.1
+[1] name    type    class   value   package version
+<0 rows> (or 0-length row.names)
+--- aggregate methods after installing 1.1.1
+[1] name    type    class   value   package version
+<0 rows> (or 0-length row.names)
+== A2: upgrade to 2.10.0 through the same Opal install call
+ERROR dsadmin.install_github_package(o, "dsOMOP", username = "isglobal-brge", ref = "2.10.0") (0 s): [Client error: (403) Forbidden]
+dsOMOP installed on Rock: not installed
+dsOMOP methods published (after upgrading to 2.10.0 (no publish)): 0 aggregate + 0 assign; versions: ; omopInitDS published: FALSE
+--- assign methods after upgrading to 2.10.0 (no publish)
+[1] name    type    class   value   package version
+<0 rows> (or 0-length row.names)
+--- aggregate methods after upgrading to 2.10.0 (no publish)
+[1] name    type    class   value   package version
+<0 rows> (or 0-length row.names)
