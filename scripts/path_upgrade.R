@@ -24,6 +24,17 @@ say("== A3: the analyst's script (", res, ") right after the upgrade")
 a <- analyst_script(conns, res)
 summary_line("[upgrade] A: after upgrading ", old, " -> ", target, " without publishing: ",
              if (a$ok && isTRUE(a$tables_ok)) "OK" else paste0("FAIL: ", a$error))
+if (!a$ok) {
+  # APHRC's session got past the resource assignment, so the dsOMOP namespace (2.x code, whose resolver reads
+  # omop.dbi.db) was already loaded there. Calling any still-published 1.x method loads it the same way.
+  say("== A4: a published 1.x method first (loads the installed dsOMOP namespace in the session), then connect again")
+  l <- capture("DSI::datashield.aggregate(conns, quote(checkConnectionDS()))", DSI::datashield.aggregate(conns, quote(checkConnectionDS())))
+  if (!l$ok) ds_errors()
+  a4 <- analyst_script(conns, res)
+  summary_line("[upgrade] A4: same session after a 1.x call: ", if (a4$ok && isTRUE(a4$tables_ok)) "OK" else paste0("FAIL: ", a4$error))
+  e4 <- tryCatch(DSI::datashield.errors(), error = function(e) NULL)
+  if (length(e4)) summary_line("[upgrade] A4 datashield.errors(): ", paste(names(e4), unlist(e4), sep = ": ", collapse = " | "))
+}
 DSI::datashield.logout(conns)
 
 say("== B1: publish dsOMOP's settings (Opal > DataSHIELD > Packages > dsOMOP > Publish)")
