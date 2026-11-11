@@ -1,0 +1,443 @@
+Preparing default conf in /srv ...
+Preparing default plugins in /srv ...
+Disabling default Agate setting as AGATE_HOST is not defined...
+Setting Rock R server connection...
+Setting password...
+Starting Opal before first run script...
+Waiting for Opal to be ready...
+JAVA=java
+JAVA_OPTS=-Xms1G -Xmx2G -XX:+UseG1GC
+OPAL_HOME=/srv
+OPAL_DIST=/usr/share/opal
+Archive:  /srv/plugins/opal-datasource-limesurvey-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-limesurvey-2.0.0/
+   creating: /srv/plugins/opal-datasource-limesurvey-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/lib/opal-datasource-limesurvey-2.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/README.md  
+Archive:  /srv/plugins/opal-datasource-spss-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-spss-2.0.0/
+   creating: /srv/plugins/opal-datasource-spss-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/lib/magma-datasource-spss-1.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/lib/spssreader-1.2.2.jar  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/README.md  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/lib/opal-datasource-spss-2.0.0.jar  
+Archive:  /srv/plugins/opal-datasource-googlesheets4-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/
+   creating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/lib/opal-datasource-googlesheets4-2.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/README.md  
+Archive:  /srv/plugins/opal-analysis-validate-2.0.0-dist.zip
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/lib/
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/report.Rmd  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/form.json  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/report.Rmd  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/routine.R  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/form.json  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/report.Rmd  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/routine.R  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/form.json  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/README.md  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/lib/opal-analysis-validate-2.0.0.jar  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/routine.R  
+Archive:  /srv/plugins/opal-datasource-redcap-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-redcap-2.0.0/
+   creating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/jackson-dataformat-xml-2.17.2.jar  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/stax2-api-4.2.2.jar  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/README.md  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/opal-datasource-redcap-2.0.0.jar  
+Archive:  /srv/plugins/opal-datasource-readr-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-readr-2.0.0/
+   creating: /srv/plugins/opal-datasource-readr-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/export.json  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/README.md  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/lib/opal-datasource-readr-2.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/import.json  
+Archive:  /srv/plugins/opal-datasource-readxl-2.0.1-dist.zip
+   creating: /srv/plugins/opal-datasource-readxl-2.0.1/
+   creating: /srv/plugins/opal-datasource-readxl-2.0.1/lib/
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/import.json  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/lib/opal-datasource-readxl-2.0.1.jar  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/export.json  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/README.md  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/site.properties  
+Listening for transport dt_socket at address: 8000
+Upgrading Opal...
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/usr/share/opal/lib/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+Upgrade successful.
+Listening for transport dt_socket at address: 8000
+ __    __    __      ____  _____        _      
+ \ \   \ \   \ \    / __ \|  __ \ /\   | |     
+  \ \   \ \   \ \  | |  | | |__) /  \  | |     
+   > >   > >   > > | |  | |  ___/ /\ \ | |     
+  / /   / /   / /  | |__| | |  / ____ \| |____ 
+ /_/   /_/   /_/    \____/|_| /_/    \_\______|
+                                               
+                                               
+Starting Opal...
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/usr/share/opal/lib/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+WARNING: A restricted method in java.lang.foreign.Linker has been called
+WARNING: java.lang.foreign.Linker::downcallHandle has been called by org.apache.lucene.store.PosixNativeAccess in an unnamed module (file:/usr/share/opal/lib/lucene-core-9.11.1.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+First run setup...
+Initializing Opal IDs database with MongoDB...
+Opal Server successfully started.
+Opal is attached to this console. Press ctrl-c to stop.
+Enter content:
+
+Initializing Opal data database with MongoDB...
+2026-11-11 21:15:23,627 ERROR org.obiba.opal.web.provider.ErrorDtoExceptionMapper - System error Internal Server Error: java.util.ConcurrentModificationException
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source)
+	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(Unknown Source)
+	at java.base/java.util.stream.ReferencePipeline.collect(Unknown Source)
+	at org.obiba.opal.web.r.Dtos.asDto(Dtos.java:56)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(Unknown Source)
+	at java.base/java.util.concurrent.ConcurrentHashMap$ValueSpliterator.forEachRemaining(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source)
+	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(Unknown Source)
+	at java.base/java.util.stream.ReferencePipeline.collect(Unknown Source)
+	at org.obiba.opal.web.r.RServiceClustersResource.getClusters(RServiceClustersResource.java:54)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:154)
+	at org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:118)
+	at org.jboss.resteasy.core.ResourceMethodInvoker.internalInvokeOnTarget(ResourceMethodInvoker.java:560)
+	at org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTargetAfterFilter(ResourceMethodInvoker.java:452)
+	at org.jboss.resteasy.core.ResourceMethodInvoker.lambda$invokeOnTarget$2(ResourceMethodInvoker.java:413)
+	at org.jboss.resteasy.core.interception.jaxrs.PreMatchContainerRequestContext.filter(PreMatchContainerRequestContext.java:321)
+	at org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTarget(ResourceMethodInvoker.java:415)
+	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:378)
+	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:356)
+	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:70)
+	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:429)
+	at org.jboss.resteasy.core.SynchronousDispatcher.lambda$invoke$4(SynchronousDispatcher.java:240)
+	at org.jboss.resteasy.core.SynchronousDispatcher.lambda$preprocess$0(SynchronousDispatcher.java:154)
+	at org.jboss.resteasy.core.interception.jaxrs.PreMatchContainerRequestContext.filter(PreMatchContainerRequestContext.java:321)
+	at org.jboss.resteasy.core.SynchronousDispatcher.preprocess(SynchronousDispatcher.java:157)
+	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:229)
+	at org.jboss.resteasy.plugins.server.servlet.ServletContainerDispatcher.service(ServletContainerDispatcher.java:222)
+	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:55)
+	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:51)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:614)
+	at org.eclipse.jetty.ee10.servlet.ServletHolder.handle(ServletHolder.java:754)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$ChainEnd.doFilter(ServletHandler.java:1642)
+	at org.obiba.shiro.web.filter.AuthenticationFilter.doFilterInternal(AuthenticationFilter.java:174)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:355)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:272)
+	at org.eclipse.jetty.ee10.servlet.FilterHolder.doFilter(FilterHolder.java:205)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1601)
+	at org.obiba.opal.server.httpd.OpalSessionHeaderFilter.doFilter(OpalSessionHeaderFilter.java:53)
+	at jakarta.servlet.http.HttpFilter.doFilter(HttpFilter.java:97)
+	at org.eclipse.jetty.ee10.servlet.FilterHolder.doFilter(FilterHolder.java:205)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1601)
+	at org.obiba.opal.server.httpd.OpalVersionFilter.doFilterInternal(OpalVersionFilter.java:39)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.eclipse.jetty.ee10.servlet.FilterHolder.doFilter(FilterHolder.java:205)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1601)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$MappedServlet.handle(ServletHandler.java:1556)
+	at org.eclipse.jetty.ee10.servlet.ServletChannel.dispatch(ServletChannel.java:871)
+	at org.eclipse.jetty.ee10.servlet.ServletChannel.handle(ServletChannel.java:449)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler.handle(ServletHandler.java:469)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:548)
+	at org.eclipse.jetty.ee10.servlet.SessionHandler.handle(SessionHandler.java:719)
+	at org.eclipse.jetty.server.handler.ContextHandler.handle(ContextHandler.java:1253)
+	at org.eclipse.jetty.server.handler.PathMappingsHandler.handle(PathMappingsHandler.java:146)
+	at org.eclipse.jetty.server.handler.gzip.GzipHandler.handle(GzipHandler.java:621)
+	at org.eclipse.jetty.server.Server.handle(Server.java:197)
+	at org.eclipse.jetty.server.internal.HttpChannelState$HandlerInvoker.run(HttpChannelState.java:804)
+	at org.eclipse.jetty.server.internal.HttpConnection.onFillable(HttpConnection.java:420)
+	at org.eclipse.jetty.server.internal.HttpConnection$FillableCallback.succeeded(HttpConnection.java:1789)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:105)
+	at org.eclipse.jetty.io.SelectableChannelEndPoint$1.run(SelectableChannelEndPoint.java:54)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.runTask(AdaptiveExecutionStrategy.java:492)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.epcRunTask(AdaptiveExecutionStrategy.java:428)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.consumeTask(AdaptiveExecutionStrategy.java:401)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.tryProduce(AdaptiveExecutionStrategy.java:255)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.run(AdaptiveExecutionStrategy.java:204)
+	at org.eclipse.jetty.util.thread.ReservedThreadExecutor$ReservedThread.run(ReservedThreadExecutor.java:317)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:1009)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.doRunJob(QueuedThreadPool.java:1240)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.run(QueuedThreadPool.java:1194)
+	at java.base/java.lang.Thread.run(Unknown Source)
+2026-11-11 21:15:23,632 ERROR org.obiba.opal.web.magma.provider.UnhandledExceptionMapper - Unhandled exception ConcurrentModificationException: null
+Enter content:
+
+First run complete. Stopping background Opal...
+Opal Server shutting down...
+2026-11-11 21:15:25,177 ERROR org.obiba.shiro.web.filter.AuthenticationFilter - Exception 
+java.lang.IllegalStateException: Session manager is not available or has been destroyed
+	at org.apache.shiro.mgt.SessionsSecurityManager.start(SessionsSecurityManager.java:153)
+	at org.apache.shiro.subject.support.DelegatingSubject.getSession(DelegatingSubject.java:342)
+	at org.apache.shiro.subject.support.DelegatingSubject.getSession(DelegatingSubject.java:318)
+	at org.apache.shiro.mgt.DefaultSubjectDAO.mergePrincipals(DefaultSubjectDAO.java:207)
+	at org.apache.shiro.mgt.DefaultSubjectDAO.saveToSession(DefaultSubjectDAO.java:165)
+	at org.apache.shiro.mgt.DefaultSubjectDAO.save(DefaultSubjectDAO.java:146)
+	at org.apache.shiro.mgt.DefaultSecurityManager.save(DefaultSecurityManager.java:416)
+	at org.apache.shiro.mgt.DefaultSecurityManager.createSubject(DefaultSecurityManager.java:382)
+	at org.apache.shiro.mgt.DefaultSecurityManager.createSubject(DefaultSecurityManager.java:193)
+	at org.apache.shiro.mgt.DefaultSecurityManager.login(DefaultSecurityManager.java:295)
+	at org.apache.shiro.subject.support.DelegatingSubject.login(DelegatingSubject.java:262)
+	at org.obiba.shiro.web.filter.AbstractAuthenticationExecutor.login(AbstractAuthenticationExecutor.java:82)
+	at org.obiba.shiro.web.filter.AuthenticationFilter.authenticateBasicHeader(AuthenticationFilter.java:300)
+	at org.obiba.shiro.web.filter.AuthenticationFilter.authenticateBasicHeader(AuthenticationFilter.java:274)
+	at org.obiba.shiro.web.filter.AuthenticationFilter.authenticateAndBind(AuthenticationFilter.java:209)
+	at org.obiba.shiro.web.filter.AuthenticationFilter.doFilterInternal(AuthenticationFilter.java:173)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:355)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:272)
+	at org.eclipse.jetty.ee10.servlet.FilterHolder.doFilter(FilterHolder.java:205)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1601)
+	at org.obiba.opal.server.httpd.OpalSessionHeaderFilter.doFilter(OpalSessionHeaderFilter.java:53)
+	at jakarta.servlet.http.HttpFilter.doFilter(HttpFilter.java:97)
+	at org.eclipse.jetty.ee10.servlet.FilterHolder.doFilter(FilterHolder.java:205)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1601)
+	at org.obiba.opal.server.httpd.OpalVersionFilter.doFilterInternal(OpalVersionFilter.java:39)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.eclipse.jetty.ee10.servlet.FilterHolder.doFilter(FilterHolder.java:205)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1601)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$MappedServlet.handle(ServletHandler.java:1556)
+	at org.eclipse.jetty.ee10.servlet.ServletChannel.dispatch(ServletChannel.java:871)
+	at org.eclipse.jetty.ee10.servlet.ServletChannel.handle(ServletChannel.java:449)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler.handle(ServletHandler.java:469)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:548)
+	at org.eclipse.jetty.ee10.servlet.SessionHandler.handle(SessionHandler.java:719)
+	at org.eclipse.jetty.server.handler.ContextHandler.handle(ContextHandler.java:1253)
+	at org.eclipse.jetty.server.handler.PathMappingsHandler.handle(PathMappingsHandler.java:146)
+	at org.eclipse.jetty.server.handler.gzip.GzipHandler.handle(GzipHandler.java:571)
+	at org.eclipse.jetty.server.Server.handle(Server.java:197)
+	at org.eclipse.jetty.server.internal.HttpChannelState$HandlerInvoker.run(HttpChannelState.java:804)
+	at org.eclipse.jetty.server.internal.HttpConnection.onFillable(HttpConnection.java:420)
+	at org.eclipse.jetty.server.internal.HttpConnection$FillableCallback.succeeded(HttpConnection.java:1789)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:105)
+	at org.eclipse.jetty.io.SelectableChannelEndPoint$1.run(SelectableChannelEndPoint.java:54)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.runTask(AdaptiveExecutionStrategy.java:492)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.epcRunTask(AdaptiveExecutionStrategy.java:428)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.consumeTask(AdaptiveExecutionStrategy.java:401)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.tryProduce(AdaptiveExecutionStrategy.java:255)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.run(AdaptiveExecutionStrategy.java:204)
+	at org.eclipse.jetty.util.thread.ReservedThreadExecutor$ReservedThread.run(ReservedThreadExecutor.java:317)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:1009)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.doRunJob(QueuedThreadPool.java:1240)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.run(QueuedThreadPool.java:1194)
+	at java.base/java.lang.Thread.run(Unknown Source)
+2026-11-11 21:15:25,357 ERROR org.obiba.opal.r.cluster.RServerCluster - Cannot retrieve all Datashield packages properties
+java.lang.InterruptedException
+	at java.base/java.util.concurrent.FutureTask.awaitDone(Unknown Source)
+	at java.base/java.util.concurrent.FutureTask.get(Unknown Source)
+	at java.base/java.util.concurrent.AbstractExecutorService.invokeAll(Unknown Source)
+	at org.obiba.opal.r.cluster.RServerCluster.getDataShieldPackagesProperties(RServerCluster.java:235)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.getInstalledPackagesDtos(DataShieldProfileService.java:276)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.getDatashieldPackage(DataShieldProfileService.java:267)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.publish(DataShieldProfileService.java:238)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.lambda$onRServiceStarted$6(DataShieldProfileService.java:216)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(Unknown Source)
+	at java.base/java.util.HashMap$KeySpliterator.forEachRemaining(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(Unknown Source)
+	at java.base/java.util.stream.ReferencePipeline.forEach(Unknown Source)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.lambda$onRServiceStarted$7(DataShieldProfileService.java:216)
+	at java.base/java.util.concurrent.ConcurrentHashMap$ValuesView.forEach(Unknown Source)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.onRServiceStarted(DataShieldProfileService.java:210)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at com.google.common.eventbus.Subscriber.invokeSubscriberMethod(Subscriber.java:84)
+	at com.google.common.eventbus.Subscriber$SynchronizedSubscriber.invokeSubscriberMethod(Subscriber.java:142)
+	at com.google.common.eventbus.Subscriber.lambda$dispatchEvent$0(Subscriber.java:70)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.eventbus.Subscriber.dispatchEvent(Subscriber.java:67)
+	at com.google.common.eventbus.Dispatcher$PerThreadQueuedDispatcher.dispatch(Dispatcher.java:112)
+	at com.google.common.eventbus.EventBus.post(EventBus.java:262)
+	at org.obiba.opal.core.service.AppsServiceImpl.registerApp(AppsServiceImpl.java:80)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.discoverHost(RockServerDiscoveryService.java:102)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.discoverOrCheckHost(RockServerDiscoveryService.java:67)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.scanHosts(RockServerDiscoveryService.java:53)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:128)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$1(ScheduledMethodRunnable.java:122)
+	at io.micrometer.observation.Observation.observe(Observation.java:569)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:122)
+	at org.springframework.scheduling.config.Task$OutcomeTrackingRunnable.run(Task.java:88)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(Unknown Source)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Unknown Source)
+2026-11-11 21:15:25,358 ERROR org.obiba.opal.datashield.cfg.DataShieldProfileService - Cannot read R/DataSHIELD packages to initialize profile
+java.lang.IllegalArgumentException: maximumPoolSize must be positive
+	at java.base/java.util.concurrent.ThreadPoolExecutor.<init>(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.<init>(Unknown Source)
+	at java.base/java.util.concurrent.Executors.newFixedThreadPool(Unknown Source)
+	at org.obiba.opal.r.cluster.RServerCluster.getInstalledPackagesDtos(RServerCluster.java:178)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.getInstalledPackagesDtos(DataShieldProfileService.java:278)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.getDatashieldPackage(DataShieldProfileService.java:267)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.publish(DataShieldProfileService.java:238)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.lambda$onRServiceStarted$6(DataShieldProfileService.java:216)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(Unknown Source)
+	at java.base/java.util.HashMap$KeySpliterator.forEachRemaining(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(Unknown Source)
+	at java.base/java.util.stream.ReferencePipeline.forEach(Unknown Source)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.lambda$onRServiceStarted$7(DataShieldProfileService.java:216)
+	at java.base/java.util.concurrent.ConcurrentHashMap$ValuesView.forEach(Unknown Source)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.onRServiceStarted(DataShieldProfileService.java:210)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at com.google.common.eventbus.Subscriber.invokeSubscriberMethod(Subscriber.java:84)
+	at com.google.common.eventbus.Subscriber$SynchronizedSubscriber.invokeSubscriberMethod(Subscriber.java:142)
+	at com.google.common.eventbus.Subscriber.lambda$dispatchEvent$0(Subscriber.java:70)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.eventbus.Subscriber.dispatchEvent(Subscriber.java:67)
+	at com.google.common.eventbus.Dispatcher$PerThreadQueuedDispatcher.dispatch(Dispatcher.java:112)
+	at com.google.common.eventbus.EventBus.post(EventBus.java:262)
+	at org.obiba.opal.core.service.AppsServiceImpl.registerApp(AppsServiceImpl.java:80)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.discoverHost(RockServerDiscoveryService.java:102)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.discoverOrCheckHost(RockServerDiscoveryService.java:67)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.scanHosts(RockServerDiscoveryService.java:53)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:128)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$1(ScheduledMethodRunnable.java:122)
+	at io.micrometer.observation.Observation.observe(Observation.java:569)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:122)
+	at org.springframework.scheduling.config.Task$OutcomeTrackingRunnable.run(Task.java:88)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(Unknown Source)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Unknown Source)
+2026-11-11 21:15:25,361 ERROR org.obiba.opal.r.service.RSQLService - Cannot ensure sqldf R package is installed
+org.obiba.opal.core.runtime.NoSuchServiceException: No such service (R server (default))
+	at org.obiba.opal.r.service.RServerManagerService.getDefaultRServer(RServerManagerService.java:100)
+	at org.obiba.opal.r.service.RSQLService.finalizeServiceStart(RSQLService.java:301)
+	at org.obiba.opal.r.service.RSQLService.onRServiceStarted(RSQLService.java:292)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at com.google.common.eventbus.Subscriber.invokeSubscriberMethod(Subscriber.java:84)
+	at com.google.common.eventbus.Subscriber$SynchronizedSubscriber.invokeSubscriberMethod(Subscriber.java:142)
+	at com.google.common.eventbus.Subscriber.lambda$dispatchEvent$0(Subscriber.java:70)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.eventbus.Subscriber.dispatchEvent(Subscriber.java:67)
+	at com.google.common.eventbus.Dispatcher$PerThreadQueuedDispatcher.dispatch(Dispatcher.java:112)
+	at com.google.common.eventbus.EventBus.post(EventBus.java:262)
+	at org.obiba.opal.core.service.AppsServiceImpl.registerApp(AppsServiceImpl.java:80)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.discoverHost(RockServerDiscoveryService.java:102)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.discoverOrCheckHost(RockServerDiscoveryService.java:67)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.scanHosts(RockServerDiscoveryService.java:53)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:128)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$1(ScheduledMethodRunnable.java:122)
+	at io.micrometer.observation.Observation.observe(Observation.java:569)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:122)
+	at org.springframework.scheduling.config.Task$OutcomeTrackingRunnable.run(Task.java:88)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(Unknown Source)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Unknown Source)
+2026-11-11 21:15:25,363 ERROR org.obiba.opal.r.service.RSQLService - Cannot ensure sqldf R package is installed
+org.obiba.opal.core.runtime.NoSuchServiceException: No such service (R server (default))
+	at org.obiba.opal.r.service.RServerManagerService.getDefaultRServer(RServerManagerService.java:100)
+	at org.obiba.opal.r.service.RSQLService.finalizeServiceStart(RSQLService.java:301)
+	at org.obiba.opal.r.service.RSQLService.onRServiceStarted(RSQLService.java:292)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at com.google.common.eventbus.Subscriber.invokeSubscriberMethod(Subscriber.java:84)
+	at com.google.common.eventbus.Subscriber$SynchronizedSubscriber.invokeSubscriberMethod(Subscriber.java:142)
+	at com.google.common.eventbus.Subscriber.lambda$dispatchEvent$0(Subscriber.java:70)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.eventbus.Subscriber.dispatchEvent(Subscriber.java:67)
+	at com.google.common.eventbus.Dispatcher$PerThreadQueuedDispatcher.dispatch(Dispatcher.java:112)
+	at com.google.common.eventbus.EventBus.post(EventBus.java:262)
+	at org.obiba.opal.core.service.AppsServiceImpl$1.lambda$run$0(AppsServiceImpl.java:211)
+	at java.base/java.util.ArrayList.forEach(Unknown Source)
+	at org.obiba.opal.core.service.AppsServiceImpl$1.run(AppsServiceImpl.java:211)
+	at java.base/java.util.TimerThread.mainLoop(Unknown Source)
+	at java.base/java.util.TimerThread.run(Unknown Source)
+Starting Opal...
+JAVA=java
+JAVA_OPTS=-Xms1G -Xmx2G -XX:+UseG1GC
+OPAL_HOME=/srv
+OPAL_DIST=/usr/share/opal
+Listening for transport dt_socket at address: 8000
+Upgrading Opal...
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/usr/share/opal/lib/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+Upgrade successful.
+Listening for transport dt_socket at address: 8000
+ __    __    __      ____  _____        _      
+ \ \   \ \   \ \    / __ \|  __ \ /\   | |     
+  \ \   \ \   \ \  | |  | | |__) /  \  | |     
+   > >   > >   > > | |  | |  ___/ /\ \ | |     
+  / /   / /   / /  | |__| | |  / ____ \| |____ 
+ /_/   /_/   /_/    \____/|_| /_/    \_\______|
+                                               
+                                               
+Starting Opal...
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/usr/share/opal/lib/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+WARNING: A restricted method in java.lang.foreign.Linker has been called
+WARNING: java.lang.foreign.Linker::downcallHandle has been called by org.apache.lucene.store.PosixNativeAccess in an unnamed module (file:/usr/share/opal/lib/lucene-core-9.11.1.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+Opal Server successfully started.
+Opal is attached to this console. Press ctrl-c to stop.

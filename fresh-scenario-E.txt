@@ -1,0 +1,2 @@
+ERROR dsadmin.install_package(o, "dsBase") [CRAN] (0 s): [Client error: (403) Forbidden]
+dsBase on Rock: not installed
