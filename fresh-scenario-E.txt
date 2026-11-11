@@ -1,0 +1,2 @@
+OK    dsadmin.install_package(o, "dsBase") [CRAN] (3 s)
+dsBase on Rock: not installed
