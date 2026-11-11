@@ -6,6 +6,14 @@ suppressPackageStartupMessages(library(dsOMOPClient))
 start_log("scenario-E")
 res <- if (identical(MODE, "candidate")) "omop_data.gibleed" else "omop_data.gibleed_tls_disable"
 S <- "omop"
+# The stock Rock image no longer ships dsBase; install it the way an administrator would (after the method audit,
+# which therefore ran against a profile holding dsOMOP's methods only), for dimDS / colnamesDS below.
+o <- admin()
+if (identical(rock_pkg_version("dsBase"), "not installed")) {
+  capture("dsadmin.install_package(o, \"dsBase\") [CRAN]", dsadmin.install_package(o, "dsBase"))
+  say("dsBase on Rock: ", rock_pkg_version("dsBase"))
+}
+opal.logout(o)
 conns <- analyst_login()
 con <- capture(paste0("ds.omop.connect(\"", res, "\")"), ds.omop.connect(resource = res, symbol = S, conns = conns))
 if (!con$ok) {

@@ -70,7 +70,7 @@ for path in sorted(glob.glob(os.path.join(SRC, "**", "*.csv"), recursive=True)):
              + ", ".join(f'"{h}" text' for h in header) + ")")
         psql(f"COPY stage.{table} FROM STDIN WITH (FORMAT csv, HEADER true)", data=open(path, "rb").read())
         target = [(c, ty) for c, ty in cols[table] if c in header]
-        psql(f"INSERT INTO cdm.{table} ({', '.join(c for c, _ in target)}) SELECT "
+        psql(f"INSERT INTO cdm.{table} ({', '.join(chr(34) + c + chr(34) for c, _ in target)}) SELECT "
              + ", ".join(cast(c, ty) for c, ty in target) + f" FROM stage.{table}")
     except RuntimeError as e:
         print(f"LOAD ERROR {table}: {e}")

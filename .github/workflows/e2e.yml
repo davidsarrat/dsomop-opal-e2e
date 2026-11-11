@@ -58,7 +58,7 @@ jobs:
           df -h / | tail -1
           mkdir -p "$OUT"
           for v in OPAL_ADMIN_PW ANALYST_PW OMOPDB_PW; do
-            p="Aa1_$(python3 -c 'import secrets,string; a=string.ascii_letters+string.digits; print("".join(secrets.choice(a) for _ in range(20)))')"
+            p="Aa1@$(python3 -c 'import secrets,string; a=string.ascii_letters+string.digits; print("".join(secrets.choice(a) for _ in range(20)))')"
             echo "::add-mask::$p"; echo "$v=$p" >> "$GITHUB_ENV"
           done
       - name: easy-opal stack
