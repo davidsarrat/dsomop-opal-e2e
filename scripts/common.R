@@ -80,18 +80,21 @@ show_dsomop_methods <- function(o, label) {
   show(paste("aggregate methods", label), agg)
   invisible(list(aggregate = agg, assign = asg))
 }
-rock_r <- function(code) {
-  suppressWarnings(system2("docker", c("exec", Sys.getenv("ROCK"), "Rscript", "-e", shQuote(code)),
-                           stdout = TRUE, stderr = TRUE))
+# Rock as DataSHIELD sessions see it: through a fresh administrator R session in Opal (opal.execute), never
+# `docker exec` (root's R in the Rock container does not use Rock's own library).
+rock_eval <- function(code) {
+  o2 <- admin()
+  on.exit(try(opal.logout(o2), silent = TRUE))
+  tryCatch(opal.execute(o2, code), error = function(e) structure(conditionMessage(e), class = "rock_error"))
 }
 rock_pkg_version <- function(pkg) {
-  v <- rock_r(sprintf('cat(if (requireNamespace("%s", quietly = TRUE)) as.character(packageVersion("%s")) else "not installed")', pkg, pkg))
-  tail(v, 1)
+  v <- rock_eval(sprintf('if (requireNamespace("%s", quietly = TRUE)) as.character(utils::packageVersion("%s")) else "not installed"', pkg, pkg))
+  if (inherits(v, "rock_error")) paste("unknown:", v) else as.character(v)
 }
 installed_description <- function() {
-  # The DESCRIPTION Rock has installed, as Opal reads it.
-  txt <- rock_r('d <- read.dcf(system.file("DESCRIPTION", package = "dsOMOP")); cat(jsonlite::toJSON(as.list(as.data.frame(d)), auto_unbox = TRUE))')
-  jsonlite::fromJSON(tail(txt, 1))
+  d <- rock_eval('as.list(as.data.frame(read.dcf(system.file("DESCRIPTION", package = "dsOMOP")), stringsAsFactors = FALSE))')
+  if (inherits(d, "rock_error") || !is.list(d)) stop("cannot read dsOMOP's DESCRIPTION through Opal: ", paste(d, collapse = " "))
+  d
 }
 split_field <- function(x) {
   x <- gsub("[\n\r\t ]", "", x)
@@ -164,9 +167,11 @@ install_server <- function(o, ref) {
     tb <- build_candidate()
     r <- capture(paste0("dsadmin.install_local_package(o, \"", basename(tb), "\")"), dsadmin.install_local_package(o, tb))
     if (!r$ok || !grepl("^2\\.", rock_pkg_version("dsOMOP"))) {
-      say("local install through Opal failed; installing inside Rock with R CMD INSTALL")
+      # Opal's local install swallows R errors (RPackageResourceHelper.installLocalPackage logs a warning and
+      # answers 201): install from Rock's own R session instead; the package is then published explicitly.
+      say("Opal's local install left dsOMOP at '", rock_pkg_version("dsOMOP"), "'; installing from Rock's R session")
       system2("docker", c("cp", tb, paste0(Sys.getenv("ROCK"), ":/tmp/")))
-      say(paste(tail(rock_r(sprintf('install.packages("/tmp/%s", repos = NULL, type = "source")', basename(tb))), 5), collapse = "\n"))
+      say("install.packages in Rock: ", paste(rock_eval(sprintf('tryCatch({ utils::install.packages("/tmp/%s", repos = NULL, type = "source"); "done" }, warning = function(w) paste("warning:", conditionMessage(w)), error = function(e) paste("error:", conditionMessage(e)))', basename(tb))), collapse = " "))
     }
   } else {
     r <- capture(sprintf("dsadmin.install_github_package(o, \"dsOMOP\", username = \"isglobal-brge\", ref = \"%s\")", ref),
@@ -187,7 +192,7 @@ check_publication <- function(o, label) {
   asg <- if (is.null(m$assign)) data.frame(name = character(0), value = character(0), version = character(0)) else m$assign
   bad_value <- c(agg$name[agg$value != paste0("dsOMOP::", agg$name)], asg$name[asg$value != paste0("dsOMOP::", asg$name)])
   stale <- unique(c(agg$version, asg$version))
-  exports <- rock_r('writeLines(getNamespaceExports("dsOMOP"))')
+  exports <- rock_eval('getNamespaceExports("dsOMOP")')
   opts <- tryCatch(dsadmin.get_options(o), error = function(e) NULL)
   exp_opts <- split_field(d$Options)
   exp_names <- sub("=.*", "", exp_opts)
@@ -215,8 +220,9 @@ check_publication <- function(o, label) {
 
 ensure_driver <- function(o, conns, resource) {
   v <- rock_pkg_version("RPostgres")
-  say("RPostgres on Rock: ", v)
-  if (!identical(v, "not installed")) return(invisible(FALSE))
+  say("RPostgres on Rock: ", v, "; RPostgreSQL: ", rock_pkg_version("RPostgreSQL"))
+  summary_line("[", E2E_PATH, "] Rock drivers: RPostgres ", v, ", RPostgreSQL ", rock_pkg_version("RPostgreSQL"))
+  if (!identical(v, "not installed") || !identical(Sys.getenv("INSTALL_DRIVER", "0"), "1")) return(invisible(FALSE))
   say("== without a PostgreSQL driver on Rock:")
   r <- analyst_script(conns, resource)
   summary_line("[", E2E_PATH, "] RPostgres missing on Rock; connect -> ", if (r$ok) "OK" else r$error)

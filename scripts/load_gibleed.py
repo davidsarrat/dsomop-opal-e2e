@@ -89,11 +89,17 @@ for table in sorted(cols):
     psql(f"CREATE TABLE {'vocab' if table in VOCAB else 'cdm2'}.{table} AS TABLE cdm.{table}")
 print("split copy: vocab =", sorted(t for t in cols if t in VOCAB))
 
-# A second database with the CDM in its default schema.
-psql("CREATE DATABASE omoppub TEMPLATE omop", db="postgres")
+# GiBleed ships cdm_source.cdm_version = "v5.3.1". omop53 is the same data with "5.3", so the rest of the checks are
+# not all blocked by how a server reads that string; resource gibleed_asshipped keeps the original.
+psql("CREATE DATABASE omop53 TEMPLATE omop", db="postgres")
+psql("UPDATE cdm.cdm_source SET cdm_version = '5.3'; UPDATE cdm2.cdm_source SET cdm_version = '5.3';", db="omop53")
+# A third database with the CDM in its default schema.
+psql("CREATE DATABASE omoppub TEMPLATE omop53", db="postgres")
 psql("DROP SCHEMA cdm2 CASCADE; DROP SCHEMA vocab CASCADE; DROP SCHEMA public CASCADE; ALTER SCHEMA cdm RENAME TO public;",
      db="omoppub")
-for db, schema in (("omop", "cdm"), ("omop", "cdm2"), ("omop", "vocab"), ("omoppub", "public")):
+for db, schema in (("omop", "cdm"), ("omop53", "cdm"), ("omoppub", "public")):
+    print(f"{db}.{schema}.cdm_source: " + psql(f"SELECT cdm_source_name, cdm_version, vocabulary_version FROM {schema}.cdm_source", db=db).strip())
+for db, schema in (("omop", "cdm"), ("omop", "cdm2"), ("omop", "vocab"), ("omop53", "cdm"), ("omoppub", "public")):
     counts = psql("SELECT string_agg(t || '=' || n, ', ') FROM (VALUES " + ", ".join(
         f"('{t}', (SELECT count(*) FROM {schema}.{t}))" for t in ("person", "condition_occurrence", "drug_exposure", "concept")
         if (schema != "cdm2" or t not in VOCAB) and (schema != "vocab" or t in VOCAB)) + ") AS x(t, n)", db=db).strip()

@@ -47,16 +47,20 @@ v1_url <- function(host, port, db, schema = NULL, vocabulary_schema = NULL) {
   }
   u
 }
+db <- Sys.getenv("CDM_DB", "omop53")
+say("CDM database behind the resources: ", db, " (gibleed_asshipped always uses omop, cdm_version as shipped)")
 resources <- list(
   # What the 2.10.0 form produces when the administrator leaves "TLS mode" empty.
-  gibleed = list(url = v2_url("omopdb", 5432, "omop", cdm_schema = "cdm"), format = "omop.dbi.db"),
+  gibleed = list(url = v2_url("omopdb", 5432, db, cdm_schema = "cdm"), format = "omop.dbi.db"),
   # 2.x without a CDM schema (GiBleed lives in cdm, not public): 2.10.1 discovers the schema holding `person`.
-  gibleed_noschema = list(url = v2_url("omopdb", 5432, "omop"), format = "omop.dbi.db"),
-  gibleed_tls_disable = list(url = v2_url("omopdb", 5432, "omop", cdm_schema = "cdm", sslmode = "disable"),
+  gibleed_noschema = list(url = v2_url("omopdb", 5432, db), format = "omop.dbi.db"),
+  gibleed_tls_disable = list(url = v2_url("omopdb", 5432, db, cdm_schema = "cdm", sslmode = "disable"),
                              format = "omop.dbi.db"),
-  gibleed_v1 = list(url = v1_url("omopdb", 5432, "omop", "cdm", "cdm"), format = "omop.cdm.db"),
-  gibleed_v1_vocab = list(url = v1_url("omopdb", 5432, "omop", "cdm2", "vocab"), format = "omop.cdm.db"),
-  gibleed_v1_schemaonly = list(url = v1_url("omopdb", 5432, "omop", "cdm"), format = "omop.cdm.db"),
+  # GiBleed exactly as OHDSI ships it (cdm_source.cdm_version "v5.3.1"), TLS mode empty.
+  gibleed_asshipped = list(url = v2_url("omopdb", 5432, "omop", cdm_schema = "cdm"), format = "omop.dbi.db"),
+  gibleed_v1 = list(url = v1_url("omopdb", 5432, db, "cdm", "cdm"), format = "omop.cdm.db"),
+  gibleed_v1_vocab = list(url = v1_url("omopdb", 5432, db, "cdm2", "vocab"), format = "omop.cdm.db"),
+  gibleed_v1_schemaonly = list(url = v1_url("omopdb", 5432, db, "cdm"), format = "omop.cdm.db"),
   gibleed_v1_plain = list(url = v1_url("omopdb", 5432, "omoppub"), format = "omop.cdm.db")
 )
 for (name in names(resources)) {
@@ -68,5 +72,6 @@ for (name in names(resources)) {
   capture(paste0("opal.resource_perm_add(o, \"omop_data\", \"", name, "\", \"analyst\", permission = \"view\")"),
           opal.resource_perm_add(o, "omop_data", name, subject = "analyst", type = "user", permission = "view"))
 }
+show("Rock as Opal's R sessions see it", rock_eval('list(libPaths = .libPaths(), user = Sys.info()[["user"]], R = R.version.string, packages = { ip <- installed.packages(); p <- c("dsBase", "resourcer", "DBI", "RPostgres", "RPostgreSQL", "RSQLite", "R6", "jsonlite", "filelock", "openssl", "remotes", "dsOMOP"); stats::setNames(ifelse(p %in% rownames(ip), ip[match(p, rownames(ip)), "Version"], "-"), p) })'))
 show("resources", tryCatch(opal.resources(o, "omop_data")[, c("name", "url", "format")], error = function(e) conditionMessage(e)))
 opal.logout(o)

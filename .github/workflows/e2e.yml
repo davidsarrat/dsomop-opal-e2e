@@ -26,6 +26,12 @@ on:
       client_ref:
         description: "dsOMOPClient ref (public mode)"
         default: "2.10.0"
+      cdm_db:
+        description: "CDM database behind the resources: omop (GiBleed as shipped, cdm_version v5.3.1) or omop53"
+        default: "omop"
+      install_driver:
+        description: "1 = install RPostgres through Opal; 0 = stock Rock image (RPostgreSQL only)"
+        default: "0"
 permissions:
   contents: write
 jobs:
@@ -45,6 +51,8 @@ jobs:
       OLD_REF: ${{ inputs.old_ref }}
       SERVER_REF: ${{ inputs.server_ref }}
       CLIENT_REF: ${{ inputs.client_ref }}
+      CDM_DB: ${{ inputs.cdm_db }}
+      INSTALL_DRIVER: ${{ inputs.install_driver }}
       STACK: e2e
       OPAL_URL: https://localhost:8443
       OUT: ${{ github.workspace }}/out
@@ -92,6 +100,7 @@ jobs:
           for f in "$OUT"/*summary*.txt; do [ -f "$f" ] && { echo "### $(basename "$f")"; echo '```'; cat "$f"; echo '```'; }; done >> "$GITHUB_STEP_SUMMARY"
           docker logs "$STACK-rock" > "$OUT/$E2E_PATH-rock.log" 2>&1 || true
           docker logs "$STACK-opal" > "$OUT/$E2E_PATH-opal.log" 2>&1 || true
+          for c in opal rock; do docker exec "$STACK-$c" bash -c 'cd /srv/logs 2>/dev/null && tar -cz *.log' > "$OUT/$E2E_PATH-$c-srv-logs.tgz" 2>/dev/null || true; done
       - name: Results to a branch (the artifact and log services have failed before)
         if: always()
         run: |
