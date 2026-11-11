@@ -94,10 +94,10 @@ run_recipe("E3", "GI bleed: NSAID exposures in the year before index (celecoxib,
     omop_variable(name = "diclofenac_365", table = "drug_exposure", concept_id = 1124300, concept_name = "diclofenac",
                   format = "count", time_window = list(start = -365, end = 0), expand = TRUE),
     omop_variable(name = "celecoxib_since", table = "drug_exposure", concept_id = 1118084, concept_name = "celecoxib",
-                  format = "time_since", expand = TRUE)),
+                  format = "time_since", expand = TRUE, reference_date = "2020-01-01")),
   blocks = if (length(drugs)) omop_variable_block(table = "drug_exposure", concept_ids = utils::head(drugs, 3),
                                                   format = "count", time_window = list(start = -365, end = 0)),
-  outputs = omop_output(name = "nsaid", type = "wide")), c(nsaid = "E3"))
+  outputs = omop_output(name = "nsaid", type = "wide", options = list(grain = "episode"))), c(nsaid = "E3"))
 
 if (length(meas) || length(obs)) run_recipe("E4", "measurements (mean value) and observations (binary) pivoted wide, every person", omop_recipe(
   variables = list(omop_variable_age(), omop_variable_sex()),
@@ -111,7 +111,7 @@ if (length(conds)) run_recipe("E5", "conditions within -30..+30 days of the GI b
   populations = gib_pop,
   blocks = omop_variable_block(table = "condition_occurrence", concept_ids = utils::head(conds, 5), format = "binary",
                                time_window = list(start = -30, end = 30)),
-  outputs = omop_output(name = "window", type = "wide")), c(window = "E5"))
+  outputs = omop_output(name = "window", type = "wide", options = list(grain = "episode"))), c(window = "E5"))
 
 c1 <- capture("ds.omop.cohort.create(GI bleed)", ds.omop.cohort.create(
   spec = list(type = "condition", concept_set = c(192671)), cohort_id = 300, name = "e_gib", mode = "temporary",
@@ -140,7 +140,7 @@ run_recipe("E8", "several tables + filters (adults 18-100 with a GI bleed): age,
   blocks = c(
     if (length(conds)) list(omop_variable_block(table = "condition_occurrence", concept_ids = utils::head(conds, 3), format = "binary")),
     if (length(drugs)) list(omop_variable_block(table = "drug_exposure", concept_ids = utils::head(drugs, 3), format = "count"))),
-  filters = list(omop_filter_age(18, 100), omop_filter_has_concept(192671, "condition_occurrence")),
+  filters = list(omop_filter_age(18, 100, year = 2025), omop_filter_has_concept(192671, "condition_occurrence")),
   outputs = omop_output(name = "mix", type = "wide")), c(mix = "E8"))
 
 if (length(drugs)) run_recipe("E9", "survival: time from the GI bleed index to the first top-drug exposure (TAR 0-365)", omop_recipe(
@@ -148,6 +148,10 @@ if (length(drugs)) run_recipe("E9", "survival: time from the GI bleed index to t
   variables = omop_variable(name = "drug1", table = "drug_exposure", concept_id = drugs[1], format = "binary"),
   outputs = omop_output(name = "surv", type = "survival", options = list(tar = list(start_offset = 0, end_offset = 365)))),
   c(surv = "E9"))
+
+run_recipe("E10", "probe: exact year of birth as a server-side column", omop_recipe(
+  variables = list(omop_variable(table = "person", column = "year_of_birth"), omop_variable_sex()),
+  outputs = omop_output(name = "yob", type = "wide")), c(yob = "E10"))
 
 capture("ds.omop.disconnect", ds.omop.disconnect(symbol = S, conns = conns))
 DSI::datashield.logout(conns)

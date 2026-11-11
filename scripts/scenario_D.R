@@ -96,20 +96,32 @@ if (con$ok) {
   # Plans: preview, validate, execute (memory mode; concept columns harmonized into factors across servers).
   plan <- ds.omop.plan()
   plan <- ds.omop.plan.cohort(plan, spec = list(type = "condition", concept_set = c(192671)))
-  plan <- ds.omop.plan.baseline(plan, columns = c("gender_concept_id", "race_concept_id", "year_of_birth"),
-                                derived = c("age_at_index"))
+  plan <- ds.omop.plan.baseline(plan, columns = c("gender_concept_id", "race_concept_id"), derived = c("age_at_index"))
   plan <- ds.omop.plan.events(plan, name = "drugs", table = "drug_exposure", concept_set = c(1118084, 1124300),
                               representation = list(format = "long"))
-  plan <- ds.omop.plan.options(plan, translate_concepts = TRUE, factor_concepts = TRUE)
+  plan <- ds.omop.plan.options(plan, translate_concepts = FALSE, factor_concepts = TRUE)
   step("omopPlanPreviewDS", "ds.omop.plan.preview", ds.omop.plan.preview(plan, symbol = S, conns = conns))
   step("omopPlanPreviewDS", "ds.omop.plan.validate", ds.omop.plan.validate(plan, symbol = S, conns = conns))
   step(c("omopPlanExecuteDS", "omopFactorLevelsDS", "omopAsFactorColumnsDS"), "ds.omop.plan.execute",
        ds.omop.plan.execute(plan, out = c(baseline = "D", drugs = "E"), symbol = S, conns = conns))
   step("omopCohortFromTableDS", "ds.omop.cohort.from_table", ds.omop.cohort.from_table("D", symbol = S, conns = conns))
   step("omopMergeDS", "ds.omop.merge", ds.omop.merge("D", "E", by = "person_id", type = "left", newobj = "DE", symbol = S, conns = conns))
-  step("omopFilterDS", "ds.omop.filter", ds.omop.filter("D", var = "year_of_birth", op = ">", value = 1950, newobj = "DF", symbol = S, conns = conns))
+  fr <- step("omopFilterDS", "ds.omop.filter (gender == 8532)", ds.omop.filter("D", var = "gender_concept_id", op = "==", value = 8532, newobj = "DF", symbol = S, conns = conns))
+  if (!fr$ok) step("omopFilterDS", "ds.omop.filter (gender == \"8532\")", ds.omop.filter("D", var = "gender_concept_id", op = "==", value = "8532", newobj = "DF", symbol = S, conns = conns))
   step("omopSelectDS", "ds.omop.select", ds.omop.select("D", cols = c("person_id", "year_of_birth"), newobj = "DS2", symbol = S, conns = conns))
   step("omopBindRowsDS", "ds.omop.bind_rows", ds.omop.bind_rows("D", "DF", newobj = "DB", symbol = S, conns = conns))
+
+  # Disclosure probe (reported, not counted): an exact birth component in a server-side table, with and without
+  # block_sensitive.
+  for (bs in c(TRUE, FALSE)) {
+    probe <- ds.omop.plan.baseline(ds.omop.plan.cohort(ds.omop.plan(), spec = list(type = "condition", concept_set = c(192671))),
+                                   columns = c("gender_concept_id", "year_of_birth"), derived = c("age_at_index"))
+    probe <- ds.omop.plan.options(probe, block_sensitive = bs, factor_concepts = FALSE)
+    pr <- capture(paste0("probe: baseline with year_of_birth, block_sensitive = ", bs),
+                  ds.omop.plan.execute(probe, out = c(baseline = paste0("PROBE", as.integer(bs))), symbol = S, conns = conns))
+    summary_line("[", E2E_PATH, "] D probe: server-side table with exact year_of_birth (block_sensitive = ", bs, "): ",
+                 if (pr$ok) "allowed" else paste0("refused: ", sub(".*' -> ", "", pr$error)))
+  }
 
   # The analysis catalog (aggregate entries and an assign-mode entry).
   al <- step("omopAnalysisListDS", "ds.omop.analysis.list", ds.omop.analysis.list(symbol = S, conns = conns))

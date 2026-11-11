@@ -52,8 +52,8 @@ say("CDM database behind the resources: ", db, " (gibleed_asshipped always uses 
 resources <- list(
   # What the 2.10.0 form produces when the administrator leaves "TLS mode" empty.
   gibleed = list(url = v2_url("omopdb", 5432, db, cdm_schema = "cdm"), format = "omop.dbi.db"),
-  # 2.x without a CDM schema (GiBleed lives in cdm, not public): 2.10.1 discovers the schema holding `person`.
-  gibleed_noschema = list(url = v2_url("omopdb", 5432, db), format = "omop.dbi.db"),
+  # 2.x without a CDM schema, on a database whose only CDM schema is cdm (not public): discovery must find it.
+  gibleed_noschema = list(url = v2_url("omopdb", 5432, "omopone"), format = "omop.dbi.db"),
   gibleed_tls_disable = list(url = v2_url("omopdb", 5432, db, cdm_schema = "cdm", sslmode = "disable"),
                              format = "omop.dbi.db"),
   # GiBleed exactly as OHDSI ships it (cdm_source.cdm_version "v5.3.1"), TLS mode empty.

@@ -93,6 +93,9 @@ print("split copy: vocab =", sorted(t for t in cols if t in VOCAB))
 # not all blocked by how a server reads that string; resource gibleed_asshipped keeps the original.
 psql("CREATE DATABASE omop53 TEMPLATE omop", db="postgres")
 psql("UPDATE cdm.cdm_source SET cdm_version = '5.3'; UPDATE cdm2.cdm_source SET cdm_version = '5.3';", db="omop53")
+# One schema only (cdm): what CDM schema discovery should find when a 2.x resource names none.
+psql("CREATE DATABASE omopone TEMPLATE omop", db="postgres")
+psql("DROP SCHEMA cdm2 CASCADE; DROP SCHEMA vocab CASCADE;", db="omopone")
 # A third database with the CDM in its default schema.
 psql("CREATE DATABASE omoppub TEMPLATE omop53", db="postgres")
 psql("DROP SCHEMA cdm2 CASCADE; DROP SCHEMA vocab CASCADE; DROP SCHEMA public CASCADE; ALTER SCHEMA cdm RENAME TO public;",
