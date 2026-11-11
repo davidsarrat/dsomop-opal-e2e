@@ -1,0 +1,90 @@
+# Real-Opal end-to-end check of dsOMOP / dsOMOPClient on an easy-opal stack (Opal + Rock + MongoDB behind nginx),
+# with a PostgreSQL OMOP CDM (OHDSI Eunomia GiBleed, CDM 5.3) on the stack's network.
+#   fresh   : a clean Opal; dsOMOP installed the way an admin does it (Opal > DataSHIELD > Packages > GitHub);
+#             the analyst's script and the full method audit.
+#   upgrade : dsOMOP <old_ref> first, then upgraded through the same install call, as APHRC's server was;
+#             reproduces "No such DataSHIELD 'ASSIGN' method with name: omopInitDS", then publishes.
+# mode=candidate installs dsOMOP / dsOMOPClient from pkgs/ (vendored sources) instead of GitHub refs.
+name: dsomop-opal-e2e
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "public (GitHub refs) or candidate (pkgs/ sources)"
+        type: choice
+        options: [public, candidate]
+        default: public
+      paths:
+        description: "Paths to run (JSON list)"
+        default: '["fresh", "upgrade"]'
+      old_ref:
+        description: "dsOMOP ref installed first on the upgrade path"
+        default: "1.1.1"
+      server_ref:
+        description: "dsOMOP ref (public mode)"
+        default: "2.10.0"
+      client_ref:
+        description: "dsOMOPClient ref (public mode)"
+        default: "2.10.0"
+jobs:
+  e2e:
+    strategy:
+      fail-fast: false
+      matrix:
+        path: ${{ fromJSON(inputs.paths) }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 110
+    env:
+      MODE: ${{ inputs.mode }}
+      E2E_PATH: ${{ matrix.path }}
+      OLD_REF: ${{ inputs.old_ref }}
+      SERVER_REF: ${{ inputs.server_ref }}
+      CLIENT_REF: ${{ inputs.client_ref }}
+      STACK: e2e
+      OPAL_URL: https://localhost:8443
+      OUT: ${{ github.workspace }}/out
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Free disk, per-run passwords
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/.ghcup /usr/local/share/boost \
+            /usr/share/swift /usr/local/share/powershell /usr/share/miniconda /opt/az /opt/microsoft /opt/google
+          df -h / | tail -1
+          mkdir -p "$OUT"
+          for v in OPAL_ADMIN_PW ANALYST_PW OMOPDB_PW; do
+            p="Aa1_$(python3 -c 'import secrets,string; a=string.ascii_letters+string.digits; print("".join(secrets.choice(a) for _ in range(20)))')"
+            echo "::add-mask::$p"; echo "$v=$p" >> "$GITHUB_ENV"
+          done
+      - name: easy-opal stack
+        run: bash scripts/stack.sh
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: release
+          use-public-rspm: true
+      - name: R client packages
+        run: Rscript scripts/install_r.R
+      - name: OMOP database (PostgreSQL + Eunomia GiBleed)
+        run: bash scripts/omopdb.sh
+      - name: Admin setup (analyst, project, resources)
+        run: Rscript scripts/admin_setup.R
+      - name: Path ${{ matrix.path }}
+        run: Rscript scripts/path_${{ matrix.path }}.R
+      - name: Scenario C (dsOMOP 1.x resources)
+        if: always()
+        run: Rscript scripts/scenario_C.R
+      - name: Scenario D (method audit)
+        if: always() && matrix.path == 'fresh'
+        timeout-minutes: 40
+        run: Rscript scripts/scenario_D.R
+      - name: Summary
+        if: always()
+        run: |
+          for f in "$OUT"/*summary*.txt; do [ -f "$f" ] && { echo "### $(basename "$f")"; echo '```'; cat "$f"; echo '```'; }; done >> "$GITHUB_STEP_SUMMARY"
+          docker logs "$STACK-rock" > "$OUT/$E2E_PATH-rock.log" 2>&1 || true
+          docker logs "$STACK-opal" > "$OUT/$E2E_PATH-opal.log" 2>&1 || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2e-${{ matrix.path }}-${{ inputs.mode }}
+          path: out/
