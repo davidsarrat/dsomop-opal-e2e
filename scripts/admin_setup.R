@@ -2,7 +2,21 @@
 source("scripts/common.R")
 start_log("admin-setup")
 o <- admin()
-show("Opal version", tryCatch(opal.version(o), error = function(e) conditionMessage(e)))
+say("Opal version: ", o$version)
+# Current Opal ships with "R package management" off: the DataSHIELD package install answers 403 until an
+# administrator allows it (Administration > General settings), here through the endpoint the UI uses.
+conf0 <- tryCatch(opal.get(o, "system", "conf", "general"), error = function(e) list(error = conditionMessage(e)))
+show("general configuration before", conf0)
+conf <- conf0
+for (i in 1:6) {
+  capture("opal.put(o, \"system\", \"conf\", \"general\", \"_rPackage\")", opal.put(o, "system", "conf", "general", "_rPackage"))
+  conf <- tryCatch(opal.get(o, "system", "conf", "general"), error = function(e) list(error = conditionMessage(e)))
+  if (isTRUE(conf$allowRPackageManagement)) break
+  Sys.sleep(10)
+}
+show("general configuration after", conf)
+summary_line("[", E2E_PATH, "] Opal ", o$version, ": allowRPackageManagement on a fresh Opal = ", conf0$allowRPackageManagement,
+             "; after the administrator enables it = ", conf$allowRPackageManagement)
 show("DataSHIELD profiles", tryCatch(dsadmin.profiles(o), error = function(e) conditionMessage(e)))
 show("default profile", tryCatch(str(dsadmin.profile(o, "default")), error = function(e) conditionMessage(e)))
 

@@ -30,9 +30,5 @@ done
 curl -ks -u "administrator:$OPAL_ADMIN_PW" -H 'Accept: application/json' https://localhost:8443/ws/service/r/clusters | head -c 800; echo
 docker exec "$STACK-rock" Rscript -e 'ip <- installed.packages(); p <- c("dsBase","resourcer","DBI","RPostgres","RPostgreSQL","RSQLite","R6","jsonlite","filelock","openssl","remotes","dsOMOP"); print(ip[intersect(rownames(ip), p), c("Version","LibPath"), drop = FALSE]); cat("missing:", setdiff(p, rownames(ip)), "\n"); print(getOption("repos")); print(R.version.string)' \
   | tee "$OUT/$E2E_PATH-rock-packages-initial.txt"
-# Current Opal ships with R package management disabled (OpalGeneralConfig.allowRPackageManagement = false): the
-# DataSHIELD package install answers 403 until an administrator allows it (Administration > General settings).
-echo "general configuration before: $(curl -ks -u "administrator:$OPAL_ADMIN_PW" -H 'Accept: application/json' https://localhost:8443/ws/system/conf/general)"
-curl -ks -o /dev/null -w 'PUT /system/conf/general/_rPackage -> %{http_code}\n' -u "administrator:$OPAL_ADMIN_PW" -X PUT \
-  https://localhost:8443/ws/system/conf/general/_rPackage
-echo "general configuration after: $(curl -ks -u "administrator:$OPAL_ADMIN_PW" -H 'Accept: application/json' https://localhost:8443/ws/system/conf/general)"
+# Current Opal ships with R package management disabled (OpalGeneralConfig.allowRPackageManagement = false); the
+# administrator enables it in admin_setup.R (PUT /system/conf/general/_rPackage, as the Opal UI does).
