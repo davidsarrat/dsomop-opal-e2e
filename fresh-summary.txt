@@ -1,0 +1,49 @@
+[fresh] Opal 6.1.3: allowRPackageManagement on a fresh Opal = FALSE; after the administrator enables it = TRUE
+[fresh] after install (auto-publish of a new package): declared 56 agg + 13 assign; published 0 agg + 0 assign (version ; installed 2.10.2); missing 69; wrong type 0; extra 0; wrong function 0; not exported 0; options 37 declared, missing 37, different 0
+[fresh] after an explicit publish: declared 56 agg + 13 assign; published 56 agg + 13 assign (version 2.10.2; installed 2.10.2); missing 0; wrong type 0; extra 0; wrong function 0; not exported 0; options 37 declared, missing 0, different 0
+[fresh] ds.omop.server.version(conns) after a fresh install:     server published running missing ready advice / 1 Ethiopia    2.10.2  2.10.2          TRUE       
+[fresh] Rock drivers: RPostgres 1.4.10, RPostgreSQL 0.7.8
+[fresh] analyst script on gibleed (TLS mode empty): OK
+[fresh] analyst script on gibleed_noschema (no cdm_schema, TLS mode empty): OK
+[fresh] C: 1.x resource gibleed_v1: OK
+[fresh] C: 1.x resource gibleed_v1_vocab: OK
+[fresh] C: 1.x resource gibleed_v1_schemaonly: OK
+[fresh] C: 1.x resource gibleed_v1_plain: OK
+[fresh] D probe: server-side table with exact year_of_birth (block_sensitive = TRUE): refused: Error : Disclosive: exact birth components are blocked; request derived age_at_index to receive disclosure-controlled age groups.
+.
+[fresh] D probe: server-side table with exact year_of_birth (block_sensitive = FALSE): refused: Error : Disclosive: exact birth components are blocked; request derived age_at_index to receive disclosure-controlled age groups.
+.
+[fresh] D: 69 methods: PASS 69, REFUSED 0 (to review), FAIL 0, NOT-EXERCISED 0; ran per Opal log: 69; PASS but absent from Opal log: 
+[fresh] E E1 (demographics only, every person): validate ok, preview ok, execute ok; E1=2694x3 [person_id,age,sex]
+[fresh] E E2 (GI bleed 192671 + descendants (first event): age at index, sex): validate ok, preview ok, execute ok; E2=479x5 [row_id,cohort_row_id,person_id,age,sex]
+[fresh] E E3 (GI bleed: NSAID exposures in the year before index (celecoxib, diclofenac with descendants; top drugs), counts per episode): validate ok, preview ok, execute ok; E3=479x7 [cohort_row_id,person_id,drug_exposure_c40213227,drug_exposure_c1127433,drug_exposure_c40213160,celecoxib_365,diclofenac_365]
+[fresh] E E3b (every person: days since the first celecoxib exposure (fixed reference date 2020-01-01), age, sex): validate ok, preview ok, execute ok; E3b=2694x4 [person_id,celecoxib_since,age,sex]
+[fresh] E E4 (measurements (mean value) and observations (binary) pivoted wide, every person): validate ok, preview ok, execute ok; E4=2694x9 [person_id,measurement_c3006322,measurement_c4024958,measurement_c4052083,observation_c4323208,observation_c4304110,observation_c439406,age,sex]
+[fresh] E E5 (conditions within -30..+30 days of the GI bleed index (binary)): validate ok, preview ok, execute ok; E5=479x7 [cohort_row_id,person_id,condition_occurrence_c80180,condition_occurrence_c40481087,condition_occurrence_c4112343,condition_occurrence_c260139,condition_occurrence_c372328]
+[fresh] E E6 (cohort (GI bleed UNION top drug) as base, age and sex): validate ok, preview ok, execute ok; E6=2670x3 [person_id,age,sex]
+[fresh] E E7 (drug exposure events in the 2 years before the GI bleed index, long format): validate ok, preview ok, execute ok; E7=109x9 [person_id,drug_concept_id,drug_type_concept_id,refills,quantity,days_supply,route_concept_id,cohort_row_id,days_from_index]
+[fresh] E E8 (several tables + filters (adults 18-100 with a GI bleed): age, sex, conditions, drugs, procedures): validate ok, preview ok, execute ok; E8=448x10 [person_id,condition_occurrence_c80180,condition_occurrence_c40481087,condition_occurrence_c4112343,drug_exposure_c40213227,drug_exposure_c1127433,drug_exposure_c40213160,proc_n,age,sex]
+[fresh] E E9 (survival: time from the GI bleed index to the first top-drug exposure (TAR 0-365)): validate ok, preview ok, execute ok; E9=479x5 [row_id,cohort_row_id,person_id,event,time_to_event_days]
+[fresh] E E10 (probe: exact year of birth as a server-side column): validate ok, preview ok, execute ERROR; E10=dimDS: There are some DataSHIELD errors, list them with datashield.errors() [colnamesDS: There are some DataSHIELD errors, list them with datashield.errors()]
+     error: Plan execution failed or was incomplete; freshly assigned outputs were removed. Affected server(s): Ethiopia: Command 'omopPlanExecuteDS("dsO.vjF7vs", "B64:eyJjb2hvcnQiOm51bGwsImFuY2hvciI6eyJ0YWJsZSI6InBlcnNvbiIsImlkX2NvbCI6InBlcnNvbl9pZCJ9LCJvdXRwdXRzIjp7InlvYiI6eyJ0eXBlIjoicGVyc29uX2xldmVsIiwidGFibGVzIjp7InBlcnNvbiI6eyJwZXJzb25feWVhcl9vZl9iaXJ0aCI6InllYXJfb2ZfYmlydGgifX0sInBvcHVsYXRpb25faWQiOiJiYXNlIiwib3B0aW9ucyI6W119fSwib3B0aW9ucyI6eyJ0cmFuc2xhdGVfY29uY2VwdHMiOnRydWUsImJsb2NrX3NlbnNpdGl2ZSI6dHJ1ZSwiZmFjdG9yX2NvbmNlcHRzIjp0cnVlfSwicG9wdWxhdGlvbnMiOnsiYmFzZSI6eyJpZCI6ImJhc2UiLCJsYWJlbCI6IkFsbCBQZXJzb25zIiwia2luZCI6ImNyaXRlcmlhIn19fQ", 
+    c(yob = "E10"), "memory")' failed on 'Ethiopia': Error while evaluating 'is.null(base::assign('dsOexec.kdW9IA', value={dsOMOP::omopPlanExecuteDS("dsO.vjF7vs", "B64:eyJjb2hvcnQiOm51bGwsImFuY2hvciI6eyJ0YWJsZSI6InBlcnNvbiIsImlkX2NvbCI6InBlcnNvbl9pZCJ9LCJvdXRwdXRzIjp7InlvYiI6eyJ0eXBlIjoicGVyc29uX2xldmVsIiwidGFibGVzIjp7InBlcnNvbiI6eyJwZXJzb25feWVhcl9vZl9iaXJ0aCI6InllYXJfb2ZfYmlydGgifX0sInBvcHVsYXRpb25faWQiOiJiYXNlIiwib3B0aW9ucyI6W119fSwib3B0aW9ucyI6eyJ0cmFuc2xhdGVfY29uY2VwdHMiOnRydWUsImJsb2NrX3NlbnNpdGl2ZSI6dHJ1ZSwiZmFjdG9yX2NvbmNlcHRzIjp0cnVlfSwicG9wdWxhdGlvbnMiOnsiYmFzZSI6eyJpZCI6ImJhc2UiLCJsYWJlbCI6IkFsbCBQZXJzb25zIiwia2luZCI6ImNyaXRlcmlhIn19fQ", dsBase::vectorDS(yob = "E10"), "memory")}))' -> Error : Disclosive: column(s) 'year_of_birth' are blocked (free-text / source values) and cannot be extracted from table 'person'.
+.
+[fresh] F: Rock drivers for this scenario: RPostgres not installed, RPostgreSQL 0.7.8
+[fresh] F omop_data.gibleed connect (verified UTC session): OK
+[fresh] F omop_data.gibleed ds.omop.tables (analyst script): OK
+[fresh] F omop_data.gibleed ds.omop.date.counts: OK
+[fresh] F omop_data.gibleed recipe demographics (wide): OK
+[fresh] F omop_data.gibleed recipe GI bleed index (wide): OK
+[fresh] F omop_data.gibleed ds.omop.disconnect (cleanup): OK
+[fresh] F omop_data.gibleed_v1 connect (verified UTC session): OK
+[fresh] F omop_data.gibleed_v1 ds.omop.tables (analyst script): OK
+[fresh] F omop_data.gibleed_v1 ds.omop.date.counts: OK
+[fresh] F omop_data.gibleed_v1 recipe demographics (wide): FAIL: Plan output destinations must be fresh on every server; occupied: Ethiopia:F1. Choose different out names or explicitly remove obsolete objects.
+[fresh] F omop_data.gibleed_v1 recipe GI bleed index (wide): FAIL: Plan output destinations must be fresh on every server; occupied: Ethiopia:F2. Choose different out names or explicitly remove obsolete objects.
+[fresh] F omop_data.gibleed_v1 ds.omop.disconnect (cleanup): OK
+[fresh] F omop_data.gibleed_noschema connect (verified UTC session): OK
+[fresh] F omop_data.gibleed_noschema ds.omop.tables (analyst script): OK
+[fresh] F omop_data.gibleed_noschema ds.omop.date.counts: OK
+[fresh] F omop_data.gibleed_noschema recipe demographics (wide): FAIL: Plan output destinations must be fresh on every server; occupied: Ethiopia:F1. Choose different out names or explicitly remove obsolete objects.
+[fresh] F omop_data.gibleed_noschema recipe GI bleed index (wide): FAIL: Plan output destinations must be fresh on every server; occupied: Ethiopia:F2. Choose different out names or explicitly remove obsolete objects.
+[fresh] F omop_data.gibleed_noschema ds.omop.disconnect (cleanup): OK
