@@ -60,6 +60,9 @@ if (con$ok) {
   step("omopConceptPrevalenceDS", "ds.omop.concept.prevalence", ds.omop.concept.prevalence("condition_occurrence", symbol = S, conns = conns))
   step(c("omopNumericRangeDS", "omopNumericHistogramDS"), "ds.omop.value.histogram",
        ds.omop.value.histogram("person", "year_of_birth", symbol = S, conns = conns))
+  # omopNumericRangeDS and omopOhdsiResultContractDS are only sent in pooled mode (two-pass pooling).
+  step(c("omopNumericRangeDS", "omopNumericHistogramDS"), "ds.omop.value.histogram (pooled)",
+       ds.omop.value.histogram("person", "year_of_birth", scope = "pooled", symbol = S, conns = conns))
   step("omopNumericQuantilesDS", "ds.omop.value.quantiles", ds.omop.value.quantiles("person", "year_of_birth", symbol = S, conns = conns))
   step("omopDateCountsDS", "ds.omop.date.counts", ds.omop.date.counts("condition_occurrence", symbol = S, conns = conns))
   step("omopConceptDrilldownDS", "ds.omop.concept.drilldown",
@@ -77,6 +80,8 @@ if (con$ok) {
   step("omopOhdsiTablesDS", "ds.omop.ohdsi.tables", ds.omop.ohdsi.tables(symbol = S, conns = conns))
   step(c("omopOhdsiResultContractDS", "omopOhdsiResultsDS"), "ds.omop.ohdsi.results",
        ds.omop.ohdsi.results("achilles_results", symbol = S, conns = conns))
+  step(c("omopOhdsiResultContractDS", "omopOhdsiResultsDS"), "ds.omop.ohdsi.results (pooled)",
+       ds.omop.ohdsi.results("achilles_results", scope = "pooled", symbol = S, conns = conns))
   step("omopOhdsiSummaryDS", "ds.omop.ohdsi.summary", ds.omop.ohdsi.summary("achilles", symbol = S, conns = conns))
 
   # Cohorts.
