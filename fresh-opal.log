@@ -1,0 +1,327 @@
+Preparing default conf in /srv ...
+Preparing default plugins in /srv ...
+Disabling default Agate setting as AGATE_HOST is not defined...
+Setting Rock R server connection...
+Setting password...
+Starting Opal before first run script...
+Waiting for Opal to be ready...
+JAVA=java
+JAVA_OPTS=-Xms1G -Xmx2G -XX:+UseG1GC
+OPAL_HOME=/srv
+OPAL_DIST=/usr/share/opal
+Archive:  /srv/plugins/opal-datasource-limesurvey-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-limesurvey-2.0.0/
+   creating: /srv/plugins/opal-datasource-limesurvey-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/lib/opal-datasource-limesurvey-2.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/README.md  
+Archive:  /srv/plugins/opal-datasource-spss-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-spss-2.0.0/
+   creating: /srv/plugins/opal-datasource-spss-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/lib/magma-datasource-spss-1.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/lib/spssreader-1.2.2.jar  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/README.md  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/lib/opal-datasource-spss-2.0.0.jar  
+Archive:  /srv/plugins/opal-datasource-googlesheets4-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/
+   creating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/lib/opal-datasource-googlesheets4-2.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/README.md  
+Archive:  /srv/plugins/opal-analysis-validate-2.0.0-dist.zip
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/lib/
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/report.Rmd  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/form.json  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/report.Rmd  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/routine.R  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/form.json  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/report.Rmd  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/routine.R  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/form.json  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/README.md  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/lib/opal-analysis-validate-2.0.0.jar  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/routine.R  
+Archive:  /srv/plugins/opal-datasource-redcap-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-redcap-2.0.0/
+   creating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/jackson-dataformat-xml-2.17.2.jar  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/stax2-api-4.2.2.jar  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/README.md  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/opal-datasource-redcap-2.0.0.jar  
+Archive:  /srv/plugins/opal-datasource-readr-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-readr-2.0.0/
+   creating: /srv/plugins/opal-datasource-readr-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/export.json  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/README.md  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/lib/opal-datasource-readr-2.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/import.json  
+Archive:  /srv/plugins/opal-datasource-readxl-2.0.1-dist.zip
+   creating: /srv/plugins/opal-datasource-readxl-2.0.1/
+   creating: /srv/plugins/opal-datasource-readxl-2.0.1/lib/
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/import.json  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/lib/opal-datasource-readxl-2.0.1.jar  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/export.json  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/README.md  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/site.properties  
+Listening for transport dt_socket at address: 8000
+Upgrading Opal...
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/usr/share/opal/lib/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+Upgrade successful.
+Listening for transport dt_socket at address: 8000
+ __    __    __      ____  _____        _      
+ \ \   \ \   \ \    / __ \|  __ \ /\   | |     
+  \ \   \ \   \ \  | |  | | |__) /  \  | |     
+   > >   > >   > > | |  | |  ___/ /\ \ | |     
+  / /   / /   / /  | |__| | |  / ____ \| |____ 
+ /_/   /_/   /_/    \____/|_| /_/    \_\______|
+                                               
+                                               
+Starting Opal...
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/usr/share/opal/lib/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+WARNING: A restricted method in java.lang.foreign.Linker has been called
+WARNING: java.lang.foreign.Linker::downcallHandle has been called by org.apache.lucene.store.PosixNativeAccess in an unnamed module (file:/usr/share/opal/lib/lucene-core-9.11.1.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+2026-11-11 21:21:34,839 ERROR org.obiba.opal.datashield.cfg.DataShieldProfileService - Cannot read R/DataSHIELD packages to initialize profile
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$ArrayListSpliterator.tryAdvance(Unknown Source)
+	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source)
+	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(Unknown Source)
+	at java.base/java.util.stream.ReferencePipeline.anyMatch(Unknown Source)
+	at org.obiba.opal.r.cluster.RServerCluster.isRunning(RServerCluster.java:105)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.lambda$onRServiceStarted$7(DataShieldProfileService.java:211)
+	at java.base/java.util.concurrent.ConcurrentHashMap$ValuesView.forEach(Unknown Source)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.onRServiceStarted(DataShieldProfileService.java:210)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at com.google.common.eventbus.Subscriber.invokeSubscriberMethod(Subscriber.java:84)
+	at com.google.common.eventbus.Subscriber$SynchronizedSubscriber.invokeSubscriberMethod(Subscriber.java:142)
+	at com.google.common.eventbus.Subscriber.lambda$dispatchEvent$0(Subscriber.java:70)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.eventbus.Subscriber.dispatchEvent(Subscriber.java:67)
+	at com.google.common.eventbus.Dispatcher$PerThreadQueuedDispatcher.dispatch(Dispatcher.java:112)
+	at com.google.common.eventbus.EventBus.post(EventBus.java:262)
+	at org.obiba.opal.core.service.AppsServiceImpl.registerApp(AppsServiceImpl.java:80)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.discoverHost(RockServerDiscoveryService.java:102)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.discoverOrCheckHost(RockServerDiscoveryService.java:67)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.scanHosts(RockServerDiscoveryService.java:53)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:128)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$1(ScheduledMethodRunnable.java:122)
+	at io.micrometer.observation.Observation.observe(Observation.java:569)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:122)
+	at org.springframework.scheduling.config.Task$OutcomeTrackingRunnable.run(Task.java:88)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(Unknown Source)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Unknown Source)
+First run setup...
+Initializing Opal IDs database with MongoDB...
+Opal Server successfully started.
+Opal is attached to this console. Press ctrl-c to stop.
+Enter content:
+
+Initializing Opal data database with MongoDB...
+Enter content:
+
+First run complete. Stopping background Opal...
+Opal Server shutting down...
+2026-11-11 21:21:41,451 ERROR org.obiba.opal.datashield.cfg.DataShieldProfileService - Cannot read R/DataSHIELD packages to initialize profile
+org.springframework.dao.DataAccessResourceFailureException: Could not prepare statement [Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-252]] [update datashield_profiles set cluster=?,enabled=?,environments=?,name=?,options=?,r_parser_version=?,restricted_access=? where id=?]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:153)
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:131)
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.translateExceptionIfPossible(HibernateExceptionTranslator.java:105)
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:223)
+	at org.springframework.orm.jpa.JpaTransactionManager.doCommit(JpaTransactionManager.java:556)
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.processCommit(AbstractPlatformTransactionManager.java:794)
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.commit(AbstractPlatformTransactionManager.java:757)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.commitTransactionAfterReturning(TransactionAspectSupport.java:687)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:408)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:135)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:166)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:222)
+	at jdk.proxy2/jdk.proxy2.$Proxy147.save(Unknown Source)
+	at org.obiba.opal.datashield.repository.DataShieldProfileRepository.upsert(DataShieldProfileRepository.java:30)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(Unknown Source)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:75)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:135)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:166)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:222)
+	at jdk.proxy2/jdk.proxy2.$Proxy147.upsert(Unknown Source)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.saveProfile(DataShieldProfileService.java:173)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.publish(DataShieldProfileService.java:246)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.publish(DataShieldProfileService.java:239)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.lambda$onRServiceStarted$6(DataShieldProfileService.java:216)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(Unknown Source)
+	at java.base/java.util.HashMap$KeySpliterator.forEachRemaining(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(Unknown Source)
+	at java.base/java.util.stream.ReferencePipeline.forEach(Unknown Source)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.lambda$onRServiceStarted$7(DataShieldProfileService.java:216)
+	at java.base/java.util.concurrent.ConcurrentHashMap$ValuesView.forEach(Unknown Source)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.onRServiceStarted(DataShieldProfileService.java:210)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at com.google.common.eventbus.Subscriber.invokeSubscriberMethod(Subscriber.java:84)
+	at com.google.common.eventbus.Subscriber$SynchronizedSubscriber.invokeSubscriberMethod(Subscriber.java:142)
+	at com.google.common.eventbus.Subscriber.lambda$dispatchEvent$0(Subscriber.java:70)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.eventbus.Subscriber.dispatchEvent(Subscriber.java:67)
+	at com.google.common.eventbus.Dispatcher$PerThreadQueuedDispatcher.dispatch(Dispatcher.java:112)
+	at com.google.common.eventbus.EventBus.post(EventBus.java:262)
+	at org.obiba.opal.core.service.AppsServiceImpl$1.lambda$run$0(AppsServiceImpl.java:211)
+	at java.base/java.util.ArrayList.forEach(Unknown Source)
+	at org.obiba.opal.core.service.AppsServiceImpl$1.run(AppsServiceImpl.java:211)
+	at java.base/java.util.TimerThread.mainLoop(Unknown Source)
+	at java.base/java.util.TimerThread.run(Unknown Source)
+Caused by: org.hibernate.exception.JDBCConnectionException: Could not prepare statement [Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-252]] [update datashield_profiles set cluster=?,enabled=?,environments=?,name=?,options=?,r_parser_version=?,restricted_access=? where id=?]
+	at org.hibernate.exception.internal.SQLExceptionTypeDelegate.convert(SQLExceptionTypeDelegate.java:49)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:34)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:115)
+	at org.hibernate.engine.jdbc.internal.MutationStatementPreparerImpl$StatementPreparationTemplate.prepareStatement(MutationStatementPreparerImpl.java:107)
+	at org.hibernate.engine.jdbc.internal.MutationStatementPreparerImpl.prepareStatement(MutationStatementPreparerImpl.java:32)
+	at org.hibernate.engine.jdbc.mutation.internal.ModelMutationHelper.standardStatementPreparation(ModelMutationHelper.java:136)
+	at org.hibernate.engine.jdbc.mutation.internal.ModelMutationHelper.lambda$standardPreparation$0(ModelMutationHelper.java:117)
+	at org.hibernate.engine.jdbc.mutation.internal.PreparedStatementDetailsStandard.resolveStatement(PreparedStatementDetailsStandard.java:91)
+	at org.hibernate.engine.jdbc.batch.internal.BatchImpl.lambda$addToBatch$0(BatchImpl.java:132)
+	at org.hibernate.engine.jdbc.mutation.internal.PreparedStatementGroupSingleTable.forEachStatement(PreparedStatementGroupSingleTable.java:63)
+	at org.hibernate.engine.jdbc.batch.internal.BatchImpl.addToBatch(BatchImpl.java:116)
+	at org.hibernate.engine.jdbc.batch.internal.BatchImpl.addToBatch(BatchImpl.java:101)
+	at org.hibernate.engine.jdbc.mutation.internal.MutationExecutorSingleBatched.performBatchedOperations(MutationExecutorSingleBatched.java:61)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:73)
+	at org.hibernate.persister.entity.mutation.UpdateCoordinatorStandard.doStaticUpdate(UpdateCoordinatorStandard.java:861)
+	at org.hibernate.persister.entity.mutation.UpdateCoordinatorStandard.performUpdate(UpdateCoordinatorStandard.java:336)
+	at org.hibernate.persister.entity.mutation.UpdateCoordinatorStandard.update(UpdateCoordinatorStandard.java:251)
+	at org.hibernate.action.internal.EntityUpdateAction.execute(EntityUpdateAction.java:161)
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:634)
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:505)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:386)
+	at org.hibernate.event.internal.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:40)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:138)
+	at org.hibernate.internal.SessionImpl.fireFlush(SessionImpl.java:1472)
+	at org.hibernate.internal.SessionImpl.managedFlush(SessionImpl.java:498)
+	at org.hibernate.internal.SessionImpl.flushBeforeTransactionCompletion(SessionImpl.java:2100)
+	at org.hibernate.internal.SessionImpl.beforeTransactionCompletion(SessionImpl.java:2021)
+	at org.hibernate.engine.jdbc.internal.JdbcCoordinatorImpl.beforeTransactionCompletion(JdbcCoordinatorImpl.java:426)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl.beforeCompletionCallback(JdbcResourceLocalTransactionCoordinatorImpl.java:167)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commitNoRollbackOnly(JdbcResourceLocalTransactionCoordinatorImpl.java:252)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commit(JdbcResourceLocalTransactionCoordinatorImpl.java:242)
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:89)
+	at org.springframework.orm.jpa.JpaTransactionManager.doCommit(JpaTransactionManager.java:552)
+	... 55 common frames omitted
+	Suppressed: org.hibernate.TransactionException: Unable to rollback against JDBC Connection
+		at org.hibernate.resource.jdbc.internal.AbstractLogicalConnectionImplementor.rollback(AbstractLogicalConnectionImplementor.java:151)
+		at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commitNoRollbackOnly(JdbcResourceLocalTransactionCoordinatorImpl.java:258)
+		... 58 common frames omitted
+	Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-252]
+		at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
+		at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+		at org.h2.message.DbException.get(DbException.java:223)
+		at org.h2.message.DbException.get(DbException.java:199)
+		at org.h2.message.DbException.get(DbException.java:188)
+		at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1419)
+		at org.h2.jdbc.JdbcConnection.rollback(JdbcConnection.java:509)
+		at org.apache.commons.dbcp2.DelegatingConnection.rollback(DelegatingConnection.java:823)
+		at org.apache.commons.dbcp2.DelegatingConnection.rollback(DelegatingConnection.java:823)
+		at org.hibernate.resource.jdbc.internal.AbstractLogicalConnectionImplementor.rollback(AbstractLogicalConnectionImplementor.java:141)
+		... 59 common frames omitted
+Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-252]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1419)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:313)
+	at org.apache.commons.dbcp2.DelegatingConnection.prepareStatement(DelegatingConnection.java:738)
+	at org.apache.commons.dbcp2.DelegatingConnection.prepareStatement(DelegatingConnection.java:738)
+	at org.hibernate.engine.jdbc.internal.MutationStatementPreparerImpl$1.doPrepare(MutationStatementPreparerImpl.java:42)
+	at org.hibernate.engine.jdbc.internal.MutationStatementPreparerImpl$StatementPreparationTemplate.prepareStatement(MutationStatementPreparerImpl.java:96)
+	... 84 common frames omitted
+Starting Opal...
+JAVA=java
+JAVA_OPTS=-Xms1G -Xmx2G -XX:+UseG1GC
+OPAL_HOME=/srv
+OPAL_DIST=/usr/share/opal
+Listening for transport dt_socket at address: 8000
+Upgrading Opal...
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/usr/share/opal/lib/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+Upgrade successful.
+Listening for transport dt_socket at address: 8000
+ __    __    __      ____  _____        _      
+ \ \   \ \   \ \    / __ \|  __ \ /\   | |     
+  \ \   \ \   \ \  | |  | | |__) /  \  | |     
+   > >   > >   > > | |  | |  ___/ /\ \ | |     
+  / /   / /   / /  | |__| | |  / ____ \| |____ 
+ /_/   /_/   /_/    \____/|_| /_/    \_\______|
+                                               
+                                               
+Starting Opal...
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/usr/share/opal/lib/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+WARNING: A restricted method in java.lang.foreign.Linker has been called
+WARNING: java.lang.foreign.Linker::downcallHandle has been called by org.apache.lucene.store.PosixNativeAccess in an unnamed module (file:/usr/share/opal/lib/lucene-core-9.11.1.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+Opal Server successfully started.
+Opal is attached to this console. Press ctrl-c to stop.

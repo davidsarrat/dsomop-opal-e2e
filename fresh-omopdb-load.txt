@@ -1,0 +1,48 @@
+care_site: 0 rows (6 of 6 CSV columns)
+cdm_source: 1 rows (10 of 10 CSV columns)
+skip COHORT.csv: no such CDM 5.3 table
+skip COHORT_ATTRIBUTE.csv: no such CDM 5.3 table
+sample concept: concept_id=35208414, concept_name=Gastrointestinal hemorrhage, unspecified, domain_id=Condition, vocabulary_id=ICD10CM, concept_class_id=4-char billing code, standard_concept=, concept_code=K92.2, valid_start_date=2007-01-01, valid_end_date=2099-12-31, invalid_reason=
+concept: 444 rows (10 of 10 CSV columns)
+concept_ancestor: 65690 rows (4 of 4 CSV columns)
+concept_class: 0 rows (3 of 3 CSV columns)
+concept_relationship: 8 rows (6 of 6 CSV columns)
+concept_synonym: 1064 rows (3 of 3 CSV columns)
+condition_era: 65719 rows (6 of 6 CSV columns)
+sample condition_occurrence: condition_occurrence_id=4483, person_id=263, condition_concept_id=4112343, condition_start_date=2015-10-02, condition_start_datetime=2015-10-02T00:00:00Z, condition_end_date=2015-10-14, condition_end_datetime=2015-10-14T00:00:00Z, condition_type_concept_id=32020, stop_reason=, provider_id=, visit_occurrence_id=17479, visit_detail_id=0, condition_source_value=195662009, condition_source_concept_id=4112343, condition_status_source_value=, condition_status_concept_id=0
+condition_occurrence: 65332 rows (16 of 16 CSV columns)
+cost: 0 rows (22 of 22 CSV columns)
+death: 0 rows (7 of 7 CSV columns)
+device_exposure: 0 rows (15 of 15 CSV columns)
+domain: 45 rows (3 of 3 CSV columns)
+dose_era: 0 rows (7 of 7 CSV columns)
+drug_era: 52508 rows (7 of 7 CSV columns)
+sample drug_exposure: drug_exposure_id=26318, person_id=573, drug_concept_id=40213160, drug_exposure_start_date=1960-04-09, drug_exposure_start_datetime=1960-04-09T00:00:00Z, drug_exposure_end_date=1960-04-09, drug_exposure_end_datetime=1960-04-09T00:00:00Z, verbatim_end_date=1960-04-09, drug_type_concept_id=581452, stop_reason=, refills=0, quantity=0, days_supply=0, sig=, route_concept_id=0, lot_number=0, provider_id=0, visit_occurrence_id=38004, visit_detail_id=0, drug_source_value=10, drug_source_concept_id=40213160, route_source_value=, dose_unit_source_value=
+drug_exposure: 67707 rows (23 of 23 CSV columns)
+drug_strength: 0 rows (12 of 12 CSV columns)
+fact_relationship: 0 rows (5 of 5 CSV columns)
+location: 0 rows (8 of 8 CSV columns)
+measurement: 44053 rows (20 of 20 CSV columns)
+metadata: 0 rows (7 of 7 CSV columns)
+note: 0 rows (14 of 14 CSV columns)
+note_nlp: 0 rows (14 of 14 CSV columns)
+observation: 1477 rows (18 of 18 CSV columns)
+sample observation_period: observation_period_id=6, person_id=6, observation_period_start_date=1963-12-31, observation_period_end_date=2007-02-06, period_type_concept_id=44814724
+observation_period: 5343 rows (5 of 5 CSV columns)
+payer_plan_period: 0 rows (17 of 17 CSV columns)
+sample person: person_id=6, gender_concept_id=8532, year_of_birth=1963, month_of_birth=12, day_of_birth=31, birth_datetime=1963-12-31T00:00:00Z, race_concept_id=8516, ethnicity_concept_id=0, location_id=, provider_id=, care_site_id=, person_source_value=001f4a87-70d0-435c-a4b9-1425f6928d33, gender_source_value=F, gender_source_concept_id=0, race_source_value=black, race_source_concept_id=0, ethnicity_source_value=west_indian, ethnicity_source_concept_id=0
+person: 2694 rows (18 of 18 CSV columns)
+procedure_occurrence: 37409 rows (14 of 14 CSV columns)
+provider: 0 rows (13 of 13 CSV columns)
+relationship: 480 rows (6 of 6 CSV columns)
+source_to_concept_map: 0 rows (9 of 9 CSV columns)
+specimen: 0 rows (15 of 15 CSV columns)
+visit_detail: 0 rows (19 of 19 CSV columns)
+visit_occurrence: 1037 rows (17 of 17 CSV columns)
+vocabulary: 91 rows (5 of 5 CSV columns)
+split copy: vocab = ['concept', 'concept_ancestor', 'concept_class', 'concept_relationship', 'concept_synonym', 'domain', 'drug_strength', 'relationship', 'source_to_concept_map', 'vocabulary']
+omop.cdm: person=2694, condition_occurrence=65332, drug_exposure=67707, concept=444
+omop.cdm2: person=2694, condition_occurrence=65332, drug_exposure=67707
+omop.vocab: concept=444
+omoppub.public: person=2694, condition_occurrence=65332, drug_exposure=67707, concept=444
+loaded tables: 35

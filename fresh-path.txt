@@ -1,0 +1,29 @@
+== FRESH install of dsOMOP (candidate) on a clean Opal
+dsOMOP on Rock before: not installed
+dsOMOP methods published (before install): 0 aggregate + 0 assign; versions: ; omopInitDS published: FALSE
+--- assign methods before install
+[1] name    type    class   value   package version
+<0 rows> (or 0-length row.names)
+--- aggregate methods before install
+[1] name    type    class   value   package version
+<0 rows> (or 0-length row.names)
+OK    dsadmin.install_package(o, "resourcer") [CRAN dependency of the candidate] (4.3 s)
+OK    dsadmin.install_package(o, "filelock") [CRAN dependency of the candidate] (3.1 s)
+* checking for empty or unneeded directories
+* building ‘dsOMOP_2.10.1.tar.gz’
+
+OK    dsadmin.install_local_package(o, "dsOMOP_2.10.1.tar.gz") (2.2 s)
+local install through Opal failed; installing inside Rock with R CMD INSTALL
+install.packages(c('resourcer', 'filelock'))
+* removing ‘/usr/local/lib/R/site-library/dsOMOP’
+Warning message:
+In install.packages("/tmp/dsOMOP_2.10.1.tar.gz", repos = NULL, type = "source") :
+  installation of package ‘/tmp/dsOMOP_2.10.1.tar.gz’ had non-zero exit status
+dsOMOP installed on Rock: not installed
+dsOMOP methods published (after install (auto-publish of a new package)): 0 aggregate + 0 assign; versions: ; omopInitDS published: FALSE
+--- assign methods after install (auto-publish of a new package)
+[1] name    type    class   value   package version
+<0 rows> (or 0-length row.names)
+--- aggregate methods after install (auto-publish of a new package)
+[1] name    type    class   value   package version
+<0 rows> (or 0-length row.names)
