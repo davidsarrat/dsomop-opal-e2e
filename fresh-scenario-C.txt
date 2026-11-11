@@ -1,0 +1,29 @@
+dsOMOP on Rock: 2.10.0; RPostgres: 1.4.10
+== gibleed_v1
+ERROR ds.omop.connect(resource = "omop_data.gibleed_v1", symbol = "omop", conns = conns) (0.9 s): Failed to assign every OMOP resource: There are some DataSHIELD errors, list them with datashield.errors().
+--- DSI::datashield.errors()
+$Ethiopia
+[1] "Command 'dsO.nlB9iB <- resource[omop_data.gibleed_v1]' failed on 'Ethiopia': Error while evaluating 'is.null(base::assign('dsO.nlB9iB', resourcer::newResourceClient(resourcer::newResource(name='gibleed_v1', url='postgresql://omopdb:5432/omop53//dsomop::/schema:cdm/vocabulary_schema:cdm', identity='omop', secret='***', format='omop.cdm.db'))))' -> Error in resolveResource(x) : \n  No resolver could be found for resource: postgresql://omopdb:5432/omop53//dsomop::/schema:cdm/vocabulary_schema:cdm\n"
+
+SUMMARY [fresh] C: 1.x resource gibleed_v1: FAIL: Failed to assign every OMOP resource: There are some DataSHIELD errors, list them with datashield.errors().
+== gibleed_v1_vocab
+ERROR ds.omop.connect(resource = "omop_data.gibleed_v1_vocab", symbol = "omop", conns = conns) (0.3 s): Failed to assign every OMOP resource: There are some DataSHIELD errors, list them with datashield.errors().
+--- DSI::datashield.errors()
+$Ethiopia
+[1] "Command 'dsO.hYDeLW <- resource[omop_data.gibleed_v1_vocab]' failed on 'Ethiopia': Error while evaluating 'is.null(base::assign('dsO.hYDeLW', resourcer::newResourceClient(resourcer::newResource(name='gibleed_v1_vocab', url='postgresql://omopdb:5432/omop53//dsomop::/schema:cdm2/vocabulary_schema:vocab', identity='omop', secret='***', format='omop.cdm.db'))))' -> Error in resolveResource(x) : \n  No resolver could be found for resource: postgresql://omopdb:5432/omop53//dsomop::/schema:cdm2/vocabulary_schema:vocab\n"
+
+SUMMARY [fresh] C: 1.x resource gibleed_v1_vocab: FAIL: Failed to assign every OMOP resource: There are some DataSHIELD errors, list them with datashield.errors().
+== gibleed_v1_schemaonly
+ERROR ds.omop.connect(resource = "omop_data.gibleed_v1_schemaonly", symbol = "omop", conns = conns) (0.2 s): Failed to assign every OMOP resource: There are some DataSHIELD errors, list them with datashield.errors().
+--- DSI::datashield.errors()
+$Ethiopia
+[1] "Command 'dsO.mBdV6V <- resource[omop_data.gibleed_v1_schemaonly]' failed on 'Ethiopia': Error while evaluating 'is.null(base::assign('dsO.mBdV6V', resourcer::newResourceClient(resourcer::newResource(name='gibleed_v1_schemaonly', url='postgresql://omopdb:5432/omop53//dsomop::/schema:cdm', identity='omop', secret='***', format='omop.cdm.db'))))' -> Error in resolveResource(x) : \n  No resolver could be found for resource: postgresql://omopdb:5432/omop53//dsomop::/schema:cdm\n"
+
+SUMMARY [fresh] C: 1.x resource gibleed_v1_schemaonly: FAIL: Failed to assign every OMOP resource: There are some DataSHIELD errors, list them with datashield.errors().
+== gibleed_v1_plain
+ERROR ds.omop.connect(resource = "omop_data.gibleed_v1_plain", symbol = "omop", conns = conns) (0.2 s): Failed to assign every OMOP resource: There are some DataSHIELD errors, list them with datashield.errors().
+--- DSI::datashield.errors()
+$Ethiopia
+[1] "Command 'dsO.F9tYPQ <- resource[omop_data.gibleed_v1_plain]' failed on 'Ethiopia': Error while evaluating 'is.null(base::assign('dsO.F9tYPQ', resourcer::newResourceClient(resourcer::newResource(name='gibleed_v1_plain', url='postgresql://omopdb:5432/omoppub', identity='omop', secret='***', format='omop.cdm.db'))))' -> Error in resolveResource(x) : \n  No resolver could be found for resource: postgresql://omopdb:5432/omoppub\n"
+
+SUMMARY [fresh] C: 1.x resource gibleed_v1_plain: FAIL: Failed to assign every OMOP resource: There are some DataSHIELD errors, list them with datashield.errors().
