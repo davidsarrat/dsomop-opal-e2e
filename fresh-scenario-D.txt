@@ -1,0 +1,157 @@
+dsOMOP 2.10.1 declares 56 aggregate + 13 assign methods; client 2.10.1; resource omop_data.gibleed
+OK    ds.omop.connect (2 s)
+OK    ds.omop.status (0.1 s)
+OK    ds.omop.disclosure.settings (0.1 s)
+OK    ds.omop.tables (0.1 s)
+OK    ds.omop.columns (0.1 s)
+OK    ds.omop.joins (0.1 s)
+OK    ds.omop.snapshot (0.2 s)
+OK    ds.omop.table.stats (0.1 s)
+OK    ds.omop.column.stats (0.1 s)
+OK    ds.omop.domain.coverage (0.2 s)
+OK    ds.omop.missingness (0.1 s)
+OK    ds.omop.value.counts (0.1 s)
+OK    ds.omop.crosstab (0.1 s)
+OK    ds.omop.concept.search (0.1 s)
+OK    ds.omop.concept.lookup (0.1 s)
+OK    ds.omop.concept.descendants (0.1 s)
+OK    ds.omop.concept.expand (0.1 s)
+OK    ds.omop.concept.ancestors (0.1 s)
+OK    ds.omop.concept.synonyms (0.1 s)
+OK    ds.omop.concept.relationships (0.1 s)
+OK    ds.omop.concept.list (0.1 s)
+OK    ds.omop.vocab.vocabularies (0.1 s)
+OK    ds.omop.vocab.domains (0.1 s)
+OK    ds.omop.vocab.classes (0.1 s)
+OK    ds.omop.cdm.source (0.1 s)
+OK    ds.omop.cdm.version (0.1 s)
+OK    ds.omop.concept.prevalence (0.2 s)
+OK    ds.omop.value.histogram (0.1 s)
+OK    ds.omop.value.quantiles (0.1 s)
+OK    ds.omop.date.counts (0.2 s)
+OK    ds.omop.concept.drilldown (0.2 s)
+OK    ds.omop.concept.locate (0.2 s)
+OK    ds.omop.safe.cutpoints (0.1 s)
+OK    ds.omop.achilles.status (0 s)
+OK    ds.omop.achilles.analyses (0 s)
+OK    ds.omop.achilles.results (0.1 s)
+OK    ds.omop.achilles.distribution (0.1 s)
+OK    ds.omop.achilles.catalog (0.1 s)
+OK    ds.omop.ohdsi.status (0.1 s)
+OK    ds.omop.ohdsi.tables (0.2 s)
+OK    ds.omop.ohdsi.results (0.1 s)
+OK    ds.omop.ohdsi.summary (0.1 s)
+OK    ds.omop.cohort.list (0.1 s)
+OK    ds.omop.cohort.definition (0.1 s)
+OK    ds.omop.cohort.create (condition) (0.2 s)
+OK    ds.omop.cohort.create (drug) (0.2 s)
+OK    ds.omop.cohort.combine (0.1 s)
+OK    ds.omop.plan.preview (0.1 s)
+OK    ds.omop.plan.validate (0.1 s)
+ERROR ds.omop.plan.execute (2.6 s): Plan execution failed or was incomplete; freshly assigned outputs were removed. Affected server(s): Ethiopia: Command 'omopPlanExecuteDS("dsO.htUXGS", "B64:eyJjb2hvcnQiOnsidHlwZSI6InNwZWMiLCJzcGVjIjp7InR5cGUiOiJjb25kaXRpb24iLCJjb25jZXB0X3NldCI6MTkyNjcxfX0sImFuY2hvciI6eyJ0YWJsZSI6InBlcnNvbiIsImlkX2NvbCI6InBlcnNvbl9pZCJ9LCJvdXRwdXRzIjp7ImJhc2VsaW5lIjp7InR5cGUiOiJiYXNlbGluZSIsImNvbHVtbnMiOlsiZ2VuZGVyX2NvbmNlcHRfaWQiLCJyYWNlX2NvbmNlcHRfaWQiLCJ5ZWFyX29mX2JpcnRoIl0sImRlcml2ZWQiOiJhZ2VfYXRfaW5kZXgifSwiZHJ1Z3MiOnsidHlwZSI6ImV2ZW50X2xldmVsIiwidGFibGUiOiJkcnVnX2V4cG9zdXJlIiwiY29sdW1ucyI6bnVsbCwicmVwcmVzZW50YXRpb24iOnsiZm9ybWF0IjoibG9uZyJ9LCJmaWx0ZXJzIjp7ImNvbmNlcHRfc2V0Ijp7ImlkcyI6WzExMTgwODQsMTEyNDMwMF19fSwiY29uY2VwdF9zZXQiOlsxMTE4MDg0LDExMjQzMDBdfX0sIm9wdGlvbnMiOnsidHJhbnNsYXRlX2NvbmNlcHRzIjp0cnVlLCJibG9ja19zZW5zaXRpdmUiOnRydWUsImZhY3Rvcl9jb25jZXB0cyI6dHJ1ZX19", 
+    "B64:eyJiYXNlbGluZSI6IkQiLCJkcnVncyI6IkUifQ", "memory")' failed on 'Ethiopia': Error while evaluating 'is.null(base::assign('dsOexec.OBy07F', value={dsOMOP::omopPlanExecuteDS("dsO.htUXGS", "B64:eyJjb2hvcnQiOnsidHlwZSI6InNwZWMiLCJzcGVjIjp7InR5cGUiOiJjb25kaXRpb24iLCJjb25jZXB0X3NldCI6MTkyNjcxfX0sImFuY2hvciI6eyJ0YWJsZSI6InBlcnNvbiIsImlkX2NvbCI6InBlcnNvbl9pZCJ9LCJvdXRwdXRzIjp7ImJhc2VsaW5lIjp7InR5cGUiOiJiYXNlbGluZSIsImNvbHVtbnMiOlsiZ2VuZGVyX2NvbmNlcHRfaWQiLCJyYWNlX2NvbmNlcHRfaWQiLCJ5ZWFyX29mX2JpcnRoIl0sImRlcml2ZWQiOiJhZ2VfYXRfaW5kZXgifSwiZHJ1Z3MiOnsidHlwZSI6ImV2ZW50X2xldmVsIiwidGFibGUiOiJkcnVnX2V4cG9zdXJlIiwiY29sdW1ucyI6bnVsbCwicmVwcmVzZW50YXRpb24iOnsiZm9ybWF0IjoibG9uZyJ9LCJmaWx0ZXJzIjp7ImNvbmNlcHRfc2V0Ijp7ImlkcyI6WzExMTgwODQsMTEyNDMwMF19fSwiY29uY2VwdF9zZXQiOlsxMTE4MDg0LDExMjQzMDBdfX0sIm9wdGlvbnMiOnsidHJhbnNsYXRlX2NvbmNlcHRzIjp0cnVlLCJibG9ja19zZW5zaXRpdmUiOnRydWUsImZhY3Rvcl9jb25jZXB0cyI6dHJ1ZX19", "B64:eyJiYXNlbGluZSI6IkQiLCJkcnVncyI6IkUifQ", "memory")}))' -> Error : Disclosive: exact birth components are blocked; request derived age_at_index to receive disclosure-controlled age groups.
+.
+ERROR ds.omop.cohort.from_table (0 s): Temporary cohort-from-table creation source symbol(s) are unavailable: Ethiopia:D.
+ERROR ds.omop.merge (0 s): OMOP merge source symbol(s) are unavailable: Ethiopia:D, Ethiopia:E.
+ERROR ds.omop.filter (0 s): 'arg' should be one of “==”, “!=”, “in”, “not_in”
+ERROR ds.omop.select (0 s): OMOP select source symbol(s) are unavailable: Ethiopia:D.
+ERROR ds.omop.bind_rows (0 s): OMOP row bind source symbol(s) are unavailable: Ethiopia:D, Ethiopia:DF.
+OK    ds.omop.analysis.list (1.3 s)
+analysis catalog: 229 entries; columns name, domain, adapter, mode, unit, description, params, cdm_version, accepts_cohort, accepts_tables, requires_cohort, has_plot
+--- catalog modes
+
+aggregate    assign 
+      223         6 
+OK    ds.omop.analysis.get (0 s)
+OK    ds.omop.analysis.run (aggregate) (0.5 s)
+assign-mode entries: 6 (first: dsomop:condition_occurrence.load, dsomop:death.load, dsomop:drug_exposure.load, dsomop:measurement.load, dsomop:observation.load)
+OK    ds.omop.analysis.run (assign) dsomop:condition_occurrence.load (0.7 s)
+OK    ds.omop.dp.status (0.2 s)
+OK    ds.omop.dp.prepare (1.3 s)
+OK    ds.omop.dp.release (0.3 s)
+OK    ds.omop.querylibrary.sticky.release (0.5 s)
+OK    DSI::datashield.aggregate(omopQueryListDS) (0.4 s)
+first query id: care_site.place_of_service_summary
+OK    DSI::datashield.aggregate(omopQueryGetDS) (0.4 s)
+OK    DSI::datashield.aggregate(omopQueryExecDS) (0.1 s)
+OK    ds.omop.disconnect (0.6 s)
+--- method audit
+                            method      type  status server_calls_in_opal_log                                                           client
+1                       omopPingDS aggregate    PASS                       18                                 ds.omop.connect | ds.omop.status
+2            omopGetCapabilitiesDS aggregate    PASS                       14                               ds.omop.connect | ds.omop.snapshot
+3         omopDisclosureSettingsDS aggregate    PASS                        2                 ds.omop.disclosure.settings | ds.omop.dp.release
+4                 omopListTablesDS aggregate    PASS                       12                                                   ds.omop.tables
+5                omopListColumnsDS aggregate    PASS                        2                                                  ds.omop.columns
+6          omopRelationshipGraphDS aggregate    PASS                        4                                 ds.omop.joins | ds.omop.snapshot
+7                 omopTableStatsDS aggregate    PASS                        2                                              ds.omop.table.stats
+8                omopColumnStatsDS aggregate    PASS                        2                                             ds.omop.column.stats
+9             omopDomainCoverageDS aggregate    PASS                        2                                          ds.omop.domain.coverage
+10               omopMissingnessDS aggregate    PASS                        2                                              ds.omop.missingness
+11               omopValueCountsDS aggregate    PASS                        2                                             ds.omop.value.counts
+12            omopSearchConceptsDS aggregate    PASS                        2                                           ds.omop.concept.search
+13            omopLookupConceptsDS aggregate    PASS                        2                                           ds.omop.concept.lookup
+14            omopGetDescendantsDS aggregate    PASS                        2                                      ds.omop.concept.descendants
+15          omopExpandConceptSetDS aggregate    PASS                        2                                           ds.omop.concept.expand
+16          omopConceptAncestorsDS aggregate    PASS                        2                                        ds.omop.concept.ancestors
+17           omopConceptSynonymsDS aggregate    PASS                        2                                         ds.omop.concept.synonyms
+18      omopConceptRelationshipsDS aggregate    PASS                        2                                    ds.omop.concept.relationships
+19              omopListConceptsDS aggregate    PASS                        2                                             ds.omop.concept.list
+20              omopVocabulariesDS aggregate    PASS                        2                                       ds.omop.vocab.vocabularies
+21                   omopDomainsDS aggregate    PASS                        2                                            ds.omop.vocab.domains
+22            omopConceptClassesDS aggregate    PASS                        2                                            ds.omop.vocab.classes
+23                 omopCdmSourceDS aggregate    PASS                        2                                               ds.omop.cdm.source
+24                omopCdmVersionDS aggregate    PASS                        2                                              ds.omop.cdm.version
+25               omopPlanPreviewDS aggregate    PASS                        4                     ds.omop.plan.preview | ds.omop.plan.validate
+26                omopCohortListDS aggregate    PASS                        2                                              ds.omop.cohort.list
+27       omopCohortGetDefinitionDS aggregate    PASS                        2                                        ds.omop.cohort.definition
+28         omopConceptPrevalenceDS aggregate    PASS                        2                                       ds.omop.concept.prevalence
+29                  omopCrossTabDS aggregate    PASS                        2                                                 ds.omop.crosstab
+30              omopNumericRangeDS aggregate    PASS                        0                                          ds.omop.value.histogram
+31          omopNumericHistogramDS aggregate    PASS                        2                                          ds.omop.value.histogram
+32          omopNumericQuantilesDS aggregate    PASS                        2                                          ds.omop.value.quantiles
+33                omopDateCountsDS aggregate    PASS                        2                                              ds.omop.date.counts
+34          omopConceptDrilldownDS aggregate    PASS                        2                                        ds.omop.concept.drilldown
+35             omopLocateConceptDS aggregate    PASS                        2                                           ds.omop.concept.locate
+36             omopSafeCutpointsDS aggregate    PASS                        2                                           ds.omop.safe.cutpoints
+37            omopAchillesStatusDS aggregate    PASS                        2                                          ds.omop.achilles.status
+38          omopAchillesAnalysesDS aggregate    PASS                        2                                        ds.omop.achilles.analyses
+39           omopAchillesResultsDS aggregate    PASS                        2                                         ds.omop.achilles.results
+40      omopAchillesDistributionDS aggregate    PASS                        2                                    ds.omop.achilles.distribution
+41           omopAchillesCatalogDS aggregate    PASS                        2                                         ds.omop.achilles.catalog
+42               omopOhdsiStatusDS aggregate    PASS                        2                                             ds.omop.ohdsi.status
+43               omopOhdsiTablesDS aggregate    PASS                        2                                             ds.omop.ohdsi.tables
+44              omopOhdsiResultsDS aggregate    PASS                        2                                            ds.omop.ohdsi.results
+45       omopOhdsiResultContractDS aggregate    PASS                        0                                            ds.omop.ohdsi.results
+46              omopOhdsiSummaryDS aggregate    PASS                        2                                            ds.omop.ohdsi.summary
+47                 omopQueryListDS aggregate    PASS                        2                       DSI::datashield.aggregate(omopQueryListDS)
+48                  omopQueryGetDS aggregate    PASS                        2                        DSI::datashield.aggregate(omopQueryGetDS)
+49                 omopQueryExecDS aggregate    PASS                        2                       DSI::datashield.aggregate(omopQueryExecDS)
+50              omopAnalysisListDS aggregate    PASS                        2                                            ds.omop.analysis.list
+51               omopAnalysisGetDS aggregate    PASS                        6                                             ds.omop.analysis.get
+52               omopAnalysisRunDS aggregate    PASS                        2                                 ds.omop.analysis.run (aggregate)
+53 omopQueryLibraryStickyCatalogDS aggregate    PASS                        2                              ds.omop.querylibrary.sticky.release
+54                  omopDpStatusDS aggregate    PASS                        6                                                ds.omop.dp.status
+55                 omopDpReleaseDS aggregate    PASS                        4         ds.omop.dp.release | ds.omop.querylibrary.sticky.release
+56              omopFactorLevelsDS aggregate REFUSED                        0                                             ds.omop.plan.execute
+57                      omopInitDS    assign    PASS                       14                                                  ds.omop.connect
+58               omopPlanExecuteDS    assign REFUSED                        2                                             ds.omop.plan.execute
+59              omopCohortCreateDS    assign    PASS                        4 ds.omop.cohort.create (condition) | ds.omop.cohort.create (drug)
+60             omopCohortCombineDS    assign    PASS                        2                                           ds.omop.cohort.combine
+61           omopCohortFromTableDS    assign REFUSED                        0                                        ds.omop.cohort.from_table
+62                   omopCleanupDS    assign    PASS                       12                                               ds.omop.disconnect
+63           omopAsFactorColumnsDS    assign REFUSED                        0                                             ds.omop.plan.execute
+64                     omopMergeDS    assign REFUSED                        0                                                    ds.omop.merge
+65                    omopFilterDS    assign REFUSED                        0                                                   ds.omop.filter
+66                    omopSelectDS    assign REFUSED                        0                                                   ds.omop.select
+67                  omopBindRowsDS    assign REFUSED                        0                                                ds.omop.bind_rows
+68         omopAnalysisRunAssignDS    assign    PASS                        2   ds.omop.analysis.run (assign) dsomop:condition_occurrence.load
+69             omopDpPlanExecuteDS    assign    PASS                        2                                               ds.omop.dp.prepare
+SUMMARY [fresh] D: 69 methods: PASS 61, REFUSED 8 (to review), FAIL 0, NOT-EXERCISED 0; ran per Opal log: 60; PASS but absent from Opal log: omopNumericRangeDS, omopOhdsiResultContractDS
+SUMMARY    REFUSED omopFactorLevelsDS [ds.omop.plan.execute]: Plan execution failed or was incomplete; freshly assigned outputs were removed. Affected server(s): Ethiopia: Command 'omopPlanExecuteDS("dsO.htUXGS", "B64:eyJjb2hvcnQiOnsidHlwZSI6InNwZWMiLCJzcGVjIjp7InR5cGUiOiJjb25kaXRpb24iLCJjb25jZXB0X3NldCI6MTkyNjcxfX0sImFuY2hvciI6eyJ0YWJsZSI6InBlcnNvbiIsImlkX2NvbCI6InBlcnNvbl9pZCJ9LCJvdXRwdXRzIjp7ImJhc2VsaW5lIjp7InR5cGUiOiJiYXNlbGluZSIsImNvbHVtbnMiOlsiZ2VuZGVy
+SUMMARY    REFUSED omopPlanExecuteDS [ds.omop.plan.execute]: Plan execution failed or was incomplete; freshly assigned outputs were removed. Affected server(s): Ethiopia: Command 'omopPlanExecuteDS("dsO.htUXGS", "B64:eyJjb2hvcnQiOnsidHlwZSI6InNwZWMiLCJzcGVjIjp7InR5cGUiOiJjb25kaXRpb24iLCJjb25jZXB0X3NldCI6MTkyNjcxfX0sImFuY2hvciI6eyJ0YWJsZSI6InBlcnNvbiIsImlkX2NvbCI6InBlcnNvbl9pZCJ9LCJvdXRwdXRzIjp7ImJhc2VsaW5lIjp7InR5cGUiOiJiYXNlbGluZSIsImNvbHVtbnMiOlsiZ2VuZGVy
+SUMMARY    REFUSED omopCohortFromTableDS [ds.omop.cohort.from_table]: Temporary cohort-from-table creation source symbol(s) are unavailable: Ethiopia:D.
+SUMMARY    REFUSED omopAsFactorColumnsDS [ds.omop.plan.execute]: Plan execution failed or was incomplete; freshly assigned outputs were removed. Affected server(s): Ethiopia: Command 'omopPlanExecuteDS("dsO.htUXGS", "B64:eyJjb2hvcnQiOnsidHlwZSI6InNwZWMiLCJzcGVjIjp7InR5cGUiOiJjb25kaXRpb24iLCJjb25jZXB0X3NldCI6MTkyNjcxfX0sImFuY2hvciI6eyJ0YWJsZSI6InBlcnNvbiIsImlkX2NvbCI6InBlcnNvbl9pZCJ9LCJvdXRwdXRzIjp7ImJhc2VsaW5lIjp7InR5cGUiOiJiYXNlbGluZSIsImNvbHVtbnMiOlsiZ2VuZGVy
+SUMMARY    REFUSED omopMergeDS [ds.omop.merge]: OMOP merge source symbol(s) are unavailable: Ethiopia:D, Ethiopia:E.
+SUMMARY    REFUSED omopFilterDS [ds.omop.filter]: 'arg' should be one of “==”, “!=”, “in”, “not_in”
+SUMMARY    REFUSED omopSelectDS [ds.omop.select]: OMOP select source symbol(s) are unavailable: Ethiopia:D.
+SUMMARY    REFUSED omopBindRowsDS [ds.omop.bind_rows]: OMOP row bind source symbol(s) are unavailable: Ethiopia:D, Ethiopia:DF.
