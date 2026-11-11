@@ -18,8 +18,8 @@ on:
         description: "Paths to run (JSON list)"
         default: '["fresh", "upgrade"]'
       old_ref:
-        description: "dsOMOP ref installed first on the upgrade path"
-        default: "1.1.1"
+        description: "dsOMOP ref installed first on the upgrade path (1.1.1's commit: the ref '1.1.1' is both a branch and a tag)"
+        default: "6a22d259db95a3bfd264d029b653587f935e32db"
       server_ref:
         description: "dsOMOP ref (public mode)"
         default: "2.10.0"
@@ -94,6 +94,10 @@ jobs:
         if: always() && matrix.path == 'fresh'
         timeout-minutes: 30
         run: Rscript scripts/scenario_E.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
+      - name: Scenario F (RPostgreSQL fallback)
+        if: always() && matrix.path == 'fresh'
+        timeout-minutes: 15
+        run: Rscript scripts/scenario_F.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Summary
         if: always()
         run: |

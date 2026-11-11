@@ -4,7 +4,7 @@
 source("scripts/common.R")
 start_log("path")
 o <- admin()
-old <- Sys.getenv("OLD_REF", "1.1.1")
+old <- Sys.getenv("OLD_REF", "6a22d259db95a3bfd264d029b653587f935e32db")
 target <- server_target()
 res <- if (identical(MODE, "candidate")) "omop_data.gibleed" else "omop_data.gibleed_tls_disable"
 
