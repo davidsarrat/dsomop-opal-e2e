@@ -1,0 +1,32 @@
+[Info] ROCK_HOME=/srv
+First run setup...
+[Info] Applying config...
+[Info] Node properties
+[Warn]   No server public address: self-registration not activated
+[Info]   Setting empty node tags
+[Info] Consul properties
+[Info]   No Consul server: self-registration not activated
+[Warn]   No Consul token: self-registration not safe
+[Info] Opal properties
+[Info]   No Opal server: self-registration not activated
+[Warn]   No Opal token: self-registration not valid
+[Info] R properties
+[Info] Security properties
+[Info]   Enabling security by default.
+[Info] Security - Users properties
+Starting rock...
+JAVA_OPTS=-Xmx1G -XX:+UseG1GC
+ROCK_HOME=/srv
+ROCK_DIST=/usr/share/rock
+
+     (                           (
+     )\ )                  )     )\ )
+    (()/(               ( /(    (()/(
+     /(_))   (     (    )\())    /(_))
+    (_))     )\    )\  ((_)\    (_))
+    | _ \   ((_)  ((_) | |(_)   | _ \
+    |   /  / _ \ / _|  | / /    |   /
+    |_|_\  \___/ \__|  |_\_\    |_|_\
+
+       .:: OBiBa Rock R server ::.
+

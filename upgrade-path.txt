@@ -1,0 +1,31 @@
+== A1: install dsOMOP 1.1.1 (a new package: Opal publishes it)
+OK    dsadmin.install_github_package(o, "dsOMOP", username = "isglobal-brge", ref = "1.1.1") (3.6 s)
+dsOMOP installed on Rock: not installed
+dsOMOP methods published (after installing 1.1.1): 0 aggregate + 0 assign; versions: ; omopInitDS published: FALSE
+--- assign methods after installing 1.1.1
+[1] name    type    class   value   package version
+<0 rows> (or 0-length row.names)
+--- aggregate methods after installing 1.1.1
+[1] name    type    class   value   package version
+<0 rows> (or 0-length row.names)
+== A2: upgrade to candidate through the same Opal install call
+OK    dsadmin.install_package(o, "resourcer") [CRAN dependency of the candidate] (4.4 s)
+OK    dsadmin.install_package(o, "filelock") [CRAN dependency of the candidate] (2.9 s)
+* checking for empty or unneeded directories
+* building ‘dsOMOP_2.10.1.tar.gz’
+
+OK    dsadmin.install_local_package(o, "dsOMOP_2.10.1.tar.gz") (1.6 s)
+local install through Opal failed; installing inside Rock with R CMD INSTALL
+install.packages(c('resourcer', 'filelock'))
+* removing ‘/usr/local/lib/R/site-library/dsOMOP’
+Warning message:
+In install.packages("/tmp/dsOMOP_2.10.1.tar.gz", repos = NULL, type = "source") :
+  installation of package ‘/tmp/dsOMOP_2.10.1.tar.gz’ had non-zero exit status
+dsOMOP installed on Rock: not installed
+dsOMOP methods published (after upgrading to candidate (no publish)): 0 aggregate + 0 assign; versions: ; omopInitDS published: FALSE
+--- assign methods after upgrading to candidate (no publish)
+[1] name    type    class   value   package version
+<0 rows> (or 0-length row.names)
+--- aggregate methods after upgrading to candidate (no publish)
+[1] name    type    class   value   package version
+<0 rows> (or 0-length row.names)
