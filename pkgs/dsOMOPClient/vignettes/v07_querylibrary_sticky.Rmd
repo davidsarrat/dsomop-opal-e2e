@@ -1,0 +1,187 @@
+---
+title: "OHDSI QueryLibrary Sticky Redesigns"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{OHDSI QueryLibrary Sticky Redesigns}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(dsOMOPClient)
+```
+
+The QueryLibrary integration distinguishes an upstream clinical question from
+its published SQL. The SQL is training/reference material and is never executed
+by the sticky redesign path. Instead, a typed recipe or plan defines the
+population and variables, the server prepares a person-local `omop.table`
+sealed for DP, and a pinned mapping fixes one of the seven sticky primitives
+and its longitudinal reducer.
+
+The roles are those of DataSHIELD: the analyst chooses the question (the
+population, the derived variables such as an age at a public reference year,
+and the public bins or levels); the data custodian owns every privacy setting
+(whether DP is available, epsilon, caps and the community tools' protection
+mode). No client argument changes those.
+
+## Automatic questions (dsOMOP 2.9.0)
+
+The common person-level questions need no preparation at all. With the
+server's default `dsomop.tools.mode = "auto"`, the analysis catalog answers the
+per-person durations and counts (for example `condition.duration_stats`,
+`drug.days_supply_stats`, `condition_era.eras_per_person_stats`) with a
+histogram of one value per person over fixed public bins, and the demographic
+distributions (`person.year_of_birth_distribution`,
+`person.gender_by_age_decade`) with a complete public partition, both with
+sticky DP noise of sensitivity one person. A server whose DP service is not
+available answers the same table under the standard DataSHIELD controls.
+Every result says how it was protected:
+
+```{r automatic, eval=FALSE}
+res <- ds.omop.analysis.run("dsomop:condition.duration_stats",
+                            params = list(concept_id = 201820))
+res$pooled             # persons per duration bin, summed across servers
+res$meta$protection    # per server: "dp" (epsilon, noise SD) or a fallback
+```
+
+Questions with an automatic equivalent list it in
+`omop_querylibrary_sticky_catalog()$automatic_equivalent` and when printed.
+
+## Sticky redesigns
+
+The core never uses differential privacy (dsOMOP 2.8.0 and later): tables
+loaded with `ds.omop.plan.execute()` or `recipe_execute()` carry no DP
+provenance, and the server refuses them as DP inputs. A sticky redesign is
+released on a table prepared for DP from a typed recipe or plan
+(`ds.omop.dp.prepare()`, dsOMOP 2.9.1 or later). The release prepares it for
+you when the redesign carries its recipe.
+
+This is deliberately not a QueryLibrary SQL runner or an arbitrary join/query
+gateway. An upstream ID selects only a reviewed semantic mapping; it neither
+submits the upstream SQL nor constructs a data-dependent query. Preparation and
+release remain two explicit, typed steps.
+
+The client cannot choose epsilon, seed, nonce, privacy epoch or rerolls. Actual
+releases use the server-owned contract reported by `ds.omop.dp.status()`:
+`sticky_person_bounded_discrete_laplace_per_release_v1` under
+`fixed_per_release_seed_data_versioned_v1` (server 2.10.0, client 2.10.0) or
+`fixed_per_release_snapshot_first_answer_v1` (servers 2.7.1 to 2.9.x). A 2.10.0
+server derives each answer deterministically from its secret root, the
+question, the protected statistic and a private automatic database version, so
+a repeated question returns the same answer and a reload that adds rows
+re-draws every answer; older v3 servers retain one first answer per public
+request, snapshot and epoch until custodian rotation. Person-level contribution
+bounds and calibration are unchanged. There is no lifetime privacy budget or
+privacy call quota. Legacy v2 services remain inspectable and are refused for
+release by default. During site-by-site upgrades,
+`options(dsomop.dp.allow_legacy_servers = TRUE)` permits legacy and mixed v2/v3
+releases, including through `ds.omop.querylibrary.sticky.release()`. Every
+legacy server produces a warning: no first-answer binding: an unrotated data
+refresh can reveal whether a released statistic changed; see
+isglobal-brge/dsOMOP#20.
+Results retain each site's protocol and contract in
+`meta$privacy$per_site_contract`, identify `legacy_servers` and
+`mixed_contracts`, and retain warnings in `meta$warnings`, even for pooled-only
+output. Shared contract fields that differ across sites are `NULL`. Return
+the option to its default `FALSE` after the federation upgrades.
+
+```{r catalog}
+catalog <- omop_querylibrary_sticky_catalog()
+table(catalog$statistic)
+```
+
+Every category domain, numeric/date break, bound, concept set, time window,
+ordering rule and record cap must be public and fixed before data access.
+Observed categories and data-dependent top-N selection are not valid inputs.
+
+For example, PE12 can be redesigned as a coarse age-at-a-fixed-public-year
+distribution. This avoids placing exact birth components in the prepared table
+and uses public decade breaks:
+
+```{r birth-year}
+age_at_2025 <- omop_querylibrary_sticky(
+  "PE12",
+  variable = "age_at_2025",
+  breaks = seq(0, 120, by = 10)
+)
+age_at_2025
+```
+
+Give the redesign its recipe and release it in one call; the input is
+prepared on every server, released, and removed:
+
+```{r execute, eval=FALSE}
+recipe <- omop_recipe(
+  variables = omop_variable_age(name = "age_at_2025", year = 2025),
+  outputs = omop_output(name = "ages", type = "wide")
+)
+age_at_2025 <- omop_querylibrary_sticky(
+  "PE12", variable = "age_at_2025", breaks = seq(0, 120, by = 10),
+  preparation = recipe
+)
+result <- ds.omop.querylibrary.sticky.release(age_at_2025, datasources = conns)
+```
+
+The same step can be explicit, for example to release several statistics on
+one prepared table:
+
+```{r prepare, eval=FALSE}
+ds.omop.dp.prepare(recipe, out = c(ages = "DP_ages"))
+result <- ds.omop.querylibrary.sticky.release("DP_ages", age_at_2025,
+                                              datasources = conns)
+```
+
+The whole release population must be defined in the recipe or plan: filtering,
+merging or otherwise manipulating a prepared table drops its DP provenance.
+Variables whose protection depends on other persons cannot be prepared; for
+example a baseline `age_at_index` (protected with cross-person age banding) is
+refused in favour of an age at a public reference year.
+
+Longitudinal numeric and categorical record histograms use a deterministic
+declared order and a finite per-person record cap:
+
+```{r records}
+monthly_conditions <- omop_querylibrary_sticky(
+  "CO19",
+  variable = "month_number",
+  breaks = seq(0.5, 12.5, by = 1),
+  max_contributions = 12,
+  order_by = "month_number"
+)
+```
+
+Scalar record totals and site-local database-wide distinct drug cardinality are
+also available only as explicitly capped estimands. The latter uses a complete
+public vocabulary-derived concept domain and canonical server-owned ordering:
+
+```{r bounded-counts, eval=FALSE}
+condition_records <- omop_querylibrary_sticky(
+  "CO10", max_contributions = 25
+)
+
+distinct_rxnorm <- omop_querylibrary_sticky(
+  "DEX06",
+  variable = "drug_concept_id",
+  levels = public_standard_rxnorm_ids,
+  max_contributions = 50
+)
+```
+
+For one server, DEX06 estimates the distinct cardinality across that site's
+database. Across multiple servers there is no privacy-safe cross-site entity
+linkage for computing a set union: `pool = TRUE` therefore returns the explicit
+sum of site-local bounded distinct counts and may count a concept once per site.
+Use `pool = FALSE` when site-specific cardinalities are the intended estimand;
+do not interpret the pooled sum as a global union cardinality.
+
+Exact ZIP, source/free-text labels and patient/event rows remain unavailable.
+They do not silently fall back to a different query:
+
+```{r blocked, error=TRUE}
+omop_querylibrary_sticky("PE08")
+```
+
+Use `omop_querylibrary_sticky_catalog(include_unavailable = TRUE)` to inspect
+the complete 201-ID partition: 129 executable bounded redesigns, 54
+vocabulary/reference metadata questions, and 18 blocked result shapes.

@@ -1,0 +1,2487 @@
+# ==============================================================================
+# Tests for recipe / recipe infrastructure
+# ==============================================================================
+
+# --- omop_variable -----------------------------------------------------------
+
+test_that("omop_variable creates correct class", {
+  v <- omop_variable(
+    name = "diabetes_flag",
+    table = "condition_occurrence",
+    concept_id = 201820,
+    concept_name = "Type 2 diabetes mellitus",
+    format = "binary"
+  )
+  expect_s3_class(v, "omop_variable")
+  expect_equal(v$name, "diabetes_flag")
+  expect_equal(v$table, "condition_occurrence")
+  expect_equal(v$concept_id, 201820L)
+  expect_equal(v$concept_name, "Type 2 diabetes mellitus")
+  expect_equal(v$format, "binary")
+  expect_equal(v$type, "auto")
+})
+
+test_that("omop_variable auto-generates name from concept_name", {
+  v <- omop_variable(
+    table = "condition_occurrence",
+    concept_name = "Type 2 Diabetes Mellitus"
+  )
+  expect_equal(v$name, "type_2_diabetes_mellitus")
+})
+
+test_that("omop_variable auto-generates name from concept_id", {
+  v <- omop_variable(table = "measurement", concept_id = 3004249)
+  expect_equal(v$name, "measurement_c3004249")
+})
+
+test_that("recipe concept ids are never silently truncated", {
+  expect_error(omop_variable(table = "measurement", concept_id = 1.5),
+               "concept_id.*exact integers")
+  expect_error(omop_variable_block(
+    table = "measurement", concept_ids = c(1, 2.5)),
+    "concept_ids.*exact integers")
+})
+
+test_that("omop_variable auto-generates name from column", {
+  v <- omop_variable(table = "person", column = "year_of_birth")
+  expect_equal(v$name, "person_year_of_birth")
+})
+
+test_that("omop_variable print works", {
+  v <- omop_variable(
+    name = "test_var",
+    table = "measurement",
+    concept_id = 3004249,
+    concept_name = "Hemoglobin",
+    format = "mean"
+  )
+  out <- capture.output(print(v))
+  expect_true(any(grepl("omop_variable", out)))
+  expect_true(any(grepl("measurement", out)))
+  expect_true(any(grepl("3004249", out)))
+})
+
+# --- omop_filter -------------------------------------------------------------
+
+test_that("omop_filter creates correct class", {
+  f <- omop_filter(type = "sex", level = "population",
+                    params = list(value = "F"))
+  expect_s3_class(f, "omop_filter")
+  expect_equal(f$type, "sex")
+  expect_equal(f$level, "population")
+  expect_equal(f$params$value, "F")
+  expect_true(grepl("Sex", f$label))
+})
+
+test_that("omop_population/block filters= accept a SINGLE object (normalized)", {
+  # Footgun fix: a bare filter/group used to yield a cryptic atomic-vector error
+  # deep in codegen/export. It is normalized to a list at construction.
+  pop1 <- omop_population(id = "f", filters = omop_filter_sex("F"))
+  expect_true(is.list(pop1$filters) && !inherits(pop1$filters, "omop_filter"))
+  expect_length(pop1$filters, 1L)
+  expect_s3_class(pop1$filters[[1]], "omop_filter")
+
+  pop2 <- omop_population(
+    id = "g",
+    index_event = omop_index_event(table = "visit_occurrence"),
+    filters = omop_filter_group(
+      omop_filter_sex("F"), omop_filter_age(18, 65), operator = "AND")
+  )
+  expect_length(pop2$filters, 1L)
+  # The bare group now survives circe export (previously errored).
+  rec <- omop_recipe(populations = pop2, variables = omop_variable_age(),
+                     outputs = omop_output(name = "o", type = "wide",
+                                           population_id = "g"))
+  expect_silent(recipe_export_circe(rec, population_id = "g"))
+
+  blk <- omop_variable_block(table = "measurement", concept_ids = 3004410L,
+                             filters = omop_filter_date_range(
+                               start = "2010-01-01", end = "2010-02-01"))
+  expect_length(blk$filters, 1L)
+  # An empty default stays an empty list (round-trip stability).
+  expect_length(omop_population()$filters, 0L)
+})
+
+test_that("omop_filter_sex convenience constructor", {
+  f <- omop_filter_sex("M")
+  expect_s3_class(f, "omop_filter")
+  expect_equal(f$type, "sex")
+  expect_equal(f$level, "population")
+  expect_equal(f$params$value, "M")
+})
+
+test_that("omop_filter_age convenience constructor", {
+  f <- omop_filter_age(min = 18, max = 65)
+  expect_s3_class(f, "omop_filter")
+  expect_equal(f$type, "age_range")
+  expect_equal(f$params$min, 18)
+  expect_equal(f$params$max, 65)
+  expect_null(f$params$reference_date)
+
+  fy <- omop_filter_age(min = 65, year = 2024)
+  expect_equal(fy$params$reference_date, "2024-07-01")
+
+  fd <- omop_filter_age(min = 65, reference_date = "2024-01-01")
+  expect_equal(fd$params$reference_date, "2024-01-01")
+})
+
+test_that("omop_filter_cohort convenience constructor", {
+  f <- omop_filter_cohort(42)
+  expect_s3_class(f, "omop_filter")
+  expect_equal(f$type, "cohort")
+  expect_equal(f$level, "population")
+  expect_equal(f$params$cohort_definition_id, 42L)
+})
+
+test_that("omop_filter_has_concept convenience constructor", {
+  f <- omop_filter_has_concept(201820, "condition_occurrence", "Diabetes")
+  expect_s3_class(f, "omop_filter")
+  expect_equal(f$type, "has_concept")
+  expect_equal(f$level, "population")
+  expect_equal(f$params$concept_id, 201820L)
+  expect_true(grepl("Diabetes", f$label))
+})
+
+test_that("omop_filter_date_range constructor", {
+  f <- omop_filter_date_range(
+    start = "2020-01-01", end = "2023-12-31",
+    date_column = "measurement_date")
+  expect_s3_class(f, "omop_filter")
+  expect_equal(f$type, "date_range")
+  expect_equal(f$level, "row")
+  expect_equal(f$params$start, "2020-01-01")
+  expect_equal(f$params$date_column, "measurement_date")
+})
+
+test_that("omop_filter_date_range validates ISO dates and ordering", {
+  expect_error(omop_filter_date_range("2020-01-01", NULL),
+               "requires both start and end")
+  expect_error(omop_filter_date_range("01-01-2020", "2020-03-01"),
+               "ISO date")
+  expect_error(omop_filter_date_range("2020-02-30", "2020-04-01"),
+               "valid calendar date")
+  expect_error(omop_filter_date_range("2020-02-01", "2020-01-31"),
+               "start must not be after end")
+  # Width is authoritative server policy (derived from DataSHIELD options),
+  # not a hard-coded client constant.
+  expect_s3_class(omop_filter_date_range("2020-01-01", "2020-01-02"),
+                  "omop_filter")
+})
+
+test_that("omop_filter_value constructor with safe_bins", {
+  bins <- .test_safe_bins(c(0, 5, 10, 15, 20))
+  f <- omop_filter_value(column = "value_as_number", threshold = 6.5,
+                          direction = "above", safe_bins = bins)
+  expect_s3_class(f, "omop_filter")
+  expect_equal(f$type, "value_bin")
+  expect_equal(f$level, "row")
+  # Threshold 6.5 falls in bin [5, 10), direction "above" → lower=5, upper=20
+  expect_equal(f$params$value$lower, 5)
+  expect_equal(f$params$value$upper, 20)
+})
+
+test_that("omop_filter_value rejects NULL safe_bins", {
+  expect_error(
+    omop_filter_value(threshold = 5, direction = "above", safe_bins = NULL),
+    "server-issued"
+  )
+})
+
+test_that("omop_filter_value rejects degenerate bins", {
+  # Single break point → fewer than 2 breaks
+  expect_error(
+    omop_filter_value(threshold = 5, direction = "above",
+                       safe_bins = .test_safe_bins(c(5))),
+    "bin edges"
+  )
+  # Empty breaks
+  expect_error(
+    omop_filter_value(threshold = 5, direction = "above",
+                       safe_bins = .test_safe_bins(numeric(0))),
+    "bin edges"
+  )
+})
+
+test_that("omop_filter_value direction=below reverses bin range", {
+  bins <- .test_safe_bins(c(0, 5, 10, 15, 20))
+  f <- omop_filter_value(threshold = 12, direction = "below", safe_bins = bins)
+  # threshold 12 → findInterval in [10,15) → bin_idx=3 → lower=0, upper=breaks[4]=15
+  expect_equal(f$params$value$lower, 0)
+  expect_equal(f$params$value$upper, 15)
+})
+
+test_that("omop_filter_value label is human-readable", {
+  bins <- .test_safe_bins(c(0, 5, 10, 15, 20))
+  f <- omop_filter_value(column = "quantity", threshold = 7,
+                          direction = "above", safe_bins = bins)
+  expect_true(grepl("quantity", f$label))
+  expect_true(grepl("above", f$label))
+})
+
+test_that("omop_filter_value round-trip through recipe_to_plan", {
+  bins <- .test_safe_bins(c(0, 5, 10, 15, 20))
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_variable(r, name = "v", table = "measurement",
+                            concept_id = 3004249)
+  r <- dsOMOPClient:::recipe_add_filter(r, omop_filter_value(
+    column = "value_as_number", threshold = 7,
+    direction = "above", safe_bins = bins
+  ))
+  r <- dsOMOPClient:::recipe_add_output(r, omop_output(name = "out", type = "long"))
+  plan <- recipe_to_plan(r)
+  out <- plan$outputs$out
+  # Row-level value_bin filter should compile into the executable custom filter
+  # tree (output$filters$custom — the slot the server actually runs).
+  ft <- out$filters$custom
+  expect_true(!is.null(ft))
+  # Should contain a value_bin leaf node
+  leaf <- if ("and" %in% names(ft)) ft$and[[1]] else ft
+  expect_equal(leaf$op, "value_bin")
+  expect_equal(leaf$var, "value_as_number")
+})
+
+test_that("date_range compiles to one table-aware BETWEEN leaf", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_variable(r, name = "v", table = "condition_occurrence",
+                            concept_id = 201820)
+  r <- dsOMOPClient:::recipe_add_filter(r, omop_filter_date_range("2020-01-01", "2023-12-31"))
+  r <- dsOMOPClient:::recipe_add_output(r, omop_output(name = "ev", type = "long"))
+  plan <- recipe_to_plan(r)
+  ft <- plan$outputs$ev$filters$custom
+  expect_equal(ft$var, "condition_start_date")
+  expect_equal(ft$op, "between")
+  expect_equal(ft$value, c("2020-01-01", "2023-12-31"))
+})
+
+test_that("omop_filter print works", {
+  f <- omop_filter_sex("F")
+  out <- capture.output(print(f))
+  expect_true(any(grepl("omop_filter", out)))
+  expect_true(any(grepl("population", out)))
+})
+
+# --- convenience derived variable constructors --------------------------------
+
+test_that("omop_variable_age creates correct structure", {
+  v <- omop_variable_age()
+  expect_s3_class(v, "omop_variable")
+  expect_equal(v$name, "age")
+  expect_equal(v$table, "person")
+  expect_equal(v$format, "age")
+  expect_equal(v$derived$kind, "age")
+  expect_equal(v$derived$reference, "today")
+  expect_equal(v$derived$reference_date, format(Sys.Date(), "%Y-%m-%d"))
+
+  v2 <- omop_variable_age(name = "age_at_index", reference = "index")
+  expect_equal(v2$name, "age_at_index")
+  expect_equal(v2$derived$reference, "index")
+})
+
+test_that("omop_variable_sex creates correct structure", {
+  v <- omop_variable_sex()
+  expect_s3_class(v, "omop_variable")
+  expect_equal(v$name, "sex")
+  expect_equal(v$format, "sex_mf")
+  expect_equal(v$derived$kind, "sex_mf")
+})
+
+test_that("omop_variable_obs_duration creates correct structure", {
+  v <- omop_variable_obs_duration()
+  expect_s3_class(v, "omop_variable")
+  expect_equal(v$name, "obs_duration")
+  expect_equal(v$format, "obs_duration")
+  expect_equal(v$derived$kind, "obs_duration")
+  expect_equal(v$derived$period_policy, "total")
+  expect_equal(
+    omop_variable_obs_duration(period_policy = "longest")$derived$period_policy,
+    "longest"
+  )
+  expect_error(omop_variable_obs_duration(period_policy = "union"),
+               "should be one of")
+
+  r <- omop_recipe(
+    variables = omop_variable_obs_duration(period_policy = "longest"),
+    outputs = omop_output(type = "wide")
+  )
+  code <- recipe_to_code(r)
+  expect_match(code, 'period_policy = "longest"', fixed = TRUE)
+  rebuilt <- eval(parse(text = code), envir = new.env(parent = globalenv()))
+  expect_equal(
+    rebuilt$variables$obs_duration$derived$period_policy,
+    "longest"
+  )
+})
+
+test_that("omop_variable_drug_duration creates correct structure", {
+  v <- omop_variable_drug_duration(concept_id = 1124300,
+    concept_name = "Metformin", agg = "sum")
+  expect_s3_class(v, "omop_variable")
+  expect_equal(v$table, "drug_exposure")
+  expect_equal(v$concept_id, 1124300L)
+  expect_equal(v$format, "drug_duration")
+  expect_equal(v$derived$kind, "drug_duration")
+  expect_equal(v$derived$agg, "sum")
+  expect_true(grepl("metformin", v$name))
+  expect_true(grepl("sum", v$name))
+})
+
+test_that("omop_variable_sum creates correct structure", {
+  v <- omop_variable_sum("drug_exposure", "days_supply",
+    concept_id = 1124300)
+  expect_s3_class(v, "omop_variable")
+  expect_equal(v$format, "sum")
+  expect_equal(v$value_source, "days_supply")
+  expect_equal(v$derived$kind, "sum")
+  expect_equal(v$derived$column, "days_supply")
+})
+
+test_that("omop_variable_n_distinct creates correct structure", {
+  v <- omop_variable_n_distinct("condition_occurrence")
+  expect_s3_class(v, "omop_variable")
+  expect_equal(v$name, "n_distinct_condition_occurrence")
+  expect_equal(v$format, "n_distinct")
+  expect_equal(v$derived$kind, "n_distinct")
+})
+
+test_that("omop_filter_sex normalizes case-insensitively", {
+  expect_equal(omop_filter_sex("F")$params$value, "F")
+  expect_equal(omop_filter_sex("f")$params$value, "F")
+  expect_equal(omop_filter_sex("female")$params$value, "F")
+  expect_equal(omop_filter_sex("Female")$params$value, "F")
+  expect_equal(omop_filter_sex("FEMALE")$params$value, "F")
+  expect_equal(omop_filter_sex("M")$params$value, "M")
+  expect_equal(omop_filter_sex("m")$params$value, "M")
+  expect_equal(omop_filter_sex("male")$params$value, "M")
+  expect_equal(omop_filter_sex("Male")$params$value, "M")
+  expect_equal(omop_filter_sex("MALE")$params$value, "M")
+  expect_error(omop_filter_sex("unknown"), "Invalid sex value")
+})
+
+test_that("derived variables can be added to recipe", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_age())
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_sex())
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_obs_duration())
+  expect_equal(length(r$variables), 3)
+  expect_true("age" %in% names(r$variables))
+  expect_true("sex" %in% names(r$variables))
+  expect_true("obs_duration" %in% names(r$variables))
+})
+
+test_that("recipe_to_plan routes derived variables correctly", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_age())
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_sex())
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable(
+    table = "condition_occurrence", concept_id = 201820, format = "binary",
+    name = "diabetes"))
+  r <- dsOMOPClient:::recipe_add_output(r, omop_output(name = "out1", type = "wide"))
+  plan <- recipe_to_plan(r)
+  out <- plan$outputs[["out1"]]
+  expect_equal(out$type, "person_level")
+  expect_true(!is.null(out$derived_columns))
+  expect_equal(length(out$derived_columns), 2)
+  kinds <- vapply(out$derived_columns, function(s) s$kind, character(1))
+  expect_true("age" %in% kinds)
+  expect_true("sex_mf" %in% kinds)
+})
+
+test_that("recipe_to_plan handles only-derived recipes", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_age())
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_sex())
+  r <- dsOMOPClient:::recipe_add_output(r, omop_output(name = "demog", type = "wide"))
+  plan <- recipe_to_plan(r)
+  out <- plan$outputs[["demog"]]
+  expect_equal(out$type, "person_level")
+  expect_equal(length(out$tables), 0)
+  expect_equal(length(out$derived_columns), 2)
+})
+
+test_that("recipe_to_code emits convenience constructors for derived", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_age())
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_sex())
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_n_distinct("condition_occurrence"))
+  r <- dsOMOPClient:::recipe_add_output(r, omop_output(name = "out", type = "wide"))
+  code <- recipe_to_code(r)
+  expect_true(grepl("omop_variable_age", code))
+  expect_true(grepl("omop_variable_sex", code))
+  expect_true(grepl("omop_variable_n_distinct", code))
+})
+
+test_that("JSON round-trip preserves derived metadata", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_age(reference = "index"))
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_sex())
+  r <- dsOMOPClient:::recipe_add_output(r, omop_output(name = "out", type = "wide"))
+  json <- recipe_export_json(r)
+  r2 <- recipe_import_json(json)
+  expect_equal(r2$variables[["age"]]$derived$kind, "age")
+  expect_equal(r2$variables[["age"]]$derived$reference, "index")
+  expect_equal(r2$variables[["sex"]]$derived$kind, "sex_mf")
+})
+
+# --- new feature spec constructors --------------------------------------------
+
+test_that("omop.feature.drug_duration creates correct spec", {
+  spec <- omop.feature.drug_duration(c(1124300), agg = "sum", name = "met_dur")
+  expect_s3_class(spec, "omop_feature_spec")
+  expect_equal(spec$type, "drug_duration")
+  expect_equal(spec$agg, "sum")
+  expect_equal(spec$name, "met_dur")
+})
+
+test_that("omop.feature.sum_value creates correct spec", {
+  spec <- omop.feature.sum_value(c(1124300), value_column = "quantity")
+  expect_s3_class(spec, "omop_feature_spec")
+  expect_equal(spec$type, "sum_value")
+  expect_equal(spec$value_column, "quantity")
+})
+
+test_that("omop.feature.n_distinct creates correct spec", {
+  spec <- omop.feature.n_distinct(name = "n_cond")
+  expect_s3_class(spec, "omop_feature_spec")
+  expect_equal(spec$type, "n_distinct")
+  expect_equal(spec$name, "n_cond")
+})
+
+# --- omop_output -------------------------------------------------------------
+
+test_that("omop_output creates correct class", {
+  o <- omop_output(name = "patient_data", type = "wide")
+  expect_s3_class(o, "omop_output")
+  expect_equal(o$name, "patient_data")
+  expect_equal(o$type, "wide")
+  expect_null(o$variables)
+})
+
+test_that("omop_output with variables subset", {
+  o <- omop_output(name = "events", type = "long",
+                    variables = c("diabetes_flag", "hemoglobin"))
+  expect_equal(o$variables, c("diabetes_flag", "hemoglobin"))
+})
+
+test_that("omop_output print works", {
+  o <- omop_output(name = "test_out", type = "features",
+                    variables = c("a", "b"))
+  out <- capture.output(print(o))
+  expect_true(any(grepl("omop_output", out)))
+  expect_true(any(grepl("features", out)))
+})
+
+# --- omop_recipe ---------------------------------------------------------------
+
+test_that("omop_recipe creates empty recipe", {
+  c <- omop_recipe()
+  expect_s3_class(c, "omop_recipe")
+  expect_equal(length(c$variables), 0)
+  expect_equal(length(c$filters), 0)
+  expect_equal(length(c$outputs), 0)
+  expect_true(inherits(c$meta$created, "POSIXct"))
+})
+
+test_that("recipe_add_variable adds variable", {
+  c <- omop_recipe()
+  v <- omop_variable(name = "test", table = "person",
+                      column = "year_of_birth")
+  c <- dsOMOPClient:::recipe_add_variable(c, v)
+  expect_equal(length(c$variables), 1)
+  expect_equal(c$variables$test$table, "person")
+})
+
+test_that("recipe_add_variable with inline args", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "test", table = "person",
+                          column = "year_of_birth")
+  expect_equal(length(c$variables), 1)
+  expect_equal(c$variables$test$column, "year_of_birth")
+})
+
+test_that("recipe_add_variable rejects non-recipe", {
+  expect_error(dsOMOPClient:::recipe_add_variable(list(), omop_variable(table = "person")),
+               "omop_recipe")
+})
+
+test_that("recipe_remove_variable removes by name", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "a", table = "person")
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "b", table = "person")
+  expect_equal(length(c$variables), 2)
+  c <- dsOMOPClient:::recipe_remove_variable(c, "a")
+  expect_equal(length(c$variables), 1)
+  expect_null(c$variables$a)
+  expect_true(!is.null(c$variables$b))
+})
+
+test_that("recipe_add_filter adds filter", {
+  c <- omop_recipe()
+  f <- omop_filter_sex("F")
+  c <- dsOMOPClient:::recipe_add_filter(c, f)
+  expect_equal(length(c$filters), 1)
+})
+
+test_that("recipe_add_filter auto-generates ID", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_filter(c, omop_filter_sex("F"))
+  id <- names(c$filters)[1]
+  expect_true(grepl("sex", id))
+})
+
+test_that("recipe_add_filter with explicit ID", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_filter(c, omop_filter_sex("F"), id = "my_filter")
+  expect_true("my_filter" %in% names(c$filters))
+})
+
+test_that("recipe_remove_filter removes by ID", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_filter(c, omop_filter_sex("F"), id = "f1")
+  c <- dsOMOPClient:::recipe_add_filter(c, omop_filter_age(18, 65), id = "f2")
+  c <- dsOMOPClient:::recipe_remove_filter(c, "f1")
+  expect_equal(length(c$filters), 1)
+  expect_null(c$filters$f1)
+})
+
+test_that("recipe_add_output adds output", {
+  c <- omop_recipe()
+  o <- omop_output(name = "wide_out", type = "wide")
+  c <- dsOMOPClient:::recipe_add_output(c, o)
+  expect_equal(length(c$outputs), 1)
+  expect_equal(c$outputs$wide_out$type, "wide")
+})
+
+test_that("recipe_remove_output removes by name", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "a", type = "wide"))
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "b", type = "long"))
+  c <- dsOMOPClient:::recipe_remove_output(c, "a")
+  expect_equal(length(c$outputs), 1)
+  expect_null(c$outputs$a)
+})
+
+test_that("recipe_clear returns empty recipe", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "x", table = "person")
+  c <- dsOMOPClient:::recipe_add_filter(c, omop_filter_sex("M"))
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "o", type = "wide"))
+  c <- dsOMOPClient:::recipe_clear(c)
+  expect_s3_class(c, "omop_recipe")
+  expect_equal(length(c$variables), 0)
+  expect_equal(length(c$filters), 0)
+  expect_equal(length(c$outputs), 0)
+})
+
+test_that("recipe print works", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c,
+    name = "diab", table = "condition_occurrence",
+    concept_id = 201820, concept_name = "Diabetes",
+    format = "binary")
+  c <- dsOMOPClient:::recipe_add_filter(c, omop_filter_sex("F"), id = "sex_f")
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "wide_out", type = "wide"))
+  out <- capture.output(print(c))
+  expect_true(any(grepl("omop_recipe", out)))
+  expect_true(any(grepl("diab", out)))
+  expect_true(any(grepl("population", out)))
+  expect_true(any(grepl("wide", out)))
+})
+
+# --- recipe_to_plan -----------------------------------------------------------
+
+test_that("recipe_to_plan generates plan with wide output", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c,
+    name = "yob", table = "person", column = "year_of_birth")
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "demographics", type = "wide"))
+  plan <- recipe_to_plan(c)
+  expect_s3_class(plan, "omop_plan")
+  expect_true("demographics" %in% names(plan$outputs))
+  expect_equal(plan$outputs$demographics$type, "person_level")
+})
+
+test_that("recipe_to_plan generates plan with long output", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c,
+    name = "cond", table = "condition_occurrence",
+    concept_id = 201820, format = "raw")
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "events", type = "long"))
+  plan <- recipe_to_plan(c)
+  expect_true("events" %in% names(plan$outputs))
+})
+
+test_that("recipe_to_plan applies population filters", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "yob", table = "person",
+                          column = "year_of_birth")
+  c <- dsOMOPClient:::recipe_add_filter(c, omop_filter_sex("F"), id = "sex_filter")
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "out", type = "wide"))
+  plan <- recipe_to_plan(c)
+  expect_true(!is.null(plan$cohort))
+  expect_equal(plan$cohort$type, "spec")
+})
+
+test_that("recipe_to_plan rejects non-recipe", {
+  expect_error(recipe_to_plan(list()), "omop_recipe")
+})
+
+# --- recipe_to_code -----------------------------------------------------------
+
+test_that("recipe_to_code generates R code", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c,
+    name = "hba1c", table = "measurement",
+    concept_id = 3004249, format = "mean")
+  c <- dsOMOPClient:::recipe_add_filter(c, omop_filter_sex("F"))
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "data", type = "wide"))
+  code <- recipe_to_code(c)
+  expect_true(nchar(code) > 0)
+  expect_true(grepl("omop_variable", code))
+  expect_true(grepl("omop_filter_sex", code))
+  expect_true(grepl("omop_output", code))
+})
+
+test_that("recipe_to_code rejects non-recipe", {
+  expect_error(recipe_to_code(list()), "omop_recipe")
+})
+
+# --- recipe_preview_schema ----------------------------------------------------
+
+test_that("recipe_preview_schema returns schema per output", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c,
+    name = "yob", table = "person", column = "year_of_birth",
+    type = "numeric")
+  c <- dsOMOPClient:::recipe_add_variable(c,
+    name = "diab", table = "condition_occurrence",
+    concept_id = 201820, format = "binary")
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "out1", type = "wide"))
+  schemas <- recipe_preview_schema(c)
+  expect_true(is.list(schemas))
+  expect_true("out1" %in% names(schemas))
+  df <- schemas$out1
+  expect_true(is.data.frame(df))
+  # Schema now pins an implicit person_id join-key row first (+ 2 variables).
+  expect_equal(nrow(df), 3)
+  expect_true("person_id" %in% df$column)
+  expect_true("yob" %in% df$column)
+  expect_true("diab" %in% df$column)
+  expect_equal(attr(df, "join_key"), "person_id")
+})
+
+test_that("recipe_preview_schema with subset variables", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "a", table = "person", column = "x")
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "b", table = "person", column = "y")
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "out", type = "wide",
+                                       variables = c("a")))
+  schemas <- recipe_preview_schema(c)
+  # Implicit person_id row + the single subset variable "a".
+  expect_equal(nrow(schemas$out), 2)
+  expect_equal(schemas$out$column, c("person_id", "a"))
+})
+
+test_that("recipe_preview_schema empty recipe", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "empty_out", type = "wide"))
+  expect_error(recipe_preview_schema(c), "has no variables to compile")
+})
+
+# --- .sanitize_name ----------------------------------------------------------
+
+test_that(".sanitize_name handles various inputs", {
+  expect_equal(.sanitize_name("Type 2 Diabetes Mellitus"),
+               "type_2_diabetes_mellitus")
+  expect_equal(.sanitize_name("HbA1c (%)"), "hba1c")
+  expect_equal(.sanitize_name("123_bad"), "v_123_bad")
+  expect_equal(.sanitize_name("  spaces  "), "spaces")
+})
+
+test_that(".sanitize_name handles empty string", {
+  expect_equal(.sanitize_name(""), "var")
+})
+
+test_that(".sanitize_name handles special characters", {
+  expect_equal(.sanitize_name("a + b / c"), "a_b_c")
+  expect_equal(.sanitize_name("---test---"), "test")
+  expect_equal(.sanitize_name("CamelCase"), "camelcase")
+})
+
+test_that(".sanitize_name truncates long names", {
+  long <- paste(rep("a", 60), collapse = "")
+  result <- .sanitize_name(long)
+  expect_true(nchar(result) <= 50)
+})
+
+# --- .ensure_unique_name -----------------------------------------------------
+
+test_that(".ensure_unique_name returns name when no conflict", {
+  expect_equal(.ensure_unique_name("foo", c("bar", "baz")), "foo")
+})
+
+test_that(".ensure_unique_name adds _2 suffix on first collision", {
+  expect_equal(.ensure_unique_name("foo", c("foo", "bar")), "foo_2")
+})
+
+test_that(".ensure_unique_name increments suffix", {
+  expect_equal(.ensure_unique_name("foo", c("foo", "foo_2", "foo_3")), "foo_4")
+})
+
+test_that(".ensure_unique_name handles empty existing", {
+  expect_equal(.ensure_unique_name("test", character(0)), "test")
+})
+
+test_that(".ensure_unique_name escapes R reserved words", {
+  expect_equal(.ensure_unique_name("if", character(0)), "if_var")
+  expect_equal(.ensure_unique_name("TRUE", character(0)), "TRUE_var")
+  expect_equal(.ensure_unique_name("NULL", character(0)), "NULL_var")
+  expect_equal(.ensure_unique_name("for", character(0)), "for_var")
+})
+
+test_that(".ensure_unique_name escapes reserved then deduplicates", {
+  expect_equal(.ensure_unique_name("if", c("if_var")), "if_var_2")
+})
+
+# --- .suffix_names -----------------------------------------------------------
+
+test_that(".suffix_names index mode", {
+  result <- .suffix_names("hba1c", 3, mode = "index")
+  expect_equal(result, c("hba1c_1", "hba1c_2", "hba1c_3"))
+})
+
+test_that(".suffix_names returns base_name for n=1", {
+  expect_equal(.suffix_names("foo", 1, mode = "index"), "foo")
+})
+
+test_that(".suffix_names range mode", {
+  ranges <- matrix(c(0, 30, 31, 90, 91, 365), ncol = 2, byrow = TRUE)
+  result <- .suffix_names("drug", 3, mode = "range", ranges = ranges)
+  expect_equal(result, c("drug_d0_30", "drug_d31_90", "drug_d91_365"))
+})
+
+test_that(".suffix_names label mode", {
+  result <- .suffix_names("med", 2, mode = "label",
+                           labels = c("Aspirin", "Metformin"))
+  expect_equal(result, c("med_aspirin", "med_metformin"))
+})
+
+test_that(".suffix_names falls back to index when labels missing", {
+  result <- .suffix_names("med", 3, mode = "label", labels = c("a"))
+  expect_equal(result, c("med_1", "med_2", "med_3"))
+})
+
+test_that(".suffix_names falls back to index when ranges missing", {
+  result <- .suffix_names("x", 2, mode = "range")
+  expect_equal(result, c("x_1", "x_2"))
+})
+
+# --- omop_filter_group -------------------------------------------------------
+
+test_that("omop_filter_group creates AND group", {
+  f1 <- omop_filter_sex("F")
+  f2 <- omop_filter_age(min = 18, max = 65)
+  g <- omop_filter_group(f1, f2, operator = "AND")
+  expect_s3_class(g, "omop_filter_group")
+  expect_equal(g$operator, "AND")
+  expect_equal(length(g$children), 2)
+  expect_true(grepl("AND", g$label))
+})
+
+test_that("omop_filter_group creates OR group", {
+  f1 <- omop_filter_sex("F")
+  f2 <- omop_filter_sex("M")
+  g <- omop_filter_group(f1, f2, operator = "OR")
+  expect_equal(g$operator, "OR")
+  expect_true(grepl("OR", g$label))
+})
+
+test_that("omop_filter_group allows nested groups", {
+  f1 <- omop_filter_sex("F")
+  f2 <- omop_filter_age(18, 65)
+  inner <- omop_filter_group(f1, f2, operator = "AND")
+  f3 <- omop_filter_has_concept(201820, "condition_occurrence")
+  outer <- omop_filter_group(inner, f3, operator = "OR")
+  expect_s3_class(outer, "omop_filter_group")
+  expect_s3_class(outer$children[[1]], "omop_filter_group")
+  expect_s3_class(outer$children[[2]], "omop_filter")
+})
+
+test_that("omop_filter_group rejects non-filter arguments", {
+  expect_error(
+    omop_filter_group("not_a_filter", operator = "AND"),
+    "omop_filter"
+  )
+})
+
+test_that("omop_filter_group custom label", {
+  f1 <- omop_filter_sex("F")
+  f2 <- omop_filter_age(18, 65)
+  g <- omop_filter_group(f1, f2, operator = "AND",
+                          label = "Adult females")
+  expect_equal(g$label, "Adult females")
+})
+
+test_that("omop_filter_group print works", {
+  f1 <- omop_filter_sex("F")
+  f2 <- omop_filter_age(18, 65)
+  g <- omop_filter_group(f1, f2, operator = "AND")
+  out <- capture.output(print(g))
+  expect_true(any(grepl("omop_filter_group", out)))
+  expect_true(any(grepl("AND", out)))
+})
+
+# --- omop_population ---------------------------------------------------------
+
+test_that("omop_population creates correct class", {
+  p <- omop_population(id = "adults", label = "Adults 18+",
+                        parent_id = "base")
+  expect_s3_class(p, "omop_population")
+  expect_equal(p$id, "adults")
+  expect_equal(p$label, "Adults 18+")
+  expect_equal(p$parent_id, "base")
+  expect_null(p$cohort_definition_id)
+})
+
+test_that("omop_population with cohort ID", {
+  p <- omop_population(id = "cohort_pop", cohort_definition_id = 42)
+  expect_equal(p$cohort_definition_id, 42L)
+})
+
+test_that("recipe_set_cohort updates the base population", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_set_cohort(r, 42)
+  expect_equal(r$populations$base$cohort_definition_id, 42L)
+
+  r <- dsOMOPClient:::recipe_set_cohort(r, NULL)
+  expect_null(r$populations$base$cohort_definition_id)
+})
+
+test_that("omop_population with filters", {
+  f <- omop_filter_age(18, 65)
+  p <- omop_population(id = "working_age", parent_id = "base",
+                        filters = list(f))
+  expect_equal(length(p$filters), 1)
+})
+
+test_that("omop_population print works", {
+  p <- omop_population(id = "test_pop", label = "Test", parent_id = "base")
+  out <- capture.output(print(p))
+  expect_true(any(grepl("omop_population", out)))
+  expect_true(any(grepl("base", out)))
+})
+
+# --- omop_variable_block -----------------------------------------------------
+
+test_that("omop_variable_block creates correct class", {
+  b <- omop_variable_block(
+    id = "cond_block", table = "condition_occurrence",
+    concept_ids = c(201820, 4229440),
+    concept_names = c("Diabetes", "Hypertension"),
+    format = "binary"
+  )
+  expect_s3_class(b, "omop_variable_block")
+  expect_equal(b$id, "cond_block")
+  expect_equal(b$table, "condition_occurrence")
+  expect_equal(b$concept_ids, c(201820L, 4229440L))
+  expect_equal(b$format, "binary")
+  expect_equal(b$population_id, "base")
+})
+
+test_that("omop_variable_block auto-generates id", {
+  b <- omop_variable_block(table = "measurement",
+                            concept_ids = c(1, 2, 3))
+  expect_true(grepl("block_measurement_3", b$id))
+})
+
+test_that("omop_variable_block with time window", {
+  b <- omop_variable_block(
+    table = "drug_exposure",
+    concept_ids = c(1, 2),
+    time_window = list(start = -365, end = 0)
+  )
+  expect_equal(b$time_window$start, -365)
+  expect_equal(b$time_window$end, 0)
+})
+
+test_that("omop_variable_block print works", {
+  b <- omop_variable_block(
+    table = "condition_occurrence",
+    concept_ids = c(1, 2, 3), format = "binary"
+  )
+  out <- capture.output(print(b))
+  expect_true(any(grepl("omop_variable_block", out)))
+  expect_true(any(grepl("condition_occurrence", out)))
+  expect_true(any(grepl("3", out)))
+})
+
+# --- omop_output enhanced types ----------------------------------------------
+
+test_that("omop_output supports baseline type", {
+  o <- omop_output(name = "demo", type = "baseline")
+  expect_equal(o$type, "baseline")
+})
+
+test_that("omop_output formals advertise only executable layouts", {
+  choices <- eval(formals(omop_output)$type)
+  expect_identical(choices, c(
+    "wide", "long", "features", "survival", "intervals", "baseline",
+    "temporal_covariates", "person_period"))
+  expect_false("covariates_sparse" %in% choices)
+})
+
+test_that("omop_output rejects the removed joined_long type", {
+  # joined_long was a false promise (compiled identically to long); a
+  # multi-table long output now always splits into per-table outputs.
+  expect_error(omop_output(name = "all_events", type = "joined_long"))
+})
+
+test_that("omop_output rejects legacy covariates_sparse type", {
+  expect_error(
+    omop_output(name = "features", type = "covariates_sparse"),
+    "no faithful executable mapping")
+})
+
+test_that("omop_output with population_id", {
+  o <- omop_output(name = "adult_data", type = "wide",
+                    population_id = "adults")
+  expect_equal(o$population_id, "adults")
+})
+
+# --- omop_variable enhanced fields -------------------------------------------
+
+test_that("omop_variable with time_window", {
+  v <- omop_variable(name = "recent_drug", table = "drug_exposure",
+                      concept_id = 123,
+                      time_window = list(start = -90, end = 0))
+  expect_equal(v$time_window$start, -90)
+  expect_equal(v$time_window$end, 0)
+})
+
+test_that("omop_variable with value_source", {
+  v <- omop_variable(name = "hba1c", table = "measurement",
+                      concept_id = 3004249,
+                      value_source = "value_as_number",
+                      format = "mean")
+  expect_equal(v$value_source, "value_as_number")
+})
+
+test_that("omop_variable with all format options", {
+  for (fmt in c("raw", "binary", "count", "first_value", "last_value",
+                "mean", "min", "max")) {
+    v <- omop_variable(name = paste0("v_", fmt), table = "t", format = fmt)
+    expect_equal(v$format, fmt)
+  }
+  expect_error(omop_variable(name = "v_binned", table = "t",
+                             format = "binned"),
+               "no executable feature mapping")
+  expect_error(omop_variable(name = "v_recency", table = "t",
+                             format = "time_since"),
+               "requires a fixed reference_date")
+  recency <- omop_variable(
+    name = "v_recency", table = "condition_occurrence", concept_id = 1,
+    format = "time_since", reference_date = "2024-01-31", unit = "month")
+  expect_equal(recency$derived$reference_date, "2024-01-31")
+  expect_equal(recency$derived$unit, "month")
+})
+
+test_that("omop_variable with all type options", {
+  for (tp in c("auto", "numeric", "categorical", "date", "boolean",
+               "integer", "character")) {
+    v <- omop_variable(name = paste0("v_", tp), table = "t", type = tp)
+    expect_equal(v$type, tp)
+  }
+})
+
+test_that("omop_variable with row-level filters", {
+  bins <- .test_safe_bins(c(0, 5, 10, 15, 20))
+  f <- omop_filter_value(threshold = 6.5, direction = "above", safe_bins = bins)
+  v <- omop_variable(name = "hba1c_high", table = "measurement",
+                      concept_id = 3004249, filters = list(f))
+  expect_equal(length(v$filters), 1)
+})
+
+# --- omop_filter enhanced types ----------------------------------------------
+
+test_that("omop_filter exposes only executable type-level pairs", {
+  expected <- list(
+    population = c(
+      "sex", "age_range", "age_group", "cohort", "has_concept",
+      "not_has_concept", "concept_count", "prior_observation", "followup",
+      "visit_count", "has_measurement", "missing_measurement"),
+    row = c("date_range", "concept_set", "value_bin", "value_concept",
+            "custom"))
+  expect_identical(.recipeFilterContract(), expected)
+
+  for (level in names(expected)) {
+    for (type in expected[[level]]) {
+      params <- if (identical(type, "custom")) {
+        list(var = "condition_type_concept_id", op = "in", value = 32020L)
+      } else {
+        list()
+      }
+      f <- omop_filter(type = type, level = level, params = params)
+      expect_identical(f$type, type)
+      expect_identical(f$level, level)
+      expect_identical(omop_filter(type = type, params = params)$level, level)
+    }
+  }
+
+  for (type in c("min_count", "top_n", "dedup")) {
+    expect_error(omop_filter(type = type), "no executable mapping")
+  }
+  expect_error(omop_filter(type = "sex", level = "row"),
+               "only at level 'population'")
+  expect_error(omop_filter(type = "date_range", level = "population"),
+               "only at level 'row'")
+  expect_error(omop_filter(type = "sex", level = "output"),
+               "Output-level recipe filters are not executable")
+})
+
+test_that("omop_filter auto-labels concept_set type", {
+  f <- omop_filter(type = "concept_set", level = "row",
+                    params = list(concept_ids = c(1, 2, 3)))
+  expect_true(grepl("3", f$label))
+})
+
+test_that("omop_filter auto-labels value_concept type", {
+  f <- omop_filter(type = "value_concept", level = "row",
+                    params = list(var = "value_as_concept_id",
+                                  value = c(45877985L, 45877994L)))
+  expect_match(f$label, "value_as_concept_id")
+  expect_match(f$label, "45877985")
+})
+
+test_that("omop_filter_has_concept with min_count", {
+  f <- omop_filter_has_concept(201820, "condition_occurrence",
+                                min_count = 3L)
+  expect_equal(f$params$min_count, 3L)
+  expect_true(grepl(">=3", f$label))
+})
+
+test_that("omop_filter_has_concept with window", {
+  f <- omop_filter_has_concept(201820, "condition_occurrence",
+                                window = list(start = -365, end = 0))
+  expect_equal(f$params$window$start, -365)
+})
+
+test_that("omop_filter_value with custom column", {
+  bins <- .test_safe_bins(c(0, 50, 100, 150, 200), column = "quantity",
+                          concept_id = NULL)
+  f <- omop_filter_value(column = "quantity", threshold = 100,
+                          direction = "above", safe_bins = bins)
+  expect_equal(f$params$var, "quantity")
+})
+
+# --- recipe populations --------------------------------------------------------
+
+test_that("omop_recipe has default base population", {
+  c <- omop_recipe()
+  expect_true("base" %in% names(c$populations))
+  expect_s3_class(c$populations$base, "omop_population")
+  expect_equal(c$populations$base$label, "All Persons")
+})
+
+test_that("recipe_add_population adds population", {
+  c <- omop_recipe()
+  p <- omop_population(id = "adults", label = "Adults", parent_id = "base")
+  c <- dsOMOPClient:::recipe_add_population(c, p)
+  expect_true("adults" %in% names(c$populations))
+  expect_equal(c$populations$adults$label, "Adults")
+})
+
+test_that("recipe_add_population validates parent exists", {
+  c <- omop_recipe()
+  p <- omop_population(id = "sub", label = "Sub", parent_id = "nonexistent")
+  expect_error(dsOMOPClient:::recipe_add_population(c, p), "not found")
+})
+
+test_that("recipe_remove_population works", {
+  c <- omop_recipe()
+  p <- omop_population(id = "test", label = "Test", parent_id = "base")
+  c <- dsOMOPClient:::recipe_add_population(c, p)
+  c <- dsOMOPClient:::recipe_remove_population(c, "test")
+  expect_null(c$populations$test)
+})
+
+test_that("recipe_remove_population cannot remove base", {
+  c <- omop_recipe()
+  expect_error(dsOMOPClient:::recipe_remove_population(c, "base"), "Cannot remove base")
+})
+
+# --- recipe blocks -------------------------------------------------------------
+
+test_that("recipe_add_block expands concepts into variables", {
+  c <- omop_recipe()
+  b <- omop_variable_block(
+    id = "cond_block", table = "condition_occurrence",
+    concept_ids = c(201820, 4229440),
+    concept_names = c("Diabetes", "Hypertension"),
+    format = "binary"
+  )
+  c <- dsOMOPClient:::recipe_add_block(c, b)
+  expect_true("cond_block" %in% names(c$blocks))
+  expect_equal(length(c$variables), 2)
+  # Check naming
+  expect_true("diabetes" %in% names(c$variables))
+  expect_true("hypertension" %in% names(c$variables))
+  # Check format propagation
+  expect_equal(c$variables$diabetes$format, "binary")
+  expect_equal(c$variables$hypertension$format, "binary")
+})
+
+test_that("recipe_add_block uses concept_id for naming when no name", {
+  c <- omop_recipe()
+  b <- omop_variable_block(
+    table = "measurement",
+    concept_ids = c(3004249, 3013290)
+  )
+  c <- dsOMOPClient:::recipe_add_block(c, b)
+  expect_true("measurement_c3004249" %in% names(c$variables))
+  expect_true("measurement_c3013290" %in% names(c$variables))
+})
+
+test_that("recipe_add_block deduplicates variable names", {
+  c <- omop_recipe()
+  # Add a variable with same name that block would generate
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "diabetes", table = "person")
+
+  b <- omop_variable_block(
+    table = "condition_occurrence",
+    concept_ids = c(201820),
+    concept_names = c("Diabetes"),
+    format = "binary"
+  )
+  c <- dsOMOPClient:::recipe_add_block(c, b)
+  expect_true("diabetes_2" %in% names(c$variables))
+})
+
+test_that("recipe_add_block propagates time_window", {
+  c <- omop_recipe()
+  b <- omop_variable_block(
+    table = "drug_exposure",
+    concept_ids = c(1, 2),
+    time_window = list(start = -90, end = 0),
+    format = "count"
+  )
+  c <- dsOMOPClient:::recipe_add_block(c, b)
+  for (v in c$variables) {
+    expect_equal(v$time_window$start, -90)
+    expect_equal(v$time_window$end, 0)
+  }
+})
+
+test_that("recipe_add_block propagates filters", {
+  c <- omop_recipe()
+  f <- omop_filter_date_range(start = "2020-01-01", end = "2023-12-31")
+  b <- omop_variable_block(
+    table = "measurement",
+    concept_ids = c(100),
+    format = "mean",
+    filters = list(f)
+  )
+  c <- dsOMOPClient:::recipe_add_block(c, b)
+  v <- c$variables[[1]]
+  expect_equal(length(v$filters), 1)
+})
+
+# --- recipe_add_variable unique naming -----------------------------------------
+
+test_that("recipe_add_variable auto-deduplicates names", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "test", table = "person")
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "test", table = "person")
+  expect_equal(length(c$variables), 2)
+  expect_true("test" %in% names(c$variables))
+  expect_true("test_2" %in% names(c$variables))
+})
+
+test_that("recipe_add_variable continues incrementing", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "x", table = "person")
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "x", table = "person")
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "x", table = "person")
+  expect_equal(length(c$variables), 3)
+  expect_equal(names(c$variables), c("x", "x_2", "x_3"))
+})
+
+# --- recipe_add_filter with groups ---------------------------------------------
+
+test_that("recipe_add_filter accepts filter group", {
+  c <- omop_recipe()
+  g <- omop_filter_group(
+    omop_filter_sex("F"),
+    omop_filter_age(18, 65),
+    operator = "AND"
+  )
+  c <- dsOMOPClient:::recipe_add_filter(c, g)
+  expect_equal(length(c$filters), 1)
+  expect_s3_class(c$filters[[1]], "omop_filter_group")
+})
+
+test_that("recipe_add_filter group auto-generates ID with operator", {
+  c <- omop_recipe()
+  g <- omop_filter_group(
+    omop_filter_sex("F"),
+    omop_filter_age(18, 65),
+    operator = "OR"
+  )
+  c <- dsOMOPClient:::recipe_add_filter(c, g)
+  id <- names(c$filters)[1]
+  expect_true(grepl("OR", id))
+})
+
+# --- .flatten_filters --------------------------------------------------------
+
+test_that(".flatten_filters extracts population level", {
+  filters <- list(
+    omop_filter_sex("F"),
+    omop_filter_date_range("2020-01-01", "2023-12-31"),
+    omop_filter_age(18, 65)
+  )
+  pop <- .flatten_filters(filters, level = "population")
+  expect_equal(length(pop), 2)  # sex + age
+  row <- .flatten_filters(filters, level = "row")
+  expect_equal(length(row), 1)  # date_range
+})
+
+test_that(".flatten_filters handles nested groups", {
+  g <- omop_filter_group(
+    omop_filter_sex("F"),
+    omop_filter_group(
+      omop_filter_age(18, 65),
+      omop_filter_has_concept(201820, "condition_occurrence"),
+      operator = "AND"
+    ),
+    operator = "OR"
+  )
+  pop <- .flatten_filters(list(g), level = "population")
+  expect_equal(length(pop), 3)  # sex, age, has_concept
+})
+
+test_that(".flatten_filters with NULL level returns all", {
+  filters <- list(
+    omop_filter_sex("F"),
+    omop_filter_date_range("2020-01-01", "2023-12-31")
+  )
+  all_filters <- .flatten_filters(filters, level = NULL)
+  expect_equal(length(all_filters), 2)
+})
+
+# --- recipe_to_plan with populations and blocks --------------------------------
+
+test_that("recipe_to_plan with cohort population", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_set_cohort(c, 42L)
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "v", table = "person",
+                          column = "year_of_birth")
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "out", type = "wide"))
+  plan <- recipe_to_plan(c)
+  expect_true(!is.null(plan$cohort))
+  expect_equal(plan$cohort$cohort_definition_id, 42L)
+})
+
+test_that("recipe_to_plan includes base population filters", {
+  c <- omop_recipe()
+  c$populations$base$filters <- list(omop_filter_age(18, 65))
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "v", table = "person",
+                          column = "year_of_birth")
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "out", type = "wide"))
+
+  plan <- recipe_to_plan(c)
+
+  expect_equal(plan$cohort$type, "spec")
+  expect_equal(plan$cohort$filter_tree$type, "age_range")
+})
+
+test_that("recipe_to_plan preserves population filter group tree", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_filter(c, omop_filter_group(
+    omop_filter_sex("F"),
+    omop_filter_group(
+      omop_filter_age(18, 65),
+      omop_filter_has_concept(201820, "condition_occurrence"),
+      operator = "AND"
+    ),
+    operator = "OR"
+  ))
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "v", table = "person",
+                          column = "year_of_birth")
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "out", type = "wide"))
+
+  plan <- recipe_to_plan(c)
+
+  expect_true("or" %in% names(plan$cohort$filter_tree))
+  expect_true("and" %in% names(plan$cohort$filter_tree$or[[2]]))
+})
+
+test_that("recipe_to_plan supports cohort definition filters", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_filter(c, omop_filter_cohort(42))
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "v", table = "person",
+                          column = "year_of_birth")
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "out", type = "wide"))
+
+  plan <- recipe_to_plan(c)
+
+  expect_equal(plan$cohort$filter_tree$params$cohort_definition_id, 42L)
+})
+
+test_that("row filter tree skips population filters inside mixed groups", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_filter(c, omop_filter_group(
+    omop_filter_sex("F"),
+    omop_filter_date_range("2020-01-01", "2023-12-31"),
+    operator = "AND"
+  ))
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "cond", table = "condition_occurrence",
+                          concept_id = 201820)
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "events", type = "long"))
+
+  plan <- recipe_to_plan(c)
+
+  expect_equal(plan$cohort$filter_tree$type, "sex")
+  ft <- plan$outputs$events$filters$custom
+  expect_equal(ft$op, "between")
+  expect_equal(ft$var, "condition_start_date")
+})
+
+test_that("recipe_to_plan with features output", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c,
+    name = "diabetes", table = "condition_occurrence",
+    concept_id = 201820, format = "binary")
+  c <- dsOMOPClient:::recipe_add_variable(c,
+    name = "aspirin_count", table = "drug_exposure",
+    concept_id = 1154070, format = "count")
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "feat", type = "features"))
+  plan <- recipe_to_plan(c)
+  # Features from two tables -> two output entries
+  feat_names <- grep("feat", names(plan$outputs), value = TRUE)
+  expect_true(length(feat_names) >= 1)
+})
+
+test_that("recipe_to_plan with row-level date filter", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "v", table = "condition_occurrence",
+                          concept_id = 201820)
+  c <- dsOMOPClient:::recipe_add_filter(c, omop_filter_date_range("2020-01-01", "2023-12-31"))
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "events", type = "long"))
+  plan <- recipe_to_plan(c)
+  # Row filter compiled into the executable custom filter tree on the output
+  out <- plan$outputs$events
+  expect_true(!is.null(out$filters$custom))
+  expect_equal(out$filters$custom$op, "between")
+})
+
+test_that("recipe_to_plan with baseline output type", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "yob", table = "person",
+                          column = "year_of_birth")
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "demo", type = "baseline"))
+  plan <- recipe_to_plan(c)
+  expect_true("demo" %in% names(plan$outputs))
+  expect_equal(plan$outputs$demo$type, "baseline")
+})
+
+test_that("recipe_to_plan with survival output type", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "event", table = "condition_occurrence",
+                          concept_id = 201820)
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "surv", type = "survival"))
+  plan <- recipe_to_plan(c)
+  expect_true("surv" %in% names(plan$outputs))
+  expect_equal(plan$outputs$surv$type, "survival")
+})
+
+test_that("recipe_to_plan with intervals output type", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "v", table = "condition_occurrence",
+                          concept_id = 201820)
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "int", type = "intervals"))
+  plan <- recipe_to_plan(c)
+  expect_true("int" %in% names(plan$outputs))
+  expect_equal(plan$outputs$int$type, "intervals_long")
+})
+
+# --- recipe_to_code enhanced ---------------------------------------------------
+
+test_that("recipe_to_code includes populations", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_population(c,
+    omop_population(id = "adults", label = "Adults 18+", parent_id = "base"))
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "v", table = "person")
+  code <- recipe_to_code(c)
+  expect_true(grepl("omop_population", code))
+  expect_true(grepl("adults", code))
+})
+
+test_that("recipe_to_code includes blocks", {
+  c <- omop_recipe()
+  b <- omop_variable_block(
+    id = "cond", table = "condition_occurrence",
+    concept_ids = c(201820, 4229440), format = "binary"
+  )
+  c <- dsOMOPClient:::recipe_add_block(c, b)
+  code <- recipe_to_code(c)
+  expect_true(grepl("omop_variable_block", code))
+  expect_true(grepl("blocks = ", code, fixed = TRUE))
+})
+
+test_that("recipe_to_code includes filter groups", {
+  c <- omop_recipe()
+  g <- omop_filter_group(
+    omop_filter_sex("F"),
+    omop_filter_age(18, 65),
+    operator = "AND"
+  )
+  c <- dsOMOPClient:::recipe_add_filter(c, g)
+  code <- recipe_to_code(c)
+  expect_true(grepl("omop_filter_group", code))
+  expect_true(grepl("AND", code))
+})
+
+test_that("recipe_to_code does not include library calls", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "v", table = "person")
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "o", type = "wide"))
+  code <- recipe_to_code(c)
+  expect_false(grepl("library", code))
+})
+
+test_that("recipe_to_code skips base population", {
+  c <- omop_recipe()
+  code <- recipe_to_code(c)
+  # The implicit base population must not be re-emitted as an omop_population()
+  # call; an empty recipe codegens to a bare omop_recipe().
+  expect_false(grepl("omop_population", code))
+  expect_match(code, "omop_recipe\\(\\)")
+})
+
+test_that("recipe_to_code excludes block-generated variables", {
+  c <- omop_recipe()
+  b <- omop_variable_block(
+    id = "cond", table = "condition_occurrence",
+    concept_ids = c(201820),
+    concept_names = c("Diabetes"),
+    format = "binary"
+  )
+  c <- dsOMOPClient:::recipe_add_block(c, b)
+  code <- recipe_to_code(c)
+  # The block generates a "diabetes" variable, but codegen should NOT
+  # separately emit a variables-slot entry for it (the block handles it)
+  expect_true(grepl("blocks = ", code, fixed = TRUE))
+  expect_false(grepl("variables = .*diabetes", code))
+})
+
+# --- recipe_export_json / recipe_import_json -------------------------------------
+
+test_that("recipe_export_json returns JSON string", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "yob", table = "person",
+                          column = "year_of_birth")
+  c <- dsOMOPClient:::recipe_add_filter(c, omop_filter_sex("F"))
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "out", type = "wide"))
+
+  json <- recipe_export_json(c)
+  expect_true(is.character(json))
+  expect_true(nchar(json) > 0)
+  parsed <- jsonlite::fromJSON(json, simplifyVector = FALSE)
+  expect_equal(parsed$version, "1")
+  expect_true("yob" %in% names(parsed$variables))
+})
+
+test_that("recipe_export_json writes to file", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "v", table = "person")
+  tmp <- tempfile(fileext = ".json")
+  on.exit(unlink(tmp))
+  result <- recipe_export_json(c, file = tmp)
+  expect_true(file.exists(tmp))
+  expect_equal(result, tmp)
+})
+
+test_that("recipe_import_json roundtrips from string", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "yob", table = "person",
+                          column = "year_of_birth", type = "numeric")
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "diabetes", table = "condition_occurrence",
+                          concept_id = 201820, format = "binary")
+  c <- dsOMOPClient:::recipe_add_filter(c, omop_filter_sex("F"), id = "sex_f")
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "data", type = "wide"))
+
+  json <- recipe_export_json(c)
+  c2 <- recipe_import_json(json)
+
+  expect_s3_class(c2, "omop_recipe")
+  expect_equal(length(c2$variables), 2)
+  expect_true("yob" %in% names(c2$variables))
+  expect_true("diabetes" %in% names(c2$variables))
+  expect_equal(c2$variables$yob$type, "numeric")
+  expect_equal(c2$variables$diabetes$concept_id, 201820L)
+  expect_equal(length(c2$filters), 1)
+  expect_equal(length(c2$outputs), 1)
+  expect_equal(c2$outputs$data$type, "wide")
+})
+
+test_that("recipe_import_json roundtrips from file", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "v", table = "measurement",
+                          concept_id = 3004249, format = "mean")
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "o", type = "long"))
+
+  tmp <- tempfile(fileext = ".json")
+  on.exit(unlink(tmp))
+  recipe_export_json(c, file = tmp)
+  c2 <- recipe_import_json(tmp)
+
+  expect_s3_class(c2, "omop_recipe")
+  expect_equal(length(c2$variables), 1)
+  expect_equal(c2$variables$v$format, "mean")
+})
+
+test_that("recipe_import_json preserves populations", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_population(c,
+    omop_population(id = "adults", label = "Adults", parent_id = "base"))
+
+  json <- recipe_export_json(c)
+  c2 <- recipe_import_json(json)
+
+  expect_true("base" %in% names(c2$populations))
+  expect_true("adults" %in% names(c2$populations))
+  expect_equal(c2$populations$adults$label, "Adults")
+})
+
+test_that("recipe_import_json preserves nested filter groups", {
+  c <- omop_recipe()
+  nested <- omop_filter_group(
+    omop_filter_sex("F"),
+    omop_filter_group(
+      omop_filter_age(18, 65),
+      omop_filter_has_concept(201820, "condition_occurrence"),
+      operator = "AND"
+    ),
+    operator = "OR"
+  )
+  c <- dsOMOPClient:::recipe_add_filter(c, nested, id = "eligibility")
+
+  c2 <- recipe_import_json(recipe_export_json(c))
+
+  expect_s3_class(c2$filters$eligibility, "omop_filter_group")
+  expect_equal(c2$filters$eligibility$operator, "OR")
+  expect_s3_class(c2$filters$eligibility$children[[2]], "omop_filter_group")
+  expect_equal(c2$filters$eligibility$children[[2]]$operator, "AND")
+  expect_equal(c2$filters$eligibility$children[[2]]$children[[2]]$type,
+               "has_concept")
+})
+
+test_that("recipe_import_json preserves full recipe fields", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_set_cohort(c, 42)
+  c <- dsOMOPClient:::recipe_add_population(c, omop_population(
+    id = "adults",
+    label = "Adults",
+    parent_id = "base",
+    filters = list(omop_filter_age(18, 80))
+  ))
+
+  row_filter <- omop_filter_date_range("2020-01-01", "2023-12-31")
+  c <- dsOMOPClient:::recipe_add_block(c, omop_variable_block(
+    id = "labs",
+    table = "measurement",
+    concept_ids = c(3004249),
+    concept_names = c("Hemoglobin"),
+    time_window = list(start = -90, end = 0),
+    format = "mean",
+    value_source = "value_as_number",
+    suffix_mode = "range",
+    filters = list(row_filter),
+    population_id = "adults"
+  ))
+  c <- dsOMOPClient:::recipe_add_variable(c,
+    name = "bp_max",
+    table = "measurement",
+    concept_id = 3004249,
+    format = "max",
+    value_source = "value_as_number",
+    time_window = list(start = -30, end = 0),
+    suffix_mode = "label",
+    filters = list(row_filter)
+  )
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(
+    name = "surv",
+    type = "survival",
+    variables = "bp_max",
+    population_id = "adults",
+    options = list(tar = list(start_offset = 0, end_offset = 365)),
+    result_symbol = "D_surv_custom"
+  ))
+
+  c2 <- recipe_import_json(recipe_export_json(c))
+
+  expect_equal(c2$populations$base$cohort_definition_id, 42L)
+  expect_equal(length(c2$populations$adults$filters), 1)
+  expect_equal(c2$blocks$labs$time_window$start, -90)
+  expect_equal(c2$blocks$labs$suffix_mode, "range")
+  expect_equal(length(c2$blocks$labs$filters), 1)
+  expect_equal(c2$variables$bp_max$time_window$start, -30)
+  expect_equal(c2$variables$bp_max$suffix_mode, "label")
+  expect_equal(length(c2$variables$bp_max$filters), 1)
+  expect_equal(c2$outputs$surv$options$tar$end_offset, 365)
+  expect_equal(c2$outputs$surv$result_symbol, "D_surv_custom")
+})
+
+test_that("recipe YAML export/import preserves nested recipe fields", {
+  skip_if_not_installed("yaml")
+
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_set_cohort(c, 77)
+  nested <- omop_filter_group(
+    omop_filter_date_range("2020-01-01", "2023-12-31"),
+    omop_filter_value(
+      column = "value_as_number",
+      threshold = 6.5,
+      direction = "above",
+      safe_bins = .test_safe_bins(c(0, 5, 10, 20))
+    ),
+    operator = "AND"
+  )
+  c <- dsOMOPClient:::recipe_add_filter(c, nested, id = "row_filters")
+  c <- dsOMOPClient:::recipe_add_variable(c,
+    name = "hb",
+    table = "measurement",
+    concept_id = 3004249,
+    format = "mean",
+    value_source = "value_as_number",
+    time_window = list(start = -180, end = 0),
+    filters = list(nested)
+  )
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(
+    name = "features",
+    type = "features",
+    variables = "hb",
+    options = list(
+      temporal = list(index_window = list(start = -180, end = 0))),
+    result_symbol = "D_features_custom"
+  ))
+
+  yaml <- recipe_export_yaml(c)
+  expect_true(is.character(yaml))
+  expect_match(yaml, "populations")
+
+  c2 <- recipe_import_yaml(yaml)
+  expect_equal(c2$populations$base$cohort_definition_id, 77L)
+  expect_s3_class(c2$filters$row_filters, "omop_filter_group")
+  expect_equal(c2$variables$hb$time_window$start, -180)
+  expect_equal(c2$outputs$features$options$temporal$index_window$start, -180)
+
+  tmp <- tempfile(fileext = ".yml")
+  on.exit(unlink(tmp), add = TRUE)
+  result <- recipe_export_yaml(c, file = tmp)
+  expect_equal(result, tmp)
+  expect_true(file.exists(tmp))
+  c3 <- recipe_import_yaml(tmp)
+  expect_equal(c3$outputs$features$result_symbol, "D_features_custom")
+})
+
+test_that("recipe_save and recipe_load auto-detect JSON and YAML", {
+  skip_if_not_installed("yaml")
+
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "age", table = "person",
+                           column = "year_of_birth")
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "demo", type = "wide"))
+
+  json_path <- tempfile(fileext = ".json")
+  yaml_path <- tempfile(fileext = ".yaml")
+  on.exit(unlink(c(json_path, yaml_path)), add = TRUE)
+
+  expect_equal(recipe_save(c, json_path), json_path)
+  expect_equal(recipe_save(c, yaml_path), yaml_path)
+
+  json_recipe <- recipe_load(json_path)
+  yaml_recipe <- recipe_load(yaml_path)
+
+  expect_s3_class(json_recipe, "omop_recipe")
+  expect_s3_class(yaml_recipe, "omop_recipe")
+  expect_true("age" %in% names(json_recipe$variables))
+  expect_true("age" %in% names(yaml_recipe$variables))
+})
+
+test_that("recipe_save supports explicit format and rejects unknown extensions", {
+  skip_if_not_installed("yaml")
+
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "v", table = "person")
+
+  path <- tempfile(fileext = ".recipe")
+  on.exit(unlink(path), add = TRUE)
+
+  expect_equal(recipe_save(c, path, format = "yaml"), path)
+  expect_s3_class(recipe_import_yaml(path), "omop_recipe")
+  expect_error(recipe_save(c, tempfile(fileext = ".txt")), "Recipe format")
+  expect_error(recipe_load(tempfile(fileext = ".txt")), "Recipe format")
+})
+
+test_that("recipe_preview and recipe_validate compile recipes before plan calls", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "v", table = "person")
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "demo", type = "wide"))
+
+  seen <- list()
+  testthat::local_mocked_bindings(
+    ds.omop.plan.preview = function(plan, symbol = "omop", conns = NULL) {
+      seen$preview <<- list(plan = plan, symbol = symbol, conns = conns)
+      list(server = list(valid = TRUE))
+    },
+    ds.omop.plan.validate = function(plan, symbol = "omop", conns = NULL) {
+      seen$validate <<- list(plan = plan, symbol = symbol, conns = conns)
+      list(server = list(valid = TRUE))
+    },
+    .package = "dsOMOPClient"
+  )
+
+  expect_equal(recipe_preview(c, symbol = "x", conns = list(a = NULL))$server$valid,
+               TRUE)
+  expect_equal(recipe_validate(c, symbol = "x", conns = list(a = NULL))$server$valid,
+               TRUE)
+  expect_s3_class(seen$preview$plan, "omop_plan")
+  expect_s3_class(seen$validate$plan, "omop_plan")
+  expect_equal(seen$preview$symbol, "x")
+  expect_equal(seen$validate$symbol, "x")
+})
+
+test_that("recipe_execute forwards output_mode to plan execution", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "v", table = "person")
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "demo", type = "wide"))
+
+  seen <- NULL
+  testthat::local_mocked_bindings(
+    ds.omop.plan.execute = function(plan, out, symbol = "omop", conns = NULL,
+                                    output_mode = "memory") {
+      seen <<- list(plan = plan, out = out, symbol = symbol,
+                    output_mode = output_mode)
+      invisible(out)
+    },
+    .package = "dsOMOPClient"
+  )
+
+  out <- recipe_execute(c, symbol = "x", output_mode = "staged")
+
+  expect_equal(out, c(demo = "D_demo"))
+  expect_s3_class(seen$plan, "omop_plan")
+  expect_equal(seen$symbol, "x")
+  expect_equal(seen$output_mode, "staged")
+})
+
+test_that("recipe_preview_stats forwards explicit connections", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "v", table = "person")
+
+  seen <- NULL
+  testthat::local_mocked_bindings(
+    ds.omop.table.stats = function(table, stats, scope = "per_site",
+                                   symbol = "omop", conns = NULL) {
+      seen <<- list(table = table, stats = stats, scope = scope,
+                    symbol = symbol, conns = conns)
+      list(server = data.frame(table = table, row_count = 10))
+    },
+    .package = "dsOMOPClient"
+  )
+
+  conns <- list(server = "connection")
+  recipe_preview_stats(c, symbol = "x", conns = conns)
+
+  expect_equal(seen$table, "person")
+  expect_equal(seen$symbol, "x")
+  expect_identical(seen$conns, conns)
+})
+
+test_that("YAML recipe import never evaluates !expr tags", {
+  withr::local_options(list(
+    yaml.eval.expr = TRUE,
+    dsomop_yaml_recipe_executed = NULL
+  ))
+  expect_error(recipe_import_yaml(
+    '!expr "options(dsomop_yaml_recipe_executed = TRUE)"'
+  ))
+  expect_null(getOption("dsomop_yaml_recipe_executed"))
+})
+
+# --- recipe_preview_schema with enhanced outputs --------------------------------
+
+test_that("recipe_preview_schema includes population_id attribute", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "v", table = "person")
+  c <- dsOMOPClient:::recipe_add_output(c,
+    omop_output(name = "adult_data", type = "wide", population_id = "base"))
+  schemas <- recipe_preview_schema(c)
+  expect_equal(attr(schemas$adult_data, "population_id"), "base")
+})
+
+test_that("recipe_preview_schema with multiple outputs", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "yob", table = "person",
+                          column = "year_of_birth")
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "cond", table = "condition_occurrence",
+                          concept_id = 201820)
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "demo", type = "baseline",
+                                       variables = "yob"))
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "events", type = "long",
+                                       variables = "cond"))
+  schemas <- recipe_preview_schema(c)
+  expect_equal(length(schemas), 2)
+  # Baseline is episode-grain; event-long without an index remains person-keyed.
+  expect_equal(nrow(schemas$demo), 4)
+  expect_equal(nrow(schemas$events), 2)
+  expect_equal(schemas$demo$column,
+               c("row_id", "cohort_row_id", "person_id", "yob"))
+  expect_equal(attr(schemas$demo, "join_key"), "cohort_row_id")
+  expect_equal(schemas$events$column[[1]], "person_id")
+  expect_true(is.na(schemas$events$column[[2]]))
+})
+
+# --- .codegen_filter / .codegen_filter_group ---------------------------------
+
+test_that(".codegen_filter generates correct code for each type", {
+  f_sex <- omop_filter_sex("M")
+  expect_true(grepl("omop_filter_sex", .codegen_filter(f_sex)))
+
+  f_age <- omop_filter_age(18, 65)
+  expect_true(grepl("omop_filter_age", .codegen_filter(f_age)))
+
+  f_hc <- omop_filter_has_concept(201820, "condition_occurrence")
+  expect_true(grepl("omop_filter_has_concept", .codegen_filter(f_hc)))
+
+  f_dr <- omop_filter_date_range("2020-01-01", "2023-12-31")
+  expect_true(grepl("omop_filter_date_range", .codegen_filter(f_dr)))
+
+  bins <- .test_safe_bins(c(0, 5, 10, 15, 20))
+  f_val <- omop_filter_value(threshold = 6.5, direction = "above",
+                              safe_bins = bins)
+  # value_bin filters are regenerated verbatim (the disclosure-safe bin was
+  # already resolved at construction time), so the script stays executable
+  # without a ds.omop.safe.cutpoints() round-trip.
+  code_val <- .codegen_filter(f_val)
+  expect_true(grepl('omop_filter\\(type = "value_bin"', code_val))
+  expect_identical(eval(parse(text = code_val)), f_val)
+})
+
+test_that(".codegen_filter preserves a typed custom row predicate", {
+  f <- omop_filter(
+    type = "custom", level = "row",
+    params = list(var = "condition_type_concept_id", op = "in",
+                  value = 32020L, description = "EHR conditions"))
+  code <- .codegen_filter(f)
+  expect_true(grepl("omop_filter", code))
+  expect_true(grepl("custom", code))
+  expect_identical(eval(parse(text = code)), f)
+})
+
+test_that(".codegen_filter_group generates nested code", {
+  g <- omop_filter_group(
+    omop_filter_sex("F"),
+    omop_filter_group(
+      omop_filter_age(18, 65),
+      omop_filter_has_concept(201820, "condition_occurrence"),
+      operator = "AND"
+    ),
+    operator = "OR"
+  )
+  code <- .codegen_filter_group(g)
+  expect_true(grepl("omop_filter_group", code))
+  expect_true(grepl("OR", code))
+  expect_true(grepl("AND", code))
+})
+
+# --- recipe_clear with enhanced fields -----------------------------------------
+
+test_that("recipe_clear resets populations/blocks too", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_population(c,
+    omop_population(id = "adults", parent_id = "base"))
+  c <- dsOMOPClient:::recipe_add_block(c,
+    omop_variable_block(table = "condition_occurrence",
+                         concept_ids = c(1, 2)))
+  c <- dsOMOPClient:::recipe_add_filter(c, omop_filter_sex("F"))
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "o", type = "wide"))
+
+  c <- dsOMOPClient:::recipe_clear(c)
+  expect_equal(length(c$populations), 1)  # only base
+  expect_equal(length(c$blocks), 0)
+  expect_equal(length(c$variables), 0)
+  expect_equal(length(c$filters), 0)
+  expect_equal(length(c$outputs), 0)
+})
+
+# --- recipe print enhanced fields ----------------------------------------------
+
+test_that("recipe print shows populations and blocks", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_population(c,
+    omop_population(id = "adults", label = "Adults 18+", parent_id = "base"))
+  b <- omop_variable_block(
+    id = "cond_block", table = "condition_occurrence",
+    concept_ids = c(201820, 4229440),
+    concept_names = c("Diabetes", "Hypertension"),
+    format = "binary"
+  )
+  c <- dsOMOPClient:::recipe_add_block(c, b)
+  c <- dsOMOPClient:::recipe_add_output(c, omop_output(name = "out", type = "wide"))
+  out <- capture.output(print(c))
+  expect_true(any(grepl("Populations", out)))
+  expect_true(any(grepl("adults", out)))
+  expect_true(any(grepl("Variable Blocks", out)))
+  expect_true(any(grepl("cond_block", out)))
+})
+
+# --- edge cases --------------------------------------------------------------
+
+test_that("recipe_to_plan with variables but no output defaults to a wide output", {
+  # Footgun fix: selecting variables without declaring an output is the common
+  # simple case; it now compiles to ONE sensible wide output rather than a silent
+  # empty (do-nothing) plan.
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "v", table = "person")
+  plan <- recipe_to_plan(c)
+  expect_s3_class(plan, "omop_plan")
+  expect_equal(length(plan$outputs), 1)
+})
+
+test_that("recipe_to_plan with neither variables nor outputs stays empty", {
+  plan <- recipe_to_plan(omop_recipe())
+  expect_s3_class(plan, "omop_plan")
+  expect_equal(length(plan$outputs), 0)
+})
+
+test_that("recipe_to_plan with output referencing nonexistent variables", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "a", table = "person")
+  c <- dsOMOPClient:::recipe_add_output(c,
+    omop_output(name = "out", type = "wide",
+                variables = c("a", "nonexistent")))
+  expect_error(recipe_to_plan(c), "unknown variable.*nonexistent")
+})
+
+test_that("recipe meta tracks modification time", {
+  c <- omop_recipe()
+  t1 <- c$meta$modified
+  Sys.sleep(0.01)
+  c <- dsOMOPClient:::recipe_add_variable(c, name = "v", table = "person")
+  t2 <- c$meta$modified
+  expect_true(t2 >= t1)
+})
+
+# ==============================================================================
+# Phase 4: Age Group Filter + Filter Safety Classification
+# ==============================================================================
+
+test_that("omop_filter_age_group creates valid filter", {
+  f <- omop_filter_age_group(c("18-24", "25-34"))
+  expect_s3_class(f, "omop_filter")
+  expect_equal(f$type, "age_group")
+  expect_equal(f$level, "population")
+  expect_equal(f$params$groups, c("18-24", "25-34"))
+  expect_true(grepl("18-24", f$label))
+  expect_true(grepl("25-34", f$label))
+})
+
+test_that("omop_filter_age_group can be added to recipe", {
+  c <- omop_recipe()
+  f <- omop_filter_age_group(c("45-54", "55-64", "65-74"))
+  c <- dsOMOPClient:::recipe_add_filter(c, f)
+  expect_equal(length(c$filters), 1)
+  expect_equal(c$filters[[1]]$type, "age_group")
+})
+
+test_that("classifyFilterClient returns correct safety level", {
+  expect_equal(.classifyFilterClient("sex"), "allowed")
+  expect_equal(.classifyFilterClient("age_group"), "constrained")
+  expect_equal(.classifyFilterClient("cohort"), "allowed")
+  expect_equal(.classifyFilterClient("concept_set"), "allowed")
+  expect_equal(.classifyFilterClient("custom"), "blocked")
+  expect_equal(.classifyFilterClient(
+    "custom", list(op = "in")), "constrained")
+  expect_equal(.classifyFilterClient("has_concept"), "constrained")
+  expect_equal(.classifyFilterClient("age_range"), "constrained")
+  expect_equal(.classifyFilterClient("date_range"), "constrained")
+  expect_equal(.classifyFilterClient("min_count"), "blocked")
+})
+
+test_that("ds.omop.safe.cutpoints has expected signature", {
+  expect_true(is.function(ds.omop.safe.cutpoints))
+  args <- formals(ds.omop.safe.cutpoints)
+  expect_true("table" %in% names(args))
+  expect_true("column" %in% names(args))
+  expect_true("symbol" %in% names(args))
+  expect_true("concept_id" %in% names(args))
+  expect_true("n_bins" %in% names(args))
+})
+
+test_that("age_group filter generates correct code", {
+  c <- omop_recipe()
+  c <- dsOMOPClient:::recipe_add_filter(c, omop_filter_age_group(c("18-24", "25-34")))
+  code <- recipe_to_code(c)
+  expect_true(grepl("omop_filter_age_group", code))
+})
+
+test_that("omop_filter accepts age_group type", {
+  f <- omop_filter(type = "age_group", level = "population",
+                   params = list(groups = c("0-4", "5-9")))
+  expect_equal(f$type, "age_group")
+})
+
+# === New feature spec constructors ===
+
+test_that("omop.feature.sd_value creates correct spec", {
+  s <- omop.feature.sd_value(c(3004410))
+  expect_s3_class(s, "omop_feature_spec")
+  expect_equal(s$type, "sd_value")
+  expect_equal(s$value_column, "value_as_number")
+})
+
+test_that("omop.feature.cv_value creates correct spec", {
+  s <- omop.feature.cv_value(c(3004410))
+  expect_s3_class(s, "omop_feature_spec")
+  expect_equal(s$type, "cv_value")
+})
+
+test_that("omop.feature.slope_value creates correct spec", {
+  s <- omop.feature.slope_value(c(3004410))
+  expect_s3_class(s, "omop_feature_spec")
+  expect_equal(s$type, "slope_value")
+})
+
+test_that("omop.feature.abnormal_high creates correct spec", {
+  s <- omop.feature.abnormal_high(c(3004410))
+  expect_s3_class(s, "omop_feature_spec")
+  expect_equal(s$type, "abnormal_high")
+})
+
+test_that("omop.feature.abnormal_low creates correct spec", {
+  s <- omop.feature.abnormal_low(c(3004410))
+  expect_s3_class(s, "omop_feature_spec")
+  expect_equal(s$type, "abnormal_low")
+})
+
+test_that("omop.feature.gap_max_days creates correct spec", {
+  s <- omop.feature.gap_max_days(c(9201, 9202))
+  expect_s3_class(s, "omop_feature_spec")
+  expect_equal(s$type, "gap_max_days")
+})
+
+test_that("omop.feature.gap_mean_days creates correct spec", {
+  s <- omop.feature.gap_mean_days(c(9201, 9202))
+  expect_s3_class(s, "omop_feature_spec")
+  expect_equal(s$type, "gap_mean_days")
+})
+
+test_that("omop.feature.duration_sum creates correct spec", {
+  s <- omop.feature.duration_sum(c(1124300))
+  expect_s3_class(s, "omop_feature_spec")
+  expect_equal(s$type, "duration_sum")
+})
+
+# === New convenience variable constructors ===
+
+test_that("omop_variable_prior_obs creates correct structure", {
+  v <- omop_variable_prior_obs()
+  expect_s3_class(v, "omop_variable")
+  expect_equal(v$format, "prior_obs")
+  expect_equal(v$derived$kind, "prior_obs")
+  expect_equal(v$derived$period_policy, "containing")
+  expect_equal(v$name, "prior_obs")
+  expect_equal(v$derived$reference_date, format(Sys.Date(), "%Y-%m-%d"))
+})
+
+test_that("omop_variable_followup creates correct structure", {
+  v <- omop_variable_followup()
+  expect_s3_class(v, "omop_variable")
+  expect_equal(v$format, "followup")
+  expect_equal(v$derived$kind, "followup")
+  expect_equal(v$derived$period_policy, "containing")
+  expect_equal(v$derived$reference_date, format(Sys.Date(), "%Y-%m-%d"))
+})
+
+test_that("omop_variable_demo_missingness creates correct structure", {
+  v <- omop_variable_demo_missingness()
+  expect_s3_class(v, "omop_variable")
+  expect_equal(v$format, "demo_missingness")
+  expect_equal(v$derived$kind, "demo_missingness")
+})
+
+test_that("omop_variable_sd creates correct structure", {
+  v <- omop_variable_sd("measurement", 3004410)
+  expect_s3_class(v, "omop_variable")
+  expect_equal(v$format, "sd")
+  expect_equal(v$concept_id, 3004410L)
+  expect_true(grepl("_sd$", v$name))
+})
+
+test_that("omop_variable_cv creates correct structure", {
+  v <- omop_variable_cv("measurement", 3004410, concept_name = "HbA1c")
+  expect_s3_class(v, "omop_variable")
+  expect_equal(v$format, "cv")
+  expect_equal(v$name, "hba1c_cv")
+})
+
+test_that("omop_variable_slope creates correct structure", {
+  v <- omop_variable_slope("measurement", 3004410)
+  expect_s3_class(v, "omop_variable")
+  expect_equal(v$format, "slope")
+})
+
+test_that("omop_variable_charlson creates correct structure", {
+  v <- omop_variable_charlson()
+  expect_s3_class(v, "omop_variable")
+  expect_equal(v$format, "charlson")
+  expect_equal(v$derived$kind, "charlson")
+})
+
+test_that("omop_variable_chadsvasc creates correct structure", {
+  v <- omop_variable_chadsvasc()
+  expect_s3_class(v, "omop_variable")
+  expect_equal(v$format, "chadsvasc")
+  expect_equal(v$derived$kind, "chadsvasc")
+  expect_equal(v$derived$reference_date, format(Sys.Date(), "%Y-%m-%d"))
+})
+
+test_that("omop_variable_chads2 creates correct structure", {
+  v <- omop_variable_chads2()
+  expect_s3_class(v, "omop_variable")
+  expect_equal(v$format, "chads2")
+  expect_equal(v$derived$kind, "chads2")
+  expect_equal(v$name, "chads2")
+  expect_equal(v$derived$reference_date, format(Sys.Date(), "%Y-%m-%d"))
+})
+
+test_that("omop_variable_chads2 accepts custom name", {
+  v <- omop_variable_chads2(name = "stroke_risk")
+  expect_equal(v$name, "stroke_risk")
+  expect_equal(v$derived$kind, "chads2")
+})
+
+test_that("omop_variable_dcsi creates correct structure", {
+  v <- omop_variable_dcsi()
+  expect_s3_class(v, "omop_variable")
+  expect_equal(v$format, "dcsi")
+  expect_equal(v$derived$kind, "dcsi")
+})
+
+test_that("omop_variable_hfrs creates correct structure", {
+  v <- omop_variable_hfrs()
+  expect_s3_class(v, "omop_variable")
+  expect_equal(v$format, "hfrs")
+  expect_equal(v$derived$kind, "hfrs")
+})
+
+# === New filter constructors ===
+
+test_that("omop_filter_not_has_concept creates correct filter", {
+  f <- omop_filter_not_has_concept(201820, "condition_occurrence")
+  expect_s3_class(f, "omop_filter")
+  expect_equal(f$type, "not_has_concept")
+  expect_equal(f$params$concept_id, 201820L)
+  expect_equal(f$level, "population")
+})
+
+test_that("omop_filter_concept_count creates correct filter", {
+  f <- omop_filter_concept_count(201820, "condition_occurrence", min_count = 3)
+  expect_s3_class(f, "omop_filter")
+  expect_equal(f$type, "concept_count")
+  expect_equal(f$params$min_count, 3L)
+})
+
+test_that("omop_filter_prior_observation creates correct filter", {
+  f <- omop_filter_prior_observation(min_days = 365)
+  expect_s3_class(f, "omop_filter")
+  expect_equal(f$type, "prior_observation")
+  expect_equal(f$params$min_days, 365L)
+})
+
+test_that("omop_filter_followup creates correct filter", {
+  f <- omop_filter_followup(min_days = 90)
+  expect_s3_class(f, "omop_filter")
+  expect_equal(f$type, "followup")
+  expect_equal(f$params$min_days, 90L)
+})
+
+test_that("omop_filter_visit_count creates correct filter", {
+  f <- omop_filter_visit_count(min_count = 3)
+  expect_s3_class(f, "omop_filter")
+  expect_equal(f$type, "visit_count")
+  expect_equal(f$params$min_count, 3L)
+})
+
+test_that("omop_filter_has_measurement creates correct filter", {
+  f <- omop_filter_has_measurement(
+    3004410, min_value = 4.0, max_value = 6.0,
+    safe_bins = .test_safe_bins(c(0, 4, 6, 10)))
+  expect_s3_class(f, "omop_filter")
+  expect_equal(f$type, "has_measurement")
+  expect_equal(f$params$concept_id, 3004410L)
+  expect_equal(f$params$min_value, 4.0)
+  expect_equal(f$params$max_value, 6.0)
+})
+
+test_that("omop_filter_has_measurement rejects unissued or mismatched ranges", {
+  expect_error(
+    omop_filter_has_measurement(3004410, min_value = 4, max_value = 6),
+    "server-issued"
+  )
+  expect_error(
+    omop_filter_has_measurement(
+      3004410, min_value = 4,
+      safe_bins = .test_safe_bins(c(0, 4, 6, 10))),
+    "require both"
+  )
+  expect_error(
+    omop_filter_has_measurement(
+      3004410, min_value = 4, max_value = 6,
+      safe_bins = .test_safe_bins(c(0, 4, 6, 10),
+                                  concept_id = 3013682L)),
+    "must match"
+  )
+  expect_error(
+    omop_filter_has_measurement(
+      3004410, min_value = 4.5, max_value = 6,
+      safe_bins = .test_safe_bins(c(0, 4, 6, 10))),
+    "issued edges"
+  )
+})
+
+test_that("omop_filter_missing_measurement creates correct filter", {
+  f <- omop_filter_missing_measurement(3004410)
+  expect_s3_class(f, "omop_filter")
+  expect_equal(f$type, "missing_measurement")
+  expect_equal(f$params$concept_id, 3004410L)
+})
+
+# === New format routing in .build_feature_specs() ===
+
+test_that(".build_feature_specs maps sd format to sd_value spec", {
+  v <- omop_variable(table = "measurement", concept_id = 3004410,
+                     format = "sd", value_source = "value_as_number")
+  specs <- dsOMOPClient:::.build_feature_specs(list(v))
+  expect_equal(specs[[1]]$type, "sd_value")
+})
+
+test_that(".build_feature_specs maps cv format to cv_value spec", {
+  v <- omop_variable(table = "measurement", concept_id = 3004410,
+                     format = "cv", value_source = "value_as_number")
+  specs <- dsOMOPClient:::.build_feature_specs(list(v))
+  expect_equal(specs[[1]]$type, "cv_value")
+})
+
+test_that(".build_feature_specs maps slope format to slope_value spec", {
+  v <- omop_variable(table = "measurement", concept_id = 3004410,
+                     format = "slope")
+  specs <- dsOMOPClient:::.build_feature_specs(list(v))
+  expect_equal(specs[[1]]$type, "slope_value")
+})
+
+test_that(".build_feature_specs maps gap_max to gap_max_days", {
+  v <- omop_variable(table = "visit_occurrence", concept_id = 9202,
+                     format = "gap_max")
+  specs <- dsOMOPClient:::.build_feature_specs(list(v))
+  expect_equal(specs[[1]]$type, "gap_max_days")
+})
+
+test_that(".build_feature_specs maps duration_sum correctly", {
+  v <- omop_variable(table = "drug_exposure", concept_id = 1124300,
+                     format = "duration_sum")
+  specs <- dsOMOPClient:::.build_feature_specs(list(v))
+  expect_equal(specs[[1]]$type, "duration_sum")
+})
+
+# === New derived kinds routing in recipe_to_plan() ===
+
+test_that("recipe_to_plan routes prior_obs to derived_columns", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_prior_obs())
+  r <- dsOMOPClient:::recipe_add_output(r, omop_output(type = "wide"))
+  plan <- recipe_to_plan(r)
+  dc <- plan$outputs$output_1$derived_columns
+  expect_true(length(dc) > 0)
+  expect_equal(dc[[1]]$kind, "prior_obs")
+})
+
+test_that("recipe_to_plan routes followup to derived_columns", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_followup())
+  r <- dsOMOPClient:::recipe_add_output(r, omop_output(type = "wide"))
+  plan <- recipe_to_plan(r)
+  dc <- plan$outputs$output_1$derived_columns
+  expect_equal(dc[[1]]$kind, "followup")
+})
+
+test_that("recipe_to_plan routes chads2 to derived_columns", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_chads2())
+  r <- dsOMOPClient:::recipe_add_output(r, omop_output(type = "wide"))
+  plan <- recipe_to_plan(r)
+  dc <- plan$outputs$output_1$derived_columns
+  expect_true(length(dc) > 0)
+  expect_equal(dc[[1]]$kind, "chads2")
+})
+
+test_that("recipe_to_plan routes dcsi to derived_columns", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_dcsi())
+  r <- dsOMOPClient:::recipe_add_output(r, omop_output(type = "wide"))
+  plan <- recipe_to_plan(r)
+  dc <- plan$outputs$output_1$derived_columns
+  expect_equal(dc[[1]]$kind, "dcsi")
+})
+
+test_that("recipe_to_plan routes hfrs to derived_columns", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_hfrs())
+  r <- dsOMOPClient:::recipe_add_output(r, omop_output(type = "wide"))
+  plan <- recipe_to_plan(r)
+  dc <- plan$outputs$output_1$derived_columns
+  expect_equal(dc[[1]]$kind, "hfrs")
+})
+
+test_that("recipe_to_plan routes charlson to derived_columns", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_charlson())
+  r <- dsOMOPClient:::recipe_add_output(r, omop_output(type = "wide"))
+  plan <- recipe_to_plan(r)
+  dc <- plan$outputs$output_1$derived_columns
+  expect_equal(dc[[1]]$kind, "charlson")
+})
+
+test_that("recipe_to_plan routes demo_missingness to derived_columns", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_demo_missingness())
+  r <- dsOMOPClient:::recipe_add_output(r, omop_output(type = "wide"))
+  plan <- recipe_to_plan(r)
+  dc <- plan$outputs$output_1$derived_columns
+  expect_equal(dc[[1]]$kind, "demo_missingness")
+})
+
+# === Code generation for new constructors ===
+
+test_that("recipe_to_code generates prior_obs constructor", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_prior_obs())
+  r <- dsOMOPClient:::recipe_add_output(r, omop_output(type = "wide"))
+  code <- recipe_to_code(r)
+  expect_true(grepl("omop_variable_prior_obs", code))
+})
+
+test_that("recipe_to_code generates charlson constructor", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_charlson())
+  r <- dsOMOPClient:::recipe_add_output(r, omop_output(type = "wide"))
+  code <- recipe_to_code(r)
+  expect_true(grepl("omop_variable_charlson", code))
+})
+
+test_that("recipe_to_code generates chads2 constructor", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_chads2())
+  r <- dsOMOPClient:::recipe_add_output(r, omop_output(type = "wide"))
+  code <- recipe_to_code(r)
+  expect_true(grepl("omop_variable_chads2", code))
+})
+
+test_that("recipe_to_code generates dcsi constructor", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_dcsi())
+  r <- dsOMOPClient:::recipe_add_output(r, omop_output(type = "wide"))
+  code <- recipe_to_code(r)
+  expect_true(grepl("omop_variable_dcsi", code))
+})
+
+test_that("recipe_to_code generates hfrs constructor", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_hfrs())
+  r <- dsOMOPClient:::recipe_add_output(r, omop_output(type = "wide"))
+  code <- recipe_to_code(r)
+  expect_true(grepl("omop_variable_hfrs", code))
+})
+
+test_that("recipe_to_code generates sd constructor", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_variable(r,
+    omop_variable_sd("measurement", 3004410))
+  r <- dsOMOPClient:::recipe_add_output(r, omop_output(type = "wide"))
+  code <- recipe_to_code(r)
+  expect_true(grepl("omop_variable_sd", code))
+})
+
+test_that("recipe_to_code generates new filter constructors", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_filter(r, omop_filter_cohort(42))
+  r <- dsOMOPClient:::recipe_add_filter(r, omop_filter_not_has_concept(201820,
+    "condition_occurrence"))
+  r <- dsOMOPClient:::recipe_add_filter(r, omop_filter_concept_count(201820,
+    "condition_occurrence", min_count = 2))
+  r <- dsOMOPClient:::recipe_add_filter(r, omop_filter_prior_observation(365))
+  r <- dsOMOPClient:::recipe_add_filter(r, omop_filter_followup(30))
+  r <- dsOMOPClient:::recipe_add_filter(r, omop_filter_visit_count(3))
+  r <- dsOMOPClient:::recipe_add_filter(r, omop_filter_has_measurement(
+    3004410, 4, 10, safe_bins = .test_safe_bins(c(0, 4, 10, 20))))
+  r <- dsOMOPClient:::recipe_add_filter(r, omop_filter_missing_measurement(3004410))
+  code <- recipe_to_code(r)
+  expect_true(grepl("omop_filter_cohort", code))
+  expect_true(grepl("omop_filter_not_has_concept", code))
+  expect_true(grepl("omop_filter_concept_count", code))
+  expect_true(grepl("omop_filter_prior_observation", code))
+  expect_true(grepl("omop_filter_followup", code))
+  expect_true(grepl("omop_filter_visit_count", code))
+  expect_true(grepl("omop_filter_has_measurement", code))
+  expect_true(grepl("omop_filter_missing_measurement", code))
+})
+
+# === JSON round-trip for new derived kinds ===
+
+test_that("JSON round-trip preserves new derived variables", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_prior_obs())
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_followup())
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_demo_missingness())
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_charlson())
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_chads2())
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_chadsvasc())
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_dcsi())
+  r <- dsOMOPClient:::recipe_add_variable(r, omop_variable_hfrs())
+  r <- dsOMOPClient:::recipe_add_output(r, omop_output(type = "wide"))
+  json <- recipe_export_json(r)
+  r2 <- recipe_import_json(json)
+  expect_equal(r2$variables$prior_obs$derived$kind, "prior_obs")
+  expect_equal(r2$variables$followup$derived$kind, "followup")
+  expect_equal(r2$variables$demo_missingness$derived$kind, "demo_missingness")
+  expect_equal(r2$variables$charlson$derived$kind, "charlson")
+  expect_equal(r2$variables$chads2$derived$kind, "chads2")
+  expect_equal(r2$variables$chadsvasc$derived$kind, "chadsvasc")
+  expect_equal(r2$variables$dcsi$derived$kind, "dcsi")
+  expect_equal(r2$variables$hfrs$derived$kind, "hfrs")
+})
+
+test_that("JSON round-trip preserves new filter types", {
+  r <- omop_recipe()
+  r <- dsOMOPClient:::recipe_add_filter(r, omop_filter_not_has_concept(201820,
+    "condition_occurrence"))
+  r <- dsOMOPClient:::recipe_add_filter(r, omop_filter_prior_observation(365))
+  json <- recipe_export_json(r)
+  r2 <- recipe_import_json(json)
+  types <- vapply(r2$filters, function(f) f$type, character(1))
+  expect_true("not_has_concept" %in% types)
+  expect_true("prior_observation" %in% types)
+})
+
+# === Client-side filter classification ===
+
+test_that("new filters are classified as constrained", {
+  new_types <- c("not_has_concept", "concept_count", "prior_observation",
+                 "followup", "visit_count", "has_measurement",
+                 "missing_measurement")
+  for (ft in new_types) {
+    expect_equal(dsOMOPClient:::.classifyFilterClient(ft), "constrained",
+                 info = paste("Filter type:", ft))
+  }
+})

@@ -1,0 +1,32 @@
+#!/bin/sh
+# dsOMOP post-install configuration script.
+# It prepares directory permissions only; deployments provision dependencies.
+
+# Prepare only runtime state directories; this install hook never creates keys.
+# Roots are created only by the first real dsOMOP service use, after runtime setup.
+# Namespace loads are key-free. Image builds must not invoke service entry points
+# unless DSOMOP_STATE_DIR is already a runtime-mounted per-node volume.
+umask 077
+if [ -n "${DSOMOP_STATE_DIR:-}" ]; then
+  DSOMOP_CONFIG_STATE_ROOT="${DSOMOP_STATE_DIR}"
+elif [ -n "${DSOMOP_MARKER_DIR:-}" ]; then
+  # Backwards-compatible alias; new deployments should use DSOMOP_STATE_DIR.
+  DSOMOP_CONFIG_STATE_ROOT="${DSOMOP_MARKER_DIR}"
+elif [ -n "${HOME:-}" ]; then
+  DSOMOP_CONFIG_STATE_ROOT="${HOME}/.dsomop"
+else
+  DSOMOP_CONFIG_STATE_ROOT=""
+fi
+DSOMOP_CONFIG_UID="$(id -u 2>/dev/null || echo unknown)"
+if [ -n "${DSOMOP_CONFIG_STATE_ROOT}" ] && [ "${DSOMOP_CONFIG_UID}" != "0" ]; then
+  mkdir -p "${DSOMOP_CONFIG_STATE_ROOT}/secrets" \
+           "${DSOMOP_CONFIG_STATE_ROOT}/keys" 2>/dev/null || true
+  chmod 700 "${DSOMOP_CONFIG_STATE_ROOT}" \
+            "${DSOMOP_CONFIG_STATE_ROOT}/secrets" \
+            "${DSOMOP_CONFIG_STATE_ROOT}/keys" 2>/dev/null || true
+fi
+unset DSOMOP_CONFIG_STATE_ROOT DSOMOP_CONFIG_UID
+# System libraries and R dependencies are provisioned by the deployment image
+# and the package manager. A package configure script must not mutate the host,
+# contact package repositories, or silently install unaudited dependencies.
+exit 0

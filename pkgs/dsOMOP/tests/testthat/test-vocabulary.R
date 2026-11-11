@@ -1,0 +1,221 @@
+test_that("concept search finds concepts by name", {
+  handle <- create_test_handle()
+  on.exit(cleanup_handle(handle))
+  .buildBlueprint(handle)
+
+  result <- .vocabSearchConcepts(handle, "diabetes")
+  expect_true(is.data.frame(result))
+  expect_true(nrow(result) > 0)
+  expect_true(201820 %in% result$concept_id)
+})
+
+test_that("concept search tolerates punctuation and word order", {
+  handle <- create_test_handle()
+  on.exit(cleanup_handle(handle))
+  .buildBlueprint(handle)
+
+  flexible <- .vocabSearchConcepts(handle, "infarction / myocardial-acute")
+  expect_true(312327 %in% flexible$concept_id)
+
+  wildcard <- .vocabSearchConcepts(handle, "acute%infarction")
+  expect_true(312327 %in% wildcard$concept_id)
+})
+
+test_that("concept search filters by domain", {
+  handle <- create_test_handle()
+  on.exit(cleanup_handle(handle))
+  .buildBlueprint(handle)
+
+  result <- .vocabSearchConcepts(handle, "a", domain = "Condition")
+  expect_true(all(result$domain_id == "Condition"))
+})
+
+test_that("concept search respects standard_only", {
+  handle <- create_test_handle()
+  on.exit(cleanup_handle(handle))
+  .buildBlueprint(handle)
+
+  result <- .vocabSearchConcepts(handle, "a", standard_only = TRUE)
+  if (nrow(result) > 0 && "standard_concept" %in% names(result)) {
+    expect_true(all(result$standard_concept == "S"))
+  }
+})
+
+test_that("concept lookup by ID works", {
+  handle <- create_test_handle()
+  on.exit(cleanup_handle(handle))
+  .buildBlueprint(handle)
+
+  result <- .vocabLookupConcepts(handle, c(201820, 3004410))
+  expect_true(is.data.frame(result))
+  expect_equal(nrow(result), 2)
+  expect_true("Diabetes mellitus" %in% result$concept_name)
+  expect_true("Hemoglobin A1c" %in% result$concept_name)
+})
+
+test_that("concept lookup returns empty for missing IDs", {
+  handle <- create_test_handle()
+  on.exit(cleanup_handle(handle))
+  .buildBlueprint(handle)
+
+  result <- .vocabLookupConcepts(handle, c(999999))
+  expect_equal(nrow(result), 0)
+})
+
+test_that("descendant lookup works via concept_ancestor", {
+  handle <- create_test_handle()
+  on.exit(cleanup_handle(handle))
+  .buildBlueprint(handle)
+
+  # 4000000 (Metabolic disease) is ancestor of 201820 (Diabetes)
+  result <- .vocabGetDescendants(handle, c(4000000), include_self = TRUE)
+  expect_true(is.data.frame(result))
+  expect_true(201820 %in% result$concept_id)
+  expect_true(4000000 %in% result$concept_id)  # self included
+})
+
+test_that("descendant lookup excludes self when requested", {
+  handle <- create_test_handle()
+  on.exit(cleanup_handle(handle))
+  .buildBlueprint(handle)
+
+  result <- .vocabGetDescendants(handle, c(4000000), include_self = FALSE)
+  expect_false(4000000 %in% result$concept_id)
+  expect_true(201820 %in% result$concept_id)
+})
+
+test_that("ancestor lookup works", {
+  handle <- create_test_handle()
+  on.exit(cleanup_handle(handle))
+  .buildBlueprint(handle)
+
+  result <- .vocabGetAncestors(handle, c(201820), include_self = TRUE)
+  expect_true(is.data.frame(result))
+  expect_true(4000000 %in% result$concept_id)  # Metabolic disease is ancestor
+  expect_true(201820 %in% result$concept_id)     # self included
+})
+
+test_that("concept set expansion includes descendants", {
+  handle <- create_test_handle()
+  on.exit(cleanup_handle(handle))
+  .buildBlueprint(handle)
+
+  cs <- list(
+    concepts = c(4000001),
+    include_descendants = TRUE,
+    exclude = NULL
+  )
+  expanded <- .vocabExpandConceptSet(handle, cs)
+  expect_true(4000001 %in% expanded)
+  expect_true(255573 %in% expanded)   # COPD
+  expect_true(317009 %in% expanded)   # Asthma
+})
+
+test_that("concept set expansion excludes IDs", {
+  handle <- create_test_handle()
+  on.exit(cleanup_handle(handle))
+  .buildBlueprint(handle)
+
+  cs <- list(
+    concepts = c(4000001),
+    include_descendants = TRUE,
+    exclude = c(317009)
+  )
+  expanded <- .vocabExpandConceptSet(handle, cs)
+  expect_true(255573 %in% expanded)
+  expect_false(317009 %in% expanded)
+})
+
+test_that("concept set expansion includes mapped source concepts", {
+  handle <- create_test_handle()
+  on.exit(cleanup_handle(handle))
+  .buildBlueprint(handle)
+
+  # 4174977 (SNOMED 'Diabetic retinopathy') is the 'Maps to' target of
+  # 44826430 (ICD9CM '250.50'); include_mapped pulls in the source code so the
+  # set also matches records stored with the source vocabulary.
+  cs <- list(concepts = c(4174977), include_mapped = TRUE)
+  expanded <- .vocabExpandConceptSet(handle, cs)
+  expect_true(4174977 %in% expanded)
+  expect_true(44826430 %in% expanded)
+})
+
+test_that("concept set expansion omits mapped sources by default", {
+  handle <- create_test_handle()
+  on.exit(cleanup_handle(handle))
+  .buildBlueprint(handle)
+
+  cs <- list(concepts = c(4174977))  # include_mapped defaults to FALSE
+  expanded <- .vocabExpandConceptSet(handle, cs)
+  expect_true(4174977 %in% expanded)
+  expect_false(44826430 %in% expanded)
+})
+
+test_that("vocabGetMappedConcepts reverse-maps standard targets to sources", {
+  handle <- create_test_handle()
+  on.exit(cleanup_handle(handle))
+  .buildBlueprint(handle)
+
+  mapped <- .vocabGetMappedConcepts(handle, c(4174977))
+  expect_true(44826430 %in% mapped)
+  # No reverse map for an unmapped target -> empty integer vector
+  expect_equal(length(.vocabGetMappedConcepts(handle, c(999999))), 0)
+})
+
+test_that("resolveConceptSet handles flat vectors and spec objects", {
+  handle <- create_test_handle()
+  on.exit(cleanup_handle(handle))
+  .buildBlueprint(handle)
+
+  # Flat vector passes through, deduplicated and NA-free
+  expect_setequal(.resolveConceptSet(handle, c(201820, 201820, 3004410)),
+                  c(201820L, 3004410L))
+
+  # Spec object is expanded (mapped source pulled in)
+  spec <- list(concepts = c(4174977), include_mapped = TRUE)
+  expect_true(44826430 %in% .resolveConceptSet(handle, spec))
+
+  # NULL -> empty
+  expect_equal(length(.resolveConceptSet(handle, NULL)), 0)
+})
+
+test_that("translate columns replaces concept IDs with names", {
+  handle <- create_test_handle()
+  on.exit(cleanup_handle(handle))
+  .buildBlueprint(handle)
+
+  df <- data.frame(
+    person_id = 1:2,
+    condition_concept_id = c(201820, 255573),
+    stringsAsFactors = FALSE
+  )
+  result <- .vocabTranslateColumns(handle, df)
+  expect_false(any(result$condition_concept_id %in% c("201820", "255573")))
+})
+
+test_that("explicit concept expansion and translation fail closed", {
+  handle <- create_test_handle()
+  on.exit(cleanup_handle(handle))
+
+  testthat::local_mocked_bindings(
+    .vocabGetDescendants = function(...) stop("hierarchy unavailable"),
+    .package = "dsOMOP"
+  )
+  expect_error(
+    .vocabExpandConceptSet(handle, list(
+      concepts = 201820L, include_descendants = TRUE
+    )),
+    "Descendant expansion failed"
+  )
+
+  testthat::local_mocked_bindings(
+    .vocabLookupConcepts = function(...) stop("lookup unavailable"),
+    .package = "dsOMOP"
+  )
+  expect_error(
+    .vocabTranslateColumns(
+      handle, data.frame(condition_concept_id = 201820L)
+    ),
+    "Concept translation failed"
+  )
+})

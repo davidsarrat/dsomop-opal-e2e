@@ -1,0 +1,4 @@
+.Rproj.user
+*-Ex.R
+inst/doc
+errorReportSql.txt

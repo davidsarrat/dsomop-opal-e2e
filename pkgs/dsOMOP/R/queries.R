@@ -1,0 +1,996 @@
+# Module: Query Library
+# Curated SQL query templates with safety classification and disclosure control.
+
+# --- Query Markdown Parser ---------------------------------------------------
+
+#' Parse a query template from Markdown format
+#'
+#' Parses a QueryLibrary-style Markdown file into a structured list containing
+#' metadata, SQL template, input parameters, output schema, and sensitive
+#' field annotations.
+#'
+#' @param text Character; Markdown text content
+#' @return Named list with id, group, name, description, sql, inputs, outputs,
+#'   sensitive_fields, cdm_version, mode
+#' @keywords internal
+.ql_parse_markdown <- function(text) {
+  lines <- strsplit(text, "\n", fixed = TRUE)[[1]]
+
+  # Parse YAML front matter (between --- lines)
+  fm_start <- which(trimws(lines) == "---")
+  meta <- list()
+  if (length(fm_start) >= 2) {
+    fm_lines <- lines[(fm_start[1] + 1L):(fm_start[2] - 1L)]
+    for (fl in fm_lines) {
+      fl <- trimws(fl)
+      if (nchar(fl) == 0 || !grepl(":", fl)) next
+      key <- trimws(sub(":.*", "", fl))
+      val <- trimws(sub("^[^:]+:\\s*", "", fl))
+      meta[[tolower(key)]] <- val
+    }
+    lines <- lines[-(1:fm_start[2])]
+  }
+
+  # Parse sections
+  sections <- list()
+  current_section <- NULL
+  current_content <- character(0)
+
+  for (line in lines) {
+    if (grepl("^##\\s+", line)) {
+      if (!is.null(current_section)) {
+        sections[[current_section]] <- paste(current_content, collapse = "\n")
+      }
+      current_section <- tolower(trimws(sub("^##\\s+", "", line)))
+      current_content <- character(0)
+    } else {
+      current_content <- c(current_content, line)
+    }
+  }
+  if (!is.null(current_section)) {
+    sections[[current_section]] <- paste(current_content, collapse = "\n")
+  }
+
+  # Extract SQL from code block
+  sql <- NULL
+  sql_section <- sections[["query"]] %||% sections[["sql"]]
+  if (!is.null(sql_section)) {
+    sql_lines <- strsplit(sql_section, "\n")[[1]]
+    in_block <- FALSE
+    sql_parts <- character(0)
+    for (sl in sql_lines) {
+      if (grepl("^```", sl)) {
+        in_block <- !in_block
+        next
+      }
+      if (in_block) sql_parts <- c(sql_parts, sl)
+    }
+    sql <- trimws(paste(sql_parts, collapse = "\n"))
+    if (nchar(sql) == 0) sql <- NULL
+  }
+
+  # Parse input table
+  inputs <- .ql_parse_table(sections[["input"]] %||% sections[["inputs"]])
+
+  # Parse output table
+  outputs <- .ql_parse_table(sections[["output"]] %||% sections[["outputs"]])
+
+  # Parse sensitive fields
+  sensitive_text <- sections[["sensitive fields"]] %||%
+    sections[["sensitive"]] %||% ""
+  sensitive_fields <- trimws(strsplit(sensitive_text, "[,\n]")[[1]])
+  sensitive_fields <- sensitive_fields[nchar(sensitive_fields) > 0]
+
+  list(
+    id          = meta[["id"]] %||% .ql_derive_id(meta),
+    group       = meta[["group"]] %||% "general",
+    name        = meta[["name"]] %||% "Unnamed Query",
+    description = trimws(sections[["description"]] %||% ""),
+    sql         = sql,
+    inputs      = inputs,
+    outputs     = outputs,
+    sensitive_fields = sensitive_fields,
+    cdm_version = meta[["cdm version"]] %||% "5.3+",
+    mode        = tolower(meta[["mode"]] %||% "aggregate"),
+    author      = meta[["author"]] %||% "dsOMOP",
+    # Person-level column expression the @cohort hook filters on (e.g.
+    # "co.person_id"). Declared ONLY by templates that place a person-level
+    # @cohort placeholder in their WHERE; absent for non-scopable templates.
+    scope_column = {
+      sc <- trimws(meta[["scope column"]] %||% "")
+      if (nchar(sc) == 0) NULL else sc
+    }
+  )
+}
+
+#' Parse a Markdown table into a data frame
+#'
+#' Extracts rows from a pipe-delimited Markdown table and returns them as
+#' a data.frame. Automatically strips separator lines and normalises column
+#' names to lowercase.
+#'
+#' @param text Character; the raw Markdown text containing a pipe-delimited table.
+#' @return A data.frame parsed from the Markdown table, or NULL if no valid
+#'   table is found.
+#' @keywords internal
+.ql_parse_table <- function(text) {
+  if (is.null(text) || nchar(trimws(text)) == 0) return(NULL)
+  lines <- strsplit(text, "\n")[[1]]
+  lines <- trimws(lines)
+  # Keep lines that look like table rows (contain |)
+  tbl_lines <- lines[grepl("\\|", lines)]
+  if (length(tbl_lines) < 2) return(NULL)
+
+  # Remove separator line (contains ---)
+  tbl_lines <- tbl_lines[!grepl("^[|\\s-]+$", tbl_lines)]
+  if (length(tbl_lines) < 1) return(NULL)
+
+  # Parse header
+  header <- trimws(strsplit(tbl_lines[1], "\\|")[[1]])
+  header <- header[nchar(header) > 0]
+
+  if (length(tbl_lines) < 2) {
+    return(data.frame(matrix(nrow = 0, ncol = length(header),
+                             dimnames = list(NULL, tolower(header))),
+                      stringsAsFactors = FALSE))
+  }
+
+  rows <- lapply(tbl_lines[-1], function(r) {
+    vals <- trimws(strsplit(r, "\\|")[[1]])
+    vals <- vals[nchar(vals) > 0]
+    vals <- vals[seq_len(min(length(vals), length(header)))]
+    if (length(vals) < length(header)) {
+      vals <- c(vals, rep("", length(header) - length(vals)))
+    }
+    vals
+  })
+
+  df <- as.data.frame(do.call(rbind, rows), stringsAsFactors = FALSE)
+  names(df) <- tolower(header)
+  df
+}
+
+#' Derive a query ID from metadata
+#'
+#' Converts a query's metadata (group and name fields) into a dot-separated,
+#' snake_case identifier suitable for use as a unique query ID
+#' (e.g. \code{"person.total_persons"}).
+#'
+#' @param meta Named list; query metadata containing \code{group} and
+#'   \code{name} entries.
+#' @return Character; the derived query ID in \code{group.name} format.
+#' @keywords internal
+.ql_derive_id <- function(meta) {
+  group <- gsub("[^a-z0-9]", "_", tolower(meta[["group"]] %||% "general"))
+  group <- gsub("_+", "_", group)
+  group <- gsub("^_|_$", "", group)
+  name <- gsub("[^a-z0-9]", "_", tolower(meta[["name"]] %||% "query"))
+  name <- gsub("_+", "_", name)
+  name <- gsub("^_|_$", "", name)
+  paste0(group, ".", name)
+}
+
+# --- Static Safety Classifier -----------------------------------------------
+
+#' Classify a SQL query template by safety level
+#'
+#' Performs static analysis on rendered SQL to classify it as:
+#' \itemize{
+#'   \item \code{SAFE_AGGREGATE} - Safe to return results to client
+#'   \item \code{SAFE_ASSIGN} - Safe for server-side assignment only
+#'   \item \code{BLOCKED} - Cannot be executed (returns identifiers/free-text)
+#' }
+#'
+#' @param sql Character; SQL query text (rendered, before dialect translation)
+#' @param declared_mode Character; "aggregate" or "assign" from metadata
+#' @return Named list with class, reason, sensitive_fields_detected, poolable
+#' @keywords internal
+.ql_classify <- function(sql, declared_mode = "aggregate") {
+  if (is.null(sql) || nchar(trimws(sql)) == 0) {
+    return(list(class = "BLOCKED", reason = "empty SQL",
+                sensitive_fields_detected = character(0), poolable = FALSE))
+  }
+
+  sql_lower <- tolower(sql)
+
+  # --- BLOCKED checks ---
+
+  # Direct identifier columns
+  identifier_cols <- c(
+    "person_id", "visit_occurrence_id", "drug_exposure_id",
+    "measurement_id", "condition_occurrence_id", "procedure_occurrence_id",
+    "observation_id", "device_exposure_id", "specimen_id",
+    "note_id", "episode_id"
+  )
+
+  # For aggregate mode, identifiers in SELECT are blocked
+  if (declared_mode == "aggregate") {
+    # Extract SELECT columns (crude but effective)
+    select_match <- regmatches(sql_lower,
+      regexpr("select\\s+(top\\s+\\d+\\s+)?(.+?)\\s+from\\s+",
+              sql_lower, perl = TRUE))
+    if (length(select_match) > 0) {
+      select_part <- select_match[1]
+      for (id_col in identifier_cols) {
+        # Match column reference (not inside function like COUNT(DISTINCT person_id))
+        # Pattern: the column appears as a bare select item, not inside an aggregate
+        pattern <- paste0("\\b", id_col, "\\b")
+        if (grepl(pattern, select_part)) {
+          # Check if it's inside an aggregate function
+          agg_pattern <- paste0(
+            "(count|sum|avg|min|max)\\s*\\(\\s*(distinct\\s+)?",
+            id_col)
+          if (!grepl(agg_pattern, select_part)) {
+            return(list(
+              class = "BLOCKED",
+              reason = paste0("returns identifier column: ", id_col),
+              sensitive_fields_detected = character(0),
+              poolable = FALSE
+            ))
+          }
+        }
+      }
+    }
+  }
+
+  # Exact birth components are never admitted by the heuristic fallback. A
+  # reviewed allowlist contract may still authorize a redesigned aggregate,
+  # but unreviewed SQL that touches these quasi-identifiers fails closed.
+  birth_detail_cols <- c("year_of_birth", "month_of_birth", "day_of_birth",
+                         "birth_datetime")
+  for (birth_col in birth_detail_cols) {
+    if (grepl(paste0("\\b", birth_col, "\\b"), sql_lower)) {
+      return(list(
+        class = "BLOCKED",
+        reason = paste0("uses exact birth component: ", birth_col),
+        sensitive_fields_detected = birth_col,
+        poolable = FALSE
+      ))
+    }
+  }
+
+  # Free-text fields
+  freetext_cols <- c("note_text", "note_source_value", "value_source_value",
+                     "stop_reason", "sig", "route_source_value")
+  for (ft_col in freetext_cols) {
+    if (grepl(paste0("\\b", ft_col, "\\b"), sql_lower)) {
+      return(list(
+        class = "BLOCKED",
+        reason = paste0("returns free-text field: ", ft_col),
+        sensitive_fields_detected = character(0),
+        poolable = FALSE
+      ))
+    }
+  }
+
+  # SELECT * from person-level tables in aggregate mode
+  if (declared_mode == "aggregate" &&
+      grepl("select\\s+\\*", sql_lower)) {
+    return(list(
+      class = "BLOCKED",
+      reason = "SELECT * not allowed in aggregate mode",
+      sensitive_fields_detected = character(0),
+      poolable = FALSE
+    ))
+  }
+
+  # Unbinned raw dates in aggregate mode
+  if (declared_mode == "aggregate") {
+    date_patterns <- c("_date\\b", "_datetime\\b")
+    has_raw_date <- any(vapply(date_patterns, function(p) {
+      grepl(p, sql_lower)
+    }, logical(1)))
+
+    has_date_binning <- grepl(
+      "date_trunc|extract\\s*\\(|year\\s*\\(|month\\s*\\(|to_char|format\\(",
+      sql_lower)
+
+    if (has_raw_date && !has_date_binning) {
+      # Check if dates are in SELECT (not just WHERE)
+      select_part <- sub("\\bfrom\\b.*", "", sql_lower)
+      if (any(vapply(date_patterns, function(p) grepl(p, select_part), logical(1)))) {
+        return(list(
+          class = "BLOCKED",
+          reason = "unbinned dates in SELECT for aggregate mode",
+          sensitive_fields_detected = character(0),
+          poolable = FALSE
+        ))
+      }
+    }
+  }
+
+  # --- SAFE_AGGREGATE checks ---
+
+  has_group_by <- grepl("\\bgroup\\s+by\\b", sql_lower)
+  has_agg <- grepl("\\b(count|sum|avg|min|max)\\s*\\(", sql_lower)
+
+  # Detect sensitive fields (count-like columns in output)
+  sensitive_detected <- character(0)
+  count_aliases <- regmatches(sql_lower,
+    gregexpr("(count|sum)\\s*\\([^)]*\\)\\s+as\\s+(\\w+)", sql_lower, perl = TRUE))
+  if (length(count_aliases) > 0) {
+    for (match_str in count_aliases[[1]]) {
+      alias <- sub(".*\\bas\\s+(\\w+)$", "\\1", match_str)
+      sensitive_detected <- c(sensitive_detected, alias)
+    }
+  }
+  # Also check for common count column names
+  common_count_cols <- c("n_persons", "n_records", "count_value",
+                         "person_count", "record_count", "num_persons")
+  for (cc in common_count_cols) {
+    if (grepl(paste0("\\b", cc, "\\b"), sql_lower)) {
+      sensitive_detected <- c(sensitive_detected, cc)
+    }
+  }
+  sensitive_detected <- unique(sensitive_detected)
+
+  if (declared_mode == "aggregate" && has_group_by && has_agg) {
+    return(list(
+      class = "SAFE_AGGREGATE",
+      reason = "aggregated + grouped query",
+      sensitive_fields_detected = sensitive_detected,
+      poolable = length(sensitive_detected) > 0
+    ))
+  }
+
+  # Simple aggregate without GROUP BY (e.g., SELECT COUNT(*))
+  if (declared_mode == "aggregate" && has_agg && !has_group_by) {
+    return(list(
+      class = "SAFE_AGGREGATE",
+      reason = "simple aggregate query",
+      sensitive_fields_detected = sensitive_detected,
+      poolable = TRUE
+    ))
+  }
+
+  # --- SAFE_ASSIGN ---
+  if (declared_mode == "assign") {
+    return(list(
+      class = "BLOCKED",
+      reason = "assign loaders require an explicit reviewed allowlist contract",
+      sensitive_fields_detected = sensitive_detected,
+      poolable = FALSE
+    ))
+  }
+
+  # Default: if aggregate mode but no aggregates detected, block
+  if (declared_mode == "aggregate") {
+    return(list(
+      class = "BLOCKED",
+      reason = "aggregate mode but no aggregate functions detected",
+      sensitive_fields_detected = character(0),
+      poolable = FALSE
+    ))
+  }
+
+  list(
+    class = "BLOCKED",
+    reason = "query has no reviewed aggregate or assign contract",
+    sensitive_fields_detected = sensitive_detected,
+    poolable = FALSE
+  )
+}
+
+#' Require person-bounded sticky release for exact distribution statistics
+#'
+#' Small-cell suppression and count banding do not make an exact mean, standard
+#' deviation, quantile, minimum or maximum safe: for discrete values the exact
+#' statistic can reveal a count hidden inside its band, and recurrent records
+#' permit unbounded influence by one person. Such templates remain documented
+#' questions but are not executable through the legacy direct-SQL endpoint;
+#' callers use the typed, person-bounded sticky QueryLibrary redesign instead.
+#'
+#' @param query Parsed query template.
+#' @param safety Static or allowlist safety record.
+#' @return Effective safety record.
+#' @keywords internal
+.ql_effective_safety <- function(query, safety) {
+  sql <- query$sql %||% ""
+  exact_distribution <- identical(tolower(query$mode %||% "aggregate"),
+                                  "aggregate") && grepl(
+    paste0("\\b(avg|average|mean|stddev(_pop|_samp)?|stdev|sd|variance|",
+           "var_pop|var_samp|median|percentile(_cont|_disc)?|min|max)\\s*\\("),
+    sql, ignore.case = TRUE, perl = TRUE
+  )
+  if (!exact_distribution) return(safety)
+  list(
+    class = "BLOCKED",
+    reason = paste0(
+      "exact distribution statistics require a typed person-bounded sticky ",
+      "release"
+    ),
+    sensitive_fields = safety$sensitive_fields %||% character(0),
+    sensitive_fields_detected = safety$sensitive_fields_detected %||%
+      character(0),
+    poolable = FALSE,
+    sticky_redesign_available = TRUE
+  )
+}
+
+#' Remove caller-controlled raw top-N clauses from aggregate templates
+#'
+#' QueryLibrary templates historically applied `TOP/LIMIT @top_n` before the
+#' disclosure gate. Varying that value exposes exact within-band rank. Execute
+#' the complete grouped query instead; the unified analysis path applies top-N
+#' only after suppression and banding.
+#'
+#' @param sql Query template SQL.
+#' @return List with rewritten `sql` and logical `post_gate_top_n`.
+#' @keywords internal
+.qlStripRawTopN <- function(sql) {
+  rewritten <- gsub(
+    "\\bSELECT\\s+TOP\\s+@top_n\\s+",
+    "SELECT ", sql, ignore.case = TRUE, perl = TRUE
+  )
+  rewritten <- gsub(
+    "\\s+LIMIT\\s+@top_n\\s*;?\\s*$",
+    "", rewritten, ignore.case = TRUE, perl = TRUE
+  )
+  list(sql = rewritten, post_gate_top_n = !identical(rewritten, sql))
+}
+
+# --- Allowlist Management ----------------------------------------------------
+
+.ql_validate_allowlist <- function(entries) {
+  required <- c(
+    "id", "class", "poolable", "sensitive_fields", "pool_strategy"
+  )
+  scalar_string <- function(value) {
+    is.character(value) && length(value) == 1L && !is.na(value) &&
+      nzchar(value)
+  }
+  valid_entry <- function(entry) {
+    if (!is.list(entry) || is.null(names(entry)) ||
+        !setequal(names(entry), required) ||
+        !scalar_string(entry$id) ||
+        !grepl("^[A-Za-z][A-Za-z0-9_.-]{0,127}$", entry$id) ||
+        !scalar_string(entry$class) ||
+        !entry$class %in% c("SAFE_AGGREGATE", "SAFE_ASSIGN", "BLOCKED") ||
+        !is.logical(entry$poolable) || length(entry$poolable) != 1L ||
+        is.na(entry$poolable) ||
+        !identical(entry$poolable, identical(entry$class, "SAFE_AGGREGATE")) ||
+        !is.list(entry$sensitive_fields) ||
+        !scalar_string(entry$pool_strategy) ||
+        !entry$pool_strategy %in% c("sum", "none") ||
+        !identical(entry$pool_strategy,
+                   if (isTRUE(entry$poolable)) "sum" else "none")) {
+      return(FALSE)
+    }
+    sensitive <- unlist(entry$sensitive_fields, use.names = FALSE)
+    length(sensitive) == 0L ||
+      (is.character(sensitive) && !anyNA(sensitive) &&
+       all(nzchar(sensitive)) && !anyDuplicated(sensitive))
+  }
+  if (!is.list(entries) || length(entries) == 0L ||
+      !all(vapply(entries, valid_entry, logical(1L)))) {
+    stop("Query allowlist has an invalid schema.", call. = FALSE)
+  }
+  ids <- vapply(entries, `[[`, character(1L), "id")
+  if (anyDuplicated(ids)) {
+    stop("Query allowlist contains duplicate query IDs.", call. = FALSE)
+  }
+  entries
+}
+
+#' Load the query allowlist from inst/queries/
+#'
+#' Reads the curated allowlist JSON file that maps query IDs to their safety
+#' classification and metadata. Falls back to an empty list if not found.
+#'
+#' @param package Character; package name to search for allowlist
+#' @return Named list keyed by query ID
+#' @keywords internal
+.ql_load_allowlist <- function(package = "dsOMOP") {
+  path <- system.file("queries", "query_allowlist.json", package = package)
+  if (path == "" || !file.exists(path)) {
+    settings <- .omopDisclosureSettings()
+    if (isTRUE(settings$query_strict)) {
+      stop("Allowlist file not found and strict query library mode is enabled. ",
+           "All query templates are blocked. Install the dsOMOP package correctly ",
+           "or set options(dsomop.query_strict = FALSE) to disable.", call. = FALSE)
+    }
+    return(list())
+  }
+
+  tryCatch({
+    raw <- readLines(path, warn = FALSE)
+    json_text <- paste(raw, collapse = "\n")
+    entries <- .ql_validate_allowlist(.ql_parse_json(json_text))
+    # Convert list of entries to named list keyed by id
+    result <- list()
+    for (entry in entries) {
+      if (!is.null(entry$id)) {
+        result[[entry$id]] <- entry
+      }
+    }
+    result
+  }, error = function(e) {
+    warning("Failed to load query allowlist: ", e$message, call. = FALSE)
+    list()
+  })
+}
+
+#' Parse a JSON string with graceful fallback
+#'
+#' Wrapper around \code{jsonlite::fromJSON} that preserves list structure
+#' (\code{simplifyVector = FALSE}). When jsonlite is not available, returns
+#' an empty list and emits a warning instead of raising an error.
+#'
+#' @param text Character; a JSON string to parse.
+#' @return The parsed R object (typically a list), or an empty list if
+#'   jsonlite is unavailable.
+#' @keywords internal
+.ql_parse_json <- function(text) {
+  # Use R's built-in JSON parsing if available, otherwise basic parsing
+  if (requireNamespace("jsonlite", quietly = TRUE)) {
+    return(jsonlite::fromJSON(text, simplifyVector = FALSE))
+  }
+  # Fallback: empty list
+  warning("jsonlite not available; allowlist not loaded", call. = FALSE)
+  list()
+}
+
+# --- Query Template Loading --------------------------------------------------
+
+#' Load all query templates from inst/queries/queries/
+#'
+#' Reads all .md files in the queries directory and parses them into
+#' structured query objects.
+#'
+#' @param package Character; package name
+#' @return Named list of parsed query objects, keyed by query ID
+#' @keywords internal
+.ql_load_queries <- function(package = "dsOMOP") {
+  queries_dir <- system.file("queries", "queries", package = package)
+  if (queries_dir == "" || !dir.exists(queries_dir)) return(list())
+
+  md_files <- list.files(queries_dir, pattern = "\\.md$",
+                         full.names = TRUE, recursive = TRUE)
+  if (length(md_files) == 0) return(list())
+
+  result <- list()
+  for (f in md_files) {
+    tryCatch({
+      text <- paste(readLines(f, warn = FALSE), collapse = "\n")
+      parsed <- .ql_parse_markdown(text)
+      if (!is.null(parsed$sql)) {
+        result[[parsed$id]] <- parsed
+      }
+    }, error = function(e) {
+      # Skip invalid files silently
+    })
+  }
+  result
+}
+
+# --- Query Library Operations (Internal) -------------------------------------
+
+#' List available query templates
+#'
+#' Returns metadata for all queries that are on the allowlist and match
+#' the requested filters.
+#'
+#' @param handle CDM handle
+#' @param domain Character; optional domain/group filter
+#' @param provider Character; "native" (default) or "all"
+#' @return Data frame with query metadata
+#' @keywords internal
+.query_list <- function(handle, domain = NULL, provider = "native") {
+  queries <- .ql_load_queries()
+  allowlist <- .ql_load_allowlist()
+
+  # Check strict mode (server option only — cannot be overridden by client)
+  settings <- .omopDisclosureSettings()
+  strict <- isTRUE(settings$query_strict)
+
+  # Build metadata data frame
+  entries <- list()
+  for (qid in names(queries)) {
+    q <- queries[[qid]]
+    al <- allowlist[[qid]]
+
+    # In strict mode, skip queries not on the allowlist
+    if (strict && is.null(al)) next
+
+    # Only include queries on the allowlist (or all if no allowlist)
+    safety <- if (!is.null(al)) al else .ql_classify(q$sql, q$mode)
+    safety <- .ql_effective_safety(q, safety)
+    safety <- .ql_reviewed_safety(qid, safety)
+    safety_class <- safety$class
+
+    # Skip BLOCKED queries
+    if (safety_class == "BLOCKED") next
+
+    # Apply domain filter
+    if (!is.null(domain)) {
+      if (tolower(q$group) != tolower(domain)) next
+    }
+
+    poolable <- safety$poolable %||% FALSE
+
+    entries[[length(entries) + 1L]] <- data.frame(
+      id = qid,
+      group = q$group,
+      name = q$name,
+      description = substr(q$description, 1, 200),
+      mode = q$mode,
+      class = safety_class,
+      poolable = poolable,
+      cdm_version = q$cdm_version,
+      n_inputs = if (!is.null(q$inputs)) nrow(q$inputs) else 0L,
+      stringsAsFactors = FALSE
+    )
+  }
+
+  if (length(entries) == 0) {
+    return(data.frame(
+      id = character(0), group = character(0), name = character(0),
+      description = character(0), mode = character(0),
+      class = character(0), poolable = logical(0),
+      cdm_version = character(0), n_inputs = integer(0),
+      stringsAsFactors = FALSE
+    ))
+  }
+
+  do.call(rbind, entries)
+}
+
+#' Get detailed metadata for a specific query template
+#'
+#' @param handle CDM handle (unused, for future schema validation)
+#' @param query_id Character; query ID
+#' @return Named list with full query metadata (excluding SQL)
+#' @keywords internal
+.query_get <- function(handle, query_id) {
+  queries <- .ql_load_queries()
+  q <- queries[[query_id]]
+  if (is.null(q)) {
+    stop("Query '", query_id, "' not found in query library.", call. = FALSE)
+  }
+
+  allowlist <- .ql_load_allowlist()
+  al <- allowlist[[query_id]]
+  safety <- if (!is.null(al)) al else .ql_classify(q$sql, q$mode)
+  safety <- .ql_effective_safety(q, safety)
+  safety <- .ql_reviewed_safety(query_id, safety)
+
+  list(
+    id = q$id,
+    group = q$group,
+    name = q$name,
+    description = q$description,
+    mode = q$mode,
+    class = safety$class %||% safety[["class"]],
+    poolable = safety$poolable %||% FALSE,
+    cdm_version = q$cdm_version,
+    inputs = q$inputs,
+    outputs = if (!is.null(safety$output_fields)) {
+      data.frame(field = safety$output_fields, stringsAsFactors = FALSE)
+    } else q$outputs,
+    sensitive_fields = q$sensitive_fields,
+    protection = safety$protection
+  )
+}
+
+#' Effective safety of a template answered by a reviewed replacement
+#'
+#' The raw SQL of the distribution templates stays blocked; the analysis
+#' catalog answers them through the reviewed replacements of tools_auto.R.
+#'
+#' @param query_id Template id.
+#' @param safety Effective safety record of the raw SQL.
+#' @return The safety record, reopened for reviewed questions.
+#' @keywords internal
+.ql_reviewed_safety <- function(query_id, safety) {
+  spec <- .dsomopToolsReviewedQueries()[[query_id]]
+  if (is.null(spec) || !identical(safety$class, "BLOCKED")) return(safety)
+  mode <- .dsomopToolsMode()
+  shape <- .dsomopToolsShape(spec, mode)
+  protection <- if (identical(shape, "summary")) {
+    if (identical(mode, "dp")) "refused (no DP release in DP-only mode)" else
+      "standard"
+  } else if (identical(mode, "standard")) {
+    "standard"
+  } else if (identical(mode, "dp")) {
+    "dp"
+  } else {
+    "dp (standard gate when DP is unavailable)"
+  }
+  list(class = "SAFE_AGGREGATE", reason = "reviewed replacement",
+       sensitive_fields = "n_persons", poolable = TRUE,
+       protection = protection,
+       output_fields = .dsomopToolsOutputCols(spec, shape))
+}
+
+#' Execute a query template with SDC enforcement
+#'
+#' Renders the SQL template with user inputs, translates to target dialect,
+#' executes against the database, and applies disclosure controls.
+#'
+#' @param handle CDM handle
+#' @param query_id Character; query ID from query library
+#' @param inputs Named list; parameter values for the query template
+#' @param mode Character; "aggregate" or "assign"
+#' @return For aggregate: disclosure-controlled data frame.
+#'   For assign: invisible TRUE (data assigned server-side).
+#'
+#' @section Three-Layer Safety Model:
+#' Queries pass through three independent safety checks before execution:
+#' \enumerate{
+#'   \item \strong{Allowlist} (\code{dsomop.query_strict}, server option):
+#'     When TRUE (default), only pre-approved queries on the allowlist can
+#'     execute. All unknown query IDs are rejected. This is the authoritative
+#'     gate for production deployments.
+#'   \item \strong{Static classification} (\code{.ql_classify()}):
+#'     Analyzes the rendered SQL for dangerous patterns: identifier columns
+#'     in SELECT (blocked for aggregate mode), unbinned dates in SELECT,
+#'     free-text fields, and SELECT * from person-level tables. This is
+#'     heuristic-based and may miss complex SQL (CTEs, subqueries).
+#'   \item \strong{Parameter type enforcement} (\code{.sanitizeQueryParam()}):
+#'     All user-supplied parameters are validated against their declared type
+#'     from the template metadata. Non-numeric values for numeric parameters
+#'     are rejected outright (not SQL-quoted).
+#' }
+#' After execution, aggregate results undergo row-level disclosure control
+#' via \code{.suppressSmallCounts()} on detected sensitive columns.
+#'
+#' @keywords internal
+.query_exec <- function(handle, query_id, inputs = list(),
+                          mode = "aggregate") {
+  queries <- .ql_load_queries()
+  q <- queries[[query_id]]
+  if (is.null(q)) {
+    stop("Query '", query_id, "' not found in query library.", call. = FALSE)
+  }
+
+  # Layer 1: Allowlist check (server-controlled gate)
+  allowlist <- .ql_load_allowlist()
+  al <- allowlist[[query_id]]
+
+  # Enforce strict allowlist mode (server option only — cannot be overridden by client)
+  settings <- .omopDisclosureSettings()
+  strict <- isTRUE(settings$query_strict)
+  if (strict && is.null(al)) {
+    stop("Query '", query_id, "' not on allowlist (strict mode).", call. = FALSE)
+  }
+
+  safety <- if (!is.null(al)) al else .ql_classify(q$sql, q$mode)
+  safety <- .ql_effective_safety(q, safety)
+  safety_class <- safety$class %||% safety[["class"]]
+
+  # Enforce safety
+
+  if (safety_class == "BLOCKED") {
+    stop("Query '", query_id, "' is blocked by safety classification.",
+         call. = FALSE)
+  }
+
+  if (mode == "aggregate" && safety_class == "SAFE_ASSIGN") {
+    stop("Query '", query_id, "' is only safe for assign mode, ",
+         "not aggregate.", call. = FALSE)
+  }
+
+  # The public aggregate endpoint and this internal compatibility path share
+  # the unified gate, including count banding and post-gate top-N selection.
+  if (identical(mode, "aggregate")) {
+    return(.omopAnalysisRun(
+      handle, paste0("dsomop:", query_id), params = inputs,
+      scope = NULL, combine = "union", assign = FALSE
+    ))
+  }
+
+  # Render controller-owned schema placeholders before substituting inputs.
+  # The shared renderer quotes each complete table reference for its DBMS.
+  sql <- .qlRenderSchema(handle, q$sql)
+
+  # Build effective inputs: user-provided values + defaults from template
+  effective_inputs <- inputs
+  if (!is.null(q$inputs) && is.data.frame(q$inputs) && nrow(q$inputs) > 0) {
+    param_col <- intersect(c("parameter", "param", "name"), names(q$inputs))
+    example_col <- intersect(c("example", "default"), names(q$inputs))
+    if (length(param_col) > 0 && length(example_col) > 0) {
+      for (i in seq_len(nrow(q$inputs))) {
+        pname <- q$inputs[[param_col[1]]][i]
+        if (!is.null(pname) && nchar(pname) > 0 &&
+            !(pname %in% names(effective_inputs))) {
+          default_val <- q$inputs[[example_col[1]]][i]
+          if (!is.null(default_val) && nchar(default_val) > 0) {
+            effective_inputs[[pname]] <- default_val
+          }
+        }
+      }
+    }
+  }
+
+  # Substitute input parameters (user-provided + defaults)
+  for (param_name in names(effective_inputs)) {
+    param_val <- effective_inputs[[param_name]]
+    # Validate input parameter
+    .validateString(as.character(param_val))
+    # Sanitize: enforce declared type from template inputs
+    sanitized <- .sanitizeQueryParam(param_val, param_name, q$inputs)
+    sql <- gsub(paste0("@", param_name),
+                 sanitized,
+                 sql, fixed = TRUE)
+  }
+
+  # Translate to target dialect
+  sql <- .sql_translate(sql, handle$target_dialect)
+
+  # Execute
+  if (mode == "assign") {
+    result <- .executeQuery(handle, sql)
+    return(result)
+  }
+
+  # Aggregate mode: execute + apply SDC
+  result <- .executeQuery(handle, sql)
+
+  if (nrow(result) == 0) return(result)
+
+  # Apply disclosure controls
+  settings <- .omopDisclosureSettings()
+
+  # Determine sensitive fields
+  sensitive <- q$sensitive_fields
+  if (length(sensitive) == 0) {
+    # Auto-detect from classifier
+    cl <- .ql_classify(q$sql, q$mode)
+    sensitive <- cl$sensitive_fields_detected
+  }
+
+  # Suppress small counts by dropping rows with any sensitive column below threshold
+  sensitive_matched <- character(0)
+  for (field in sensitive) {
+    field_lower <- tolower(field)
+    matching_col <- intersect(field_lower, tolower(names(result)))
+    if (length(matching_col) > 0) {
+      col_idx <- which(tolower(names(result)) == matching_col[1])
+      sensitive_matched <- c(sensitive_matched, names(result)[col_idx[1]])
+    }
+  }
+  if (length(sensitive_matched) > 0) {
+    result <- .suppressSmallCounts(result, sensitive_matched)
+  }
+
+  # Unique-person gate for the curated query path. The per-field suppression
+  # above only fires for columns the query author happened to list as sensitive;
+  # a person-count column they forgot to declare (or a query with no person
+  # column at all) would otherwise leak ungated. Identify any person-count
+  # column by its conventional name and suppress every row whose distinct-person
+  # count is below threshold (fail-closed row-drop, person-based). If NO person
+  # column is identifiable we cannot prove the row is non-disclosive, so in
+  # strict mode we REJECT the query rather than return an ungated aggregate;
+  # non-strict (development) mode lets it through, consistent with the rest of
+  # the strict/non-strict split in this function.
+  person_cols <- grep("(^|_)(n_persons|num_persons|n_total|n_deaths|person_id)$",
+                      names(result), ignore.case = TRUE, value = TRUE)
+  if (length(person_cols) > 0) {
+    result <- .suppressSmallCounts(result, person_cols)
+  } else if (isTRUE(strict)) {
+    stop("Disclosive: query '", query_id, "' returns no identifiable ",
+         "person-count column to gate on (strict mode).", call. = FALSE)
+  }
+
+  # Cap rows to prevent long-tail disclosure
+  max_rows <- 5000L
+  if (nrow(result) > max_rows) {
+    result <- result[seq_len(max_rows), , drop = FALSE]
+    attr(result, "truncated") <- TRUE
+    attr(result, "total_rows") <- nrow(result)
+  }
+
+  result
+}
+
+# --- SDC Helpers -------------------------------------------------------------
+
+#' Infer declared parameter type from template inputs table
+#'
+#' Examines the \code{example} column in the template's inputs data.frame
+#' to determine whether a parameter is expected to be numeric (integer/decimal).
+#' All current OMOP query templates use integer parameters exclusively.
+#'
+#' This function is part of the type-enforcement defense against SQL injection.
+#' By inferring parameter types from template metadata, we can reject
+#' non-numeric values for numeric parameters instead of attempting to
+#' SQL-quote them (which is less safe).
+#'
+#' @param param_name Character; parameter name to look up
+#' @param inputs_df Data frame; the parsed template inputs table (may be NULL)
+#' @return Character; \code{"integer"} or \code{"numeric"} if example is a number,
+#'   \code{"unknown"} otherwise
+#' @keywords internal
+.inferParamType <- function(param_name, inputs_df) {
+  if (is.null(inputs_df) || !is.data.frame(inputs_df) || nrow(inputs_df) == 0) {
+    return("unknown")
+  }
+  param_col <- intersect(c("parameter", "param", "name"), names(inputs_df))
+  example_col <- intersect(c("example", "default"), names(inputs_df))
+  if (length(param_col) == 0 || length(example_col) == 0) return("unknown")
+
+  idx <- which(inputs_df[[param_col[1]]] == param_name)
+  if (length(idx) == 0) return("unknown")
+
+  example_val <- trimws(as.character(inputs_df[[example_col[1]]][idx[1]]))
+  if (grepl("^-?[0-9]+(\\.[0-9]+)?$", example_val)) {
+    if (grepl("\\.", example_val)) return("numeric")
+    return("integer")
+  }
+  "unknown"
+}
+
+#' Sanitize a query parameter to prevent SQL injection
+#'
+#' Enforces the declared type from the template's inputs table. If the template
+#' declares a numeric example (e.g. \code{201820}, \code{50}), only strictly
+#' numeric values are accepted — non-numeric input is rejected outright rather
+#' than being SQL-quoted. This prevents attacks like \code{"1 OR 1=1"} from
+#' being smuggled as a quoted string into a numeric context.
+#'
+#' @section Attack Prevention:
+#' Consider a template with \code{WHERE concept_id = @concept_id}. Without
+#' type enforcement, an attacker could pass \code{"1 OR 1=1"} and have it
+#' quoted as a string literal (\code{'1 OR 1=1'}), which in some SQL contexts
+#' could be type-coerced. With type enforcement, the value is rejected
+#' immediately because it's not a valid integer.
+#'
+#' @section Fail-Closed Policy:
+#' For parameters with unknown type (no template metadata), non-numeric
+#' values are \strong{always rejected}. All current OMOP query templates
+#' use integer parameters (concept_id, top_n, etc.), so this default is
+#' both safe and compatible.
+#'
+#' @param value The parameter value to sanitize
+#' @param param_name Character; parameter name (for error messages)
+#' @param inputs_df Data frame; the parsed template inputs table (may be NULL)
+#' @return Character; safe SQL literal
+#' @keywords internal
+.sanitizeQueryParam <- function(value, param_name, inputs_df = NULL) {
+  val_str <- trimws(as.character(value))
+  if (length(val_str) != 1 || is.na(val_str) || nchar(val_str) == 0) {
+    stop("Query parameter '", param_name, "' is empty or NA.", call. = FALSE)
+  }
+
+  declared_type <- .inferParamType(param_name, inputs_df)
+  is_numeric_val <- grepl("^-?[0-9]+(\\.[0-9]+)?$", val_str)
+
+  # If template declares a numeric type, enforce it strictly
+  if (declared_type %in% c("integer", "numeric")) {
+    if (!is_numeric_val) {
+      stop("Query parameter '", param_name, "' must be ",
+           declared_type, " but received '", val_str, "'.", call. = FALSE)
+    }
+    if (declared_type == "integer" && grepl("\\.", val_str)) {
+      stop("Query parameter '", param_name, "' must be an integer but received '",
+           val_str, "'.", call. = FALSE)
+    }
+    return(val_str)
+  }
+
+  # For unknown type: still reject anything that isn't numeric.
+  # All current OMOP query templates use integer parameters only.
+  # This fail-closed approach prevents SQL injection in new templates
+  # that might forget to declare types.
+  if (!is_numeric_val) {
+    stop("Query parameter '", param_name,
+         "' contains non-numeric value '", val_str,
+         "'. Only numeric parameters are allowed in query templates.",
+         call. = FALSE)
+  }
+  val_str
+}
+
+#' Suppress counts below threshold by dropping rows
+#'
+#' @param df Data frame
+#' @param sensitive_cols Character vector; column names to check
+#' @param threshold Numeric; minimum count threshold
+#' @return Data frame with disclosive rows removed
+#' @keywords internal
+.query_suppress_sensitive <- function(df, sensitive_cols, threshold = NULL) {
+  if (is.null(threshold)) {
+    threshold <- .omopDisclosureSettings()$nfilter_tab
+  }
+  .suppressSmallCounts(df, sensitive_cols)
+}
