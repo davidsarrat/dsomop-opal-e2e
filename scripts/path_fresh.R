@@ -12,6 +12,7 @@ pub <- check_publication(o, "after install (auto-publish of a new package)")
 
 conns <- analyst_login()
 introspect(conns, "fresh install")
+versions(conns, "after a fresh install")
 # The driver the resource needs; note whether the stock Rock image already has it.
 first <- if (identical(MODE, "candidate")) "omop_data.gibleed" else "omop_data.gibleed_tls_disable"
 ensure_driver(o, conns, first)
@@ -20,6 +21,10 @@ say("== the analyst's script on omop_data.gibleed (resource form with TLS mode l
 a <- analyst_script(conns, "omop_data.gibleed")
 summary_line("[fresh] analyst script on gibleed (TLS mode empty): ",
              if (a$ok && isTRUE(a$tables_ok)) "OK" else paste0("FAIL: ", a$error))
+say("== the analyst's script on omop_data.gibleed_noschema (2.x resource without a CDM schema; GiBleed is in cdm)")
+n <- analyst_script(conns, "omop_data.gibleed_noschema")
+summary_line("[fresh] analyst script on gibleed_noschema (no cdm_schema, TLS mode empty): ",
+             if (n$ok && isTRUE(n$tables_ok)) "OK" else paste0("FAIL: ", n$error))
 if (!identical(MODE, "candidate")) {
   say("== the analyst's script on omop_data.gibleed_tls_disable (sslmode=disable)")
   b <- analyst_script(conns, "omop_data.gibleed_tls_disable")

@@ -36,6 +36,8 @@ v1_url <- function(host, port, db, schema = NULL, vocabulary_schema = NULL) {
 resources <- list(
   # What the 2.10.0 form produces when the administrator leaves "TLS mode" empty.
   gibleed = list(url = v2_url("omopdb", 5432, "omop", cdm_schema = "cdm"), format = "omop.dbi.db"),
+  # 2.x without a CDM schema (GiBleed lives in cdm, not public): 2.10.1 discovers the schema holding `person`.
+  gibleed_noschema = list(url = v2_url("omopdb", 5432, "omop"), format = "omop.dbi.db"),
   gibleed_tls_disable = list(url = v2_url("omopdb", 5432, "omop", cdm_schema = "cdm", sslmode = "disable"),
                              format = "omop.dbi.db"),
   gibleed_v1 = list(url = v1_url("omopdb", 5432, "omop", "cdm", "cdm"), format = "omop.cdm.db"),

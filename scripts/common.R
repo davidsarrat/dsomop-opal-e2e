@@ -225,3 +225,19 @@ ensure_driver <- function(o, conns, resource) {
   say("RPostgres on Rock after install: ", rock_pkg_version("RPostgres"))
   invisible(TRUE)
 }
+
+# 2.10.1 client: its own version and each server's published/running dsOMOP (absent from 2.10.0).
+versions <- function(conns, label) {
+  ns <- asNamespace("dsOMOPClient")
+  if (exists("ds.omop.client.version", envir = ns)) {
+    show(paste("ds.omop.client.version()", label), tryCatch(get("ds.omop.client.version", envir = ns)(), error = function(e) conditionMessage(e)))
+  }
+  if (exists("ds.omop.server.version", envir = ns)) {
+    v <- capture(paste("ds.omop.server.version(conns)", label), get("ds.omop.server.version", envir = ns)(conns))
+    if (v$ok) {
+      show(paste("ds.omop.server.version(conns)", label), v$value)
+      summary_line("[", E2E_PATH, "] ds.omop.server.version(conns) ", label, ": ",
+                   paste(capture.output(print(v$value)), collapse = " / "))
+    }
+  } else say("ds.omop.server.version() is not in this client (", as.character(packageVersion("dsOMOPClient")), ")")
+}

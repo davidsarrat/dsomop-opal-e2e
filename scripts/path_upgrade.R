@@ -18,6 +18,7 @@ check_publication(o, paste("after upgrading to", target, "(no publish)"))
 
 conns <- analyst_login()
 introspect(conns, "after the upgrade, before publishing")
+versions(conns, "after the upgrade, before publishing")
 ensure_driver(o, conns, res)
 say("== A3: the analyst's script (", res, ") right after the upgrade")
 a <- analyst_script(conns, res)
@@ -31,6 +32,7 @@ check_publication(o, "after publishing")
 
 conns <- analyst_login()
 introspect(conns, "after publishing")
+versions(conns, "after publishing")
 say("== B2: the analyst's script on omop_data.gibleed (TLS mode left empty)")
 b <- analyst_script(conns, "omop_data.gibleed")
 summary_line("[upgrade] B: after publishing, gibleed (TLS mode empty): ",

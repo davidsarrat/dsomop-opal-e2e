@@ -32,12 +32,13 @@ def cast(col, typ):
         return f"{v}::numeric::{typ}"
     if typ in ("numeric", "double precision", "real"):
         return f"{v}::{typ}"
+    ymd = f"{v} ~ '^[12][0-9]{{3}}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$'"
     if typ == "date":
-        return (f"CASE WHEN {v} IS NULL THEN NULL WHEN {num} THEN (CASE WHEN abs({v}::numeric) > 100000 "
+        return (f"CASE WHEN {v} IS NULL THEN NULL WHEN {ymd} THEN to_date({v}, 'YYYYMMDD') WHEN {num} THEN (CASE WHEN abs({v}::numeric) > 100000 "
                 f"THEN to_timestamp({v}::double precision)::date ELSE DATE '1970-01-01' + {v}::numeric::int END) "
                 f"ELSE {v}::date END")
     if typ.startswith("timestamp"):
-        return (f"CASE WHEN {v} IS NULL THEN NULL WHEN {num} THEN (CASE WHEN abs({v}::numeric) > 100000 "
+        return (f"CASE WHEN {v} IS NULL THEN NULL WHEN {ymd} THEN to_date({v}, 'YYYYMMDD')::timestamp WHEN {num} THEN (CASE WHEN abs({v}::numeric) > 100000 "
                 f"THEN to_timestamp({v}::double precision)::timestamp ELSE (DATE '1970-01-01' + {v}::numeric::int)::timestamp END) "
                 f"ELSE {v}::timestamp END")
     return f'"{col}"'
@@ -59,13 +60,23 @@ for path in sorted(glob.glob(os.path.join(SRC, "**", "*.csv"), recursive=True)):
         print(f"skip {os.path.basename(path)}: no such CDM 5.3 table")
         continue
     with open(path, newline="", encoding="utf-8") as f:
-        header = [h.strip().lower() for h in next(csv.reader(f))]
-    psql(f"DROP TABLE IF EXISTS stage.{table}; CREATE UNLOGGED TABLE stage.{table} ("
-         + ", ".join(f'"{h}" text' for h in header) + ")")
-    psql(f"COPY stage.{table} FROM STDIN WITH (FORMAT csv, HEADER true)", data=open(path, "rb").read())
-    target = [(c, ty) for c, ty in cols[table] if c in header]
-    psql(f"INSERT INTO cdm.{table} ({', '.join(c for c, _ in target)}) SELECT "
-         + ", ".join(cast(c, ty) for c, ty in target) + f" FROM stage.{table}")
+        rd = csv.reader(f)
+        header = [h.strip().lower() for h in next(rd)]
+        sample = next(rd, [])
+    if table in ("person", "concept", "condition_occurrence", "drug_exposure", "observation_period"):
+        print(f"sample {table}: " + ", ".join(f"{h}={x}" for h, x in zip(header, sample)))
+    try:
+        psql(f"DROP TABLE IF EXISTS stage.{table}; CREATE UNLOGGED TABLE stage.{table} ("
+             + ", ".join(f'"{h}" text' for h in header) + ")")
+        psql(f"COPY stage.{table} FROM STDIN WITH (FORMAT csv, HEADER true)", data=open(path, "rb").read())
+        target = [(c, ty) for c, ty in cols[table] if c in header]
+        psql(f"INSERT INTO cdm.{table} ({', '.join(c for c, _ in target)}) SELECT "
+             + ", ".join(cast(c, ty) for c, ty in target) + f" FROM stage.{table}")
+    except RuntimeError as e:
+        print(f"LOAD ERROR {table}: {e}")
+        if table == "person":
+            raise
+        continue
     n = psql(f"SELECT count(*) FROM cdm.{table}").strip()
     unknown = sorted(set(header) - {c for c, _ in cols[table]})
     print(f"{table}: {n} rows ({len(target)} of {len(header)} CSV columns{'; not in DDL: ' + ', '.join(unknown) if unknown else ''})")

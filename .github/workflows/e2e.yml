@@ -26,6 +26,8 @@ on:
       client_ref:
         description: "dsOMOPClient ref (public mode)"
         default: "2.10.0"
+permissions:
+  contents: write
 jobs:
   e2e:
     strategy:
@@ -34,6 +36,9 @@ jobs:
         path: ${{ fromJSON(inputs.paths) }}
     runs-on: ubuntu-24.04
     timeout-minutes: 110
+    defaults:
+      run:
+        shell: bash
     env:
       MODE: ${{ inputs.mode }}
       E2E_PATH: ${{ matrix.path }}
@@ -57,34 +62,50 @@ jobs:
             echo "::add-mask::$p"; echo "$v=$p" >> "$GITHUB_ENV"
           done
       - name: easy-opal stack
-        run: bash scripts/stack.sh
+        run: bash scripts/stack.sh 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - uses: r-lib/actions/setup-r@v2
         with:
           r-version: release
           use-public-rspm: true
       - name: R client packages
-        run: Rscript scripts/install_r.R
+        run: Rscript scripts/install_r.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: OMOP database (PostgreSQL + Eunomia GiBleed)
-        run: bash scripts/omopdb.sh
+        run: bash scripts/omopdb.sh 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Admin setup (analyst, project, resources)
-        run: Rscript scripts/admin_setup.R
+        run: Rscript scripts/admin_setup.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Path ${{ matrix.path }}
-        run: Rscript scripts/path_${{ matrix.path }}.R
+        run: Rscript scripts/path_${{ matrix.path }}.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Scenario C (dsOMOP 1.x resources)
         if: always()
-        run: Rscript scripts/scenario_C.R
+        run: Rscript scripts/scenario_C.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Scenario D (method audit)
         if: always() && matrix.path == 'fresh'
         timeout-minutes: 40
-        run: Rscript scripts/scenario_D.R
+        run: Rscript scripts/scenario_D.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
+      - name: Scenario E (recipes)
+        if: always() && matrix.path == 'fresh'
+        timeout-minutes: 30
+        run: Rscript scripts/scenario_E.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Summary
         if: always()
         run: |
           for f in "$OUT"/*summary*.txt; do [ -f "$f" ] && { echo "### $(basename "$f")"; echo '```'; cat "$f"; echo '```'; }; done >> "$GITHUB_STEP_SUMMARY"
           docker logs "$STACK-rock" > "$OUT/$E2E_PATH-rock.log" 2>&1 || true
           docker logs "$STACK-opal" > "$OUT/$E2E_PATH-opal.log" 2>&1 || true
+      - name: Results to a branch (the artifact and log services have failed before)
+        if: always()
+        run: |
+          cd "$OUT"
+          # Per-run passwords never reach git.
+          for v in "$OPAL_ADMIN_PW" "$ANALYST_PW" "$OMOPDB_PW"; do { grep -rlF -- "$v" . || true; } | xargs -r sed -i "s/$v/***/g"; done
+          git init -q && git checkout -q -b results && git add -A
+          git -c user.name=e2e -c user.email=e2e@users.noreply.github.com commit -qm "e2e $GITHUB_RUN_ID $E2E_PATH $MODE"
+          git push -q --force "https://x-access-token:${GITHUB_PAT}@github.com/${GITHUB_REPOSITORY}.git" \
+            "HEAD:refs/heads/results/${GITHUB_RUN_ID}-${E2E_PATH}-${MODE}"
       - uses: actions/upload-artifact@v4
         if: always()
+        continue-on-error: true
+        timeout-minutes: 4
         with:
           name: e2e-${{ matrix.path }}-${{ inputs.mode }}
           path: out/
