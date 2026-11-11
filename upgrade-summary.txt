@@ -1,0 +1,13 @@
+[upgrade] Opal 6.1.3: allowRPackageManagement on a fresh Opal = FALSE; after the administrator enables it = TRUE
+[upgrade] after upgrading to 2.10.0 (no publish): declared 56 agg + 13 assign; published 5 agg + 1 assign (version 1.1.1; installed 2.10.0); missing 69; wrong type 0; extra 6; wrong function 0; not exported 0; options 37 declared, missing 37, different 0
+[upgrade] Rock drivers: RPostgres 1.4.10, RPostgreSQL 0.7.8
+[upgrade] A: after upgrading 6a22d259db95a3bfd264d029b653587f935e32db -> 2.10.0 without publishing: FAIL: Failed to assign every OMOP resource: There are some DataSHIELD errors, list them with datashield.errors().
+[upgrade] A4: same session after a 1.x call: FAIL: Failed to initialize every OMOP handle: There are some DataSHIELD errors, list them with datashield.errors().
+[upgrade] A4 datashield.errors(): Ethiopia: [Client error: (400) Bad Request] No such DataSHIELD 'ASSIGN' method with name: omopInitDS
+[upgrade] after publishing: declared 56 agg + 13 assign; published 56 agg + 13 assign (version 2.10.0; installed 2.10.0); missing 0; wrong type 0; extra 0; wrong function 0; not exported 0; options 37 declared, missing 0, different 0
+[upgrade] B: after publishing, gibleed (TLS mode empty): FAIL: Failed to initialize every OMOP handle: There are some DataSHIELD errors, list them with datashield.errors().
+[upgrade] B: after publishing, gibleed_tls_disable: OK
+[upgrade] C: 1.x resource gibleed_v1: FAIL: Failed to assign every OMOP resource: There are some DataSHIELD errors, list them with datashield.errors().
+[upgrade] C: 1.x resource gibleed_v1_vocab: FAIL: Failed to assign every OMOP resource: There are some DataSHIELD errors, list them with datashield.errors().
+[upgrade] C: 1.x resource gibleed_v1_schemaonly: FAIL: Failed to assign every OMOP resource: There are some DataSHIELD errors, list them with datashield.errors().
+[upgrade] C: 1.x resource gibleed_v1_plain: FAIL: Failed to assign every OMOP resource: There are some DataSHIELD errors, list them with datashield.errors().
