@@ -85,19 +85,22 @@ run_recipe("E2", "GI bleed 192671 + descendants (first event): age at index, sex
   variables = list(omop_variable_age(reference = "index"), omop_variable_sex()),
   outputs = omop_output(name = "gib", type = "wide")), c(gib = "E2"))
 
-run_recipe("E3", "GI bleed: NSAID exposures in the year before index (celecoxib, diclofenac with descendants; counts and time since first) + top drugs", omop_recipe(
+run_recipe("E3", "GI bleed: NSAID exposures in the year before index (celecoxib, diclofenac with descendants; top drugs), counts per episode", omop_recipe(
   populations = gib_pop,
   variables = list(
-    omop_variable_age(reference = "index"), omop_variable_sex(),
     omop_variable(name = "celecoxib_365", table = "drug_exposure", concept_id = 1118084, concept_name = "celecoxib",
                   format = "count", time_window = list(start = -365, end = 0), expand = TRUE),
     omop_variable(name = "diclofenac_365", table = "drug_exposure", concept_id = 1124300, concept_name = "diclofenac",
-                  format = "count", time_window = list(start = -365, end = 0), expand = TRUE),
-    omop_variable(name = "celecoxib_since", table = "drug_exposure", concept_id = 1118084, concept_name = "celecoxib",
-                  format = "time_since", expand = TRUE, reference_date = "2020-01-01")),
+                  format = "count", time_window = list(start = -365, end = 0), expand = TRUE)),
   blocks = if (length(drugs)) omop_variable_block(table = "drug_exposure", concept_ids = utils::head(drugs, 3),
                                                   format = "count", time_window = list(start = -365, end = 0)),
   outputs = omop_output(name = "nsaid", type = "wide", options = list(grain = "episode"))), c(nsaid = "E3"))
+
+run_recipe("E3b", "every person: days since the first celecoxib exposure (fixed reference date 2020-01-01), age, sex", omop_recipe(
+  variables = list(omop_variable_age(), omop_variable_sex(),
+                   omop_variable(name = "celecoxib_since", table = "drug_exposure", concept_id = 1118084, concept_name = "celecoxib",
+                                 format = "time_since", expand = TRUE, reference_date = "2020-01-01")),
+  outputs = omop_output(name = "since", type = "wide")), c(since = "E3b"))
 
 if (length(meas) || length(obs)) run_recipe("E4", "measurements (mean value) and observations (binary) pivoted wide, every person", omop_recipe(
   variables = list(omop_variable_age(), omop_variable_sex()),
@@ -150,7 +153,7 @@ if (length(drugs)) run_recipe("E9", "survival: time from the GI bleed index to t
   c(surv = "E9"))
 
 run_recipe("E10", "probe: exact year of birth as a server-side column", omop_recipe(
-  variables = list(omop_variable(table = "person", column = "year_of_birth"), omop_variable_sex()),
+  variables = omop_variable(table = "person", column = "year_of_birth"),
   outputs = omop_output(name = "yob", type = "wide")), c(yob = "E10"))
 
 capture("ds.omop.disconnect", ds.omop.disconnect(symbol = S, conns = conns))
