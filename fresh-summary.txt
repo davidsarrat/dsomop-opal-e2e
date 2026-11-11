@@ -1,0 +1,26 @@
+[fresh] Opal 6.1.3: allowRPackageManagement on a fresh Opal = FALSE; after the administrator enables it = TRUE
+[fresh] after install (auto-publish of a new package): declared 56 agg + 13 assign; published 0 agg + 0 assign (version ; installed 2.10.2); missing 69; wrong type 0; extra 0; wrong function 0; not exported 0; options 37 declared, missing 37, different 0
+[fresh] after an explicit publish: declared 56 agg + 13 assign; published 56 agg + 13 assign (version 2.10.2; installed 2.10.2); missing 0; wrong type 0; extra 0; wrong function 0; not exported 0; options 37 declared, missing 0, different 0
+[fresh] ds.omop.server.version(conns) after a fresh install:     server published running missing ready advice / 1 Ethiopia    2.10.2  2.10.2          TRUE       
+[fresh] Rock drivers: RPostgres 1.4.10, RPostgreSQL 0.7.8
+[fresh] analyst script on gibleed (TLS mode empty): OK
+[fresh] analyst script on gibleed_noschema (no cdm_schema, TLS mode empty): OK
+[fresh] F: Rock drivers for this scenario: RPostgres not installed, RPostgreSQL 0.7.8
+[fresh] F omop_data.gibleed connect (verified UTC session): OK
+[fresh] F omop_data.gibleed ds.omop.tables (analyst script): OK
+[fresh] F omop_data.gibleed ds.omop.date.counts: OK
+[fresh] F omop_data.gibleed recipe demographics (wide): OK
+[fresh] F omop_data.gibleed recipe GI bleed index (wide): OK
+[fresh] F omop_data.gibleed ds.omop.disconnect (cleanup): OK
+[fresh] F omop_data.gibleed_v1 connect (verified UTC session): OK
+[fresh] F omop_data.gibleed_v1 ds.omop.tables (analyst script): OK
+[fresh] F omop_data.gibleed_v1 ds.omop.date.counts: OK
+[fresh] F omop_data.gibleed_v1 recipe demographics (wide): OK
+[fresh] F omop_data.gibleed_v1 recipe GI bleed index (wide): OK
+[fresh] F omop_data.gibleed_v1 ds.omop.disconnect (cleanup): OK
+[fresh] F omop_data.gibleed_noschema connect (verified UTC session): OK
+[fresh] F omop_data.gibleed_noschema ds.omop.tables (analyst script): OK
+[fresh] F omop_data.gibleed_noschema ds.omop.date.counts: OK
+[fresh] F omop_data.gibleed_noschema recipe demographics (wide): OK
+[fresh] F omop_data.gibleed_noschema recipe GI bleed index (wide): OK
+[fresh] F omop_data.gibleed_noschema ds.omop.disconnect (cleanup): OK
