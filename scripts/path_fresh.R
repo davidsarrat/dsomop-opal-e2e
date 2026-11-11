@@ -9,6 +9,11 @@ say("dsOMOP on Rock before: ", rock_pkg_version("dsOMOP"))
 show_dsomop_methods(o, "before install")
 r <- install_server(o, target)
 pub <- check_publication(o, "after install (auto-publish of a new package)")
+if (pub$published[["assign"]] == 0 && grepl("^2\\.", rock_pkg_version("dsOMOP"))) {
+  say("dsOMOP is installed but nothing was auto-published (it did not come through Opal's install call): publishing")
+  capture("dsadmin.publish_package(o, \"dsOMOP\")", dsadmin.publish_package(o, "dsOMOP"))
+  pub <- check_publication(o, "after an explicit publish")
+}
 
 conns <- analyst_login()
 introspect(conns, "fresh install")
