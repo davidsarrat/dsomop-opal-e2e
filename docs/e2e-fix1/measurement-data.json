@@ -1,0 +1,11 @@
+{
+  "url": "https://raw.githubusercontent.com/OHDSI/EunomiaDatasets/main/datasets/GiBleed/GiBleed_5.3.zip",
+  "archive_bytes": 6861852,
+  "file": "GiBleed_5.3/MEASUREMENT.csv",
+  "rows": 44053,
+  "numeric_nonempty": 0,
+  "numeric_persons": 0,
+  "sample_values": [
+    ""
+  ]
+}
