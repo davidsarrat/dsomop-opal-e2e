@@ -23,7 +23,7 @@ if (grepl("^2\\.", old_version) && utils::compareVersion(old_version, "2.6.0") >
   key <- if (st$ok && is.list(st$value[[1]])) as.character(st$value[[1]]$noise_key_id %||% NA) else NA_character_
   if (k$ok) capture("ds.omop.disconnect", dsOMOPClient::ds.omop.disconnect(symbol = "omop", conns = c0))
   DSI::datashield.logout(c0)
-  files <- rock_eval('local({ s <- file.path(Sys.getenv("HOME"), ".dsomop"); f <- list.files(s, recursive = TRUE, all.files = TRUE); i <- file.info(file.path(s, f)); paste(f, i$size, format(i$mtime, "%Y-%m-%dT%H:%M:%OS3"), sep = " | ") })')
+  files <- rock_eval('local({ s <- file.path(Sys.getenv("HOME"), ".dsomop"); f <- list.files(s, recursive = TRUE, all.files = TRUE); i <- file.info(file.path(s, f)); paste(f, i$size, format(i$mode), format(i$mtime, "%Y-%m-%dT%H:%M:%OS3"), sep = " | ") })')
   writeLines(c(paste0("version=", old_version), paste0("noise_key_id=", key), paste0("file=", files)),
              out_file("dp-root-before-upgrade.txt"))
   show("state files under the old version", files)

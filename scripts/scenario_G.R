@@ -530,8 +530,8 @@ section("G17", "restored routes: interaction Cox, record H fallback, capped recu
     r <- run2(sub("^dsomop:", "", id), id, list())
     rel <- if (is.data.frame(r$df)) attr(r$df, "dsomop_release", exact = TRUE) else NULL
     fams <- vapply(rel$owners %||% list(), function(o) as.character(o$family %||% ""), "")
-    alloc_h <- vapply(rel$owners %||% list(), function(o) as.numeric(o$allocation$H %||% 0), numeric(1))
-    has_cells <- vapply(rel$owners %||% list(), function(o) length(o$cell_keys %||% o$breaks %||% NULL) > 0L, logical(1))
+    alloc_h <- vapply(rel$owners %||% list(), function(o) as.numeric(o$allocation$H %||% o$allocation_fraction$H %||% 0)[1], numeric(1))
+    has_cells <- vapply(rel$owners %||% list(), function(o) length(o$cell_keys) > 0L || length(o$cells) > 0L, logical(1))
     hist_cols <- if (is.data.frame(r$df)) grep("bin|hist|break|quantile|median|^p[0-9]", names(r$df), value = TRUE) else character(0)
     has_h <- any(grepl("H", fams)) || any(alloc_h > 0) || any(has_cells) || length(hist_cols) > 0L
     verdict(paste0("G17b ", sub("^dsomop:", "", id)), if (r$ok && r$stable && has_h) "PASS" else "FAIL",
@@ -853,7 +853,10 @@ section("G21", "generation replay across data loads, in-place edits and person c
   }
   fixed_keys <- names(FIXED_Q)
   judge_redraw <- function(id, title, m) {
-    agree <- rbind(compare_probes(m$old_handle, m$new_handle, keys = keys), compare_probes(m$old_handle, m$new_session, keys = keys))
+    # Only the live fixed questions are comparable across contexts: the old handle's cohorts and loader table were
+    # materialised before the change.
+    agree <- rbind(compare_probes(m$old_handle, m$new_handle, keys = fixed_keys),
+                   compare_probes(m$old_handle, m$new_session, keys = fixed_keys))
     ch <- lapply(fixed_keys, function(k) {
       a <- R0[[k]]
       b <- m$new_session[[k]]
