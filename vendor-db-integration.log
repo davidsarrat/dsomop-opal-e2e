@@ -1,0 +1,262 @@
+dsOMOP: optional database drivers not installed: odbc. Install with: install.packages(c('odbc'))
+dsOMOP v2.10.3 loaded. OMOP CDM resource resolver registered.
+✔ | F W  S  OK | Context
+
+⠏ |          0 | vendor-db-integration-intervals                                
+⠋ |          1 | vendor-db-integration-intervals                                
+[ws5 vendor] postgresql PostgreSQL 16.14 
+
+⠹ |          3 | vendor-db-integration-intervals                                
+⠸ |          4 | vendor-db-integration-intervals                                
+⠴ |          6 | vendor-db-integration-intervals                                
+⠦ |          7 | vendor-db-integration-intervals                                
+⠧ |          8 | vendor-db-integration-intervals                                
+⠙ |         12 | vendor-db-integration-intervals                                
+⠸ |         14 | vendor-db-integration-intervals                                
+⠴ |         16 | vendor-db-integration-intervals                                
+[ws5 vendor] mariadb MariaDB 11.4.12 
+
+⠧ |         18 | vendor-db-integration-intervals                                
+⠏ |         20 | vendor-db-integration-intervals                                
+⠋ |         21 | vendor-db-integration-intervals                                
+⠙ |         22 | vendor-db-integration-intervals                                
+⠹ |         23 | vendor-db-integration-intervals                                
+⠦ |         27 | vendor-db-integration-intervals                                
+⠇ |         29 | vendor-db-integration-intervals                                
+⠋ |         31 | vendor-db-integration-intervals                                
+[ws5 vendor] mysql MySQL 8.4.11 
+
+⠹ |         33 | vendor-db-integration-intervals                                
+⠸ |         34 | vendor-db-integration-intervals                                
+⠼ |         35 | vendor-db-integration-intervals                                
+⠴ |         36 | vendor-db-integration-intervals                                
+⠦ |         37 | vendor-db-integration-intervals                                
+⠧ |         38 | vendor-db-integration-intervals                                
+⠙ |         42 | vendor-db-integration-intervals                                
+⠸ |         44 | vendor-db-integration-intervals                                
+⠴ |         46 | vendor-db-integration-intervals                                
+⠦ |         47 | vendor-db-integration-intervals                                
+[ws5 mysql] MySQL 8.4.11 
+
+⠇ |         49 | vendor-db-integration-intervals                                
+⠸ |         54 | vendor-db-integration-intervals                                
+⠴ |         56 | vendor-db-integration-intervals                                
+⠦ |         57 | vendor-db-integration-intervals                                
+⠧ |         58 | vendor-db-integration-intervals                                
+⠋ |         61 | vendor-db-integration-intervals                                
+⠙ |         62 | vendor-db-integration-intervals                                
+⠦ |         67 | vendor-db-integration-intervals                                
+✔ |         71 | vendor-db-integration-intervals [28.8s]
+
+⠏ |          0 | vendor-db-integration-sql-expr                                 
+⠇ |          9 | vendor-db-integration-sql-expr                                 
+⠧ |         38 | vendor-db-integration-sql-expr                                 
+⠹ |         63 | vendor-db-integration-sql-expr                                 
+⠦ |         87 | vendor-db-integration-sql-expr                                 
+[sql-expr conformance] PostgreSQL: family=postgresql engine=postgresql runtime=PostgreSQL 16.14 driver=RPostgres 1.4.10 checks=42
+
+⠙ |         92 | vendor-db-integration-sql-expr                                 
+⠏ |        100 | vendor-db-integration-sql-expr                                 
+⠴ |        126 | vendor-db-integration-sql-expr                                 
+⠏ |        150 | vendor-db-integration-sql-expr                                 
+⠸ |        174 | vendor-db-integration-sql-expr                                 
+[sql-expr conformance] MySQL: family=mysql engine=mysql runtime=MySQL 8.4.11 driver=RMariaDB 1.3.5 checks=42
+
+⠹ |        183 | vendor-db-integration-sql-expr                                 
+⠼ |        195 | vendor-db-integration-sql-expr                                 
+⠋ |        221 | vendor-db-integration-sql-expr                                 
+⠴ |        246 | vendor-db-integration-sql-expr                                 
+⠹ |        273 | vendor-db-integration-sql-expr                                 
+[sql-expr conformance] MariaDB: family=mysql engine=mariadb runtime=MariaDB 11.4.12 driver=RMariaDB 1.3.5 checks=42
+
+✔ |        273 | vendor-db-integration-sql-expr [1.8s]
+
+⠏ |          0 | vendor-db-integration                                          
+⠋ |          1 | vendor-db-integration                                          
+⠧ |         18 | vendor-db-integration                                          
+⠇ |         19 | vendor-db-integration                                          
+⠇ |         29 | vendor-db-integration                                          
+⠙ |         32 | vendor-db-integration                                          
+⠸ |         44 | vendor-db-integration                                          
+⠴ |         46 | vendor-db-integration                                          
+⠇ |         49 | vendor-db-integration                                          
+⠴ |         56 | vendor-db-integration                                          
+⠙ |         62 | vendor-db-integration                                          
+⠼ |         65 | vendor-db-integration                                          
+⠋ |         71 | vendor-db-integration                                          NOTICE:  table "dsomop_vendor_drop_guard_8301" does not exist, skipping
+
+NOTICE:  drop cascades to 4 other objects
+DETAIL:  drop cascades to table dsomop_it_8301_9702da12_results.cohort_definition
+drop cascades to table dsomop_it_8301_9702da12_results.cohort
+drop cascades to view dsomop_it_8301_9702da12_results.longitudinal_cohort
+drop cascades to view dsomop_it_8301_9702da12_results.full_cohort
+
+NOTICE:  drop cascades to 2 other objects
+DETAIL:  drop cascades to table dsomop_it_8301_9702da12_vocab.concept
+drop cascades to table dsomop_it_8301_9702da12_vocab.concept_ancestor
+
+NOTICE:  drop cascades to 8 other objects
+DETAIL:  drop cascades to table dsomop_it_8301_9702da12_cdm.cdm_source
+drop cascades to table dsomop_it_8301_9702da12_cdm.person
+drop cascades to table dsomop_it_8301_9702da12_cdm.observation_period
+drop cascades to table dsomop_it_8301_9702da12_cdm.condition_occurrence
+drop cascades to table dsomop_it_8301_9702da12_cdm.concept
+drop cascades to table dsomop_it_8301_9702da12_cdm.cohort
+drop cascades to materialized view dsomop_it_8301_9702da12_cdm.death
+drop cascades to table dsomop_it_8301_9702da12_cdm.dsomop_vendor_drop_guard_8301
+
+
+⠏ |         80 | vendor-db-integration                                          
+⠦ |         97 | vendor-db-integration                                          
+⠇ |         99 | vendor-db-integration                                          
+⠼ |        105 | vendor-db-integration                                          
+⠴ |        116 | vendor-db-integration                                          
+⠸ |        124 | vendor-db-integration                                          
+⠸ |        134 | vendor-db-integration                                          
+⠹ |        143 | vendor-db-integration                                          
+⠇ |        149 | vendor-db-integration                                          
+⠴ |        156 | vendor-db-integration                                          
+⠼ |        175 | vendor-db-integration                                          
+⠴ |        186 | vendor-db-integration                                          
+⠏ |        200 | vendor-db-integration                                          
+⠏ |        210 | vendor-db-integration                                          
+⠇ |        219 | vendor-db-integration                                          
+⠼ |        225 | vendor-db-integration                                          [vendor-versions] postgresql server PostgreSQL 16.14 (Debian 16.14-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit; RPostgres 1.4.10; DBI 1.3.0
+
+⠙ |        232 | vendor-db-integration                                          
+⠹ |        233 | vendor-db-integration                                          
+⠼ |        235 | vendor-db-integration                                          
+⠦ |        237 | vendor-db-integration                                          
+⠇ |        239 | vendor-db-integration                                          
+⠙ |        242 | vendor-db-integration                                          
+⠸ |        244 | vendor-db-integration                                          
+⠦ |        247 | vendor-db-integration                                          
+⠇ |        249 | vendor-db-integration                                          
+⠙ |        252 | vendor-db-integration                                          
+⠼ |        255 | vendor-db-integration                                          
+⠦ |        257 | vendor-db-integration                                          
+⠏ |        260 | vendor-db-integration                                          
+⠹ |        263 | vendor-db-integration                                          
+⠴ |        266 | vendor-db-integration                                          
+⠇ |        269 | vendor-db-integration                                          
+⠙ |        272 | vendor-db-integration                                          
+⠼ |        275 | vendor-db-integration                                          
+⠧ |        278 | vendor-db-integration                                          
+⠋ |        281 | vendor-db-integration                                          
+⠹ |        283 | vendor-db-integration                                          
+⠴ |        286 | vendor-db-integration                                          
+⠇ |        289 | vendor-db-integration                                          
+⠋ |        291 | vendor-db-integration                                          
+⠸ |        294 | vendor-db-integration                                          
+⠴ |        296 | vendor-db-integration                                          
+⠇ |        299 | vendor-db-integration                                          
+⠙ |        302 | vendor-db-integration                                          
+⠴ |        316 | vendor-db-integration                                          
+⠙ |        392 | vendor-db-integration                                          NOTICE:  drop cascades to table dsomop_it_8301_3e924428_results.achilles_results
+
+NOTICE:  drop cascades to 2 other objects
+DETAIL:  drop cascades to table dsomop_it_8301_3e924428_vocab.concept
+drop cascades to table dsomop_it_8301_3e924428_vocab.concept_ancestor
+
+NOTICE:  drop cascades to 11 other objects
+DETAIL:  drop cascades to table dsomop_it_8301_3e924428_cdm.cdm_source
+drop cascades to table dsomop_it_8301_3e924428_cdm.person
+drop cascades to table dsomop_it_8301_3e924428_cdm.observation_period
+drop cascades to table dsomop_it_8301_3e924428_cdm.condition_occurrence
+drop cascades to table dsomop_it_8301_3e924428_cdm.drug_exposure
+drop cascades to table dsomop_it_8301_3e924428_cdm.procedure_occurrence
+drop cascades to table dsomop_it_8301_3e924428_cdm.measurement
+drop cascades to table dsomop_it_8301_3e924428_cdm.observation
+drop cascades to table dsomop_it_8301_3e924428_cdm.visit_occurrence
+drop cascades to table dsomop_it_8301_3e924428_cdm.device_exposure
+drop cascades to table dsomop_it_8301_3e924428_cdm.death
+
+[vendor-versions] mysql server 8.4.11; RMariaDB 1.3.5; DBI 1.3.0
+
+⠸ |        394 | vendor-db-integration                                          
+⠼ |        395 | vendor-db-integration                                          
+⠦ |        397 | vendor-db-integration                                          
+⠇ |        399 | vendor-db-integration                                          
+⠋ |        401 | vendor-db-integration                                          
+⠹ |        403 | vendor-db-integration                                          
+⠸ |        404 | vendor-db-integration                                          
+⠴ |        406 | vendor-db-integration                                          
+⠧ |        408 | vendor-db-integration                                          
+⠏ |        410 | vendor-db-integration                                          
+⠙ |        412 | vendor-db-integration                                          
+⠸ |        414 | vendor-db-integration                                          
+⠴ |        416 | vendor-db-integration                                          
+⠧ |        418 | vendor-db-integration                                          
+⠏ |        420 | vendor-db-integration                                          
+⠙ |        422 | vendor-db-integration                                          
+⠸ |        424 | vendor-db-integration                                          
+⠴ |        426 | vendor-db-integration                                          
+⠧ |        428 | vendor-db-integration                                          
+⠏ |        430 | vendor-db-integration                                          
+⠙ |        432 | vendor-db-integration                                          
+⠸ |        434 | vendor-db-integration                                          
+⠴ |        436 | vendor-db-integration                                          
+⠧ |        438 | vendor-db-integration                                          
+⠏ |        440 | vendor-db-integration                                          
+⠙ |        442 | vendor-db-integration                                          
+⠸ |        444 | vendor-db-integration                                          
+⠴ |        446 | vendor-db-integration                                          
+⠧ |        448 | vendor-db-integration                                          
+⠏ |        450 | vendor-db-integration                                          
+⠙ |        452 | vendor-db-integration                                          
+⠸ |        454 | vendor-db-integration                                          
+⠴ |        456 | vendor-db-integration                                          
+⠧ |        458 | vendor-db-integration                                          
+⠏ |        460 | vendor-db-integration                                          
+⠙ |        462 | vendor-db-integration                                          
+⠸ |        464 | vendor-db-integration                                          
+⠋ |        471 | vendor-db-integration                                          
+⠏ |        550 | vendor-db-integration                                          
+⠸ |        554 | vendor-db-integration                                          [vendor-versions] mariadb server 11.4.12-MariaDB-ubu2404; RMariaDB 1.3.5; DBI 1.3.0
+
+⠴ |        556 | vendor-db-integration                                          
+⠦ |        557 | vendor-db-integration                                          
+⠇ |        559 | vendor-db-integration                                          
+⠋ |        561 | vendor-db-integration                                          
+⠹ |        563 | vendor-db-integration                                          
+⠼ |        565 | vendor-db-integration                                          
+⠦ |        567 | vendor-db-integration                                          
+⠇ |        569 | vendor-db-integration                                          
+⠋ |        571 | vendor-db-integration                                          
+⠹ |        573 | vendor-db-integration                                          
+⠼ |        575 | vendor-db-integration                                          
+⠦ |        577 | vendor-db-integration                                          
+⠇ |        579 | vendor-db-integration                                          
+⠋ |        581 | vendor-db-integration                                          
+⠹ |        583 | vendor-db-integration                                          
+⠼ |        585 | vendor-db-integration                                          
+⠦ |        587 | vendor-db-integration                                          
+⠇ |        589 | vendor-db-integration                                          
+⠋ |        591 | vendor-db-integration                                          
+⠹ |        593 | vendor-db-integration                                          
+⠼ |        595 | vendor-db-integration                                          
+⠦ |        597 | vendor-db-integration                                          
+⠇ |        599 | vendor-db-integration                                          
+⠋ |        601 | vendor-db-integration                                          
+⠹ |        603 | vendor-db-integration                                          
+⠼ |        605 | vendor-db-integration                                          
+⠦ |        607 | vendor-db-integration                                          
+⠇ |        609 | vendor-db-integration                                          
+⠋ |        611 | vendor-db-integration                                          
+⠹ |        613 | vendor-db-integration                                          
+⠼ |        615 | vendor-db-integration                                          
+⠦ |        617 | vendor-db-integration                                          
+⠇ |        619 | vendor-db-integration                                          
+⠋ |        621 | vendor-db-integration                                          
+⠹ |        623 | vendor-db-integration                                          
+⠼ |        625 | vendor-db-integration                                          
+⠦ |        627 | vendor-db-integration                                          
+⠹ |        703 | vendor-db-integration                                          
+✔ |        717 | vendor-db-integration [30.1s]
+
+══ Results ═════════════════════════════════════════════════════════════════════
+Duration: 60.8 s
+
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 1061 ]
+
+vendor-db-integration: 11 tests, 1061 expectations: 0 failed, 0 skipped, 0 errors, 0 warnings, 1061 passed

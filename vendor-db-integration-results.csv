@@ -1,0 +1,12 @@
+"file","context","test","nb","failed","skipped","error","warning","passed","real"
+"test-vendor-db-integration-intervals.R","vendor-db-integration-intervals","WS-5 eras, stockpiles, coverage and anchors execute on the configured vendor servers",46,0,FALSE,FALSE,0,46,20.226
+"test-vendor-db-integration-intervals.R","vendor-db-integration-intervals","MySQL 8.4: a stockpile with min_days > 0 reads its session table once per statement (A-20 (l))",25,0,FALSE,FALSE,0,25,8.607
+"test-vendor-db-integration-sql-expr.R","vendor-db-integration-sql-expr","typed SQL helpers execute on live PostgreSQL",91,0,FALSE,FALSE,0,91,0.622
+"test-vendor-db-integration-sql-expr.R","vendor-db-integration-sql-expr","typed SQL helpers execute on live MySQL",91,0,FALSE,FALSE,0,91,0.677999999999997
+"test-vendor-db-integration-sql-expr.R","vendor-db-integration-sql-expr","typed SQL helpers execute on live MariaDB",91,0,FALSE,FALSE,0,91,0.491
+"test-vendor-db-integration.R","vendor-db-integration","PostgreSQL executes the separated OMOP namespace contract",79,0,FALSE,FALSE,0,79,6.103
+"test-vendor-db-integration.R","vendor-db-integration","MySQL executes the separated OMOP database contract",76,0,FALSE,FALSE,0,76,4.271
+"test-vendor-db-integration.R","vendor-db-integration","MariaDB executes the separated OMOP database contract",76,0,FALSE,FALSE,0,76,1.71
+"test-vendor-db-integration.R","vendor-db-integration","PostgreSQL executes every live Achilles catalogue entry",162,0,FALSE,FALSE,0,162,4.922
+"test-vendor-db-integration.R","vendor-db-integration","MySQL executes every live Achilles catalogue entry",162,0,FALSE,FALSE,0,162,6.96
+"test-vendor-db-integration.R","vendor-db-integration","MariaDB executes every live Achilles catalogue entry",162,0,FALSE,FALSE,0,162,6.142

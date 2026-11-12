@@ -1,0 +1,12 @@
+### vendor database CI (Version: 2.10.3, harness 2598478796160a22b64620fc7e2030d9bc73a47b)
+```
+vendor-db-integration: 11 tests, 1061 expectations: 0 failed, 0 skipped, 0 errors, 0 warnings, 1061 passed
+vendor-release-routes: 5 tests, 258 expectations: 0 failed, 1 skipped, 0 errors, 0 warnings, 257 passed
+  SKIPPED test-vendor-release-routes.R :: DuckDB gives the SQLite protected answers
+[vendor-versions] mysql server 8.4.11
+[vendor-versions] mysql server 8.4.11; RMariaDB 1.3.5; DBI 1.3.0
+⠧ |      1 147 | vendor-release-routes                                          [vendor-versions] mariadb server 11.4.12-MariaDB-ubu2404
+⠸ |        554 | vendor-db-integration                                          [vendor-versions] mariadb server 11.4.12-MariaDB-ubu2404; RMariaDB 1.3.5; DBI 1.3.0
+⠼ |          5 | vendor-release-routes                                          [vendor-versions] postgresql server PostgreSQL 16.14 (Debian 16.14-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+⠼ |        225 | vendor-db-integration                                          [vendor-versions] postgresql server PostgreSQL 16.14 (Debian 16.14-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit; RPostgres 1.4.10; DBI 1.3.0
+```
