@@ -32,3 +32,64 @@ git add pkgs && git commit -m "Vendor ..." -- pkgs && git push
 gh workflow run e2e.yml -f mode=candidate -f old_ref=2.10.2 -f scenarios="C D E F G"
 gh workflow run vendor.yml
 ```
+
+## 2.10.4 contract matrix (WS-10)
+
+`opal-contract.yml` is a separate, manually dispatched release check. It uses
+`compose/opal-matrix.yml` with **Opal 6.1.3 and 5.7.6**, each on fresh and
+2.10.1→2.10.4 upgrade paths; Rock is `2.3.0-R4.6.1`. The 5.x pin is the current
+published 5.x image, rather than an assertion about an upstream LTS designation.
+Pins were checked against [OBiBa's Opal image tags](https://hub.docker.com/r/obiba/opal/tags)
+and [Rock image tags](https://hub.docker.com/r/obiba/rock/tags) on 12 November 2026.
+The compose wiring follows the [official Opal example](https://github.com/obiba/docker-opal/blob/master/docker-compose.yml).
+Actual image digests, Opal response, R, SQLite, PostgreSQL and R driver versions
+are written to artifacts. Database TLS is not required.
+
+Vendor the **integrated, coordinated 2.10.4** packages first, using the existing
+`vendor.sh` workflow. `scripts/o/check_candidate.py` deliberately refuses the
+currently vendored earlier build. Both DESCRIPTION versions must be 2.10.4;
+the source archive must include tests/fixtures and the frozen acceptance corpus.
+The coordinator commits/pushes the candidate and dispatches
+`opal-contract.yml`. WS-10 never pushes. This workflow uploads artifacts and
+has read-only repository permissions; it does not publish a results branch.
+
+| Scenario | Executed assertions |
+|---|---|
+| O1 | Actual installed/published version, language 2, required operations, dialect fields. |
+| O2 | Acceptance-1 variables via `omop_study`, ds.dim/summary/table/levels/glm; complete frozen schema and per-person value multiset compared inside Rock. |
+| O3 | Acceptance 2, inventory-named ITT/on-treatment TARs, time summaries and independent event/switch-censoring oracle. |
+| O4 | Strict/non-strict × error/skip, in memory and staged mode, at two logical sites with distinct CDM schemas; k=5 and exactly k−1 in the small root; whole-federation symbol/file rollback, skip NULL, partial warning, constant text and only `insufficient_support`. |
+| O5 | Recipes 7/9 staged, actual server-side descriptor reader, forged uncommitted/revoked descriptors, files removed by revocation; installed publisher failure-injection tests for precommit/manifest cleanup. |
+| O6 | Actual 2.10.1 server refuses the new client before assignment (`install.R`, upgrade jobs); isolated 2.10.1 client runs a safe v1 recipe on 2.10.4 (`old_client.R`, every job). |
+| O7 | Frozen matching oracle, same seed on PostgreSQL and SQLite, both reloaded in reversed physical order; alternate seed checked against committed independent expected sets, including weights and set IDs. Both Opal versions compare to the same oracle. |
+| O8 | Public person-local native DP prepare/release, matched descendant refusal; independently unsealed external and persistent-cohort scope refusals; actual native execution with injected sealing failure leaves no publication. |
+| O9 | Native recipes 1/7 on 10k persons within unchanged memory caps; identical v1 baseline/panel workloads on 2.10.1 and 2.10.4, median of three, fixed 25% timing tolerance (with a one-second noise floor). |
+| O10 | Real installation over 2.10.1, methods and Options republished and checked, O1–O3 rerun on the upgraded server. |
+| O11 | GiBleed wide/baseline birth/age assignments and ds.summary, public class-1 refusal, profiling/value-count/crosstab refusals; frozen column corpus, query-library/external/OHDSI admission, Achilles deciles and one-person off-grid `18-18` assigned band. |
+| O12 | Both non-strict small-site policies; trace of the real authenticated status read before execution-symbol removal, passing-family inventory, partial warning, whole-site skip. |
+
+`run.R` writes a verdict after each scenario and exits nonzero on any failure.
+Missing compilers, absent test dependencies and failed assertions cannot become
+passing skips. O6's compatibility assertions are separate failing workflow
+steps; its verdict row alone does not certify both directions. All four jobs
+and their old-client steps must pass. The harness uses only disposable public
+synthetic fixtures. Administrator assertions inspect rows inside Rock and return
+booleans; no helper endpoint or generic aggregate constructor is published.
+The observer traces the real client status transport without replacing it.
+
+The reach fixture is exported using the frozen loader, with its signature
+compared to SQLite. A separate cohort 909 gives ten persons in `o_reach` and
+four in `o_small`; unrelated roots still qualify. The 10k fixture uses the same
+public deterministic generator. O11 temporarily changes public synthetic
+GiBleed births inside a rolled-back database transaction. Test options and
+failure injection are harness-only; this is not a production deployment recipe.
+
+`matching_oracle.R` is the WS-0 SQL/base-R reference sampler with only its seed
+parameterized (source SHA-256 recorded in the file). The alternate oracle is
+committed in `matching-seed-20261112.json`. `validate.R` checks both seeds against
+independent expected rows, v1 performance-plan preflight, syntax and targeted
+installed aggregate-policy tests on the R test pod. It can also parse YAML and
+vignettes copied into `yaml/` and `vignettes/` beside it. This static/contract
+validation is **not an Opal pass**. The two-version run, native compiler output,
+actual DSOpal integration, timing, upgrade and downstream dsBase behavior can
+only be certified after the integrated packages are vendored.

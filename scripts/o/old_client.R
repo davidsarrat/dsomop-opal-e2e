@@ -1,0 +1,13 @@
+source("scripts/common.R")
+library(dsOMOPClient)
+start_log("O6-old-client")
+stopifnot(as.character(packageVersion("dsOMOPClient")) == "2.10.1")
+conns <- analyst_login()
+ds.omop.connect("omop_data.gibleed", conns = conns)
+rec <- omop_recipe(variables = list(omop_variable_age(year = 2020), omop_variable_sex()),
+                   outputs = omop_output("legacy", type = "wide"))
+recipe_execute(rec, out = c(legacy = "O_old"), conns = conns)
+dims <- DSI::datashield.aggregate(conns, call("dimDS", "O_old"))
+stopifnot(all(vapply(dims, function(x) is.numeric(x) && x[[1]] >= 5, TRUE)))
+DSI::datashield.logout(conns)
+writeLines("PASS: 2.10.1 client executed a safe v1 plan on 2.10.4", out_file("O6-old-client.txt"))

@@ -1,0 +1,86 @@
+name: dsomop-2.10.4-opal-contract
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  opal:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        opal: ['6.1.3', '5.7.6']
+        path: [fresh, upgrade]
+    env:
+      OPAL_VERSION: ${{ matrix.opal }}
+      E2E_PATH: ${{ matrix.path }}
+      MODE: candidate
+      STACK: e2e
+      OPAL_URL: http://localhost:8880
+      OLD_REF: '2.10.1'
+      OLD_CLIENT_REF: '2.10.1'
+      CDM_DB: omop
+      INSTALL_DRIVER: '1'
+      SCENARIOS: O
+      OUT: ${{ github.workspace }}/out
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Require a coordinated 2.10.4 candidate
+        run: |
+          python3 scripts/o/check_candidate.py
+          mkdir -p "$OUT"
+          df -h .
+          for v in OPAL_ADMIN_PW ANALYST_PW ANALYST2_PW OMOPDB_PW READER_PW; do
+            p="Aa1@$(openssl rand -hex 16)"
+            echo "::add-mask::$p"
+            echo "$v=$p" >> "$GITHUB_ENV"
+          done
+      - name: Pinned Opal and Rock
+        run: bash scripts/o/stack.sh
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: release
+          use-public-rspm: true
+      - name: Install client and fixture dependencies
+        run: |
+          Rscript scripts/install_r.R
+          Rscript -e 'install.packages(c("dsBaseClient", "RSQLite", "RPostgres", "testthat"))'
+      - name: Load GiBleed and create resources
+        run: |
+          bash scripts/omopdb.sh
+          Rscript scripts/admin_setup.R
+      - name: Copy administrator-only fixture scripts
+        run: |
+          docker cp pkgs/dsOMOP "$ROCK:/tmp/o-server-source"
+          docker cp scripts/o "$ROCK:/tmp/o-harness"
+      - name: Fresh or upgrade path; old-server negotiation before upgrade
+        run: Rscript scripts/o/install.R
+      - name: Export frozen reach fixtures and install runtime probes
+        run: |
+          Rscript scripts/o/setup.R
+      - name: Scenarios O1 through O12
+        run: Rscript scripts/o/run.R
+      - name: Old client against new server (O6)
+        run: |
+          Rscript -e 'remotes::install_github("isglobal-brge/dsOMOPClient", ref="2.10.1", lib="/tmp/o-old-client", upgrade="never")'
+          R_LIBS=/tmp/o-old-client Rscript scripts/o/old_client.R
+      - name: Runtime evidence and logs
+        if: always()
+        run: |
+          docker logs "$STACK-rock" > "$OUT/rock.log" 2>&1 || true
+          docker logs "$STACK-opal" > "$OUT/opal.log" 2>&1 || true
+          for v in "$OPAL_ADMIN_PW" "$ANALYST_PW" "$ANALYST2_PW" "$OMOPDB_PW" "$READER_PW"; do
+            { grep -rlF -- "$v" "$OUT" || true; } | xargs -r sed -i "s/$v/***/g"
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: opal-${{ matrix.opal }}-${{ matrix.path }}
+          path: out/
+      - name: Remove disposable stack
+        if: always()
+        run: |
+          docker rm -f omopdb || true
+          docker compose -f compose/opal-matrix.yml down -v
