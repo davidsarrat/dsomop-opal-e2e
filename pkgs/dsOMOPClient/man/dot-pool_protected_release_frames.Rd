@@ -15,7 +15,7 @@ strata present on only some servers).}
 \item{columns}{The entry's contracted columns (record-weighted schema).}
 }
 \value{
-List: \code{result} (one row per owner and stratum with the pooled
+List: \code{result} (one row per owner, stratum and interaction view with the pooled
   persons, mean, SD, quantiles, events and time where defined; the pooled
   cells as attribute \code{cells}) and \code{warnings}.
 }
@@ -32,10 +32,25 @@ every site must be a distinct logical source: two connections to one
 logical node are refused instead of being counted twice.
 }
 \details{
+Complete person-time hierarchies are summed and projected from the root
+down; public view masks select sums of those projected nodes. Nested
+Achilles histograms use the parent's protected cells as their second
+margin. First-event and capped recurrent event-time hierarchies project
+their signed A/B/C nodes from the person or event total down before
+selecting day, month or year views. Recurrent persons use a separate complete
+interval-presence vector for distinct contributors among the same K-capped
+occurrences. Its versioned radial projection enforces public feasibility;
+retreat toward the event-mass anchor can add bias. Coarse person counts are
+selected directly, never summed from fine bins.
+
 Record-weighted releases (family \code{RM}) are pooled per stratum by
 \code{.pool_protected_record_moments}. Exit-time x status cells of a
-grouped-time Cox release (family \code{C8}) are summed and projected like
-any partition and never refitted; the event-weighted q x exposure cells of
+grouped-time Cox release (family \code{C8}) are summed and projected onto
+their pooled C6 event/non-event parents. Interaction C6/C8 exports retain
+the complete signed atomic family, projected before view coarsening;
+supplemental rows and cells retain family and view identifiers. C8 uses
+finite IPF with a feasible margin repair, not an exact KL/L2 claim. Cox
+cells are never refitted; the event-weighted q x exposure cells of
 an SCCS release (\code{w}) are not pooled (only its case total).
 }
 \keyword{internal}

@@ -31,8 +31,8 @@ covers automatic and typed aliases. Output metadata identifies the effective
 population, grid, clipping bounds, contribution policy and approximation.
 
 There are two protected routes. A fixed-synopsis route derives all supported
-views solely from one calibrated public atom basis for an immutable dataset
-generation. Unlimited post-processing of that basis does not add a new raw-data
+views from one calibrated public atom basis for an unchanged source state.
+The automatic membership generation below is not a detector of every edit. Unlimited post-processing of that basis does not add a new raw-data
 release. A flexible-scope route uses secret, deterministic fingerprints of
 realised bounded contributions to prevent different formulations of the same
 component from drawing fresh noise. That second route is a heuristic disclosure
@@ -60,70 +60,63 @@ according to the number of past questions.
 
 Changes to source data, secrets, grids, scales or mechanism versions can create
 additional disclosures. They do not erase past answers or reset privacy
-history. One request's components, contribution maps and support checks are
-read by separate SELECT statements without a common database read snapshot
-(dsOMOP 2.10.3): a concurrent data load during a request could mix two data
-states. Load data in batches outside analysis hours. Stable data and identity
-replay across sessions and workers. Private contributor hashes, person keys,
-the data generation and exact hidden support are never output. Audit is
-observational (passive lines in the server log, never a database) and is not
-an accountant.
+history. Final aggregate requests pin one physical connection for generation,
+support and component reads. PostgreSQL uses REPEATABLE READ (temporary-table
+DDL remains permitted), MySQL and MariaDB use consistent-snapshot transactions
+for InnoDB base tables, and DuckDB and SQLite use explicit transactions.
+Nontransactional MySQL/MariaDB source base tables fail closed, since that
+transaction cannot make their concurrent reads coherent. Requests roll back on exit;
+losing the snapshot fails the whole request, rather than reconnecting one
+SELECT. SQL Server and Oracle have SERIALIZABLE adapters; Redshift uses its
+native transaction. These three adapters have SQL-shape tests but no live vendor
+execution here. Engines without a native adapter report `not_isolated`: their
+connection is pinned, but concurrent writes can produce a mixed-state response.
+This is request-local state only and needs no database option.
+Private contributor hashes, person keys, the membership generation and hidden
+support are never output. Audit is observational (ordinary server log messages)
+and is never consulted for admission.
 
 ### The automatic data generation of the fixed synopses
 
-Fixed synopses need no custodial configuration. Their noise is keyed on an
-automatic data generation: an HMAC-SHA256, under a subkey of the noise root,
-of the connected database's data state:
+Fixed-synopsis requests derive a secret person-membership generation inside
+each request's database snapshot. The digest covers the canonical ordered
+person identifiers, with unambiguous framing, and is keyed in R under a subkey
+of the noise root. Database digest computation never receives the secret key;
+engines without a suitable database implementation stream bounded chunks.
+Fixed-capable pinned loaders also compute membership inside their preparation
+snapshot to authenticate the sealed table's origin. A later fixed typed release
+recomputes live membership and requires an origin match; stale prepared tables
+use the realised route (or are refused in DP-exclusive mode). There is no
+cross-request, per-handle or negative-result generation cache.
+Clinical-table COUNT/MAX scans are removed. A transient read failure fails the
+current request; it does not switch to a new noisy stream or poison later calls.
 
-- for every OMOP clinical table of the CDM schema (person, observation_period,
-  visit_occurrence, visit_detail, condition_occurrence, drug_exposure,
-  procedure_occurrence, device_exposure, measurement, observation, death,
-  note, note_nlp, specimen, fact_relationship, location, care_site, provider,
-  payer_plan_period, cost, drug_era, dose_era, condition_era, episode,
-  episode_event, metadata, cdm_source): whether it is present, its exact
-  `COUNT(*)` and the `MAX()` of its identifier column (count alone for tables
-  without one);
-- the complete `cdm_source` rows, the `vocabulary` versions and the `concept`
-  table's exact count and largest identifier.
+Adding, removing or replacing a person identifier changes this generation,
+including balanced replacement below the maximum identifier. A person-set
+change globally redraws fixed components, including components unrelated to
+that person. This is a deliberate, narrower exception to irrelevant-insert
+replay. An unrelated clinical insert with unchanged membership does not redraw
+an unchanged component. This mechanism requires no epoch bump, triggers, ETL
+coordination or owner configuration.
 
-It is derived on the fly the first time an R session needs it for a handle
-and held in that session's memory only: never written to disk, a table, a
-store or a cache file, and never released (payloads, labels, errors, status
-and logs carry only its description). The secret noise root stays the only
-persistent DP item. Every value is exact text, so equal data give the same
-generation in every session and on every R server (worker) sharing the root,
-and every answer is again a deterministic function of the root, the canonical
-question and that generation. Any read failure makes the generation
-unavailable for the session; there is no partial or fallback value, so a
-transient error can never produce a second generation of the same data. Auto
-mode then answers with the realised route and DP-only mode refuses with its
-stable message.
+The generation detects membership, **not an immutable CDM snapshot**. Clinical
+edits and clinical-only withdrawals leaving the person row can retain the same
+generation. Component contribution fingerprints remain in fixed keys: changed
+bounded inputs no longer deliberately reuse their old noise. This mitigation
+does not conceal component-change patterns or prove a joint DP transcript over
+edits; independent discrete draws can coincide, and auxiliary information can
+make a change pattern informative. A fixed-vector claim concerns an unchanged
+source state, with the stated exact-support qualification. No finite cumulative
+or evolving-data guarantee is claimed. Optional `dsomop.dp.privacy_epoch`
+rotation is administrative hardening that creates additional disclosures; it
+is never a prerequisite for ordinary private operation and erases no prior
+answer. Workers need the same corpus identity and secrets.
 
-A reload that adds or removes rows of any clinical table changes the
-generation, so every fixed synopsis redraws at once (an unrelated insert
-redraws too: each data generation is another disclosure, which composes; the
-analyst cannot trigger one). Removing the change restores the original data
-state and answers. Each fixed component's noise is also keyed on the secret
-fingerprint of its realised bounded contributions.
-
-**What the generation cannot see.** An in-place edit that changes no row count
-and no largest identifier of these tables (an `UPDATE`, or a delete and
-re-insert that reuses identifiers), and any data change made while an R
-session is open (the session keeps the generation it derived), leave the
-generation unchanged. The contribution fingerprints still redraw every fixed
-component whose bounded contributions changed, so no exact difference of a
-component is ever released; but an analyst who compares answers from before
-and after such an edit can see which components changed (not by how much).
-Custodians who edit data in place can redraw every fixed synopsis by changing
-`dsomop.dp.privacy_epoch`, and should load data while no analysis session is
-open. Tables outside the CDM schema's clinical tables (results, cohorts,
-scratch tables) never enter the generation. Workers must share the noise root
-and see the same tables.
-
-`dsomop.dp.snapshot_id` is deprecated: it only replaces the public
-`snapshot_id` label of the status (which older clients display). No key,
-lineage, route or admission depends on it, and the label never blocks the
-service.
+`snapshot_id` is deprecated display metadata. Changing or clearing its option
+has no effect on noise, routes, policy admission or restored sealed-table
+validation. Historical signed capsule fields are still authenticated; the
+historical display label is not compared with the current label. The actual
+domain, epoch, person map and MAC checks remain enforced.
 
 The intended deployment remains DataSHIELD's layered controls and governance:
 approved access and uses, custodian-selected methods, output checks and audit.
@@ -146,15 +139,15 @@ reliable individual attribution.
   data generation of the connected database is available (above); the noise
   of each atom is keyed on (corpus, data generation, privacy epoch, owner,
   population, atom) and the atom's contribution fingerprint. The label carries
-  `data_generation = "automatic_session_fingerprint"` and
+  `data_generation` (the person-membership mechanism) and
   `data_generation_residual` (what the generation cannot see), never the
   generation value.
 - `realised_sticky`: `noise_reference_epsilon` plus actual per-component
   allocations, scales and sensitivities; `mechanism_epsilon = NA`,
   `api_transcript_epsilon = NA`,
   `guarantee_scope = "heuristic_realised_contribution_reuse"`. Every cohort- or
-  table-scoped request, and every unscoped request when the data generation
-  cannot be derived, takes this route in auto mode; DP-only mode refuses it
+  table-scoped request, and unscoped contracts without a complete public basis,
+  take this route in auto mode; DP-only mode refuses it
   with a stable unsupported-mechanism message. Each component's noise is keyed
   on its owner, coordinate and a secret HMAC fingerprint of the sorted
   (person token, bounded contribution) map; request text, sessions, handles,
@@ -224,49 +217,98 @@ disclosive are released from protected components instead of being withheld:
   of 10 strata per person applies once across all of a person's strata. The
   outputs carry `unit_concept_id` and `unit_name`; labels name the unit and
   scale and say `weighting = "person"`.
-- The eight QueryLibrary record summaries release capped record-weighted
-  moments: each person's first K = 10 eligible records (by event date, then
-  the table's identifier) across all strata; per stratum the persons N
-  (0.2e), the kept records R (0.3e, sensitivity K) and the lattice sums S and
-  Q of the value clipped to a public scale (0.3e and 0.2e, sensitivity K·J).
-  Scales: days [0, 10957] on the D grid, calendar months [0, 360] on their own
-  grid (never days / 30), quantities and costs only through the custodian's
-  `dsomop.release.quantity_scales` / `dsomop.release.cost_scales` (a per-unit
-  cost needs `per_unit_denominator = TRUE`). Without a scale only N and R are
-  released (mean and SD unavailable, `public_scale_unavailable`). Mean and SD
-  are derived from R, S and Q only, never with N as the denominator.
-- CohortMethod Cox effects (`model_type = "cox"`) are grouped-time Cox fits:
-  per arm a histogram of first-outcome exit-time bin (the clinical grid L, cut
-  at the window's public maximum) × status (event, censored, administratively
-  censored at the window end or the 3650-day horizon), one atom per person
-  (sensitivity 1, 0.8e) reconciled to the arm's person total. The hazard
-  ratio maximises the Breslow grouped likelihood on the displayed cells; its
-  standard error combines the observed information with a deterministic
-  200-replicate simulation of the release noise (its own hash stream, never R's
-  random-number generator). The label says "grouped-time Cox (Breslow ties) on
-  public exit bins, capped at 3650 days; not the raw Efron/continuous
-  estimator". Unidentifiable or noise-dominated fits are unavailable
-  (`unavailable_reason`). Interaction Cox estimates remain unavailable on the
-  protected route.
-- The SCCS incidence rate ratio is released from the conditional sufficient
-  statistics: one stratum per (person, merged observation period) with an
-  outcome, its exposed fraction q gridded to 36 public logit-spaced points in
-  [0.0001, 0.99], each person's first 10 events shared across their strata; a
-  histogram H(q × exposed status) (sensitivity 10, 0.8e) and the case count
-  (0.2e). The estimate is the root of the conditional score on the signed
-  cells; `model_type = "q_gridded_conditional_poisson_capped_k10"`.
+- The eight QueryLibrary record summaries retain the first K=10 eligible
+  records per person, by event date then stable record identifier, across all
+  strata before view selection. N counts contributors and R counts records;
+  record means and SDs use R. Registered scales enable bounded S/Q moments.
+  Without a scale, the same capped records supply a signed 1-2-5 value histogram
+  with explicit tails, reconciled to protected R, with interval quantiles.
+  Moments stay unavailable (`public_scale_unavailable`). Displayed R lies in
+  [N, K N] for displayed N. Mean+SD allocations are N .2e, R .3e and S/Q
+  .3e/.2e; mean-only uses R/S .4e/.4e. Unregistered H uses the moment share.
+  Since each record enters either moments or H, their union uses max(S+Q,H).
+  Strata are data-enumerated and support-gated: a public description of possible
+  concepts/units/years is not a materialized complete basis. These summaries
+  therefore use `realised_sticky`, including unscoped requests; DP-exclusive
+  mode refuses them. No owner scale configuration is required for the histogram.
+- CohortMethod Cox and admitted interaction Cox use a common full-horizon
+  exit-bin/status basis with stable identities, shared C6 person/event parents,
+  and a 3650-day contribution horizon. Scientifically equal bounded maps replay
+  across window spelling and equivalent subgroup labels. Fits are grouped-time
+  Breslow estimates on protected cells, not raw continuous-time/Efron fits.
+  Complete subgroup families retain final complement admission; Unknown/Other
+  remain explicit. Unidentifiable or noise-dominated fits carry an unavailable
+  reason. Noise uncertainty is deterministic post-processing, not an R RNG or
+  call-history input, and provides approximate, not guaranteed, coverage.
+- Cox component pooling preserves the protected event/non-event parents.
+  Interaction exports include the complete signed canonical family and its
+  public view mapping; the client sums site components, projects the full
+  family under its arm/status parents, and then selects the requested view.
+  Coarser age views sum the same projected atoms. Public family and view
+  identities distinguish supplemental rows; incompatible or incomplete
+  metadata refuses pooling. Effects remain inverse-variance meta-analysis
+  of per-site protected fits, not a pooled C8 refit.
+- Crossed C6 age-by-year cells use separate nonnegative transports for E, NE,
+  T and R, preserving both age and year margins and N=E+NE. The bounds
+  T<=3650 N and E<=R<=10 E are enforced at the tree levels, not at crossed cells.
+  The versioned Dykstra display retains converged results; at its finite
+  iteration limit, nonnegative row normalization and column mass transfer
+  restore both margins. This fallback is feasible, not an exact L2 minimizer.
+  C8 interaction display likewise repairs both margins after finite IPF;
+  its repaired output is not claimed to be an exact KL or L2 minimizer.
+- Recurrent incidence counts and `char.time_to_event` retain K=10 events or
+  occurrences per person. Event-time recurrence caps across all episodes and
+  bins before view selection; 1-, 30- and 365-day views share a public signed-day
+  hierarchy and explicit tails. `first_occurrence_only=1` remains a distinct
+  first-event estimand. Recurrent `persons` counts distinct contributors among
+  the same K-capped occurrences, using a separate complete presence vector over
+  998 canonical intervals. Each person occupies at most K bins per scale, so
+  this vector has joint sensitivity 3K. Static reference-epsilon fractions are
+  N .2, R .2, each event level A/B/C .1, and presence P .3 (sum 1); first-event
+  allocations remain N .2 and each event level .8/3. Displayed recurrent R lies
+  in [N,K N]. The versioned radial presence projection enforces event/person
+  bounds, containment and registered partition inequalities. It moves from a
+  feasible concave event-mass anchor toward the bounded noisy vector; retreat
+  toward that anchor can add bias, and it is not an L2 projection. Every view
+  selects canonical presence coordinates: coarse persons are never sums of
+  fine-bin persons. This preserves distinct contributors to the capped
+  substrate, not uncapped legacy presence in bins excluded by the global cap.
+- SCCS uses (person, merged observation-period) strata, a single K=10 cap across
+  informative strata, and 36 logit-spaced q points in [0.0001, .99]. Strata with
+  q=0/1 are noninformative and excluded before the cap. The signed-cell fit solves
+  an estimating equation; it is not an ordinary nonnegative-count likelihood.
+  Negative weights can make the score nonmonotone, and the root need not be
+  unbiased. No-root, multiple admissible root and nonpositive-information cases are refused;
+  unresolved numerical root certification is also unavailable.
+  Gridding changes the estimand: the homogeneous pseudo-true log-IRR shift is
+  logit(q)-logit(q_grid). The earlier <=.04 statement described selected scenarios,
+  not a bound: q=.1796156 to .152 gives about +.200, and q=.999 to .99 gives
+  about +2.312. Endpoint clipping can therefore dominate scientific error.
+  Merged-period strata differ from the previous longest-period person fit.
+
 - In standard mode with the DP service, the masked person-time, rate, MDRR and
   effect fields of incidence and CohortMethod frames are filled from the same
   protected run as auto mode (a `mixed` label with per-block protection);
   without the DP service they stay masked.
 
-Utility at the reference e = 0.1 is limited: the grouped Cox log hazard ratio
-had an RMSE of about 0.26 with 2,000 persons per arm, and SCCS intervals become
-informative only from tens of thousands of cases. dsOMOPClient 2.10.3 pools
-record summaries by summing the signed N, R, S and Q per stratum, and pools
-effect estimates by inverse-variance meta-analysis of the per-site protected
-estimates (Cox exit cells are summed but not refitted; SCCS cells are never
-pooled).
+Utility at the default reference e=.1 can be poor, especially with sparse
+outcomes, high censoring, narrow windows and extreme exposure fractions. Finite
+fits do not imply informative intervals. Runnable scripts, seeds and replicate
+summaries accompany this revision in `tools/p0r3-record-utility.R` and
+`inst/utility/p0r3-survival-utility.R`, with adjacent evidence directories;
+release reports distinguish finite/informative rates, unconditional/conditional
+coverage and log-effect bias/RMSE. The earlier unretained simulation numbers are
+not evidence for the revised mechanism. For record summaries, calibration alone
+gives N noise SD about 707.1, R SD 471.4 for mean+SD and 353.6 for mean-only;
+wide public bounds amplify moment error. These are scalar reference amplitudes,
+not a DP guarantee for data-enumerated strata.
+
+The client pools compatible signed record components and derives display values
+once. Protected effects use inverse-variance meta-analysis of site estimates,
+not a pooled Cox/SCCS sufficient-statistic refit. Quantiles report their public
+bin intervals and open/censored flags. Installing a new client does not patch
+an old server: the client warns and refuses mixed protected pooling. Old typed
+clients receive a version-specific refusal from the new server.
 
 Public grids: birth years 1900 to the custodial reference year
 (`dsomop.dp.reference_year`, default the calendar year) plus unknown; ages in
@@ -298,10 +340,11 @@ that basis, never a mechanism input, and levels outside it are refused
 whatever the data hold. Numeric variables use a fixed atom basis (a
 registered scale's grid, otherwise the universal signed nice-number grid;
 dates on fixed year/month atoms): requested breaks snap to atom boundaries,
-every displayed bin is a sum of signed atoms and the payload reports the
+the complete signed basis is projected before each displayed bin sums its
+projected atoms. Signed atoms remain the pooling inputs; the payload reports
 `basis_id`, `view_of_basis` and the effective breaks. Irrelevant contribution
 caps are normalised (a count's cap is 1). Typed bounded means need one
-registered public scale (`omopDpStatusDS()` `public_scales`; custodian
+registered public scale (current-client status `public_scales`; custodian
 extension `dsomop.release.public_scales`). The release-person map is sealed
 with the table (B01), so no earlier key resolution or handle state can change
 a contributor's identity, and counts, capped record counts and partitions of
@@ -375,25 +418,27 @@ banded population size). They apply the standard suppression and banding.
 Only sealed person-local tables (community-tool loaders and the DP preparation
 path) can be released through `omopDpReleaseDS` (`ds.omop.dp.release` on the
 client). The seven typed statistics release protected components (see above):
-counts, capped record counts and registered-scale bounded means of unscoped
-pinned loader tables of a custodial generation are fixed synopses; every other
-typed release is realised-contribution protected and is refused in DP-only
-mode. Statistic aliases of one person total (count, `bounded_record_count`
-with k = 1, the denominators of rates and means) share the person-total
-owner. A typed variable has no registered label universe, so each declared
-label or bin is its own canonical component, keyed by the label and its
-realised contributions and never by the other declared levels: unused levels,
-dummy positives, reordered levels and clamp-only outer breaks add no fresh
-draw of an existing cell. The declared levels are the view: exported signed
-cells are reconciled to the one noisy person total over the declared cells,
-and displayed counts are their Euclidean projection onto that total.
-Multi-label and record-capped cells and distinct-label cardinalities use the
-fixed cap K as sensitivity for every requested k. Residual: because the
-analyst declares the domain, known-empty (dummy) levels or bins move the
-reconciliation shift; their contrasts with a real cell let an analyst estimate
-that cell's single fixed draw, so each distinct typed partition can add one
-noisy estimate of its person total (the split-partition residual above),
-never a fresh draw of the same cell.
+counts, capped record counts and registered-scale bounded means can use a
+fixed synopsis only for an unscoped pinned loader table with authenticated origin
+membership matching the connected source inside the current release snapshot.
+A restored table without a live matching source, or with changed source
+membership, retains the realised-sticky route and is refused in DP-exclusive
+mode. It is not silently relabelled as a fresh copy of the current corpus.
+Every other typed release remains realised-contribution protected. Statistic
+aliases share their declared eligible-population person total.
+
+Typed categories require registered complete domains with explicit Other and
+Unknown cells. Numeric/date views use registered fixed atoms. Requested levels,
+positive sets and break boundaries are validated post-processing views, never
+new noise owners. Binary numerator and denominator masks identify canonical
+atom indices and preserve all/nonmissing eligibility through pooling. Semantic
+domain labels, not only bit-pattern widths, enter basis identity. Weighted
+histograms own one protected weighted total; server and client both reconcile
+and project the complete atom vector before summing any requested bins. They
+never reconcile a record-weighted histogram to person N. Multi-label and
+record-capped vectors retain their declared whole-person cap. These repairs
+close the enumerated cosmetic/view inconsistencies; distinct realised questions
+still carry the documented equality/overlap residual.
 
 The gate covers the registered community-tool surface. It does not alter
 internal profiling helpers, controller-only `omopAchillesHeelDS`, or
@@ -407,30 +452,18 @@ provide a finite cumulative privacy budget.
 When `dsomop.dp.domain` / `DSOMOP_DP_DOMAIN` is unset or has an empty
 package default, initialization derives it from the connected resource; an
 explicitly configured value takes precedence. The public `snapshot_id` status
-label is derived the same way (the deprecated `dsomop.dp.snapshot_id` /
-`DSOMOP_DP_SNAPSHOT_ID` replaces it); it is a display value only, and with a
-configured domain but no derivable resource coordinates it is the fingerprint
-of the domain. The domain is a SHA-256
+label is a digest of that domain unless the deprecated `dsomop.dp.snapshot_id` /
+`DSOMOP_DP_SNAPSHOT_ID` supplies a valid display label. The domain is a SHA-256
 hash of versioned, canonical database coordinates: normalized DBMS, lowercase
 host, effective port, database (canonical absolute file path for SQLite/DuckDB),
 and effective CDM and vocabulary schemas. Credentials, transport settings,
 resource display names, results schemas and temporary schemas are excluded.
 SQLite's implicit and explicit `main` schema have the same identity.
 
-Label precedence is **explicit configuration → complete `cdm_source` →
-fallback**. The label hashes the resource identity and the source fields
-`cdm_source_name`, `cdm_release_date`, `cdm_version` and `vocabulary_version`,
-converted to text. One complete row retains the `dsomop-dp-cdm-snapshot-v1`
-contract; multiple complete rows are all canonically sorted and hashed under
-`dsomop-dp-cdm-snapshot-multi-v1`.
-
-Missing/unreadable tables, zero rows, or missing/blank fields fall back to all
-canonically sorted `vocabulary_id`/`vocabulary_version` pairs from `vocabulary`
-(including the `None` row), plus resource identity, under
-`dsomop-dp-cdm-snapshot-fallback-v1`. If vocabulary metadata is also unavailable
-or incomplete, resource identity alone is hashed under
-`dsomop-dp-cdm-snapshot-resource-only-v1`. Each explicit identifier wins
-independently, and an explicit label skips metadata derivation.
+The optional snapshot label is display-only; absent or malformed labels
+fall back to a digest of the canonical corpus domain. Current policy derivation
+never queries CDM/vocabulary metadata to obtain this label, so a display change
+cannot alter database reads, snapshot availability or provenance admission.
 
 Without a configured domain, in-memory databases and unavailable/ambiguous
 resource coordinates still fail closed with instructions to configure the
@@ -445,7 +478,7 @@ automatic database version (the largest primary key of every clinical table),
 so every distinct request spelling drew fresh noise and every reload re-drew
 every answer. 2.10.3 removes that path: protected releases are keyed as
 described in "Modes and metadata". The fixed synopses' automatic data
-generation (exact counts and largest identifiers, above) replaces the old
+generation (the request-local person-membership digest, above) replaces the old
 database version for that route only.
 
 - Realised-sticky releases follow their data. A reload or in-place edit that
@@ -453,20 +486,19 @@ database version for that route only.
   fingerprint and re-draws it; components whose contribution maps are
   unchanged keep their draws (an unrelated insertion no longer re-draws them).
   Repeating a question across a refresh therefore shows which components
-  changed, never by how much: the conditional equality of
+  changed; auxiliary knowledge can disclose more. The conditional equality of
   [isglobal-brge/dsOMOP#20](https://github.com/isglobal-brge/dsOMOP/issues/20)
   remains, by design, for unchanged components.
-- Fixed synopses follow the automatic data generation: a reload that adds or
-  removes rows redraws every atom at once, and an atom whose bounded
-  contributions changed under an unchanged generation (an in-place edit, a
-  change while the session is open) is redrawn by its contribution
-  fingerprint, so the difference of two releases never reveals an exact
-  change; it can show which atoms changed in that residual case. No custodial
-  setting is needed.
-- `dsomop.dp.privacy_epoch` / `DSOMOP_DP_PRIVACY_EPOCH` is part of every noise
-  profile: bumping it re-draws every fixed and realised component at once.
+- Fixed synopses follow the request-local person-membership generation:
+  adding, removing or replacing a person globally redraws fixed atoms.
+  Clinical edits with unchanged membership retain the stated component-change
+  residual; contribution fingerprints prevent intentional old-noise reuse for
+  changed bounded maps, not every possible inference from their differences.
+- `dsomop.dp.privacy_epoch` / `DSOMOP_DP_PRIVACY_EPOCH` is an optional
+  administrative noise-profile version. Rotation redraws all components and
+  adds a disclosure; it is not required after data loads and resets no history.
 
-Policy changes during a session fail closed. Use a separate session for a
+Security-policy changes during a session fail closed; snapshot display labels are excluded. Use a separate session for a
 different derived resource; DSLite server sessions keep separate policies
 within their shared R process. For replicas and database aliases of one
 logical dataset, configure matching explicit identifiers if canonical

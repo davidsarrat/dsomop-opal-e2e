@@ -253,20 +253,16 @@ that a finite key supplies information-theoretic infinite randomness. See
 exactness argument, and [SAMPLER_DIAGNOSIS.md](SAMPLER_DIAGNOSIS.md) for the
 original defect.
 
-Since 2.10.0 dsOMOP stores nothing but the secret noise root. Since 2.10.3
-every protected answer is a deterministic function of that root, its protected
-component (owner, family, coordinate and fixed noise profile) and either the
-custodial data generation (fixed synopses) or a secret fingerprint of the
-realised bounded contributions of the component's people (realised-sticky
-releases); see [DISCLOSURE_CONTROL.md](DISCLOSURE_CONTROL.md). The same question
-on the same data returns the same answer, byte for byte, after restarts and on
-every R server that shares the root, without a store, capacity limit or lock.
-Equivalent formulations, statistic aliases, public-grid views, dummy levels and
-lineage cosmetics reuse the same components. A reload re-draws exactly the
-realised components whose contributions changed: repeating a question across a
-refresh shows which components changed, never by how much (the conditional
-equality of [isglobal-brge/dsOMOP#20](https://github.com/isglobal-brge/dsOMOP/issues/20)).
-Fixed synopses re-draw only when the custodian declares a new generation.
+Since 2.10.0 the only persistent DP secret is the noise root (the core also
+retains its pseudonymisation key). Protected components are determined by the
+root, their public owner/profile and bounded contribution fingerprints; fixed
+routes additionally use a person-membership digest recomputed inside each
+request's database snapshot. No per-handle/session generation or failed-read
+cache selects answers. Equivalent supported formulations replay under the same
+current data, corpus and secrets. Changes to membership globally redraw fixed
+components; clinical edits with unchanged membership redraw changed components.
+Change/equality patterns remain informative and have no joint transcript-DP
+claim. See [DISCLOSURE_CONTROL.md](DISCLOSURE_CONTROL.md).
 
 Display names, request spelling, scope names, row order and lineage cosmetics
 are part of no key. Contribution fingerprints, person tokens and raw PRF
@@ -320,11 +316,11 @@ by default (`dsomop.dp.enabled`); custodians can opt out with
 and environment settings must agree. Since dsOMOP 2.8.0 the custodial option
 `dsomop.dp.exclusive` defaults to `FALSE` (profile fallback
 `default.dsomop.dp.exclusive = FALSE`) and, when a custodian sets it, applies
-only to the community-tool endpoints: with DP enabled they then refuse with a
-message directing analysts to `omopDpReleaseDS` (`ds.omop.dp.release` on the
-client). dsOMOP 2.7.x applied this gate to its own standard statistics too;
-2.8.0 does not. Analysts cannot set this policy or bypass the noise through a
-client option. `omopDpStatusDS()` reports the configured `exclusive` flag; the
+only to the community-tool endpoints. With DP enabled, exclusive mode admits
+registered fixed-synopsis catalogue/query routes and eligible typed releases;
+it refuses standard, realised-only and unsupported tool routes. dsOMOP's own
+standard statistics retain their separate controls. Analysts cannot set this
+policy or bypass the noise through a client option. `omopDpStatusDS()` reports the configured `exclusive` flag; the
 flag is read on each request and does not change the DP mechanism, policy
 hash, sticky noise, or release identity.
 
@@ -339,44 +335,41 @@ scope of the gate.
 No privacy setting needs configuring. When `dsomop.dp.domain` /
 `DSOMOP_DP_DOMAIN` is unset or has an empty package default, initialization
 derives it from the connected resource; an explicitly configured value takes
-precedence. The public `snapshot_id` status label is derived the same way;
+precedence. The public `snapshot_id` status label is a digest of that domain;
 the deprecated `dsomop.dp.snapshot_id` / `DSOMOP_DP_SNAPSHOT_ID` only replaces
-that label, and nothing depends on it. The domain is a SHA-256
+that display label, and no answer or admission depends on it. The domain is a SHA-256
 hash of versioned, canonical database coordinates: normalized DBMS, lowercase
 host, effective port, database (canonical absolute file path for SQLite/DuckDB),
 and effective CDM and vocabulary schemas. Credentials, transport settings,
 resource display names, results schemas and temporary schemas are excluded.
 SQLite's implicit and explicit `main` schema have the same identity.
 
-Label precedence is **explicit configuration → complete `cdm_source` →
-fallback**. The label hashes the resource identity and the source fields
-`cdm_source_name`, `cdm_release_date`, `cdm_version` and `vocabulary_version`,
-converted to text. One complete row retains the `dsomop-dp-cdm-snapshot-v1`
-contract; multiple complete rows are all canonically sorted and hashed under
-`dsomop-dp-cdm-snapshot-multi-v1`.
+An optional explicit `snapshot_id` is printed as display metadata. With no
+valid label, status derives one from the canonical corpus domain only. No
+metadata query, noise key, provenance admission or identity decision depends on
+the label. Clearing or changing it during a session or after restoring a sealed
+table changes neither protection nor values.
 
-Missing/unreadable tables, zero rows, or missing/blank fields fall back to all
-canonically sorted `vocabulary_id`/`vocabulary_version` pairs from `vocabulary`
-(including the `None` row), plus resource identity, under
-`dsomop-dp-cdm-snapshot-fallback-v1`. If vocabulary metadata is also unavailable
-or incomplete, resource identity alone is hashed under
-`dsomop-dp-cdm-snapshot-resource-only-v1`. Each explicit identifier wins
-independently, and an explicit label skips metadata derivation.
-
-Unscoped questions over public bases are fixed synopses keyed on an automatic
-data generation: a keyed fingerprint of the exact row count and largest
-identifier of every OMOP clinical table (plus `cdm_source`, the vocabulary
-versions and the concept table), derived on the fly once per R session and
-held in memory only. A reload that adds or removes rows re-draws every fixed
-synopsis at once, with no custodian action. An in-place edit that changes no
-count and no largest identifier, or a change while a session is open, leaves
-the generation unchanged; the components whose bounded contributions changed
-still re-draw (no exact difference is released), but comparing answers can
-show which ones changed. After in-place edits, bump `dsomop.dp.privacy_epoch`
-/ `DSOMOP_DP_PRIVACY_EPOCH` to re-draw every answer. Scoped questions are
-realised-sticky: a reload or edit re-draws exactly the components whose
-bounded contributions changed, and unchanged components keep their answers.
+Unscoped questions over complete registered public bases use a generation
+computed from canonical person membership inside each request's pinned database
+snapshot. It detects insertions, withdrawals and balanced replacement of person
+identifiers without clinical COUNT/MAX scans or cross-request state. Clinical
+edits with unchanged membership retain a component-change residual: the
+fingerprint prevents intentional reuse of old noise for changed bounded inputs,
+but does not hide which components changed or establish evolving-data DP.
+`snapshot_id` has no security or answer effect. Epoch rotation is optional
+administrative hardening, never required after a load. Record summaries with
+data-enumerated strata use the honestly labelled heuristic route, retain
+weighted histograms without scales, and are unavailable in DP-exclusive mode.
 See [DISCLOSURE_CONTROL.md](DISCLOSURE_CONTROL.md#the-automatic-data-generation-of-the-fixed-synopses).
+
+Protected recurrent event-time views retain both events and distinct contributors
+among the same K=10 kept occurrences. Their complete interval-presence vector has
+sensitivity 3K; static epsilon fractions are N/R .2 each, A/B/C .1 each and P .3.
+Coarse person counts select their own canonical intervals, never sums of daily
+person counts. A versioned radial projection enforces feasible event/person
+bounds and interval relationships; retreat toward its event-mass anchor can add
+bias. First-event requests remain a separate estimand with unchanged allocations.
 
 Without a configured domain, in-memory databases and unavailable/ambiguous
 resource coordinates still fail closed with instructions to configure the
@@ -421,7 +414,7 @@ output contracts.
 
 Non-secret configuration is available through matching `dsomop.dp.*` options
 and `DSOMOP_DP_*` environment variables, including enablement, domain, the
-deprecated public snapshot label, fixed release epsilon, privacy epoch and the
+fixed release epsilon, privacy epoch and the
 server caps
 for levels, contributions and numeric quantization. Explicit option and
 environment values must agree. `omopDpStatusDS()` is suitable as a production

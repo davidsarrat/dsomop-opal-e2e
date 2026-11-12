@@ -2,8 +2,12 @@
 #
 # `omop.table` proves pseudonymization, not contribution locality.  Only
 # audited producers call the sealing helper below.  The MAC binds the complete
-# frame (except the capsule itself) to the current privacy domain/snapshot, so a
-# generic assign method cannot copy a valid attribute onto modified data.
+# frame (except the capsule itself) to the current privacy domain and epoch, so
+# a generic assign method cannot copy a valid attribute onto modified data.
+# The capsule also records the snapshot display label at sealing time (never
+# compared with the current one: dsOMOP 2.10.3, review R01), the
+# person-membership generation of a fixed-capable loader table and the read
+# consistency of the request that read its rows.
 
 .dsomopDpStripProvenance <- function(x) {
   attr(x, "dsomop_dp_provenance") <- NULL
@@ -13,9 +17,10 @@
 }
 
 # The core of dsOMOP (plans, recipes, filters, factors, manipulation) never
-# calls DP. Only the community tools' own outputs may carry DP provenance, and
-# DP never decides whether a tool call succeeds: any DP error leaves the
-# result without DP provenance (DP releases then refuse it) and is logged.
+# calls DP. Community-tool outputs and the explicit DP preparation endpoint
+# may carry DP provenance. Best-effort community-tool sealing leaves a result
+# without provenance on failure; explicit DP preparation instead aborts its
+# publication transaction before any patient component becomes public.
 # The staged contract's query digest is a core fingerprint that is not
 # canonical across equivalent plans. DP lineage replaces it with the same
 # canonical DP digest as dsOMOP 2.7.x, so sticky identities are unchanged.
@@ -314,6 +319,10 @@
     stop("DP filter lineage requires a non-empty filter tree.", call. = FALSE)
   }
   fields <- names(node)
+  if (identical(fields, "not")) {
+    # NOT is not associative with AND/OR: keep it as its own lineage node.
+    return(list(not = .dsomopDpNormalizeFilterTree(node$not)))
+  }
   groups <- intersect(fields %||% character(0), c("and", "or"))
   if (length(groups) == 1L && length(fields) == 1L) {
     children <- node[[groups[[1L]]]]
@@ -506,7 +515,9 @@
                                      dataset_identity = NULL,
                                      dataset_id = NULL, person_key = NULL,
                                      domains = NULL, scales = NULL,
-                                     release_persons = NULL) {
+                                     release_persons = NULL,
+                                     data_generation = NULL,
+                                     read_snapshot = NULL) {
   attr(x, "dsomop_dp_provenance") <- NULL
   attr(x, .DSOMOP_DP_RELEASE_PERSONS_ATTRIBUTE) <- NULL
   if (!.dsomopDpEnabled()) return(x)
@@ -572,7 +583,9 @@
     release_persons_sha256 = .dsomopDpReleasePersonsDigest(
       persons$namespace, persons$map),
     public_domains = .dsomopDpPublicColumnMetadata(x, domains, "domains"),
-    public_scales = .dsomopDpPublicColumnMetadata(x, scales, "scales")
+    public_scales = .dsomopDpPublicColumnMetadata(x, scales, "scales"),
+    data_generation = .dsomopDpCapsuleGeneration(data_generation),
+    read_snapshot = .dsomopDpCapsuleReadSnapshot(read_snapshot)
   )
   capsule <- c(contract, list(
     mac = .dsomopDpProvenanceMac(x, contract, policy)
@@ -581,17 +594,50 @@
   x
 }
 
+#' Validated capsule fields of the data generation and read consistency
+#'
+#' @param value The field value (NULL when absent).
+#' @return The value (NULL stays NULL), or an error when malformed.
+#' @keywords internal
+.dsomopDpCapsuleGeneration <- function(value) {
+  if (is.null(value)) return(NULL)
+  if (!is.character(value) || length(value) != 1L || is.na(value) ||
+      !grepl("^[0-9a-f]{64}$", value)) {
+    stop("Invalid DP data generation.", call. = FALSE)
+  }
+  value
+}
+
+#' @rdname dot-dsomopDpCapsuleGeneration
+#' @keywords internal
+.dsomopDpCapsuleReadSnapshot <- function(value) {
+  if (is.null(value)) return(NULL)
+  kinds <- c(unname(.DSOMOP_READ_SNAPSHOT_KINDS), "not_isolated")
+  if (!is.character(value) || length(value) != 1L || is.na(value) ||
+      !value %in% kinds) {
+    stop("Invalid DP read-snapshot field.", call. = FALSE)
+  }
+  value
+}
+
 .dsomopDpVerifyPersonLocal <- function(x, policy = NULL,
                                        allow_missing = FALSE) {
   capsule <- attr(x, "dsomop_dp_provenance", exact = TRUE)
   if (is.null(capsule) && isTRUE(allow_missing)) return(NULL)
   if (is.null(policy)) policy <- .dsomopDpPolicy()
-  expected_names <- c(
+  # Capsules sealed earlier in 2.10.3 development lack the generation and
+  # read-snapshot fields; they verify unchanged and are not fixed bases.
+  legacy_names <- c(
     "protocol", "adjacency", "domain", "snapshot_id", "privacy_epoch",
     "person_key", "dataset_id", "producer", "episode_domain", "lineage_id",
     "release_person_namespace", "release_persons_sha256", "public_domains",
     "public_scales", "mac"
   )
+  expected_names <- c(setdiff(legacy_names, "mac"), "data_generation",
+                      "read_snapshot", "mac")
+  if (is.list(capsule) && identical(names(capsule), legacy_names)) {
+    expected_names <- legacy_names
+  }
   if (is.list(capsule) && !is.null(names(capsule)) &&
       identical(capsule$protocol, "dsomop-dp-person-local-provenance-v2")) {
     # Sealed by an earlier version: no release-person identity (B01).
@@ -600,8 +646,8 @@
   if (!is.list(capsule) || is.null(names(capsule)) ||
       !identical(names(capsule), expected_names)) {
     stop("This table carries no DP provenance. DP releases accept only ",
-         "outputs of the OHDSI community tools; tables loaded through ",
-         "plans, recipes or manipulation never carry DP provenance.",
+         "outputs of the OHDSI community tools or explicit DP preparation; ",
+         "ordinary plan loading and manipulation never carry DP provenance.",
          call. = FALSE)
   }
   text_fields <- c("protocol", "adjacency", "domain", "snapshot_id",
@@ -622,23 +668,30 @@
     stop("The omop.table DP provenance capsule is malformed.", call. = FALSE)
   }
   if (!grepl("^[0-9a-f]{64}$", capsule$lineage_id) ||
-      !grepl("^[0-9a-f]{64}$", capsule$dataset_id)) {
+      !grepl("^[0-9a-f]{64}$", capsule$dataset_id) ||
+      !isTRUE(tryCatch(
+        identical(.dsomopDpCapsuleGeneration(capsule$data_generation),
+                  capsule$data_generation) &&
+          identical(.dsomopDpCapsuleReadSnapshot(capsule$read_snapshot),
+                    capsule$read_snapshot),
+        error = function(e) FALSE))) {
     stop("The omop.table DP provenance lineage is malformed.",
          call. = FALSE)
   }
   keys <- .omopPersonKeys(x)
+  # The sealed snapshot label is authenticated with the other fields by the
+  # MAC below but never compared with the current label (review R01).
   coherent <- identical(capsule$protocol,
                         .DSOMOP_DP_PROVENANCE_PROTOCOL) &&
     identical(capsule$adjacency, policy$adjacency) &&
     identical(capsule$domain, policy$domain) &&
-    identical(capsule$snapshot_id, policy$snapshot_id) &&
     identical(capsule$privacy_epoch, policy$privacy_epoch) &&
     length(keys) == 1L && identical(capsule$person_key, keys[[1L]]) &&
     capsule$person_key %in%
       (attr(x, "dsomop_protected", exact = TRUE) %||% character(0))
   if (!coherent) {
     stop("The omop.table DP provenance does not match the current privacy ",
-         "domain, snapshot, privacy epoch, or person-key contract.",
+         "domain, privacy epoch, or person-key contract.",
          call. = FALSE)
   }
   contract <- capsule[setdiff(expected_names, "mac")]
@@ -705,12 +758,19 @@
   if (!is.list(node)) return(FALSE)
   fields <- names(node)
   if (!is.null(fields) && "type" %in% fields) {
-    return(
-      is.character(node$type) && length(node$type) == 1L &&
-        !is.na(node$type) && !identical(tolower(node$type), "cohort")
-    )
+    return(is.character(node$type) && length(node$type) == 1L &&
+      !is.na(node$type) && tolower(node$type) %in% c(
+        "sex", "age_range", "age_group", "has_concept", "not_has_concept",
+        "concept_count", "prior_observation", "followup", "visit_count",
+        "has_measurement", "missing_measurement"
+      ))
   }
   if (!is.null(fields)) {
+    # NOT of person-local predicates is person-local.
+    if (identical(fields, "not")) {
+      return(is.list(node$not) && length(node$not) > 0L &&
+               .dsomopDpFilterTreePersonLocal(node$not))
+    }
     groups <- intersect(fields, c("and", "or"))
     if (length(groups) != 1L || length(fields) != 1L) return(FALSE)
     children <- node[[groups[[1L]]]]
@@ -751,10 +811,21 @@
     ))
   }
   safe <- stats::setNames(logical(length(populations)), ids)
-  for (id in ids) {
+  resolved <- character(0)
+  visiting <- character(0)
+  resolve <- function(id) {
+    if (id %in% resolved) return(isTRUE(safe[[id]]))
+    if (id %in% visiting || !id %in% ids) return(FALSE)
+    visiting <<- c(visiting, id)
+    on.exit(visiting <<- setdiff(visiting, id), add = TRUE)
     population <- populations[[id]]
-    if (!is.list(population)) next
+    if (!is.list(population)) return(FALSE)
     kind <- tolower(population$kind %||% "criteria")
+    if (!kind %in% c("criteria", "setop", "index")) return(FALSE)
+    local <- is.null(population$cohort_definition_id) &&
+      .dsomopDpFilterTreePersonLocal(population$filter_tree)
+    parent <- population$parent %||% population$parent_id
+    if (!is.null(parent)) local <- local && resolve(parent)
     if (identical(kind, "setop") || !is.null(population$setop)) {
       members <- as.character(unlist(
         population$setop$members %||% character(0), use.names = FALSE
@@ -764,33 +835,31 @@
       valid_setop <- length(members) >= 2L && !anyNA(members) &&
         all(nzchar(members)) && !anyDuplicated(members) &&
         op %in% c("union", "intersect", "setdiff")
-      safe[[id]] <- valid_setop && all(members %in% ids) &&
-        all(vapply(members, function(member) {
-          isTRUE(safe[[member]])
-        }, logical(1L)))
-      next
+      local <- local && valid_setop && all(vapply(
+        members, resolve, logical(1L)
+      ))
     }
-    local <- is.null(population$cohort_definition_id) &&
-      .dsomopDpFilterTreePersonLocal(population$filter_tree)
     if (identical(id, "base")) local <- local && base_safe
-    safe[[id]] <- local
+    safe[[id]] <<- local
+    resolved <<- c(resolved, id)
+    local
   }
+  for (id in ids) resolve(id)
   if (!"base" %in% names(safe)) safe <- c(base = base_safe, safe)
   safe
 }
 
 .dsomopDpPlanOutputPersonLocal <- function(plan, output_name, policy) {
+  if (.dsomopDpIsV2(plan)) {
+    return(isTRUE(.dsomopDpIrLocality(plan, policy)[[output_name]]))
+  }
   if (!is.list(plan) || !is.list(plan$outputs) ||
       is.null(plan$outputs[[output_name]])) {
     return(FALSE)
   }
   out <- plan$outputs[[output_name]]
-  scope <- plan$scope
-  scope_source <- if (is.list(scope) && !is.data.frame(scope) &&
-      !.is_omop.table(scope)) {
-    scope$tables_frames %||% scope$cohort
-  } else scope
-  if (!.dsomopDpScopePersonLocal(scope_source, policy)) return(FALSE)
+  authenticated <- .dsomopDpAuthenticatedScope(plan, policy)
+  if (!isTRUE(authenticated$local)) return(FALSE)
   # A plan-level persistent cohort is folded into the global scope and therefore
   # taints every population. A filter/spec cohort affects the base branch.
   if (is.list(plan$cohort) &&
@@ -1336,6 +1405,9 @@
 
 .dsomopDpPlanLineageSemantic <- function(plan, output_name, policy,
                                          component = NULL) {
+  if (.dsomopDpIsV2(plan)) {
+    return(.dsomopDpIrLineageSemantic(plan, output_name, policy, component))
+  }
   output <- plan$outputs[[output_name]]
   population_id <- output$population_id %||% "base"
   scope <- plan$scope
@@ -1374,12 +1446,36 @@
 
 .dsomopDpSealPlanOutput <- function(x, plan, output_name,
                                     dataset_identity = NULL,
-                                    component = NULL, person_key = NULL) {
+                                    component = NULL, person_key = NULL,
+                                    read_snapshot = NULL, scopes = NULL) {
   attr(x, "dsomop_dp_provenance") <- NULL
   if (!.dsomopDpEnabled() || !is.data.frame(x) || !.is_omop.table(x)) {
     return(x)
   }
   policy <- .dsomopDpPolicy()
+  if (.dsomopDpIsV2(plan)) {
+    if (!isTRUE(.dsomopDpIrLocality(plan, policy, scopes)[[output_name]])) {
+      return(x)
+    }
+    lineage <- .dsomopDpIrLineageSemantic(
+      plan, output_name, policy, component, scopes
+    )
+    dataset_id <- .dsomopDpDatasetId(policy, dataset_identity)
+    if (is.null(dataset_id)) return(x)
+    episode_domain <- if ("cohort_row_id" %in% names(x)) {
+      .dsomopDpLineageId(policy, dataset_id, list(
+        kind = "plan_episode_domain", semantic_digest = lineage$semantic_digest,
+        scope = lineage$scope, population = lineage$population
+      ))
+    } else NULL
+    return(.dsomopDpSealPersonLocal(
+      x, producer = paste("plan", "v2", plan$outputs[[output_name]]$format,
+                          component %||% "primary", sep = "/"),
+      episode_domain = episode_domain, lineage = lineage, policy = policy,
+      dataset_id = dataset_id, person_key = person_key,
+      read_snapshot = read_snapshot
+    ))
+  }
   if (!.dsomopDpPlanOutputPersonLocal(plan, output_name, policy)) return(x)
   out <- plan$outputs[[output_name]]
   type <- tolower(out$type %||% "event_level")
@@ -1412,7 +1508,8 @@
       "plan", type, representation, component %||% "primary", sep = "/"
     ),
     episode_domain = episode_domain, lineage = lineage, policy = policy,
-    dataset_id = dataset_id, person_key = person_key
+    dataset_id = dataset_id, person_key = person_key,
+    read_snapshot = read_snapshot
   )
 }
 
@@ -1440,7 +1537,9 @@
                                         effective_params = list(),
                                         public_config = list(),
                                         dataset_identity = NULL,
-                                        person_key = NULL) {
+                                        person_key = NULL,
+                                        generation = NULL,
+                                        read_snapshot = NULL) {
   attr(x, "dsomop_dp_provenance") <- NULL
   query_id <- entry$meta$query_id %||% ""
   sql <- entry$compute$sql %||% NULL
@@ -1452,8 +1551,20 @@
     identical(unname(.DSOMOP_DP_SAFE_ASSIGN_SQL[[query_id]]), sql_hash) &&
     identical(scope_present, FALSE)
   if (!.dsomopDpEnabled() || !safe) return(x)
+  # A pinned loader table is a fixed basis of its source's person-membership
+  # generation, read inside this loader request's snapshot with its rows. A
+  # failed read seals the table without one (it is then not a fixed basis).
+  data_generation <- if (is.function(generation)) {
+    tryCatch(generation(), error = function(e) {
+      message("[dsomop-dp-generation] A loader table was sealed without a ",
+              "data generation: ", conditionMessage(e))
+      NULL
+    })
+  } else NULL
   .dsomopDpSealPersonLocal(
     x,
+    data_generation = data_generation,
+    read_snapshot = read_snapshot,
     producer = paste0("query/", query_id, "/", substr(sql_hash, 1L, 16L)),
     lineage = list(
       kind = "query_library_assign",
@@ -1537,7 +1648,8 @@
       dataset_id = provenance$dataset_id,
       release_persons = .dsomopDpInheritedPersons(result, source, provenance),
       domains = .dsomopDpInheritedColumns(provenance$public_domains, result),
-      scales = .dsomopDpInheritedColumns(provenance$public_scales, result)
+      scales = .dsomopDpInheritedColumns(provenance$public_scales, result),
+      read_snapshot = provenance$read_snapshot
     ))
   }
   .dsomopDpSealPersonLocal(
@@ -1554,7 +1666,8 @@
     dataset_id = provenance$dataset_id,
     release_persons = .dsomopDpInheritedPersons(result, source, provenance),
     domains = .dsomopDpInheritedColumns(provenance$public_domains, result),
-    scales = .dsomopDpInheritedColumns(provenance$public_scales, result)
+    scales = .dsomopDpInheritedColumns(provenance$public_scales, result),
+    read_snapshot = provenance$read_snapshot
   )
 }
 
@@ -1586,7 +1699,10 @@
     public_domains = .dsomopDpInheritedColumns(provenance$public_domains,
                                                result),
     public_scales = .dsomopDpInheritedColumns(provenance$public_scales,
-                                              result)
+                                              result),
+    # A derived table is not a pinned loader: no fixed-basis generation.
+    data_generation = NULL,
+    read_snapshot = .dsomopDpCapsuleReadSnapshot(provenance$read_snapshot)
   )
   attr(result, "dsomop_dp_provenance") <- c(contract, list(
     mac = .dsomopDpProvenanceMac(result, contract, policy)

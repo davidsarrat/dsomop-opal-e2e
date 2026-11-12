@@ -3,26 +3,26 @@
 The current server contract is `dsomop-dp-release-v3` /
 `protected_release_fixed_basis_or_realised_v1` with typed payload protocol
 `dsomop-protected-release-v1`, paired with dsOMOPClient 2.10.3. Protected
-releases share canonical components: a fixed synopsis (unscoped question over
-a public basis) draws each atom's noise from the corpus, the automatic data
-generation, the privacy epoch, owner, population and atom and the atom's
-contribution fingerprint; a realised-sticky release (every other scope; a
-heuristic disclosure control without a joint differential-privacy guarantee)
-draws each component's noise from its owner, coordinate and a secret
-fingerprint of the realised bounded contributions. The automatic data
-generation is an HMAC under the noise root of the exact row count and largest
-identifier of every OMOP clinical table (plus `cdm_source`, vocabulary
-versions and the concept table), derived on the fly once per R session and
-held in memory only; no custodial setting is needed, and
-`dsomop.dp.snapshot_id` is a deprecated status label that nothing depends on.
-No key depends on request text, lineage cosmetics or earlier questions, and
-nothing but the root is stored. A reload that adds or removes rows re-draws
-every fixed synopsis; a reload or edit re-draws exactly the realised
-components whose contributions changed. In-place edits that change no count
-and no largest identifier, and changes during an open session, are not seen
-by the generation; the affected fixed components still re-draw by their
-fingerprints (DISCLOSURE_CONTROL.md). DP-only mode accepts only fixed
-synopses.
+fixed-synopsis releases use a canonical person-membership digest recomputed
+within each request's pinned snapshot, plus component fingerprints. There is no
+cross-request generation or failure cache and no clinical COUNT/MAX fingerprint.
+The secret stays in R. `snapshot_id` is display-only, including restored sealed
+tables. Person-set changes globally redraw fixed components; clinical edits
+with unchanged membership have the documented change-pattern residual. The
+fixed-vector guarantee is qualified to an unchanged source state before exact
+support admission; the evolving transcript has no finite epsilon claim.
+
+Realised-sticky releases reuse bounded contribution maps and make no joint DP
+claim. They include data-enumerated record summaries, which now retain weighted
+value H without registered scales. Interaction Cox and capped recurrent outputs
+are restored; public subgroup margins, Cox status parents and typed view masks
+have explicit contracts. Recurrent event-time `persons` is distinct contributors
+among the same K=10 kept occurrences, selected from a complete interval-presence
+vector (sensitivity 3K), never summed from finer person counts. Its static
+fractions are N/R .2 each, A/B/C .1 each and P .3. The versioned radial feasibility
+projection can add bias by retreating toward an event-mass anchor; it is not an
+L2 projection. First-event allocations are unchanged. DP-exclusive mode accepts
+only fixed-basis contracts.
 
 Status declares `history_dependent = FALSE`, `history_based_admission = FALSE`,
 `persistent_state = "noise_root_only"`,
@@ -34,6 +34,10 @@ federations that mix them with older contracts; older clients refuse typed
 releases from 2.10.3 servers.
 
 ## Seed-only contract (2.10.0 to 2.10.2, superseded)
+
+Everything below is historical evidence, not current setup instructions.
+The earlier snapshot/epoch imperatives and retained-answer stores do not apply
+to 2.10.3; its active contract is described above and in DISCLOSURE_CONTROL.md.
 
 The 2.10.0 to 2.10.2 server contract was `dsomop-dp-release-v3` /
 `fixed_per_release_seed_data_versioned_v1`, paired with dsOMOPClient 2.10.0.
@@ -294,7 +298,7 @@ process, held in package state independently of DSLite session/runtime state,
 naming both explicit options and requiring an epoch bump after every reload.
 The warning uses R's standard warning/log channel. A fallback snapshot cannot
 track data reloads: unchanged snapshot labels permit comparisons/differencing
-across reloads. Epoch rotation remains mandatory; it does not create a cumulative
+across reloads. That version required epoch rotation; it does not create a cumulative
 privacy budget or eliminate composition of distinct releases.
 
 Different resource domains select different HMAC subkeys under the same persistent
@@ -305,8 +309,9 @@ not reuse a noise stream. Discrete numeric draws can coincide by chance; the tes
 asserts separation of keys and IDs, rather than requiring unequal draws.
 
 The existing keyed bounded-statistic fingerprint remains in release keys.
-The derived snapshot follows metadata, not every data edit: custodians must bump
-`privacy_epoch` when data change without metadata changes. Metadata is reread at
+The historical derived snapshot followed metadata, not every data edit; that
+version instructed custodians to bump `privacy_epoch` after untracked edits.
+The 2.10.3 membership mechanism supersedes that requirement. Metadata is reread at
 policy validation; changes trigger the existing policy-change error. The
 mechanism, epsilon default 0.1, epsilon maximum 8, delta 0 and contribution/level
 caps are unchanged. This remains a per-release claim without a finite cumulative

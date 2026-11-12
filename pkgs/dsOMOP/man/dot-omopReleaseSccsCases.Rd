@@ -26,8 +26,14 @@ window \code{[exposure, exposure + window]}. Each conditional stratum is one
 (person, coalesced observation island) with an outcome record in it; its
 \code{q} is the window's overlap with the island over the island's length
 (half-open day counts), so distinct periods keep distinct exposure
-fractions. Strata with \code{q} 0 or 1 carry no within-person contrast and
-are dropped before the cap; the person's remaining records share the one
-cap of K events. Islands are disjoint, so a record is one event.
+fractions. Only strata with q=0 or q=1 are excluded because they carry no
+within-person contrast. Every informative stratum with 0<q<1 is retained;
+exposed fractions outside the public grid range [0.0001, 0.99] are clamped
+to its endpoints. This can cause substantial approximation bias near the
+boundaries: homogeneous q=0.999 clamped to 0.99 shifts the noise-free
+log-IRR by about +2.3. Exclusion depends only on exposure and observation
+geometry, never on event timing. The person's
+remaining records share the one cap of K events. Islands are disjoint, so
+a record is one event.
 }
 \keyword{internal}

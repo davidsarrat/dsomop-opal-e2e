@@ -315,15 +315,57 @@
 }
 
 # Bounded weighted cells (multi-label presence or capped records): one
-# person's contributions sum to at most K over the whole complete basis, at the
-# full reference calibration.
+# person's contributions sum to at most K over the whole complete basis, at
+# the given share of the reference calibration (the full calibration unless
+# the basis also owns a protected weighted total).
 .dsomopTypedWeighted <- function(owner, population, cell_maps, coordinates,
-                                 K) {
+                                 K, allocation = 1) {
   lapply(seq_along(coordinates), function(k) {
     m <- cell_maps[[k]]
     .dsomopTypedComponent(owner, "W", coordinates[[k]], sum(m$w), m$token,
-                          m$w, 1, K, population)
+                          m$w, allocation, K, population)
   })
+}
+
+# --- Versioned complete-basis projections (server and dsOMOPClient) -----------
+
+# Every displayed typed view is a sum of the cells of ONE projected complete
+# basis, computed identically on the server and in dsOMOPClient's pooling
+# (R05): a person partition is projected onto the simplex of its person total
+# N; capped weighted records onto the simplex of their protected weighted
+# total T (never the person total); multi-label presence cells, whose views are
+# single cells, are clipped at zero one by one. The identifiers are part of
+# every payload, and dsOMOPClient refuses a projection it does not implement.
+.DSOMOP_TYPED_PROJECTIONS <- c(
+  partition = "typed-partition-simplex-v1",
+  weighted_total = "typed-weighted-total-simplex-v1",
+  weighted_clip = "typed-weighted-atomwise-clip-v1",
+  none = "none"
+)
+
+#' Project the complete basis of a typed release (one versioned rule)
+#'
+#' @param projection One of \code{.DSOMOP_TYPED_PROJECTIONS}.
+#' @param total Signed lead component (person total N or weighted total T), or
+#'   NA when the basis has none.
+#' @param cells Signed basis cells.
+#' @return Displayed (nonnegative) basis cells.
+#' @keywords internal
+.dsomopTypedProject <- function(projection, total, cells) {
+  switch(projection,
+    "typed-partition-simplex-v1" = ,
+    "typed-weighted-total-simplex-v1" =
+      .dsomopReleaseSimplex(cells, max(0, total)),
+    "typed-weighted-atomwise-clip-v1" = pmax(0, cells),
+    stop("Unknown typed projection.", call. = FALSE))
+}
+
+# Public identity of a registered complete categorical domain: the framed,
+# ordered labels (public metadata). Equal-width domains with different labels
+# never share an identity.
+.dsomopTypedDomainId <- function(domain) {
+  substr(as.character(openssl::sha256(.dsomopFrame(
+    "typed-label-domain/v1", domain))), 1L, 24L)
 }
 
 # Per-cell (token, weight) maps from long (token, cell index, weight) rows.
@@ -368,6 +410,43 @@
   i
 }
 
+#' Binary-rate view of a complete person partition
+#'
+#' The numerator and denominator are public masks of basis cells (R04): both
+#' are sums of the ONE projected complete basis (simplex of the person total),
+#' on the server and in dsOMOPClient's pooling alike, and the masks never enter
+#' noise identity. They travel with the payload as the two cells of
+#' \code{view_of_basis} (numerator, denominator).
+#'
+#' @param comps Person total plus the basis cells.
+#' @param owner Owner of the basis cells.
+#' @param masks List(numerator, denominator) of basis cell indices.
+#' @param reducer,denominator Public view parameters.
+#' @param basis_id Public identity of the complete basis (domain included).
+#' @param domain The registered domain labels (public).
+#' @return Typed analysis (components, display, view, identities).
+#' @keywords internal
+.dsomopTypedBinaryView <- function(comps, owner, masks, reducer, denominator,
+                                   basis_id, domain) {
+  projection <- .DSOMOP_TYPED_PROJECTIONS[["partition"]]
+  view <- list(as.integer(masks$numerator), as.integer(masks$denominator))
+  display <- function(noisy) {
+    h <- .dsomopTypedProject(projection, noisy[[1L]], noisy[-1L])
+    num <- sum(h[view[[1L]]])
+    den <- sum(h[view[[2L]]])
+    list(noisy_numerator = .dsomopReleaseRound(num),
+         noisy_denominator = .dsomopReleaseRound(den),
+         value = if (den > 0) .dsomopReleaseRound(num / den) else NULL,
+         reducer = reducer, denominator = denominator,
+         value_type = "categorical_utf8_v1")
+  }
+  list(components = comps, display = display, owner = owner, family = "H",
+       view = view, view_keys = c("stratum=root|view=numerator",
+                                  "stratum=root|view=denominator"),
+       view_kind = "binary_rate_numerator_denominator", projection = projection,
+       basis_id = basis_id, domain = domain)
+}
+
 #' Build the components and displayed values of one typed statistic
 #'
 #' @param input Validated input (\code{.dsomopDpValidateInput}).
@@ -401,14 +480,16 @@
       paste0("typed/record-multiplicity/K=", K, "/v1"), all_persons, people,
       pmin(rows, K), coordinates)
     k <- common$max_contributions
+    projection <- .DSOMOP_TYPED_PROJECTIONS[["partition"]]
     display <- function(noisy) {
-      n <- max(0, noisy[[1L]])
-      h <- .dsomopReleaseSimplex(noisy[-1L], n)
+      h <- .dsomopTypedProject(projection, noisy[[1L]], noisy[-1L])
       list(noisy_count = .dsomopReleaseRound(sum(pmin(seq_len(K), k) * h)),
            reducer = "records", max_contributions = k)
     }
     return(list(components = comps, display = display,
-                owner = "record_multiplicity", family = "H"))
+                owner = "record_multiplicity", family = "H",
+                projection = projection,
+                basis_id = paste0("typed-record-multiplicity/K=", K, "/v1")))
   }
   values <- if (!is.null(common$variable)) input$x[[common$variable]] else NULL
   if (statistic %in% c("categorical_histogram", "bounded_distinct",
@@ -466,9 +547,13 @@
           bits[b] <- "1"
           paste(bits, collapse = "")
         }, character(1L)))
-      comps <- .dsomopTypedPartition(
-        paste0("typed/label-set-pattern/width=", width, "/v1"),
-        all_persons, people, code + 1, coordinates)
+      # The owner names the registered domain, so equal-width domains with
+      # different labels are different bases (R04).
+      domain_id <- .dsomopTypedDomainId(domain)
+      owner <- paste0("typed/label-set-pattern/domain=", domain_id, "/width=",
+                      width, "/v2")
+      comps <- .dsomopTypedPartition(owner, all_persons, people, code + 1,
+                                     coordinates)
       positive_bits <- match(common$positive, domain)
       pattern_hit <- vapply(bitsets, function(bits) {
         if (!length(bits)) return(FALSE)
@@ -476,19 +561,18 @@
           all(bits %in% positive_bits)
       }, logical(1L))
       denominator <- common$denominator
-      display <- function(noisy) {
-        n <- max(0, noisy[[1L]])
-        h <- .dsomopReleaseSimplex(noisy[-1L], n)
-        num <- sum(h[pattern_hit])
-        den <- if (denominator == "nonmissing") n - h[[1L]] else n
-        list(noisy_numerator = .dsomopReleaseRound(num),
-             noisy_denominator = .dsomopReleaseRound(max(0, den)),
-             value = if (den > 0) .dsomopReleaseRound(num / den) else NULL,
-             reducer = reducer, denominator = denominator,
-             value_type = "categorical_utf8_v1")
-      }
-      return(list(components = comps, display = display,
-                  owner = "label_set_pattern", family = "H"))
+      # Public view masks on the complete pattern basis: the numerator
+      # patterns, and the denominator patterns (every pattern, or every
+      # pattern with at least one label).
+      masks <- list(numerator = which(pattern_hit),
+                    denominator = if (denominator == "nonmissing") {
+                      seq_len(n_patterns)[-1L]
+                    } else seq_len(n_patterns))
+      return(.dsomopTypedBinaryView(
+        comps, owner, masks, reducer, denominator,
+        basis_id = paste0("typed-label-set-pattern/domain=", domain_id,
+                          "/v2"),
+        domain = domain))
     }
     if (statistic == "categorical_histogram" &&
         reducer %in% c("presence", "records")) {
@@ -515,13 +599,22 @@
       comps <- .dsomopTypedWeighted(owner, all_persons, maps, coordinates, K)
       view <- as.list(match(common$levels, domain))
       levels <- common$levels
-      display <- function(noisy) list(
-        levels = levels,
-        counts = .dsomopReleaseRound(pmax(0, noisy[unlist(view)])),
-        reducer = reducer, max_contributions = k,
-        value_type = "categorical_utf8_v1")
+      projection <- .DSOMOP_TYPED_PROJECTIONS[["weighted_clip"]]
+      display <- function(noisy) {
+        h <- .dsomopTypedProject(projection, NA_real_, noisy)
+        list(levels = levels,
+             counts = .dsomopReleaseRound(vapply(view, function(i) {
+               sum(h[i])
+             }, numeric(1L))),
+             reducer = reducer, max_contributions = k,
+             value_type = "categorical_utf8_v1")
+      }
       return(list(components = comps, display = display, owner = owner,
-                  family = "W", view = view))
+                  family = "W", view = view, projection = projection,
+                  basis_id = paste0("typed-categorical-", reducer,
+                                    "/domain=", .dsomopTypedDomainId(domain),
+                                    "/v2"),
+                  domain = domain))
     }
     # One label per person (first / last / mode) on the complete basis.
     selected <- vapply(groups, function(idx) {
@@ -542,36 +635,40 @@
     comps <- .dsomopTypedPartition(owner, all_persons, people, cell_of,
                                    coordinates)
     if (statistic == "binary_rate") {
-      # A view of the same one-label partition as the categorical histogram.
-      positive <- match(common$positive, domain)
+      # A view of the same one-label partition as the categorical histogram:
+      # numerator = the positive label cells; denominator = every cell, or
+      # every cell but Unknown (a label outside the domain, Other, is a
+      # nonmissing label).
       denominator <- common$denominator
       unknown <- length(domain) + 2L
-      display <- function(noisy) {
-        n <- max(0, noisy[[1L]])
-        h <- .dsomopReleaseSimplex(noisy[-1L], n)
-        num <- sum(h[positive])
-        den <- if (denominator == "nonmissing") n - h[[unknown]] else n
-        list(noisy_numerator = .dsomopReleaseRound(num),
-             noisy_denominator = .dsomopReleaseRound(max(0, den)),
-             value = if (den > 0) .dsomopReleaseRound(num / den) else NULL,
-             reducer = reducer, denominator = denominator,
-             value_type = "categorical_utf8_v1")
-      }
-      return(list(components = comps, display = display, owner = owner,
-                  family = "H"))
+      masks <- list(numerator = sort(match(common$positive, domain)),
+                    denominator = if (denominator == "nonmissing") {
+                      seq_len(unknown)[-unknown]
+                    } else seq_len(unknown))
+      return(.dsomopTypedBinaryView(
+        comps, owner, masks, reducer, denominator,
+        basis_id = paste0("typed-one-label/reducer=", reducer, "/domain=",
+                          .dsomopTypedDomainId(domain), "/v2"),
+        domain = domain))
     }
     view <- as.list(match(common$levels, domain))
     levels <- common$levels
+    projection <- .DSOMOP_TYPED_PROJECTIONS[["partition"]]
     display <- function(noisy) {
-      n <- max(0, noisy[[1L]])
-      h <- .dsomopReleaseSimplex(noisy[-1L], n)
+      h <- .dsomopTypedProject(projection, noisy[[1L]], noisy[-1L])
       list(levels = levels,
-           counts = .dsomopReleaseRound(h[unlist(view)]),
+           counts = .dsomopReleaseRound(vapply(view, function(i) {
+             sum(h[i])
+           }, numeric(1L))),
            reducer = reducer, max_contributions = 1L,
            value_type = "categorical_utf8_v1")
     }
     return(list(components = comps, display = display, owner = owner,
-                family = "H", view = view))
+                family = "H", view = view, projection = projection,
+                basis_id = paste0("typed-one-label/reducer=", reducer,
+                                  "/domain=", .dsomopTypedDomainId(domain),
+                                  "/v2"),
+                domain = domain))
   }
   if (statistic == "numeric_histogram") {
     numeric <- .dsomopDpNumericValues(values)
@@ -592,24 +689,40 @@
         }
         numeric$value[utils::head(idx, k)]
       })
+      kept <- lengths(long)
       maps <- .dsomopTypedCellMaps(
-        rep(people, lengths(long)),
+        rep(people, kept),
         .dsomopTypedAtomOf(unlist(long, use.names = FALSE), basis$points),
-        rep(1, sum(lengths(long))), length(atoms))
+        rep(1, sum(kept)), length(atoms))
       owner <- paste0("typed/numeric-records/basis=", basis$id, "/K=", K,
-                      "/v2")
-      comps <- .dsomopTypedWeighted(owner, all_persons, maps, atoms, K)
-      display <- function(noisy) list(
-        breaks = bins$public,
-        counts = .dsomopReleaseRound(vapply(bins$index, function(i) {
-          max(0, sum(noisy[i]))
-        }, numeric(1L))),
-        reducer = reducer, max_contributions = k,
-        value_type = numeric$type,
-        interval_contract = "left_closed_right_open_first_last_open")
+                      "/v3")
+      frac <- .DSOMOP_RELEASE_FRACTIONS
+      # The basis owns one protected weighted total T (the kept records,
+      # 0.2e, sensitivity K): the atoms (0.8e, sensitivity K over the whole
+      # basis) are reconciled to it and projected onto its simplex, so empty
+      # atoms cannot inflate the displayed record mass; T is never the person
+      # total (R05).
+      has <- kept > 0L
+      total <- .dsomopTypedComponent(owner, "T", "stratum=root|records",
+                                     sum(kept), people[has], kept[has],
+                                     frac$N, K, all_persons)
+      comps <- c(list(total), .dsomopTypedWeighted(
+        owner, all_persons, maps, atoms, K, allocation = frac$H$H))
+      projection <- .DSOMOP_TYPED_PROJECTIONS[["weighted_total"]]
+      display <- function(noisy) {
+        h <- .dsomopTypedProject(projection, noisy[[1L]], noisy[-1L])
+        list(breaks = bins$public,
+             counts = .dsomopReleaseRound(vapply(bins$index, function(i) {
+               sum(h[i])
+             }, numeric(1L))),
+             reducer = reducer, max_contributions = k,
+             value_type = numeric$type,
+             interval_contract = "left_closed_right_open_first_last_open")
+      }
       return(list(components = comps, display = display, owner = owner,
                   family = "W", view = bins$index, view_keys = bins$keys,
-                  effective_breaks = bins$public, basis_id = basis$id))
+                  effective_breaks = bins$public, basis_id = basis$id,
+                  projection = projection))
     }
     reduced <- .dsomopDpReduceOne(person_tokens, numeric$value, reducer,
                                   common$order_value)
@@ -620,9 +733,9 @@
                     basis$id, "/v2")
     comps <- .dsomopTypedPartition(owner, all_persons, people, cell_of,
                                    c(atoms, "stratum=root|missing"))
+    projection <- .DSOMOP_TYPED_PROJECTIONS[["partition"]]
     display <- function(noisy) {
-      n <- max(0, noisy[[1L]])
-      h <- .dsomopReleaseSimplex(noisy[-1L], n)
+      h <- .dsomopTypedProject(projection, noisy[[1L]], noisy[-1L])
       list(breaks = bins$public,
            counts = .dsomopReleaseRound(vapply(bins$index, function(i) {
              sum(h[i])
@@ -633,7 +746,8 @@
     }
     return(list(components = comps, display = display, owner = owner,
                 family = "H", view = bins$index, view_keys = bins$keys,
-                effective_breaks = bins$public, basis_id = basis$id))
+                effective_breaks = bins$public, basis_id = basis$id,
+                projection = projection))
   }
   # bounded_mean
   scale <- .dsomopTypedMeanScale(common)
@@ -676,28 +790,44 @@
   list(components = comps, display = display, owner = owner, family = "M")
 }
 
-#' Automatic data generation of a typed table's source database
+# Matching connected source, never another handle's generation. Source
+# matching uses only authenticated corpus coordinates, not the display label.
+.dsomopTypedSourceHandle <- function(capsule, policy) {
+  handles <- list(.dsomopDpState()$dp_handle)
+  for (frame in rev(sys.frames())) {
+    keys <- grep("^\\.dsomop_handle_", ls(frame, all.names = TRUE), value = TRUE)
+    handles <- c(handles, lapply(keys, get, envir = frame, inherits = FALSE))
+  }
+  keys <- grep("^handle_", ls(.dsomop_env, all.names = TRUE), value = TRUE)
+  handles <- c(handles, lapply(keys, get, envir = .dsomop_env, inherits = FALSE))
+  for (handle in Filter(is.environment, unique(handles))) {
+    id <- tryCatch(.dsomopDpDatasetId(policy, .dsomopDpDatasetIdentity(handle)),
+                   error = function(e) NULL)
+    if (identical(id, capsule$dataset_id)) return(handle)
+  }
+  NULL
+}
+
+#' Current source generation of a typed table
 #'
-#' The generation (\code{.dsomopDpDataGeneration}) of the session handle whose
-#' keyed dataset identity is the one sealed in the table's provenance capsule;
-#' unavailable when no connected handle of this session is that dataset, so a
-#' table can never borrow another database's generation.
-#'
-#' @param capsule The table's verified provenance capsule.
+#' Recomputed within this release's request snapshot. A fixed release requires
+#' the live source to match the sealed origin membership. An offline restored
+#' table, an older capsule or a changed source has realised protection only;
+#' it cannot borrow a generation from another source or an earlier request.
+#' @param capsule Authenticated provenance capsule.
 #' @param policy DP policy.
-#' @return List: \code{available}, \code{id} (internal only).
+#' @return List: available, id (internal only).
 #' @keywords internal
 .dsomopTypedDataGeneration <- function(capsule, policy) {
-  target <- capsule$dataset_id
-  if (is.character(target) && length(target) == 1L && !is.na(target)) {
-    for (handle in .dsomopDpSessionHandles()) {
-      id <- tryCatch(
-        .dsomopDpDatasetId(policy, .dsomopDpDatasetIdentity(handle)),
-        error = function(e) NULL)
-      if (identical(id, target)) return(.dsomopDpDataGeneration(handle, policy))
-    }
+  handle <- .dsomopTypedSourceHandle(capsule, policy)
+  if (is.null(handle) || is.null(capsule$data_generation)) {
+    return(list(available = FALSE, id = NA_character_))
   }
-  list(available = FALSE, id = NA_character_)
+  current <- .dsomopDpDataGeneration(handle, policy)
+  if (!identical(current$id, capsule$data_generation)) {
+    return(list(available = FALSE, id = NA_character_))
+  }
+  current
 }
 
 #' Run one typed protected release
@@ -713,12 +843,18 @@
   input <- .dsomopDpValidateInput(x, policy)
   common$order_value <- .dsomopDpOrderVector(input$x, common$order_by)
   capsule <- attr(x, "dsomop_dp_provenance", exact = TRUE)
+  candidate <- common$statistic %in% c("count", "bounded_record_count", "bounded_mean") &&
+    startsWith(capsule$producer %||% "", "query/") && !is.null(capsule$data_generation)
+  handle <- if (candidate) .dsomopTypedSourceHandle(capsule, policy) else NULL
+  if (!is.null(handle) && !.dsomopReadSnapshotActive(handle)) {
+    return(.dsomopWithReadSnapshot(handle, .dsomopTypedRelease(x, spec, policy)))
+  }
   # The release-person map sealed with the table (B01): no handle, key cache
   # or earlier operation can choose another person namespace.
   person_tokens <- .dsomopDpSealedReleaseTokens(x, input$token)
   # Fixed basis only for statistics whose basis does not depend on analyst
-  # choices, over an unscoped pinned loader table, keyed on the automatic data
-  # generation of the session's connected database.
+  # choices, over an unscoped pinned loader table, keyed on the
+  # person-membership generation re-read inside this release request.
   fixed_capable <- common$statistic %in% c("count", "bounded_record_count",
                                            "bounded_mean") &&
     startsWith(capsule$producer %||% "", "query/")
@@ -732,8 +868,9 @@
     stop("This typed release has no fixed-synopsis protection: DP-only mode ",
          "(dsomop.tools.mode = \"dp\" or dsomop.dp.exclusive = TRUE) accepts ",
          "typed counts, capped record counts and registered-scale bounded ",
-         "means of unscoped pinned loader tables, keyed on the automatic data ",
-         "generation of the connected database. In auto mode the same ",
+         "means of unscoped pinned loader tables, keyed on the person-",
+         "membership generation re-read from the matching connected source and ",
+         "matching the sealed table origin. In auto mode the same ",
          "release uses heuristic realised-contribution protection.",
          call. = FALSE)
   }
@@ -765,11 +902,14 @@
   # so the shift never depends on the requested view; exported and displayed
   # view cells are sums of these signed basis cells.
   basis <- as.numeric(noisy)
-  if (identical(analysis$family, "H") && length(basis) > 1L) {
+  # A protected weighted total T owns its record atoms the same way (R05).
+  lead_total <- families[[1L]] %in% c("N", "T") && length(basis) > 1L
+  if (lead_total && (identical(analysis$family, "H") ||
+                     identical(families[[1L]], "T"))) {
     cells <- basis[-1L]
     basis[-1L] <- cells + (basis[[1L]] - sum(cells)) / length(cells)
   }
-  has_n <- identical(families[[1L]], "N") && length(basis) > 1L
+  has_n <- lead_total
   offset <- if (has_n) 1L else 0L
   view <- analysis$view
   if (is.null(view)) {
@@ -798,10 +938,11 @@
     api_transcript_epsilon = NA_real_
   ),
   # A pure-DP delta is claimed only for the declared fixed vector (B14),
-  # keyed on the automatic data generation (never its value).
+  # keyed on the person-membership generation (never its value).
   if (fixed) list(delta = 0,
                   data_generation = .DSOMOP_DP_GENERATION_SOURCE,
                   data_generation_residual = .DSOMOP_DP_GENERATION_RESIDUAL),
+  list(read_snapshot = capsule$read_snapshot %||% "not_recorded"),
   list(
     adjacency = policy$adjacency,
     mechanism = policy$mechanism,
@@ -820,9 +961,18 @@
       families = view_families,
       reconciliation = if (identical(analysis$family, "H")) {
         "complete_basis_cells_sum_to_person_total"
+      } else if (identical(families[[1L]], "T")) {
+        "complete_basis_atoms_sum_to_weighted_total"
       } else "none",
+      # One versioned projection of the complete basis, applied before every
+      # view on the server and in dsOMOPClient (R05).
+      projection = analysis$projection %||% .DSOMOP_TYPED_PROJECTIONS[["none"]],
+      view_kind = analysis$view_kind %||%
+        (if (is.null(view_index)) "basis" else "sums_of_basis_cells"),
       signed = view_signed,
-      basis = list(coordinates = coordinates, families = families,
+      basis = list(id = analysis$basis_id %||% analysis$owner,
+                   domain = analysis$domain,
+                   coordinates = coordinates, families = families,
                    signed = basis),
       view_of_basis = view_index)
   ))

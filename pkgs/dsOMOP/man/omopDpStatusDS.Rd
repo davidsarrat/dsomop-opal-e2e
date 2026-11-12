@@ -4,7 +4,12 @@
 \alias{omopDpStatusDS}
 \title{Sticky privacy-noise service status (Aggregate)}
 \usage{
-omopDpStatusDS()
+omopDpStatusDS(client_contract = NULL)
+}
+\arguments{
+\item{client_contract}{The client's protected-release payload protocol
+(\code{"dsomop-protected-release-v1"}), or a list of protocols. Absent
+for clients older than dsOMOPClient 2.10.3.}
 }
 \value{
 Public DP service status, including the custodial \code{exclusive}
@@ -28,10 +33,20 @@ accountant, budget or call quota: \code{privacy_call_quota = "none"} and
 DP serves only the OHDSI community tools, so the status requires them to be
 enabled (\code{dsomop.tools.enabled}). It derives the service identity from
 the session's connected OMOP resource when no explicit
-\code{dsomop.dp.domain} is configured. The public \code{snapshot_id} is a
-display label only (the deprecated \code{dsomop.dp.snapshot_id} option
-replaces it); fixed synopses are keyed on the automatic data generation,
-described by \code{data_generation}, \code{data_generation_basis} and
-\code{data_generation_residual} (what it cannot see). The generation itself
-is never returned.
+\code{dsomop.dp.domain} is configured. The public \code{snapshot_id} is
+display metadata only (the deprecated \code{dsomop.dp.snapshot_id} option
+replaces it; it enters no hash, provenance check or admission); fixed
+synopses are keyed on the person-membership generation read inside each
+request's snapshot, described by \code{data_generation},
+\code{data_generation_basis} and \code{data_generation_residual} (what it
+cannot see); \code{read_snapshot} is the read consistency of this server's
+requests. The generation itself is never returned.
+}
+\details{
+The caller declares the protected-release payload protocol it implements
+(\code{client_contract}, sent by dsOMOPClient 2.10.3 and later). Clients of
+dsOMOP 2.10.2 and earlier call without it; they cannot validate or pool the
+protected components, so the call is refused with an explicit upgrade
+message (R08) instead of a status they would reject with an opaque contract
+error. Their per-server analysis catalogue results are unaffected.
 }
