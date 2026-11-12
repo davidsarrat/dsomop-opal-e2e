@@ -538,7 +538,7 @@
   if (anyDuplicated(tokens)) {
     stop("A contribution map lists one person twice.", call. = FALSE)
   }
-  digests <- character(0)
+  records <- character(0)
   if (length(tokens) > 0L) {
     order <- order(tokens, method = "radix")
     tok <- enc2utf8(as.character(tokens[order]))
@@ -546,8 +546,19 @@
     # characters a token holds.
     records <- paste0(nchar(tok, type = "bytes"), ":", tok, ":",
                       .dsomopReleaseIntegerString(contributions[order]))
-    chunks <- split(records, ceiling(seq_along(records) / 10000L))
-    digests <- vapply(chunks, function(chunk) {
+  }
+  .dsomopReleaseFingerprintFramed(keys, owner, family, coordinate, records)
+}
+
+# Hash already validated, token-sorted, byte-framed contribution records.
+# Builders may reuse the framing within a request; no fingerprint or map is
+# retained across requests and the chunk boundaries remain mechanism-owned.
+.dsomopReleaseFingerprintFramed <- function(keys, owner, family, coordinate, records) {
+  digests <- character(0)
+  if (length(records)) {
+    starts <- seq.int(1L, length(records), by = 10000L)
+    digests <- vapply(starts, function(start) {
+      chunk <- records[seq.int(start, min(start + 9999L, length(records)))]
       .dsomopDpHmac(keys$fingerprint, paste(
         c("dsomop-contribution-chunk-v2", length(chunk), chunk),
         collapse = "\n"))
@@ -555,7 +566,7 @@
   }
   .dsomopDpHmac(keys$fingerprint, .dsomopDpCanonicalJson(list(
     protocol = "dsomop-contributions-v1", owner = owner, family = family,
-    coordinate = coordinate, n = length(tokens),
+    coordinate = coordinate, n = length(records),
     chunks = paste(digests, collapse = ",")
   )))
 }
@@ -899,17 +910,17 @@
 #' @keywords internal
 .dsomopReleaseCapSubstrate <- function(sub, owner) {
   if (nrow(sub) == 0L) return(sub)
+  if (!identical(owner$strata$kind, "data") && !anyDuplicated(sub$person_id)) {
+    return(sub)
+  }
   key <- paste(sub$person_id, sub$stratum, sep = "\u001f")
   if (anyDuplicated(key)) {
     stop("A protected substrate lists one person twice in one stratum.",
          call. = FALSE)
   }
   if (!identical(owner$strata$kind, "data")) {
-    if (anyDuplicated(sub$person_id)) {
-      stop("A protected partition lists one person in two strata.",
-           call. = FALSE)
-    }
-    return(sub)
+    stop("A protected partition lists one person in two strata.",
+         call. = FALSE)
   }
   order_value <- suppressWarnings(as.numeric(sub$stratum_order %||%
                                                rep(NA_real_, nrow(sub))))
@@ -1054,11 +1065,25 @@
   bin_keys <- if (is_cell) owner$cells else if (has_h)
     .dsomopReleaseBinKeys(owner$grid) else character(0)
 
+  # Sort once so every subset used for a count or histogram has canonical
+  # token order. Frame unit contributions once instead of rebuilding the same
+  # million strings for root, stratum and histogram maps.
+  token_order <- order(tokens, method = "radix")
+  tokens <- tokens[token_order]
+  sub <- sub[token_order, , drop = FALSE]
+  unit_records <- paste0(nchar(tokens, type = "bytes"), ":", tokens, ":1")
+
   noisy <- function(family, coordinate, value, allocation, sensitivity,
-                    map_tokens, contributions, owner_id = owner$id,
+                    map_rows, contributions, owner_id = owner$id,
                     population = owner$population) {
-    fp <- .dsomopReleaseFingerprint(keys, owner_id, family, coordinate,
-                                    map_tokens, contributions)
+    if (length(map_rows) != length(contributions) || anyDuplicated(tokens[map_rows])) {
+      stop("A contribution map is internally inconsistent.", call. = FALSE)
+    }
+    fp <- if (all(contributions == 1)) {
+      .dsomopReleaseFingerprintFramed(keys, owner_id, family, coordinate,
+                                      unit_records[map_rows])
+    } else .dsomopReleaseFingerprint(keys, owner_id, family, coordinate,
+                                     tokens[map_rows], contributions)
     .dsomopReleaseNoisyComponent(policy, keys, protection, list(
       owner = owner_id, population = population, family = family,
       coordinate = coordinate, value = value, allocation = allocation,
@@ -1082,7 +1107,7 @@
   if (!data_kind) {
     first <- !duplicated(sub$person_id)
     root_noisy <- noisy("N", "stratum=root", n_total, frac$N, cap,
-                        tokens[first], rep(1, sum(first)),
+                        which(first), rep(1, sum(first)),
                         owner_id = .DSOMOP_RELEASE_N_OWNER)
   }
   rows <- vector("list", length(strata_keys))
@@ -1090,20 +1115,23 @@
   for (i in seq_along(strata_keys)) {
     s <- strata_keys[[i]]
     in_s <- sub$stratum == s
-    tok <- tokens[in_s]
+    idx <- which(in_s)
     n_exact <- sum(in_s)
     dist_ok <- if (data_kind) n_exact >= support$dist else parent_dist_ok
     n_noisy <- if (!data_kind && !public_kind) root_noisy else
-      noisy("N", paste0("stratum=", s), n_exact, frac$N, cap, tok,
+      noisy("N", paste0("stratum=", s), n_exact, frac$N, cap, idx,
             rep(1, n_exact), owner_id = .DSOMOP_RELEASE_N_OWNER)
     h_noisy <- rep(NA_real_, length(bin_keys))
     if (has_h && (dist_ok || !data_kind)) {
       cell <- if (is_cell) match(sub$cell[in_s], owner$cells) else
         .dsomopReleaseBinIndex(sub$v[in_s], owner$grid)
+      # Index each record once, retaining empty public cells. Re-scanning
+      # the complete person vector for every cell is avoidable linear work.
+      members <- split(seq_along(cell), factor(cell, levels = seq_along(bin_keys)))
       h_noisy <- vapply(seq_along(bin_keys), function(b) {
-        hit <- which(cell == b)
+        hit <- members[[b]]
         noisy("H", paste0("stratum=", s, "|cell=", bin_keys[[b]]),
-              length(hit), alloc_h, cap, tok[hit], rep(1, length(hit)))
+              length(hit), alloc_h, cap, idx[hit], rep(1, length(hit)))
       }, numeric(1L))
     }
     s_noisy <- q_noisy <- NA_real_
@@ -1112,9 +1140,9 @@
       s_int <- lattice$s
       q_int <- lattice$q
       s_noisy <- noisy("S", paste0("stratum=", s), sum(s_int), alloc_s,
-                       cap * J, tok, s_int)
+                       cap * J, idx, s_int)
       q_noisy <- noisy("Q", paste0("stratum=", s), sum(q_int), alloc_q,
-                       cap * J, tok, q_int)
+                       cap * J, idx, q_int)
     }
     rows[[i]] <- data.frame(stratum = s, n_noisy = n_noisy,
                             s_noisy = s_noisy, q_noisy = q_noisy,
