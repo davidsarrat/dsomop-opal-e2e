@@ -6,6 +6,7 @@ source("scripts/common.R")
 OLD_REF <- Sys.getenv("OLD_CLIENT_REF", "2.10.2")
 OLD_LIB <- file.path(Sys.getenv("RUNNER_TEMP", tempdir()), paste0("dsomopclient-", OLD_REF))
 start_log("scenario-G-old")
+assert_candidate_server()
 if (!dir.exists(file.path(OLD_LIB, "dsOMOPClient"))) {
   dir.create(OLD_LIB, recursive = TRUE, showWarnings = FALSE)
   capture(paste0("remotes::install_github(\"isglobal-brge/dsOMOPClient\", ref = \"", OLD_REF, "\", lib = <own library>)"),

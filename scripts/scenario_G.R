@@ -32,6 +32,7 @@ source("scripts/common.R")
 suppressPackageStartupMessages(library(dsOMOPClient))
 source("scripts/g_lib.R")
 start_log("scenario-G")
+assert_candidate_server()
 G_START <- Sys.time()
 WS <- "g_sealed"
 BIG_PERSONS <- as.integer(Sys.getenv("BIG_PERSONS", "0"))
@@ -70,14 +71,15 @@ section("G0", "setup: versions, Rock identity, state directory, profile, a secon
   st <- state_files()
   show("Rock R sessions (administrator view): identity and the dsOMOP state directory", st)
   INFO$state0 <<- st
-  mounts <- tryCatch(system2("docker", c("inspect", ROCK, "--format", "{{json .Mounts}}"), stdout = TRUE, stderr = TRUE),
+  mounts <- tryCatch(system2("docker", c("inspect", ROCK, "--format", shQuote("{{json .Mounts}}")), stdout = TRUE, stderr = TRUE),
                      error = function(e) conditionMessage(e))
   show("Rock container mounts", mounts)
   on_volume <- tryCatch(any(vapply(jsonlite::fromJSON(paste(mounts, collapse = ""), simplifyVector = FALSE), function(m) {
     startsWith(paste0(st$state_dir, "/"), paste0(m$Destination, "/"))
   }, logical(1))), error = function(e) NA)
   verdict("G0a", "INFO", "where the noise root lives (Rock's R user, state directory, on a container volume?)",
-          sprintf("user %s, HOME %s, state %s, on a volume: %s; files: %s", st$user, st$home, st$state_dir, on_volume,
+          sprintf("user %s, HOME %s, state %s, owner %s, mode %s, writable %s, on a volume: %s; files: %s", st$user, st$home, st$state_dir,
+                  st$state_owner, st$state_mode, st$state_writable, on_volume,
                   paste(sub(" \\|.*", "", st$state_files), collapse = ", ")))
   opts <- tryCatch(dsadmin.get_options(O), error = function(e) NULL)
   show("DataSHIELD profile options", opts)
@@ -187,7 +189,7 @@ section("G4", "shared Rock identity: noise-root bootstrap race and concurrent id
   on.exit(close_session(s))
   if (!s$ok) stop("the two sessions cannot connect: ", s$error)
   st <- capture_ds("G4: omopDpStatusDS() on both sessions at once (first DP call: root bootstrap)",
-                   DSI::datashield.aggregate(s$conns, quote(omopDpStatusDS()), async = TRUE))
+                   DSI::datashield.aggregate(s$conns, g_status_call(), async = TRUE))
   keys <- if (st$ok) vapply(st$value, function(x) as.character(x$noise_key_id %||% NA), "") else NA
   if (st$ok) remember(st$value)
   roots <- root_line(state_files())
@@ -253,7 +255,7 @@ section("G2", "reference session S1: DSI transport of the 2.10.3 payloads", func
   }
   need <- list(enabled = TRUE, ready = TRUE, privacy_contract = "protected_release_fixed_basis_or_realised_v1",
                history_based_admission = FALSE, privacy_call_quota = "none", persistent_state = "noise_root_only",
-               data_generation = "automatic_session_fingerprint", tools_mode = "auto", exclusive = FALSE,
+               data_generation = "person_membership_digest", tools_mode = "auto", exclusive = FALSE,
                noise_provider = "persistent_file")
   bad <- if (st$ok) names(need)[!vapply(names(need), function(n) identical(S1_STATUS[[n]], need[[n]]), logical(1))] else names(need)
   verdict("G2a", if (st$ok && stc$ok && !length(bad)) "PASS" else "FAIL",
@@ -424,15 +426,17 @@ section("G3d", "the analyst cannot see or move the automatic data generation", f
           "generation-like fields injected by the analyst are refused or ignored", paste(names(res), res, sep = ": ", collapse = "; "))
   cands <- hex64(paste(vapply(OBJS, canon, ""), collapse = "\n"))
   code <- paste0('local({ ', HANDLE_CODE, '
-    t_snap <- system.time(snap <- dsOMOP:::.dsomopDpGenerationSnapshot(h))[["elapsed"]]
     dsOMOP:::.dsomopDpEnsureRuntime(h)
     p <- dsOMOP:::.dsomopDpPolicy()
+    dsOMOP:::.dsomopWithReadSnapshot(h, {
+    t_snap <- system.time(snap <- dsOMOP:::.dsomopDpMembershipHash(h))[["elapsed"]]
     t_gen <- system.time(g <- dsOMOP:::.dsomopDpDataGeneration(h, p))[["elapsed"]]
     cands <- ', paste(deparse(cands), collapse = ""), '
     list(snapshot_seconds = t_snap, generation_seconds = t_gen, available = isTRUE(g$available),
-         tables = length(snap$tables), tables_present = sum(vapply(snap$tables, function(x) isTRUE(x$present), logical(1))),
+         tables = 1L, tables_present = 1L, method = snap$method,
          candidates = length(cands), generation_released = isTRUE(g$available) && any(cands == g$id),
          generation_prefix_released = isTRUE(g$available) && any(vapply(cands, function(x) grepl(substr(g$id, 1, 16), x, fixed = TRUE), logical(1))))
+    })
   })')
   g <- admin_handle_eval(code)
   show("generation check in an administrator R session on Rock (values stay on Rock)", g)
@@ -451,6 +455,15 @@ section("G3d", "the analyst cannot see or move the automatic data generation", f
 section("G10", "one protected route per family on GiBleed: finite or a stable unavailable row, never an error", function() {
   s <- INFO$s1
   if (!isTRUE(s$ok)) stop("no S1 session")
+  numeric_n <- psql_value("SELECT COUNT(*) FROM cdm.measurement WHERE value_as_number IS NOT NULL")
+  if (identical(numeric_n, "0")) {
+    empty <- capture_ds("GiBleed's all-null numeric measurements", raw_run(s, "dsomop:measurement.value_stats"))
+    verdict("G10 measurement_empty", if (!empty$ok && grepl("Disclosive", empty$error)) "PASS" else "FAIL",
+            "an all-null numeric population is refused by the final support gate",
+            if (empty$ok) "unexpected release" else last_server_error(empty$error))
+  }
+  cleanup_measurements <- numeric_measurement_fixture()
+  on.exit(cleanup_measurements(), add = TRUE)
   obj <- make_objects(s, prepared = NULL, loader = FALSE)
   INFO$s1_obj3 <<- obj
   fam <- list(
@@ -500,6 +513,8 @@ section("G10", "one protected route per family on GiBleed: finite or a stable un
 })
 
 section("G17", "restored routes: interaction Cox, record H fallback, capped recurrent counts, event-time H", function() {
+  cleanup_measurements <- numeric_measurement_fixture()
+  on.exit(cleanup_measurements(), add = TRUE)
   s <- INFO$s1
   if (!isTRUE(s$ok)) stop("no S1 session")
   obj <- INFO$s1_obj3
@@ -537,9 +552,11 @@ section("G17", "restored routes: interaction Cox, record H fallback, capped recu
     alloc_h <- vapply(rel$owners %||% list(), function(o) as.numeric(o$allocation$H %||% o$allocation_fraction$H %||% 0)[1], numeric(1))
     has_cells <- vapply(rel$owners %||% list(), function(o) length(o$cell_keys) > 0L || length(o$cells) > 0L, logical(1))
     hist_cols <- if (is.data.frame(r$df)) grep("bin|hist|break|quantile|median|^p[0-9]", names(r$df), value = TRUE) else character(0)
-    has_h <- any(grepl("H", fams)) || any(alloc_h > 0) || any(has_cells) || length(hist_cols) > 0L
+    has_h <- any(vapply(rel$owners %||% list(), function(o)
+      any(vapply(o$components %||% list(), function(c)
+        is.numeric(c$h) && length(c$h) > 0L && all(is.finite(c$h)), logical(1))), logical(1)))
     verdict(paste0("G17b ", sub("^dsomop:", "", id)), if (r$ok && r$stable && has_h) "PASS" else "FAIL",
-            "unregistered scales keep a protected value histogram (record H fallback), stable on repeat",
+            "unregistered scales carry finite signed H components (synthetic numeric measurements), stable on repeat",
             sprintf("owner families %s; H allocations %s; histogram cells %s; histogram columns %s; stable %s%s",
                     paste(unique(fams), collapse = "/"), paste(alloc_h, collapse = "/"), any(has_cells),
                     paste(hist_cols, collapse = ","), r$stable, if (!r$ok) paste("; error", r$error) else ""))
@@ -585,7 +602,7 @@ section("G15", "known aliases replay one owner; one-site pooling equals the site
     df <- r$value[[1]]
     remember(df)
     col <- grep("^mdrr$", names(df), value = TRUE)
-    list(ok = length(col) == 1L, v = if (length(col)) sort(round(as.numeric(df[[col]]), 9)) else NULL,
+    list(ok = length(col) == 1L, v = if (length(col)) sort(unique(round(as.numeric(df[[col]]), 9))) else NULL,
          error = if (!length(col)) paste("no mdrr column:", paste(names(df), collapse = ",")) else "")
   })
   names(vals) <- ids
@@ -766,10 +783,10 @@ section("G3a", "DP-only mode with no custodial setting besides the switch", func
   equality_verdict("G3a2", "fixed synopses answer in DP-only mode, identical to auto mode", compare_probes(S1_PROBES, fixed))
   verdict("G3a3", if (length(prot) && all(prot == "fixed_synopsis")) "PASS" else "FAIL", "DP-only answers are all fixed synopses",
           paste(names(prot), prot, sep = "=", collapse = ", "))
-  scoped <- run_probes(s, obj, sets = "scoped")
+  scoped <- run_probes(s, obj, sets = c("scoped", "realised"))
   refused <- vapply(scoped, function(p) !isTRUE(p$ok) && grepl("DP-only|fixed-synopsis|exclusive", p$error) && plain_error(p$error), logical(1))
   verdict("G3a4", if (length(refused) && all(refused)) "PASS" else "FAIL",
-          "cohort-scoped (realised) questions are refused in DP-only mode with a stable message",
+          "realised questions (scoped or data-enumerated) are refused in DP-only mode with a stable message",
           paste(names(scoped), vapply(scoped, function(p) if (isTRUE(p$ok)) "ANSWERED" else last_server_error(p$error), ""), sep = ": ", collapse = "; "))
   if (isTRUE(INFO$ws_saved)) {
     typed <- run_probes(s, obj, sets = "typed")
@@ -1087,7 +1104,7 @@ section("G14", "NA pooling policies over two independent sites (GiBleed and a 15
                                                        pooling_policy = "strict", symbol = s$symbol, conns = s$conns))
   ok_only <- capture_ds("G14 pooled_only_ok", ds.omop.analysis.run("dsomop:cm.effect_estimate", params = found, cohort = arms,
                                                                     pooling_policy = "pooled_only_ok", symbol = s$symbol, conns = s$conns))
-  pooled_est <- function(r) if (r$ok && is.data.frame(r$value$pooled) && "estimate" %in% names(r$value$pooled)) as.numeric(r$value$pooled$estimate) else NA
+  pooled_est <- g_pooled_effect
   strict_ok <- (!st$ok && plain_error(st$error)) || (st$ok && !any(is.finite(pooled_est(st))))
   only_ok <- ok_only$ok && any(is.finite(pooled_est(ok_only))) && any(grepl("Dropped server", ok_only$value$meta$warnings))
   verdict("G14a strict", if (strict_ok) "PASS" else "FAIL", "strict pooling with one NA site gives no pooled effect, with a plain message",
@@ -1145,7 +1162,7 @@ section("G16", "cold and warm first-release latency (GiBleed, and a synthetic CD
     return(invisible())
   }
   gen <- admin_handle_eval(paste0('local({ ', HANDLE_CODE, '
-    list(snapshot_seconds = system.time(dsOMOP:::.dsomopDpGenerationSnapshot(h))[["elapsed"]]) })'), resource = "omop_data.gibleed_big")
+    list(snapshot_seconds = system.time(dsOMOP:::.dsomopWithReadSnapshot(h, dsOMOP:::.dsomopDpMembershipHash(h)))[["elapsed"]]) })'), resource = "omop_data.gibleed_big")
   b <- measure_db("big", "omop_data.gibleed_big", "omopbig")
   ok <- isTRUE(b$cold_ok) && is.finite(b$cold) && b$cold <= 60 && is.finite(b$warm) && b$warm <= 15 && isTRUE(b$x4_ok) && b$x4 <= 120
   verdict("G16b big", if (ok) "PASS" else "FAIL",
@@ -1181,7 +1198,7 @@ section("G3c4", "a Rock restart: the root persists and every answer is the same"
   p <- run_probes(s, obj)
   show("S6 probes", probe_table(p))
   INFO$timing$S6 <<- c(first = first_fixed_secs(p), repeat_secs = probe_one(s, "catalog", FIXED_Q[[1]], obj)$secs %||% NA)
-  created_after <- sum(grepl(ROOT_CREATED_RE, rock_log()))
+  created_after <- sum(grepl(ROOT_CREATED_RE, g_new_log_lines(log_before, rock_log())))
   equality_verdict("G3c4", "after a Rock restart every answer equals the reference session's",
                    compare_probes(S1_PROBES, p), compare_probes(S1_PROBES, p, "full"))
   verdict("G3c4 root", if (same_root && key_same && created_after == 0L) "PASS" else "FAIL",
@@ -1243,7 +1260,7 @@ section("G8", "audit lines in Rock's Rserve.log", function() {
   rel <- grep("method=omopDpReleaseDS ", g, value = TRUE)
   released <- sum(grepl("\"outcome\":\"released\"", rel))
   refused <- sum(grepl("\"outcome\":\"refused\"", rel))
-  leaks <- g[grepl("[0-9a-f]{40,}", g)]
+  leaks <- g[g_private_hex(g)]
   gen_fail <- grep("\\[dsomop-dp-generation\\]", lines, value = TRUE)
   show("sample audit lines", utils::head(rel, 6))
   ok <- length(g) > 0L && released > 0L && refused > 0L && length(leaks) == 0L
@@ -1278,7 +1295,7 @@ section("G18", "no private fingerprint, map or support in DSI success, error, st
   for (i in seq_along(OBJS)) walk(OBJS[[i]], paste0("obj", i))
   small <- ERRS[grepl("\\b(only |just )?[12] (person|persons|people|patient|patients|subject|subjects|record|records)\\b", ERRS, ignore.case = TRUE)]
   err_hex <- ERRS[grepl("[0-9a-f]{40,}", ERRS)]
-  audit_hex <- AUDIT[grepl("[0-9a-f]{40,}", AUDIT)]
+  audit_hex <- AUDIT[g_private_hex(AUDIT)]
   public <- c("snapshot_id", "sql_sha256")
   odd_hex <- unique(hex_paths[!grepl(paste0("\\$(", paste(public, collapse = "|"), ")$"), hex_paths)])
   ok <- !length(hits) && !raws && !length(small) && !length(err_hex) && !length(audit_hex)

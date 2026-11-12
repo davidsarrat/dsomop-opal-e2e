@@ -1,0 +1,52 @@
+# Targeted harness regressions: Rscript scripts/tests/g-contract.R
+source("scripts/g_contract.R")
+stopifnot(identical(g_status_call(), quote(omopDpStatusDS("dsomop-protected-release-v1"))))
+r <- list(ok = TRUE, value = list(pooled = data.frame(estimate = NA_real_,
+                              estimate_fixed = 1.4, estimate_random = 1.4)))
+stopifnot(identical(g_pooled_effect(r), c(1.4, 1.4)), is.na(g_pooled_effect(list(ok = FALSE))))
+stopifnot(identical(g_new_log_lines(c("old root", "old"), c("old root", "old", "new")), "new"),
+          identical(g_new_log_lines(c("old root", "old"), c("new root")), "new root"),
+          length(g_new_log_lines(c("old"), c("old"))) == 0L)
+injected <- paste0('method=omopAnalysisRunDS detail={"data_generation":"', strrep("0", 64), '"}')
+stopifnot(!g_private_hex(injected), g_private_hex(paste(injected, strrep("a", 64))),
+          g_private_hex(paste0('"generation_id":"', strrep("0", 64), '"')))
+
+# Extract only the install/verification functions so no service libraries or
+# credentials are required. Simulate the actual 201/no-op upgrade, and failure.
+common <- parse("scripts/common.R")
+get_fn <- function(name) {
+  x <- Filter(function(x) is.call(x) && identical(x[[1]], as.name("<-")) &&
+    identical(x[[2]], as.name(name)), as.list(common))
+  stopifnot(length(x) == 1L)
+  eval(x[[1]])
+}
+local({
+  MODE <- "candidate"
+  expected <- unname(read.dcf("pkgs/dsOMOP/DESCRIPTION")[1, "Version"])
+  actual <- "2.10.2"
+  fallback <- 0L
+  install_candidate_deps <- function(o) NULL
+  build_candidate <- function() "/tmp/dsOMOP_2.10.3.tar.gz"
+  capture <- function(label, expr) list(ok = TRUE)
+  say <- show <- function(...) NULL
+  system2 <- function(...) 0L
+  rock_pkg_version <- function(pkg) actual
+  rock_eval <- function(code) {
+    fallback <<- fallback + 1L
+    actual <<- expected
+    list(status = 0L, log = "installed")
+  }
+  assert_candidate_server <- get_fn("assert_candidate_server")
+  install_server <- get_fn("install_server")
+  environment(assert_candidate_server) <- environment()
+  environment(install_server) <- environment()
+  install_server(NULL, "candidate")
+  stopifnot(fallback == 1L, identical(actual, expected))
+  actual <- "2.10.2"
+  rock_eval <- function(code) list(status = 1L, log = "installation failed")
+  error <- tryCatch({ install_server(NULL, "candidate"); "" }, error = conditionMessage)
+  stopifnot(grepl("installation failed", error))
+  error <- tryCatch({ assert_candidate_server(); "" }, error = conditionMessage)
+  stopifnot(grepl("expected dsOMOP", error))
+})
+cat("Harness contract regressions passed\n")

@@ -172,19 +172,26 @@ install_candidate_deps <- function(o) {
 install_server <- function(o, ref) {
   if (identical(ref, "candidate")) {
     install_candidate_deps(o)
+    expected <- unname(read.dcf("pkgs/dsOMOP/DESCRIPTION")[1, "Version"])
     tb <- build_candidate()
     r <- capture(paste0("dsadmin.install_local_package(o, \"", basename(tb), "\")"), dsadmin.install_local_package(o, tb))
-    if (!r$ok || !grepl("^2\\.", rock_pkg_version("dsOMOP"))) {
+    if (!r$ok || !identical(rock_pkg_version("dsOMOP"), expected)) {
       # Opal's local install swallows R errors (RPackageResourceHelper.installLocalPackage logs a warning and
       # answers 201): install from Rock's own R session instead; the package is then published explicitly.
       say("Opal's local install left dsOMOP at '", rock_pkg_version("dsOMOP"), "'; installing from Rock's R session")
-      system2("docker", c("cp", tb, paste0(Sys.getenv("ROCK"), ":/tmp/")))
-      say("install.packages in Rock: ", paste(rock_eval(sprintf('tryCatch({ utils::install.packages("/tmp/%s", repos = NULL, type = "source"); "done" }, warning = function(w) paste("warning:", conditionMessage(w)), error = function(e) paste("error:", conditionMessage(e)))', basename(tb))), collapse = " "))
+      copied <- system2("docker", c("cp", shQuote(tb), shQuote(paste0(Sys.getenv("ROCK"), ":/tmp/"))))
+      if (!identical(copied, 0L)) stop("Cannot copy the candidate archive to Rock")
+      code <- sprintf('local({ log <- tempfile(); on.exit(unlink(log)); status <- system2(file.path(R.home("bin"), "R"), c("CMD", "INSTALL", "-l", shQuote(.libPaths()[1]), shQuote("/tmp/%s")), stdout = log, stderr = log); list(status = status, library = .libPaths()[1], log = readLines(log, warn = FALSE)) })', basename(tb))
+      installed <- rock_eval(code)
+      show("Rock candidate installation (service R session and library)", installed)
+      if (inherits(installed, "rock_error") || !is.list(installed) ||
+          !identical(as.integer(installed$status), 0L)) stop("Rock candidate installation failed; see the captured install log")
     }
   } else {
     r <- capture(sprintf("dsadmin.install_github_package(o, \"dsOMOP\", username = \"isglobal-brge\", ref = \"%s\")", ref),
                  dsadmin.install_github_package(o, "dsOMOP", username = "isglobal-brge", ref = ref))
   }
+  if (identical(ref, "candidate")) assert_candidate_server()
   say("dsOMOP installed on Rock: ", rock_pkg_version("dsOMOP"))
   r
 }
@@ -254,4 +261,14 @@ versions <- function(conns, label) {
                    paste(capture.output(print(v$value)), collapse = " / "))
     }
   } else say("ds.omop.server.version() is not in this client (", as.character(packageVersion("dsOMOPClient")), ")")
+}
+
+# A successful REST response is not evidence that Rock installed the candidate.
+assert_candidate_server <- function() {
+  if (!identical(MODE, "candidate")) return(invisible(TRUE))
+  expected <- unname(read.dcf("pkgs/dsOMOP/DESCRIPTION")[1, "Version"])
+  actual <- rock_pkg_version("dsOMOP")
+  if (!identical(actual, expected)) stop("Candidate installation prerequisite failed: expected dsOMOP ",
+                                        expected, ", Rock has ", actual)
+  invisible(TRUE)
 }

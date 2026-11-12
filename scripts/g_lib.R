@@ -1,3 +1,4 @@
+source("scripts/g_contract.R")
 # Helpers of scenario G (scenario_G.R, scenario_G_old.R, combo_old_server.R): verdicts, exact answer fingerprints,
 # sessions, the server calls exactly as dsOMOPClient builds them, Rock and database helpers and the probe set.
 # Source after common.R and library(dsOMOPClient) (any version from 2.10.2 on).
@@ -148,7 +149,7 @@ raw_run <- function(s, id, params = list(), cohort = NULL) {
 raw_typed <- function(s, sym, spec) {
   DSI::datashield.aggregate(s$conns, call("omopDpReleaseDS", as.name(sym), dsOMOPClient:::.ds_encode(spec)))
 }
-raw_status <- function(s) DSI::datashield.aggregate(s$conns, quote(omopDpStatusDS()))
+raw_status <- function(s) DSI::datashield.aggregate(s$conns, g_status_call())
 protection_of <- function(x) {
   if (is.data.frame(x)) attr(x, "dsomop_protection", exact = TRUE)$protection %||% "standard" else
     if (is.list(x)) x$protection %||% NA_character_ else NA_character_
@@ -160,6 +161,8 @@ STATE_CODE <- 'local({
   f <- if (dir.exists(s)) list.files(s, recursive = TRUE, all.files = TRUE) else character(0)
   i <- file.info(file.path(s, f))
   list(user = Sys.info()[["user"]], home = Sys.getenv("HOME"), state_dir = s,
+       state_owner = file.info(s)$uname, state_mode = format(file.info(s)$mode),
+       state_writable = file.access(s, 2) == 0,
        state_files = if (length(f)) paste(f, i$size, format(i$mode), format(i$mtime, "%Y-%m-%dT%H:%M:%OS3"),
                                           sep = " | ") else character(0))
 })'
@@ -179,6 +182,7 @@ admin_handle_eval <- function(code, resource = RES) {
   o2 <- admin()
   on.exit(try(opal.logout(o2), silent = TRUE))
   tryCatch({
+    opal.execute(o2, 'invisible(loadNamespace("dsOMOP"))')
     opal.assign.resource(o2, "gres", resource)
     opal.execute(o2, 'invisible(dsOMOP::omopInitDS("gres"))')
     opal.execute(o2, code)
@@ -229,8 +233,8 @@ TAR730 <- list(tar_start_offset = "0", tar_end_offset = "730", tar_anchor_start 
 FIXED_Q <- list(
   achilles_3 = list(id = "dsomop:achilles.3"),
   age_decade = list(id = "dsomop:person.age_distribution_decade", params = list(reference_year = "2020")),
-  long_op = list(id = "dsomop:observation_period.long_period_count", params = list(min_days = "365")),
-  condition_era = list(id = "dsomop:condition_era.length_stats"))
+  long_op = list(id = "dsomop:observation_period.long_period_count", params = list(min_days = "365")))
+REALISED_Q <- list(condition_era = list(id = "dsomop:condition_era.length_stats"))
 # Cohort-scoped questions (realised-contribution protection).
 SCOPED_Q <- list(
   incidence = list(id = "dsomop:incidence.rate", cohort = "T", params = c(list(outcome_concept_id = "192671"), TAR365)),
@@ -296,12 +300,13 @@ probe_one <- function(s, kind, q, obj) {
   list(ok = TRUE, secs = r$secs, per = per, value = r$value)
 }
 # Order: scoped questions first (they warm the catalogue registry and the DP runtime), then the fixed ones (the first
-# derives the session's data generation), then the typed releases. keys = a subset of probe names.
-run_probes <- function(s, obj, sets = c("scoped", "fixed", "typed"), keys = NULL) {
+# derives the request's data generation), then the typed releases. keys = a subset of probe names.
+run_probes <- function(s, obj, sets = c("scoped", "fixed", "realised", "typed"), keys = NULL) {
   out <- list()
   pick <- function(qs) if (is.null(keys)) names(qs) else intersect(names(qs), keys)
   if ("scoped" %in% sets) for (k in pick(SCOPED_Q)) out[[k]] <- probe_one(s, "catalog", SCOPED_Q[[k]], obj)
   if ("fixed" %in% sets) for (k in pick(FIXED_Q)) out[[k]] <- probe_one(s, "catalog", FIXED_Q[[k]], obj)
+  if ("realised" %in% sets) for (k in pick(REALISED_Q)) out[[k]] <- probe_one(s, "catalog", REALISED_Q[[k]], obj)
   if ("typed" %in% sets) for (k in pick(TYPED_Q)) out[[k]] <- probe_one(s, "typed", TYPED_Q[[k]], obj)
   out
 }
@@ -351,3 +356,22 @@ first_fixed_secs <- function(p) {
 # Warnings and messages of a capture, for "explicit upgrade warning" checks.
 UPGRADE_RE <- "upgrade|older|unpatched|security release|2\\.10\\.[0-2]\\b|not protected|legacy"
 said <- function(...) paste(unlist(lapply(list(...), function(r) c(r$warnings, r$messages))), collapse = " | ")
+
+# GiBleed has 44,053 measurements but every value_as_number is NULL. Exercise
+# H on explicit synthetic numeric records, then restore the original CDM.
+# No product options, bounds, secrets or disclosure thresholds are changed.
+numeric_measurement_fixture <- function() {
+  low <- -2000000500L
+  high <- -2000000001L
+  predicate <- sprintf("measurement_id BETWEEN %d AND %d", low, high)
+  if (!identical(psql_value(paste("SELECT COUNT(*) FROM cdm.measurement WHERE", predicate)), "0"))
+    stop("The numeric measurement fixture's reserved IDs already exist")
+  psql(paste0("INSERT INTO cdm.measurement (measurement_id, person_id, measurement_concept_id, ",
+    "measurement_date, measurement_type_concept_id, value_as_number, unit_concept_id) ",
+    "SELECT -2000000000 - row_number() OVER (ORDER BY person_id), person_id, 3004410, ",
+    "DATE '2021-03-01', 44818518, -7 + (person_id % 100), 999001 ",
+    "FROM (SELECT person_id FROM cdm.person ORDER BY person_id LIMIT 500) p"),
+    label = "add 500 synthetic numeric measurements with an unregistered unit")
+  function() psql(paste("DELETE FROM cdm.measurement WHERE", predicate),
+                   label = "remove synthetic numeric measurements")
+}
