@@ -1,0 +1,297 @@
+dsOMOP: optional database drivers not installed: odbc. Install with: install.packages(c('odbc'))
+dsOMOP v2.10.3 loaded. OMOP CDM resource resolver registered.
+✔ | F W  S  OK | Context
+
+⠏ |          0 | vendor-db-integration                                          
+⠋ |          1 | vendor-db-integration                                          
+⠋ |         11 | vendor-db-integration                                          
+⠼ |         15 | vendor-db-integration                                          
+⠇ |         19 | vendor-db-integration                                          
+⠼ |         25 | vendor-db-integration                                          
+⠙ |         32 | vendor-db-integration                                          
+⠸ |         44 | vendor-db-integration                                          
+⠧ |         48 | vendor-db-integration                                          
+⠋ |         51 | vendor-db-integration                                          
+⠧ |         58 | vendor-db-integration                                          
+⠸ |         64 | vendor-db-integration                                          
+⠦ |         67 | vendor-db-integration                                          
+⠹ |         73 | vendor-db-integration                                          NOTICE:  table "dsomop_vendor_drop_guard_8213" does not exist, skipping
+
+
+⠏ |         80 | vendor-db-integration                                          NOTICE:  drop cascades to 4 other objects
+DETAIL:  drop cascades to table dsomop_it_8213_35e3bde3_results.cohort_definition
+drop cascades to table dsomop_it_8213_35e3bde3_results.cohort
+drop cascades to view dsomop_it_8213_35e3bde3_results.longitudinal_cohort
+drop cascades to view dsomop_it_8213_35e3bde3_results.full_cohort
+
+NOTICE:  drop cascades to 2 other objects
+DETAIL:  drop cascades to table dsomop_it_8213_35e3bde3_vocab.concept
+drop cascades to table dsomop_it_8213_35e3bde3_vocab.concept_ancestor
+
+NOTICE:  drop cascades to 8 other objects
+DETAIL:  drop cascades to table dsomop_it_8213_35e3bde3_cdm.cdm_source
+drop cascades to table dsomop_it_8213_35e3bde3_cdm.person
+drop cascades to table dsomop_it_8213_35e3bde3_cdm.observation_period
+drop cascades to table dsomop_it_8213_35e3bde3_cdm.condition_occurrence
+drop cascades to table dsomop_it_8213_35e3bde3_cdm.concept
+drop cascades to table dsomop_it_8213_35e3bde3_cdm.cohort
+drop cascades to materialized view dsomop_it_8213_35e3bde3_cdm.death
+drop cascades to table dsomop_it_8213_35e3bde3_cdm.dsomop_vendor_drop_guard_8213
+
+
+⠙ |         82 | vendor-db-integration                                          
+⠧ |         98 | vendor-db-integration                                          
+⠋ |        101 | vendor-db-integration                                          
+⠦ |        107 | vendor-db-integration                                          
+⠙ |        112 | vendor-db-integration                                          
+⠦ |        127 | vendor-db-integration                                          
+⠋ |        131 | vendor-db-integration                                          
+⠧ |        138 | vendor-db-integration                                          
+⠦ |        147 | vendor-db-integration                                          
+⠹ |        153 | vendor-db-integration                                          
+⠏ |        160 | vendor-db-integration                                          
+⠧ |        178 | vendor-db-integration                                          
+⠇ |        179 | vendor-db-integration                                          
+⠏ |        190 | vendor-db-integration                                          
+⠼ |        205 | vendor-db-integration                                          
+⠇ |        209 | vendor-db-integration                                          
+⠙ |        222 | vendor-db-integration                                          
+⠋ |        231 | vendor-db-integration                                          [vendor-versions] postgresql server PostgreSQL 16.14 (Debian 16.14-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit; RPostgres 1.4.10; DBI 1.3.0
+
+⠧ |        238 | vendor-db-integration                                          
+⠇ |        239 | vendor-db-integration                                          
+⠙ |        242 | vendor-db-integration                                          
+⠸ |        244 | vendor-db-integration                                          
+⠼ |        245 | vendor-db-integration                                          
+⠧ |        248 | vendor-db-integration                                          
+⠋ |        251 | vendor-db-integration                                          
+⠸ |        254 | vendor-db-integration                                          
+⠦ |        257 | vendor-db-integration                                          
+⠏ |        260 | vendor-db-integration                                          
+⠹ |        263 | vendor-db-integration                                          
+⠴ |        266 | vendor-db-integration                                          
+⠇ |        269 | vendor-db-integration                                          
+⠙ |        272 | vendor-db-integration                                          
+⠼ |        275 | vendor-db-integration                                          
+⠧ |        278 | vendor-db-integration                                          
+⠋ |        281 | vendor-db-integration                                          
+⠸ |        284 | vendor-db-integration                                          
+⠦ |        287 | vendor-db-integration                                          
+⠏ |        290 | vendor-db-integration                                          
+⠹ |        293 | vendor-db-integration                                          
+⠴ |        296 | vendor-db-integration                                          
+⠇ |        299 | vendor-db-integration                                          
+⠋ |        301 | vendor-db-integration                                          
+⠸ |        304 | vendor-db-integration                                          
+⠦ |        307 | vendor-db-integration                                          
+⠏ |        310 | vendor-db-integration                                          
+⠦ |        387 | vendor-db-integration                                          
+⠧ |        398 | vendor-db-integration                                          NOTICE:  drop cascades to table dsomop_it_8213_cce41aca_results.achilles_results
+
+NOTICE:  drop cascades to 2 other objects
+DETAIL:  drop cascades to table dsomop_it_8213_cce41aca_vocab.concept
+drop cascades to table dsomop_it_8213_cce41aca_vocab.concept_ancestor
+
+NOTICE:  drop cascades to 11 other objects
+DETAIL:  drop cascades to table dsomop_it_8213_cce41aca_cdm.cdm_source
+drop cascades to table dsomop_it_8213_cce41aca_cdm.person
+drop cascades to table dsomop_it_8213_cce41aca_cdm.observation_period
+drop cascades to table dsomop_it_8213_cce41aca_cdm.condition_occurrence
+drop cascades to table dsomop_it_8213_cce41aca_cdm.drug_exposure
+drop cascades to table dsomop_it_8213_cce41aca_cdm.procedure_occurrence
+drop cascades to table dsomop_it_8213_cce41aca_cdm.measurement
+drop cascades to table dsomop_it_8213_cce41aca_cdm.observation
+drop cascades to table dsomop_it_8213_cce41aca_cdm.visit_occurrence
+drop cascades to table dsomop_it_8213_cce41aca_cdm.device_exposure
+drop cascades to table dsomop_it_8213_cce41aca_cdm.death
+
+[vendor-versions] mysql server 8.4.11; RMariaDB 1.3.5; DBI 1.3.0
+
+⠏ |        400 | vendor-db-integration                                          
+⠋ |        401 | vendor-db-integration                                          
+⠸ |        404 | vendor-db-integration                                          
+⠦ |        407 | vendor-db-integration                                          
+⠏ |        410 | vendor-db-integration                                          
+⠙ |        412 | vendor-db-integration                                          
+⠼ |        415 | vendor-db-integration                                          
+⠧ |        418 | vendor-db-integration                                          
+⠏ |        420 | vendor-db-integration                                          
+⠹ |        423 | vendor-db-integration                                          
+⠴ |        426 | vendor-db-integration                                          
+⠇ |        429 | vendor-db-integration                                          
+⠙ |        432 | vendor-db-integration                                          
+⠼ |        435 | vendor-db-integration                                          
+⠧ |        438 | vendor-db-integration                                          
+⠋ |        441 | vendor-db-integration                                          
+⠸ |        444 | vendor-db-integration                                          
+⠦ |        447 | vendor-db-integration                                          
+⠏ |        450 | vendor-db-integration                                          
+⠹ |        453 | vendor-db-integration                                          
+⠴ |        456 | vendor-db-integration                                          
+⠇ |        459 | vendor-db-integration                                          
+⠙ |        462 | vendor-db-integration                                          
+⠼ |        465 | vendor-db-integration                                          
+⠧ |        468 | vendor-db-integration                                          
+⠋ |        471 | vendor-db-integration                                          
+⠴ |        526 | vendor-db-integration                                          
+⠧ | 1      557 | vendor-db-integration                                          
+⠏ | 3      557 | vendor-db-integration                                          [vendor-versions] mariadb server 11.4.12-MariaDB-ubu2404; RMariaDB 1.3.5; DBI 1.3.0
+
+⠙ | 4      558 | vendor-db-integration                                          
+⠹ | 4      559 | vendor-db-integration                                          
+⠴ | 4      562 | vendor-db-integration                                          
+⠇ | 4      565 | vendor-db-integration                                          
+⠙ | 4      568 | vendor-db-integration                                          
+⠼ | 4      571 | vendor-db-integration                                          
+⠧ | 4      574 | vendor-db-integration                                          
+⠋ | 4      577 | vendor-db-integration                                          
+⠸ | 4      580 | vendor-db-integration                                          
+⠦ | 4      583 | vendor-db-integration                                          
+⠏ | 4      586 | vendor-db-integration                                          
+⠹ | 4      589 | vendor-db-integration                                          
+⠴ | 4      592 | vendor-db-integration                                          
+⠇ | 4      595 | vendor-db-integration                                          
+⠙ | 4      598 | vendor-db-integration                                          
+⠼ | 4      601 | vendor-db-integration                                          
+⠦ | 4      603 | vendor-db-integration                                          
+⠇ | 4      605 | vendor-db-integration                                          
+⠙ | 4      608 | vendor-db-integration                                          
+⠼ | 4      611 | vendor-db-integration                                          
+⠧ | 4      614 | vendor-db-integration                                          
+⠋ | 4      617 | vendor-db-integration                                          
+⠸ | 4      620 | vendor-db-integration                                          
+⠦ | 4      623 | vendor-db-integration                                          
+⠏ | 4      626 | vendor-db-integration                                          
+⠹ | 4      629 | vendor-db-integration                                          
+⠸ | 4      700 | vendor-db-integration                                          
+✖ | 4      719 | vendor-db-integration [28.3s]
+────────────────────────────────────────────────────────────────────────────────
+Failure ('test-vendor-db-integration.R:503:3'): MySQL executes every live Achilles catalogue entry
+Expected `as.numeric(companion$n_persons[companion$stratum_1 == "201606"])` to equal 2.
+Differences:
+  `actual`:  
+`expected`: 2
+
+mysql 420 in-period person basis
+Backtrace:
+    ▆
+ 1. └─dsOMOP (local) .expectVendorAchillesLive("mysql") at test-vendor-db-integration.R:503:3
+ 2.   └─.expectAchillesLiveReader(handle, dbms) at test-vendor-db-integration.R:495:3
+ 3.     └─testthat::expect_equal(...) at tests/testthat/helper-achilles-live.R:447:3
+
+Failure ('test-vendor-db-integration.R:503:3'): MySQL executes every live Achilles catalogue entry
+Expected `as.numeric(companion$n_persons[companion$stratum_1 == "202001"])` to equal 5.
+Differences:
+  `actual`:  
+`expected`: 5
+
+mysql 420 supported month
+Backtrace:
+    ▆
+ 1. └─dsOMOP (local) .expectVendorAchillesLive("mysql") at test-vendor-db-integration.R:503:3
+ 2.   └─.expectAchillesLiveReader(handle, dbms) at test-vendor-db-integration.R:495:3
+ 3.     └─testthat::expect_equal(...) at tests/testthat/helper-achilles-live.R:451:3
+
+Failure ('test-vendor-db-integration.R:503:3'): MySQL executes every live Achilles catalogue entry
+Expected `names(released)` to have the same values as `names(expected)`.
+Actual: "505|32817|NA|NA", "2102|4044008|202006|NA", "2102|4206863|202006|NA", "2102|4206863|202007|NA"
+Expected: "420|202001|NA|NA", "505|32817|NA|NA", "1818|3004410|8554|Below Range Low", "1818|3004410|8554|Within Range", "1818|3004410|8554|Above Range High", "2102|4044008|202006|NA", "2102|4206863|202006|NA", "2102|4206863|202007|NA"
+Absent: "420|202001|NA|NA", "1818|3004410|8554|Below Range Low", "1818|3004410|8554|Within Range", "1818|3004410|8554|Above Range High"
+Backtrace:
+    ▆
+ 1. └─dsOMOP (local) .expectVendorAchillesLive("mysql") at test-vendor-db-integration.R:503:3
+ 2.   └─.expectAchillesLiveReader(handle, dbms) at test-vendor-db-integration.R:495:3
+ 3.     └─testthat::expect_setequal(names(released), names(expected)) at tests/testthat/helper-achilles-live.R:469:3
+
+Failure ('test-vendor-db-integration.R:503:3'): MySQL executes every live Achilles catalogue entry
+Expected `released[names(expected)]` to equal `expected`.
+Differences:
+    names(actual)            | names(expected)                         
+[1] NA                       - "420|202001|NA|NA"                   [1]
+[2] "505|32817|NA|NA"        | "505|32817|NA|NA"                    [2]
+[3] NA                       - "1818|3004410|8554|Below Range Low"  [3]
+[4] NA                       - "1818|3004410|8554|Within Range"     [4]
+[5] NA                       - "1818|3004410|8554|Above Range High" [5]
+[6] "2102|4044008|202006|NA" | "2102|4044008|202006|NA"             [6]
+[7] "2102|4206863|202006|NA" | "2102|4206863|202006|NA"             [7]
+[8] "2102|4206863|202007|NA" | "2102|4206863|202007|NA"             [8]
+
+  `actual`:  NA 5.0  NA  NA  NA 5.0 10.0 5.0
+`expected`: 5.0 5.0 5.0 5.0 5.0 5.0 10.0 5.0
+
+mysql reader cells
+Backtrace:
+    ▆
+ 1. └─dsOMOP (local) .expectVendorAchillesLive("mysql") at test-vendor-db-integration.R:503:3
+ 2.   └─.expectAchillesLiveReader(handle, dbms) at test-vendor-db-integration.R:495:3
+ 3.     └─testthat::expect_equal(...) at tests/testthat/helper-achilles-live.R:470:3
+────────────────────────────────────────────────────────────────────────────────
+
+══ Results ═════════════════════════════════════════════════════════════════════
+Duration: 28.4 s
+
+── Failed tests ────────────────────────────────────────────────────────────────
+Failure ('test-vendor-db-integration.R:503:3'): MySQL executes every live Achilles catalogue entry
+Expected `as.numeric(companion$n_persons[companion$stratum_1 == "201606"])` to equal 2.
+Differences:
+  `actual`:  
+`expected`: 2
+
+mysql 420 in-period person basis
+Backtrace:
+    ▆
+ 1. └─dsOMOP (local) .expectVendorAchillesLive("mysql") at test-vendor-db-integration.R:503:3
+ 2.   └─.expectAchillesLiveReader(handle, dbms) at test-vendor-db-integration.R:495:3
+ 3.     └─testthat::expect_equal(...) at tests/testthat/helper-achilles-live.R:447:3
+
+Failure ('test-vendor-db-integration.R:503:3'): MySQL executes every live Achilles catalogue entry
+Expected `as.numeric(companion$n_persons[companion$stratum_1 == "202001"])` to equal 5.
+Differences:
+  `actual`:  
+`expected`: 5
+
+mysql 420 supported month
+Backtrace:
+    ▆
+ 1. └─dsOMOP (local) .expectVendorAchillesLive("mysql") at test-vendor-db-integration.R:503:3
+ 2.   └─.expectAchillesLiveReader(handle, dbms) at test-vendor-db-integration.R:495:3
+ 3.     └─testthat::expect_equal(...) at tests/testthat/helper-achilles-live.R:451:3
+
+Failure ('test-vendor-db-integration.R:503:3'): MySQL executes every live Achilles catalogue entry
+Expected `names(released)` to have the same values as `names(expected)`.
+Actual: "505|32817|NA|NA", "2102|4044008|202006|NA", "2102|4206863|202006|NA", "2102|4206863|202007|NA"
+Expected: "420|202001|NA|NA", "505|32817|NA|NA", "1818|3004410|8554|Below Range Low", "1818|3004410|8554|Within Range", "1818|3004410|8554|Above Range High", "2102|4044008|202006|NA", "2102|4206863|202006|NA", "2102|4206863|202007|NA"
+Absent: "420|202001|NA|NA", "1818|3004410|8554|Below Range Low", "1818|3004410|8554|Within Range", "1818|3004410|8554|Above Range High"
+Backtrace:
+    ▆
+ 1. └─dsOMOP (local) .expectVendorAchillesLive("mysql") at test-vendor-db-integration.R:503:3
+ 2.   └─.expectAchillesLiveReader(handle, dbms) at test-vendor-db-integration.R:495:3
+ 3.     └─testthat::expect_setequal(names(released), names(expected)) at tests/testthat/helper-achilles-live.R:469:3
+
+Failure ('test-vendor-db-integration.R:503:3'): MySQL executes every live Achilles catalogue entry
+Expected `released[names(expected)]` to equal `expected`.
+Differences:
+    names(actual)            | names(expected)                         
+[1] NA                       - "420|202001|NA|NA"                   [1]
+[2] "505|32817|NA|NA"        | "505|32817|NA|NA"                    [2]
+[3] NA                       - "1818|3004410|8554|Below Range Low"  [3]
+[4] NA                       - "1818|3004410|8554|Within Range"     [4]
+[5] NA                       - "1818|3004410|8554|Above Range High" [5]
+[6] "2102|4044008|202006|NA" | "2102|4044008|202006|NA"             [6]
+[7] "2102|4206863|202006|NA" | "2102|4206863|202006|NA"             [7]
+[8] "2102|4206863|202007|NA" | "2102|4206863|202007|NA"             [8]
+
+  `actual`:  NA 5.0  NA  NA  NA 5.0 10.0 5.0
+`expected`: 5.0 5.0 5.0 5.0 5.0 5.0 10.0 5.0
+
+mysql reader cells
+Backtrace:
+    ▆
+ 1. └─dsOMOP (local) .expectVendorAchillesLive("mysql") at test-vendor-db-integration.R:503:3
+ 2.   └─.expectAchillesLiveReader(handle, dbms) at test-vendor-db-integration.R:495:3
+ 3.     └─testthat::expect_equal(...) at tests/testthat/helper-achilles-live.R:470:3
+
+[ FAIL 4 | WARN 0 | SKIP 0 | PASS 719 ]
+
+vendor-db-integration: 6 tests, 723 expectations: 4 failed, 0 skipped, 0 errors, 0 warnings, 719 passed
+test_local stopped: Test failures.

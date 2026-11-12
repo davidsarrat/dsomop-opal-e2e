@@ -1,0 +1,53 @@
+dsOMOP: optional database drivers not installed: odbc. Install with: install.packages(c('odbc'))
+dsOMOP v2.10.3 loaded. OMOP CDM resource resolver registered.
+✔ | F W  S  OK | Context
+
+⠏ |          0 | vendor-release-routes                                          
+⠋ |          1 | vendor-release-routes                                          
+⠹ |          3 | vendor-release-routes                                          
+⠼ |          5 | vendor-release-routes                                          [vendor-versions] postgresql server PostgreSQL 16.14 (Debian 16.14-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+
+⠏ |      1  29 | vendor-release-routes                                          
+⠹ |      1  32 | vendor-release-routes                                          
+⠸ |      1  33 | vendor-release-routes                                          
+⠹ |      1  72 | vendor-release-routes                                          NOTICE:  drop cascades to table dsomop_it_8570_ae93f383_results.achilles_results
+
+NOTICE:  drop cascades to 2 other objects
+DETAIL:  drop cascades to table dsomop_it_8570_ae93f383_vocab.concept
+drop cascades to table dsomop_it_8570_ae93f383_vocab.concept_ancestor
+
+NOTICE:  drop cascades to 11 other objects
+DETAIL:  drop cascades to table dsomop_it_8570_ae93f383_cdm.cdm_source
+drop cascades to table dsomop_it_8570_ae93f383_cdm.person
+drop cascades to table dsomop_it_8570_ae93f383_cdm.observation_period
+drop cascades to table dsomop_it_8570_ae93f383_cdm.condition_occurrence
+drop cascades to table dsomop_it_8570_ae93f383_cdm.drug_exposure
+drop cascades to table dsomop_it_8570_ae93f383_cdm.procedure_occurrence
+drop cascades to table dsomop_it_8570_ae93f383_cdm.measurement
+drop cascades to table dsomop_it_8570_ae93f383_cdm.observation
+drop cascades to table dsomop_it_8570_ae93f383_cdm.visit_occurrence
+drop cascades to table dsomop_it_8570_ae93f383_cdm.device_exposure
+drop cascades to table dsomop_it_8570_ae93f383_cdm.death
+
+[vendor-versions] mysql server 8.4.11
+
+⠹ |      1  82 | vendor-release-routes                                          
+⠴ |      1  85 | vendor-release-routes                                          
+⠦ |      1  86 | vendor-release-routes                                          
+⠹ |      1 122 | vendor-release-routes                                          [vendor-versions] mariadb server 11.4.12-MariaDB-ubu2404
+
+⠴ |      1 135 | vendor-release-routes                                          
+⠇ |      1 138 | vendor-release-routes                                          
+⠏ |      1 139 | vendor-release-routes                                          
+⠏ |      1 179 | vendor-release-routes                                          
+✔ |      1 187 | vendor-release-routes [93.1s]
+
+══ Results ═════════════════════════════════════════════════════════════════════
+Duration: 93.1 s
+
+── Skipped tests (1) ───────────────────────────────────────────────────────────
+• {duckdb} is not installed (1): 'test-vendor-release-routes.R:292:3'
+
+[ FAIL 0 | WARN 0 | SKIP 1 | PASS 187 ]
+
+vendor-release-routes: 5 tests, 188 expectations: 0 failed, 1 skipped, 0 errors, 0 warnings, 187 passed

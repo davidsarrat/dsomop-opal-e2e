@@ -1,0 +1,6 @@
+"file","context","test","nb","failed","skipped","error","warning","passed","real"
+"test-vendor-release-routes.R","vendor-release-routes","SQLite runs the observed-time helpers and every protected route",28,0,FALSE,FALSE,0,28,25.455
+"test-vendor-release-routes.R","vendor-release-routes","DuckDB gives the SQLite protected answers",1,0,TRUE,FALSE,0,0,0.00999999999999801
+"test-vendor-release-routes.R","vendor-release-routes","PostgreSQL gives the SQLite protected answers",53,0,FALSE,FALSE,0,53,23.752
+"test-vendor-release-routes.R","vendor-release-routes","MySQL gives the SQLite protected answers",53,0,FALSE,FALSE,0,53,22.221
+"test-vendor-release-routes.R","vendor-release-routes","MariaDB gives the SQLite protected answers",53,0,FALSE,FALSE,0,53,21.624

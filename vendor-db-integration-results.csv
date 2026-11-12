@@ -1,0 +1,7 @@
+"file","context","test","nb","failed","skipped","error","warning","passed","real"
+"test-vendor-db-integration.R","vendor-db-integration","PostgreSQL executes the separated OMOP namespace contract",81,0,FALSE,FALSE,0,81,7.231
+"test-vendor-db-integration.R","vendor-db-integration","MySQL executes the separated OMOP database contract",78,0,FALSE,FALSE,0,78,4.98
+"test-vendor-db-integration.R","vendor-db-integration","MariaDB executes the separated OMOP database contract",78,0,FALSE,FALSE,0,78,1.905
+"test-vendor-db-integration.R","vendor-db-integration","PostgreSQL executes every live Achilles catalogue entry",162,0,FALSE,FALSE,0,162,4.895
+"test-vendor-db-integration.R","vendor-db-integration","MySQL executes every live Achilles catalogue entry",162,4,FALSE,FALSE,0,158,4.856
+"test-vendor-db-integration.R","vendor-db-integration","MariaDB executes every live Achilles catalogue entry",162,0,FALSE,FALSE,0,162,4.404
