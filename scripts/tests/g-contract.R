@@ -50,3 +50,26 @@ local({
   stopifnot(grepl("expected dsOMOP", error))
 })
 cat("Harness contract regressions passed\n")
+
+local({
+  common <- parse("scripts/g_lib.R")
+  environment(get_fn) <- environment()
+  calls <- character()
+  ready <- FALSE
+  admin <- function() "admin-session"
+  opal.logout <- function(o) NULL
+  opal.execute <- function(o, code) {
+    calls <<- c(calls, code)
+    if (grepl('loadNamespace("dsOMOP")', code, fixed = TRUE)) ready <<- TRUE
+    "ok"
+  }
+  opal.assign.resource <- function(o, symbol, resource) {
+    if (!ready) stop("No resolver could be found")
+    calls <<- c(calls, "assign resource")
+  }
+  admin_handle_eval <- get_fn("admin_handle_eval")
+  environment(admin_handle_eval) <- environment()
+  stopifnot(identical(admin_handle_eval("probe", resource = "fixture"), "ok"),
+            identical(calls[2], "assign resource"), identical(tail(calls, 1), "probe"))
+})
+cat("Administrator resolver ordering regression passed\n")
