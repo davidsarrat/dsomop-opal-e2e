@@ -1,0 +1,7 @@
+dsOMOP: optional database drivers not installed: odbc. Install with: install.packages(c('odbc'))
+dsOMOP v2.10.3 loaded. OMOP CDM resource resolver registered.
+✔ | F W  S  OK | Context
+Error in x$start_reporter(...) : 
+  The package "xml2" is required to use JunitReporter
+Calls: <Anonymous> ... o_apply -> lapply -> FUN -> <Anonymous> -> check_installed
+Execution halted
