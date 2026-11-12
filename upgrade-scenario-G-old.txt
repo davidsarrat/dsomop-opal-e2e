@@ -1,0 +1,55 @@
+OK    remotes::install_github("isglobal-brge/dsOMOPClient", ref = "2.10.2", lib = <own library>) (13.7 s)
+dsOMOPClient loaded from /home/runner/work/_temp/dsomopclient-2.10.2/dsOMOPClient: 2.10.2; server dsOMOP 2.10.2
+
+======== O1: the old client is the released one
+SUMMARY [upgrade] G-old O1 PASS: dsOMOPClient 2.10.2 from GitHub, loaded instead of the run's client | loaded 2.10.2
+-------- O1 done in 0 s
+
+======== O2: connect and explore (the core)
+  [message] Logging into the collaborating servers
+OK    old client: login (Ethiopia as analyst) (0.1 s)
+OK    old client: ds.omop.connect("omop_data.gibleed", symbol = "omopG1") (2.3 s)
+OK    old client: ds.omop.tables (0 s)
+SUMMARY [upgrade] G-old O2 PASS: the 2.10.2 client connects and lists the CDM tables | connect warnings: 
+-------- O2 done in 2.5 s
+
+======== O3: DP status and typed releases: refused plainly (old clients cannot use typed releases)
+OK    old client: ds.omop.dp.status() (0.5 s)
+SUMMARY [upgrade] G-old O3 status PASS: ds.omop.dp.status() answers or refuses plainly | status returned
+OK    old client: ds.omop.dp.prepare(ages) (2.6 s)
+OK    old client: ds.omop.dp.release(O_ages, count) (0.3 s)
+SUMMARY [upgrade] G-old O3 typed FAIL: a typed release from the 2.10.2 client is refused with a plain message (it cannot validate 2.10.3 payloads) | prepare ok; release RETURNED A RESULT
+-------- O3 done in 3.4 s
+
+======== O4: a protected catalogue release on one site: per-site result, no misleading pooled protection
+OK    old client: ds.omop.analysis.run("dsomop:achilles.3") (0.9 s)
+SUMMARY [upgrade] G-old O4 achilles.3 PASS: the old client shows the per-site protected frame without crashing | per-site rows 74; pooled rows 74; messages: ; protection as the old client reads it: List of 1 $ Ethiopia:List of 3 ..$ protection: chr "standard" ..$ mode : chr "auto" ..$ note : chr "Standard DataSHIELD disclosure controls: small cells are removed, counts are banded and statistics need enough persons."
+OK    old client: ds.omop.analysis.run("dsomop:condition_era.length_stats") (0.2 s)
+SUMMARY [upgrade] G-old O4 condition_era.length_stats PASS: the old client shows the per-site protected frame without crashing | per-site rows 81; pooled rows 81; messages: ; protection as the old client reads it: List of 1 $ Ethiopia:List of 4 ..$ protection: chr "standard" ..$ mode : chr "auto" ..$ estimand : chr "condition era length in days" ..$ note : chr "Standard DataSHIELD disclosure controls: small cells are removed, counts are banded and statistics need enough persons."
+-------- O4 done in 1.1 s
+
+======== O5: two independent sites and both NA pooling policies: protected entries are not pooled by the old client
+  [message] Logging into the collaborating servers
+OK    old client two sites: login (Ethiopia+Small as analyst+analyst) (0.1 s)
+OK    old client two sites: ds.omop.connect(c(Ethiopia = "omop_data.gibleed", Small = "omop_data.gibleed_small" ), symbol = "omopG2") (3.6 s)
+OK    old client two sites: cohort T (drug 1118084, cohort_id 601) (0.2 s)
+OK    old client two sites: cohort C (drug 1124300, cohort_id 602) (0.2 s)
+OK    old client: condition_era.length_stats over two sites (5 s)
+SUMMARY [upgrade] G-old O5 record_summary FAIL: a protected record summary over two sites is not pooled by the old client; both per-site frames are kept | pooled rows 41; per-site 2; messages: Groups absent or suppressed on at least one server were omitted. Groups with suppressed or invalid sufficient statistics were omitted. Pooled counts are sums of site-level releases; a person represented in multiple databases contributes once per database. Counts are sums of per-site banded lower bounds (width 5); derived pooled statistics are therefore approximate.
+OK    old client: cm.effect_estimate (poisson) over two sites, strict (8.7 s)
+SUMMARY [upgrade] G-old O5 effect_strict FAIL: pooling_policy = "strict": the old client does not pool the protected effect; it refuses plainly or keeps per-site frames | pooled rows 2; per-site 2; messages: Non-poolable columns were retained as NA: estimate, ci_lo, ci_hi, log_estimate, se_log_estimate. Pooled counts are sums of site-level releases; a person represented in multiple databases contributes once per database. Counts are sums of per-site banded lower bounds (width 5); derived pooled statistics are therefore approximate.
+OK    old client: cm.effect_estimate (poisson) over two sites, pooled_only_ok (7.7 s)
+SUMMARY [upgrade] G-old O5 effect_pooled_only_ok FAIL: pooling_policy = "pooled_only_ok": the old client does not pool the protected effect; it refuses plainly or keeps per-site frames | pooled rows 2; per-site 2; messages: Non-poolable columns were retained as NA: estimate, ci_lo, ci_hi, log_estimate, se_log_estimate. Pooled counts are sums of site-level releases; a person represented in multiple databases contributes once per database. Counts are sums of per-site banded lower bounds (width 5); derived pooled statistics are therefore approximate.
+OK    old client two sites: ds.omop.disconnect("omopG2") (1.1 s)
+-------- O5 done in 26.9 s
+
+======== O6: two connections to one node: no double-counted pooled result
+  [message] Logging into the collaborating servers
+OK    old client duplicate connections: login (SiteA+SiteB as analyst+analyst) (0.1 s)
+OK    old client duplicate connections: ds.omop.connect("omop_data.gibleed", symbol = "omopG3") (3.7 s)
+OK    old client: achilles.3 over two connections to one node (4.7 s)
+SUMMARY [upgrade] G-old O6 FAIL: the old client does not pool a protected release over two connections to the same node | pooled rows 74; messages: Pooled counts are sums of site-level releases; a person represented in multiple databases contributes once per database. Counts are sums of per-site banded lower bounds (width 5); derived pooled statistics are therefore approximate.
+OK    old client duplicate connections: ds.omop.disconnect("omopG3") (0.9 s)
+-------- O6 done in 9.5 s
+OK    old client: ds.omop.disconnect("omopG1") (0.7 s)
+SUMMARY [upgrade] G-old (dsOMOPClient 2.10.2 against dsOMOP 2.10.2): 10 checks: PASS 5, FAIL 5, INFO 0, ERROR 0
