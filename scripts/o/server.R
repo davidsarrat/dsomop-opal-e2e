@@ -97,13 +97,18 @@ o_installed_tests <- function(files) {
   }
   TRUE
 }
-o_server_check <- function(name) {
+o_server_check <- function(name, plan_override = NULL) {
   old <- options(nfilter.subset = 5L, dsomop.query_strict = TRUE)
   on.exit(options(old))
   dsOMOP::omopInitDS("ores")
   h <- o_ns(".getHandle")("ores")
   if (name %in% c("acceptance1", "acceptance2")) {
     a <- o_plan(if (name == "acceptance1") 1 else 2)
+    if (!is.null(plan_override)) {
+      stopifnot(name == "acceptance1", length(plan_override$outputs) == 1L)
+      a$plan <- plan_override
+      names(a$expected$outputs) <- names(plan_override$outputs)
+    }
     r <- o_execute(a$plan, h); on.exit(o_revoke(r), add = TRUE)
     o_compare(r, a$expected, h)
   } else if (name == "staged") {

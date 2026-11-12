@@ -50,10 +50,14 @@ status_order <- function(conns) {
   check(!r$symbol %in% unlist(DSI::datashield.symbols(conns)), "execution status left behind")
   r$status
 }
-admin_check <- function(name, resource = "omop_data.o_reach") {
+admin_check <- function(name, resource = "omop_data.o_reach", plan = NULL) {
   o <- admin(); on.exit(opal.logout(o))
   opal.assign.resource(o, "ores", resource)
-  result <- opal.execute(o, paste0('source("/tmp/o-harness/server.R"); o_server_check(', deparse(name), ')'))
+  wire <- if (is.null(plan)) "NULL" else paste0("jsonlite::fromJSON(",
+    encodeString(jsonlite::toJSON(plan, auto_unbox = TRUE, null = "null", digits = NA), quote = '"'),
+    ", simplifyVector = FALSE)")
+  result <- opal.execute(o, paste0('source("/tmp/o-harness/server.R"); o_server_check(', deparse(name),
+                                  ', plan_override = ', wire, ')'))
   check(isTRUE(result), paste("administrator fixture assertions failed:", name))
 }
 set_strict <- function(strict) {
@@ -95,7 +99,7 @@ scenario("O2", function() with_sites(function(conns) {
         "factor levels differ across identical fixture sites")
   fit <- dsBaseClient::ds.glm("cond_dm ~ age + sex", data = "O_baseline", family = "binomial", datasources = conns)
   check(!is.null(fit), "binary model did not return")
-  admin_check("acceptance1")
+  admin_check("acceptance1", plan = recipe_to_plan(study))
 }))
 
 scenario("O3", function() with_sites(function(conns) {
