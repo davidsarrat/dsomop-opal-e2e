@@ -1,0 +1,178 @@
+# dsOMOP's vendor database CI (PostgreSQL 16, MySQL 8.4, MariaDB 11.4) run against the vendored candidate in
+# pkgs/dsOMOP. The job reproduces pkgs/dsOMOP/.github/workflows/vendor-db-integration.yaml: the same pinned service
+# images, environment and test call (filter "vendor-db-integration", stop_on_failure, stop_on_warning). A second
+# step runs the protected release routes on the same three servers (filter "vendor-release-routes"), whose MySQL
+# leg has no other CI. Results go to results/<run>-vendor-candidate, as in e2e.yml.
+name: dsomop-vendor-db
+on:
+  workflow_dispatch:
+    inputs:
+      release_routes:
+        description: "1 = also run test-vendor-release-routes.R on the three servers"
+        default: "1"
+permissions:
+  contents: write
+jobs:
+  separated-omop-namespaces:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    services:
+      postgres:
+        image: postgres:16@sha256:95206741a5b214807675e14165369d05b93a9cf692223b616d07cca227e74b0b
+        env:
+          POSTGRES_DB: dsomop
+          POSTGRES_USER: dsomop_admin
+          POSTGRES_PASSWORD: dsomop
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U dsomop_admin -d dsomop"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
+      mysql:
+        image: mysql:8.4@sha256:b3b90af2a6552ae30c266fdb7d5dd55f3afb72404bb78d37fe8a23eb857fd3fb
+        env:
+          MYSQL_DATABASE: dsomop
+          MYSQL_ROOT_PASSWORD: dsomop
+          MYSQL_ROOT_HOST: "%"
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -pdsomop"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=15
+
+      mariadb:
+        image: mariadb:11.4@sha256:67873d30a17f6a9c331f06363b2fa15f38abca415529966d67c84f87f82439fe
+        env:
+          MARIADB_DATABASE: dsomop
+          MARIADB_ROOT_PASSWORD: dsomop
+          MARIADB_ROOT_HOST: "%"
+        ports:
+          - 3307:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=15
+
+    env:
+      DSOMOP_TEST_POSTGRES_HOST: 127.0.0.1
+      DSOMOP_TEST_POSTGRES_PORT: 5432
+      DSOMOP_TEST_POSTGRES_DATABASE: dsomop
+      DSOMOP_TEST_POSTGRES_ADMIN_USER: dsomop_admin
+      DSOMOP_TEST_POSTGRES_ADMIN_PASSWORD: dsomop
+      DSOMOP_TEST_MYSQL_HOST: 127.0.0.1
+      DSOMOP_TEST_MYSQL_PORT: 3306
+      DSOMOP_TEST_MYSQL_DATABASE: dsomop
+      DSOMOP_TEST_MYSQL_ADMIN_USER: root
+      DSOMOP_TEST_MYSQL_ADMIN_PASSWORD: dsomop
+      DSOMOP_TEST_MARIADB_HOST: 127.0.0.1
+      DSOMOP_TEST_MARIADB_PORT: 3307
+      DSOMOP_TEST_MARIADB_DATABASE: dsomop
+      DSOMOP_TEST_MARIADB_ADMIN_USER: root
+      DSOMOP_TEST_MARIADB_ADMIN_PASSWORD: dsomop
+      OUT: ${{ github.workspace }}/out
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      - uses: r-lib/actions/setup-r@d3c5be51b12e724e68f33216ca3c148b66d5f0b6 # v2
+        with:
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@d3c5be51b12e724e68f33216ca3c148b66d5f0b6 # v2
+        with:
+          working-directory: pkgs/dsOMOP
+          dependencies: '"hard"'
+          install-pandoc: false
+          install-quarto: false
+          extra-packages: |
+            any::testthat
+            any::withr
+            any::pkgload
+            any::RPostgres
+            any::RMariaDB
+            any::arrow
+
+      - name: Versions
+        shell: bash
+        run: |
+          mkdir -p "$OUT"
+          {
+            echo "candidate: $(grep '^Version:' pkgs/dsOMOP/DESCRIPTION) (pkgs/dsOMOP, vendored from a committed branch)"
+            Rscript -e 'cat(R.version.string, "\n"); for (p in c("DBI", "RPostgres", "RMariaDB", "arrow", "duckdb", "SqlRender", "testthat")) cat(p, if (requireNamespace(p, quietly = TRUE)) as.character(packageVersion(p)) else "not installed", "\n")'
+            for c in $(docker ps --format '{{.Names}}'); do echo "service container $c: $(docker inspect "$c" --format '{{.Config.Image}}')"; done
+          } 2>&1 | tee "$OUT/vendor-versions.txt"
+
+      - name: Run real-vendor namespace, longitudinal and query tests
+        shell: bash
+        run: |
+          set -o pipefail
+          Rscript -e 'testthat::test_local(
+            "pkgs/dsOMOP",
+            filter = "vendor-db-integration",
+            stop_on_failure = TRUE,
+            stop_on_warning = TRUE,
+            reporter = testthat::MultiReporter$new(list(
+              testthat::ProgressReporter$new(show_praise = FALSE),
+              testthat::JunitReporter$new(file = file.path(Sys.getenv("OUT"), "vendor-db-integration-junit.xml"))))
+          )' 2>&1 | tee "$OUT/vendor-db-integration.log"
+
+      - name: Protected release routes on the same servers (test-vendor-release-routes.R)
+        if: always() && inputs.release_routes == '1'
+        shell: bash
+        run: |
+          set -o pipefail
+          Rscript -e 'testthat::test_local(
+            "pkgs/dsOMOP",
+            filter = "vendor-release-routes",
+            stop_on_failure = TRUE,
+            stop_on_warning = TRUE,
+            reporter = testthat::MultiReporter$new(list(
+              testthat::ProgressReporter$new(show_praise = FALSE),
+              testthat::JunitReporter$new(file = file.path(Sys.getenv("OUT"), "vendor-release-routes-junit.xml"))))
+          )' 2>&1 | tee "$OUT/vendor-release-routes.log"
+
+      - name: Summary
+        if: always()
+        shell: bash
+        run: |
+          cd "$OUT"
+          {
+            echo "### vendor database CI ($(grep '^Version:' "$GITHUB_WORKSPACE/pkgs/dsOMOP/DESCRIPTION"))"
+            echo '```'
+            for f in vendor-db-integration vendor-release-routes; do
+              [ -f "$f-junit.xml" ] || continue
+              python3 - "$f-junit.xml" <<'EOF'
+          import sys, xml.etree.ElementTree as ET
+          root = ET.parse(sys.argv[1]).getroot()
+          suites = [root] if root.tag == "testsuite" else list(root.iter("testsuite"))
+          t = {k: sum(int(s.get(k, 0)) for s in suites) for k in ("tests", "failures", "errors", "skipped")}
+          print(f"{sys.argv[1]}: {t['tests']} expectations, {t['failures']} failed, {t['errors']} errors, {t['skipped']} skipped")
+          for s in suites:
+              for c in s.iter("testcase"):
+                  for kind in ("failure", "error", "skipped"):
+                      for e in c.iter(kind):
+                          print(f"  {kind.upper()} {s.get('name')} :: {c.get('name')} :: {(e.get('message') or '')[:300]}")
+          EOF
+            done
+            grep -h '\[vendor-versions\]' vendor-*.log 2>/dev/null | sort -u || true
+            echo '```'
+          } > vendor-summary.txt 2>&1
+          cat vendor-summary.txt >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Results to a branch
+        if: always()
+        shell: bash
+        run: |
+          cd "$OUT"
+          git init -q && git checkout -q -b results && git add -A
+          git -c user.name=e2e -c user.email=e2e@users.noreply.github.com commit -qm "vendor $GITHUB_RUN_ID candidate"
+          git push -q --force "https://x-access-token:${GITHUB_PAT}@github.com/${GITHUB_REPOSITORY}.git" \
+            "HEAD:refs/heads/results/${GITHUB_RUN_ID}-vendor-candidate"
