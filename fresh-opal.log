@@ -1,0 +1,1753 @@
+Preparing default conf in /srv ...
+Preparing default plugins in /srv ...
+Disabling default Agate setting as AGATE_HOST is not defined...
+Setting Rock R server connection...
+Setting password...
+Starting Opal before first run script...
+Waiting for Opal to be ready...
+JAVA=java
+JAVA_OPTS=-Xms1G -Xmx2G -XX:+UseG1GC
+OPAL_HOME=/srv
+OPAL_DIST=/usr/share/opal
+Archive:  /srv/plugins/opal-datasource-limesurvey-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-limesurvey-2.0.0/
+   creating: /srv/plugins/opal-datasource-limesurvey-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/lib/opal-datasource-limesurvey-2.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/README.md  
+Archive:  /srv/plugins/opal-datasource-spss-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-spss-2.0.0/
+   creating: /srv/plugins/opal-datasource-spss-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/lib/magma-datasource-spss-1.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/lib/spssreader-1.2.2.jar  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/README.md  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/lib/opal-datasource-spss-2.0.0.jar  
+Archive:  /srv/plugins/opal-datasource-googlesheets4-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/
+   creating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/lib/opal-datasource-googlesheets4-2.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/README.md  
+Archive:  /srv/plugins/opal-analysis-validate-2.0.0-dist.zip
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/lib/
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/report.Rmd  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/form.json  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/report.Rmd  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/routine.R  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/form.json  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/report.Rmd  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/routine.R  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/form.json  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/README.md  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/lib/opal-analysis-validate-2.0.0.jar  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/routine.R  
+Archive:  /srv/plugins/opal-datasource-redcap-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-redcap-2.0.0/
+   creating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/jackson-dataformat-xml-2.17.2.jar  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/stax2-api-4.2.2.jar  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/README.md  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/opal-datasource-redcap-2.0.0.jar  
+Archive:  /srv/plugins/opal-datasource-readr-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-readr-2.0.0/
+   creating: /srv/plugins/opal-datasource-readr-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/export.json  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/README.md  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/lib/opal-datasource-readr-2.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/import.json  
+Archive:  /srv/plugins/opal-datasource-readxl-2.0.1-dist.zip
+   creating: /srv/plugins/opal-datasource-readxl-2.0.1/
+   creating: /srv/plugins/opal-datasource-readxl-2.0.1/lib/
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/import.json  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/lib/opal-datasource-readxl-2.0.1.jar  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/export.json  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/README.md  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/site.properties  
+Listening for transport dt_socket at address: 8000
+Upgrading Opal...
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/usr/share/opal/lib/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+Upgrade successful.
+Listening for transport dt_socket at address: 8000
+ __    __    __      ____  _____        _      
+ \ \   \ \   \ \    / __ \|  __ \ /\   | |     
+  \ \   \ \   \ \  | |  | | |__) /  \  | |     
+   > >   > >   > > | |  | |  ___/ /\ \ | |     
+  / /   / /   / /  | |__| | |  / ____ \| |____ 
+ /_/   /_/   /_/    \____/|_| /_/    \_\______|
+                                               
+                                               
+Starting Opal...
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/usr/share/opal/lib/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+WARNING: A restricted method in java.lang.foreign.Linker has been called
+WARNING: java.lang.foreign.Linker::downcallHandle has been called by org.apache.lucene.store.PosixNativeAccess in an unnamed module (file:/usr/share/opal/lib/lucene-core-9.11.1.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+2026-11-12 10:59:39,397 ERROR org.obiba.opal.datashield.cfg.DataShieldProfileService - Cannot read R/DataSHIELD packages to initialize profile
+java.util.ConcurrentModificationException
+	at java.base/java.util.ArrayList$ArrayListSpliterator.tryAdvance(Unknown Source)
+	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source)
+	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(Unknown Source)
+	at java.base/java.util.stream.ReferencePipeline.anyMatch(Unknown Source)
+	at org.obiba.opal.r.cluster.RServerCluster.isRunning(RServerCluster.java:105)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.lambda$onRServiceStarted$7(DataShieldProfileService.java:212)
+	at java.base/java.util.concurrent.ConcurrentHashMap$ValuesView.forEach(Unknown Source)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.onRServiceStarted(DataShieldProfileService.java:210)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at com.google.common.eventbus.Subscriber.invokeSubscriberMethod(Subscriber.java:84)
+	at com.google.common.eventbus.Subscriber$SynchronizedSubscriber.invokeSubscriberMethod(Subscriber.java:142)
+	at com.google.common.eventbus.Subscriber.lambda$dispatchEvent$0(Subscriber.java:70)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.eventbus.Subscriber.dispatchEvent(Subscriber.java:67)
+	at com.google.common.eventbus.Dispatcher$PerThreadQueuedDispatcher.dispatch(Dispatcher.java:112)
+	at com.google.common.eventbus.EventBus.post(EventBus.java:262)
+	at org.obiba.opal.core.service.AppsServiceImpl.registerApp(AppsServiceImpl.java:80)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.discoverHost(RockServerDiscoveryService.java:102)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.discoverOrCheckHost(RockServerDiscoveryService.java:67)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.scanHosts(RockServerDiscoveryService.java:53)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:128)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$1(ScheduledMethodRunnable.java:122)
+	at io.micrometer.observation.Observation.observe(Observation.java:569)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:122)
+	at org.springframework.scheduling.config.Task$OutcomeTrackingRunnable.run(Task.java:88)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(Unknown Source)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Unknown Source)
+2026-11-12 10:59:39,405 ERROR org.obiba.shiro.web.filter.AuthenticationFilter - Exception 
+org.springframework.dao.DataIntegrityViolationException: could not execute statement [Unique index or primary key violation: "PUBLIC.UK_SUBJECT_ACLS INDEX PUBLIC.UK_SUBJECT_ACLS_INDEX_3 ON PUBLIC.SUBJECT_ACLS(DOMAIN NULLS FIRST, NODE NULLS FIRST, PRINCIPAL NULLS FIRST, TYPE NULLS FIRST, PERMISSION NULLS FIRST) VALUES ( /* key:3 */ 'opal', '/files/tmp', 'administrator', 'USER', 'FILES_SHARE')"; SQL statement:
+insert into subject_acls (created,domain,node,permission,principal,type,updated,id) values (?,?,?,?,?,?,?,default) [23505-252]] [insert into subject_acls (created,domain,node,permission,principal,type,updated,id) values (?,?,?,?,?,?,?,default)]; SQL [insert into subject_acls (created,domain,node,permission,principal,type,updated,id) values (?,?,?,?,?,?,?,default)]; constraint [PUBLIC.UK_SUBJECT_ACLS INDEX PUBLIC.UK_SUBJECT_ACLS_INDEX_3]
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:169)
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.convertHibernateAccessException(HibernateExceptionTranslator.java:131)
+	at org.springframework.orm.jpa.hibernate.HibernateExceptionTranslator.translateExceptionIfPossible(HibernateExceptionTranslator.java:105)
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:223)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:577)
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61)
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:346)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:157)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:166)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:222)
+	at jdk.proxy2/jdk.proxy2.$Proxy148.save(Unknown Source)
+	at org.obiba.opal.core.repository.SubjectAclRepository.upsert(SubjectAclRepository.java:60)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(Unknown Source)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:75)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:135)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:166)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:222)
+	at jdk.proxy2/jdk.proxy2.$Proxy148.upsert(Unknown Source)
+	at org.obiba.opal.core.service.security.SubjectAclServiceImpl.addSubjectPermission(SubjectAclServiceImpl.java:183)
+	at org.obiba.opal.core.service.SubjectProfileServiceImpl.ensureFolderPermissions(SubjectProfileServiceImpl.java:268)
+	at org.obiba.opal.core.service.SubjectProfileServiceImpl.ensureProfile(SubjectProfileServiceImpl.java:100)
+	at org.obiba.opal.web.security.AuthenticationExecutorImpl.ensureProfile(AuthenticationExecutorImpl.java:83)
+	at org.obiba.shiro.web.filter.AbstractAuthenticationExecutor.login(AbstractAuthenticationExecutor.java:88)
+	at org.obiba.shiro.web.filter.AuthenticationFilter.authenticateBasicHeader(AuthenticationFilter.java:300)
+	at org.obiba.shiro.web.filter.AuthenticationFilter.authenticateBasicHeader(AuthenticationFilter.java:274)
+	at org.obiba.shiro.web.filter.AuthenticationFilter.authenticateAndBind(AuthenticationFilter.java:209)
+	at org.obiba.shiro.web.filter.AuthenticationFilter.doFilterInternal(AuthenticationFilter.java:173)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:355)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:272)
+	at org.eclipse.jetty.ee10.servlet.FilterHolder.doFilter(FilterHolder.java:205)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1601)
+	at org.obiba.opal.server.httpd.OpalSessionHeaderFilter.doFilter(OpalSessionHeaderFilter.java:53)
+	at jakarta.servlet.http.HttpFilter.doFilter(HttpFilter.java:97)
+	at org.eclipse.jetty.ee10.servlet.FilterHolder.doFilter(FilterHolder.java:205)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1601)
+	at org.obiba.opal.server.httpd.OpalVersionFilter.doFilterInternal(OpalVersionFilter.java:39)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.eclipse.jetty.ee10.servlet.FilterHolder.doFilter(FilterHolder.java:205)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1601)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$MappedServlet.handle(ServletHandler.java:1556)
+	at org.eclipse.jetty.ee10.servlet.ServletChannel.dispatch(ServletChannel.java:871)
+	at org.eclipse.jetty.ee10.servlet.ServletChannel.handle(ServletChannel.java:449)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler.handle(ServletHandler.java:469)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:548)
+	at org.eclipse.jetty.ee10.servlet.SessionHandler.handle(SessionHandler.java:719)
+	at org.eclipse.jetty.server.handler.ContextHandler.handle(ContextHandler.java:1253)
+	at org.eclipse.jetty.server.handler.PathMappingsHandler.handle(PathMappingsHandler.java:146)
+	at org.eclipse.jetty.server.handler.gzip.GzipHandler.handle(GzipHandler.java:621)
+	at org.eclipse.jetty.server.Server.handle(Server.java:197)
+	at org.eclipse.jetty.server.internal.HttpChannelState$HandlerInvoker.run(HttpChannelState.java:804)
+	at org.eclipse.jetty.server.internal.HttpConnection.onFillable(HttpConnection.java:420)
+	at org.eclipse.jetty.server.internal.HttpConnection$FillableCallback.succeeded(HttpConnection.java:1789)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:105)
+	at org.eclipse.jetty.io.SelectableChannelEndPoint$1.run(SelectableChannelEndPoint.java:54)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:1009)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.doRunJob(QueuedThreadPool.java:1240)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.run(QueuedThreadPool.java:1194)
+	at java.base/java.lang.Thread.run(Unknown Source)
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement [Unique index or primary key violation: "PUBLIC.UK_SUBJECT_ACLS INDEX PUBLIC.UK_SUBJECT_ACLS_INDEX_3 ON PUBLIC.SUBJECT_ACLS(DOMAIN NULLS FIRST, NODE NULLS FIRST, PRINCIPAL NULLS FIRST, TYPE NULLS FIRST, PERMISSION NULLS FIRST) VALUES ( /* key:3 */ 'opal', '/files/tmp', 'administrator', 'USER', 'FILES_SHARE')"; SQL statement:
+insert into subject_acls (created,domain,node,permission,principal,type,updated,id) values (?,?,?,?,?,?,?,default) [23505-252]] [insert into subject_acls (created,domain,node,permission,principal,type,updated,id) values (?,?,?,?,?,?,?,default)]
+	at org.hibernate.dialect.H2Dialect.lambda$buildSQLExceptionConversionDelegate$0(H2Dialect.java:854)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:34)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:115)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:189)
+	at org.hibernate.id.insert.GetGeneratedKeysDelegate.performMutation(GetGeneratedKeysDelegate.java:96)
+	at org.hibernate.engine.jdbc.mutation.internal.MutationExecutorSingleNonBatched.performNonBatchedOperations(MutationExecutorSingleNonBatched.java:45)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:65)
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:54)
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.doStaticInserts(InsertCoordinatorStandard.java:183)
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.coordinateInsert(InsertCoordinatorStandard.java:123)
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.insert(InsertCoordinatorStandard.java:87)
+	at org.hibernate.action.internal.EntityIdentityInsertAction.execute(EntityIdentityInsertAction.java:87)
+	at org.hibernate.engine.spi.ActionQueue.execute(ActionQueue.java:667)
+	at org.hibernate.engine.spi.ActionQueue.addResolvedEntityInsertAction(ActionQueue.java:291)
+	at org.hibernate.engine.spi.ActionQueue.addInsertAction(ActionQueue.java:270)
+	at org.hibernate.engine.spi.ActionQueue.addAction(ActionQueue.java:322)
+	at org.hibernate.event.internal.AbstractSaveEventListener.addInsertAction(AbstractSaveEventListener.java:384)
+	at org.hibernate.event.internal.AbstractSaveEventListener.performSaveOrReplicate(AbstractSaveEventListener.java:298)
+	at org.hibernate.event.internal.AbstractSaveEventListener.performSave(AbstractSaveEventListener.java:228)
+	at org.hibernate.event.internal.AbstractSaveEventListener.saveWithGeneratedId(AbstractSaveEventListener.java:144)
+	at org.hibernate.event.internal.DefaultPersistEventListener.entityIsTransient(DefaultPersistEventListener.java:144)
+	at org.hibernate.event.internal.DefaultPersistEventListener.persist(DefaultPersistEventListener.java:91)
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:75)
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:51)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:138)
+	at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:709)
+	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:692)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityHandlerInvocationHandler.invokeMethod(SharedEntityManagerCreator.java:239)
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:392)
+	at jdk.proxy2/jdk.proxy2.$Proxy131.persist(Unknown Source)
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.save(SimpleJpaRepository.java:664)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryFragmentMethodInvoker.lambda$new$0(RepositoryMethodInvoker.java:278)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:169)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158)
+	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:545)
+	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:290)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:690)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:171)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:146)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:69)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:135)
+	... 60 common frames omitted
+Caused by: org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException: Unique index or primary key violation: "PUBLIC.UK_SUBJECT_ACLS INDEX PUBLIC.UK_SUBJECT_ACLS_INDEX_3 ON PUBLIC.SUBJECT_ACLS(DOMAIN NULLS FIRST, NODE NULLS FIRST, PRINCIPAL NULLS FIRST, TYPE NULLS FIRST, PERMISSION NULLS FIRST) VALUES ( /* key:3 */ 'opal', '/files/tmp', 'administrator', 'USER', 'FILES_SHARE')"; SQL statement:
+insert into subject_acls (created,domain,node,permission,principal,type,updated,id) values (?,?,?,?,?,?,?,default) [23505-252]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:520)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.index.Index.getDuplicateKeyException(Index.java:560)
+	at org.h2.mvstore.db.MVSecondaryIndex.checkUnique(MVSecondaryIndex.java:223)
+	at org.h2.mvstore.db.MVSecondaryIndex.add(MVSecondaryIndex.java:184)
+	at org.h2.mvstore.db.MVTable.addRow(MVTable.java:521)
+	at org.h2.command.dml.Insert.insertRows(Insert.java:174)
+	at org.h2.command.dml.Insert.update(Insert.java:135)
+	at org.h2.command.CommandContainer.executeUpdateWithGeneratedKeys(CommandContainer.java:212)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:133)
+	at org.h2.command.Command.executeUpdate(Command.java:307)
+	at org.h2.command.Command.executeUpdate(Command.java:251)
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdateInternal(JdbcPreparedStatement.java:213)
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdate(JdbcPreparedStatement.java:172)
+	at org.apache.commons.dbcp2.DelegatingPreparedStatement.executeUpdate(DelegatingPreparedStatement.java:137)
+	at org.apache.commons.dbcp2.DelegatingPreparedStatement.executeUpdate(DelegatingPreparedStatement.java:137)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:185)
+	... 109 common frames omitted
+First run setup...
+Initializing Opal IDs database with MongoDB...
+Opal Server successfully started.
+Opal is attached to this console. Press ctrl-c to stop.
+Enter content:
+
+Initializing Opal data database with MongoDB...
+Enter content:
+
+First run complete. Stopping background Opal...
+Opal Server shutting down...
+Starting Opal...
+JAVA=java
+JAVA_OPTS=-Xms1G -Xmx2G -XX:+UseG1GC
+OPAL_HOME=/srv
+OPAL_DIST=/usr/share/opal
+Listening for transport dt_socket at address: 8000
+Upgrading Opal...
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/usr/share/opal/lib/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+Upgrade successful.
+Listening for transport dt_socket at address: 8000
+ __    __    __      ____  _____        _      
+ \ \   \ \   \ \    / __ \|  __ \ /\   | |     
+  \ \   \ \   \ \  | |  | | |__) /  \  | |     
+   > >   > >   > > | |  | |  ___/ /\ \ | |     
+  / /   / /   / /  | |__| | |  / ____ \| |____ 
+ /_/   /_/   /_/    \____/|_| /_/    \_\______|
+                                               
+                                               
+Starting Opal...
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/usr/share/opal/lib/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+WARNING: A restricted method in java.lang.foreign.Linker has been called
+WARNING: java.lang.foreign.Linker::downcallHandle has been called by org.apache.lucene.store.PosixNativeAccess in an unnamed module (file:/usr/share/opal/lib/lucene-core-9.11.1.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+Opal Server successfully started.
+Opal is attached to this console. Press ctrl-c to stop.
+2026-11-12 11:03:34,852 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopColumnStatsDS("dsO.WY5IzM", "person", "year_of_birth", concept_id = NULL, cohort = NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopColumnStatsDS("dsO.WY5IzM", "person", "year_of_birth", concept_id = NULL, cohort = NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopColumnStatsDS("dsO.WY5IzM", "person", "year_of_birth", concept_id = NULL, cohort = NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:03:37,149 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopNumericHistogramDS("dsO.WY5IzM", "person", "year_of_birth", 20L, NULL, NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopNumericHistogramDS("dsO.WY5IzM", "person", "year_of_birth", 20L, NULL, NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopNumericHistogramDS("dsO.WY5IzM", "person", "year_of_birth", 20L, NULL, NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:03:37,266 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopNumericRangeDS("dsO.WY5IzM", "person", "year_of_birth", NULL, NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopNumericRangeDS("dsO.WY5IzM", "person", "year_of_birth", NULL, NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopNumericRangeDS("dsO.WY5IzM", "person", "year_of_birth", NULL, NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:03:37,332 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopNumericQuantilesDS("dsO.WY5IzM", "person", "year_of_birth", "B64:WzAuMDUsMC4yNSwwLjUsMC43NSwwLjk1XQ", NULL, NULL, 2L, concept_id = NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopNumericQuantilesDS("dsO.WY5IzM", "person", "year_of_birth", "B64:WzAuMDUsMC4yNSwwLjUsMC43NSwwLjk1XQ", NULL, NULL, 2L, concept_id = NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopNumericQuantilesDS("dsO.WY5IzM", "person", "year_of_birth", "B64:WzAuMDUsMC4yNSwwLjUsMC43NSwwLjk1XQ", NULL, NULL, 2L, concept_id = NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:03:38,267 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopSafeCutpointsDS("dsO.WY5IzM", "person", "year_of_birth", NULL, 10L)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopSafeCutpointsDS("dsO.WY5IzM", "person", "year_of_birth", NULL, 10L)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopSafeCutpointsDS("dsO.WY5IzM", "person", "year_of_birth", NULL, 10L)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:03:39,075 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopOhdsiResultsDS("dsO.WY5IzM", "achilles_results", NULL, NULL, NULL, 5000L, NULL)' -> Error : Table 'achilles_results' is not a registered OHDSI result table. Only allowlisted OHDSI result tables may be queried.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopOhdsiResultsDS("dsO.WY5IzM", "achilles_results", NULL, NULL, NULL, 5000L, NULL)' -> Error : Table 'achilles_results' is not a registered OHDSI result table. Only allowlisted OHDSI result tables may be queried.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopOhdsiResultsDS("dsO.WY5IzM", "achilles_results", NULL, NULL, NULL, 5000L, NULL)' -> Error : Table 'achilles_results' is not a registered OHDSI result table. Only allowlisted OHDSI result tables may be queried.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:03:39,142 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopOhdsiResultContractDS("dsO.WY5IzM", "achilles_results", NULL)' -> Error : Table 'achilles_results' is not a registered OHDSI result table. Only allowlisted OHDSI result tables may be queried.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopOhdsiResultContractDS("dsO.WY5IzM", "achilles_results", NULL)' -> Error : Table 'achilles_results' is not a registered OHDSI result table. Only allowlisted OHDSI result tables may be queried.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopOhdsiResultContractDS("dsO.WY5IzM", "achilles_results", NULL)' -> Error : Table 'achilles_results' is not a registered OHDSI result table. Only allowlisted OHDSI result tables may be queried.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:03:39,283 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopOhdsiSummaryDS("dsO.WY5IzM", "achilles")' -> Error : Unknown tool_id: 'achilles'. Available: cohort_diagnostics, cohort_incidence, characterization, cohort_method, sccs, plp, evidence_synthesis
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopOhdsiSummaryDS("dsO.WY5IzM", "achilles")' -> Error : Unknown tool_id: 'achilles'. Available: cohort_diagnostics, cohort_incidence, characterization, cohort_method, sccs, plp, evidence_synthesis
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopOhdsiSummaryDS("dsO.WY5IzM", "achilles")' -> Error : Unknown tool_id: 'achilles'. Available: cohort_diagnostics, cohort_incidence, characterization, cohort_method, sccs, plp, evidence_synthesis
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:03:39,505 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopCohortGetDefinitionDS("dsO.WY5IzM", 1L)' -> Error : Cohort definition 1 not found.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopCohortGetDefinitionDS("dsO.WY5IzM", 1L)' -> Error : Cohort definition 1 not found.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopCohortGetDefinitionDS("dsO.WY5IzM", 1L)' -> Error : Cohort definition 1 not found.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:03:44,424 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'is.null(base::assign('dsOexec.vZWb7e', value={dsOMOP::omopPlanExecuteDS("dsO.WY5IzM", "B64:eyJjb2hvcnQiOnsidHlwZSI6InNwZWMiLCJzcGVjIjp7InR5cGUiOiJjb25kaXRpb24iLCJjb25jZXB0X3NldCI6MTkyNjcxfX0sImFuY2hvciI6eyJ0YWJsZSI6InBlcnNvbiIsImlkX2NvbCI6InBlcnNvbl9pZCJ9LCJvdXRwdXRzIjp7ImJhc2VsaW5lIjp7InR5cGUiOiJiYXNlbGluZSIsImNvbHVtbnMiOlsiZ2VuZGVyX2NvbmNlcHRfaWQiLCJ5ZWFyX29mX2JpcnRoIl0sImRlcml2ZWQiOiJhZ2VfYXRfaW5kZXgifX0sIm9wdGlvbnMiOnsidHJhbnNsYXRlX2NvbmNlcHRzIjp0cnVlLCJibG9ja19zZW5zaXRpdmUiOnRydWUsImZhY3Rvcl9jb25jZXB0cyI6ZmFsc2V9fQ", dsBase::vectorDS(baseline = "PROBE1"), "memory")}))' -> Error : Disclosive: exact birth components are blocked; request derived age_at_index to receive disclosure-controlled age groups.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'is.null(base::assign('dsOexec.vZWb7e', value={dsOMOP::omopPlanExecuteDS("dsO.WY5IzM", "B64:eyJjb2hvcnQiOnsidHlwZSI6InNwZWMiLCJzcGVjIjp7InR5cGUiOiJjb25kaXRpb24iLCJjb25jZXB0X3NldCI6MTkyNjcxfX0sImFuY2hvciI6eyJ0YWJsZSI6InBlcnNvbiIsImlkX2NvbCI6InBlcnNvbl9pZCJ9LCJvdXRwdXRzIjp7ImJhc2VsaW5lIjp7InR5cGUiOiJiYXNlbGluZSIsImNvbHVtbnMiOlsiZ2VuZGVyX2NvbmNlcHRfaWQiLCJ5ZWFyX29mX2JpcnRoIl0sImRlcml2ZWQiOiJhZ2VfYXRfaW5kZXgifX0sIm9wdGlvbnMiOnsidHJhbnNsYXRlX2NvbmNlcHRzIjp0cnVlLCJibG9ja19zZW5zaXRpdmUiOnRydWUsImZhY3Rvcl9jb25jZXB0cyI6ZmFsc2V9fQ", dsBase::vectorDS(baseline = "PROBE1"), "memory")}))' -> Error : Disclosive: exact birth components are blocked; request derived age_at_index to receive disclosure-controlled age groups.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:75)
+	at org.obiba.opal.datashield.RestrictedAssignmentROperation.lambda$doWithConnection$0(RestrictedAssignmentROperation.java:34)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedAssignmentROperation.doWithConnection(RestrictedAssignmentROperation.java:34)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'is.null(base::assign('dsOexec.vZWb7e', value={dsOMOP::omopPlanExecuteDS("dsO.WY5IzM", "B64:eyJjb2hvcnQiOnsidHlwZSI6InNwZWMiLCJzcGVjIjp7InR5cGUiOiJjb25kaXRpb24iLCJjb25jZXB0X3NldCI6MTkyNjcxfX0sImFuY2hvciI6eyJ0YWJsZSI6InBlcnNvbiIsImlkX2NvbCI6InBlcnNvbl9pZCJ9LCJvdXRwdXRzIjp7ImJhc2VsaW5lIjp7InR5cGUiOiJiYXNlbGluZSIsImNvbHVtbnMiOlsiZ2VuZGVyX2NvbmNlcHRfaWQiLCJ5ZWFyX29mX2JpcnRoIl0sImRlcml2ZWQiOiJhZ2VfYXRfaW5kZXgifX0sIm9wdGlvbnMiOnsidHJhbnNsYXRlX2NvbmNlcHRzIjp0cnVlLCJibG9ja19zZW5zaXRpdmUiOnRydWUsImZhY3Rvcl9jb25jZXB0cyI6ZmFsc2V9fQ", dsBase::vectorDS(baseline = "PROBE1"), "memory")}))' -> Error : Disclosive: exact birth components are blocked; request derived age_at_index to receive disclosure-controlled age groups.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 22 common frames omitted
+2026-11-12 11:03:47,827 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'is.null(base::assign('dsOexec.8SapC5', value={dsOMOP::omopPlanExecuteDS("dsO.WY5IzM", "B64:eyJjb2hvcnQiOnsidHlwZSI6InNwZWMiLCJzcGVjIjp7InR5cGUiOiJjb25kaXRpb24iLCJjb25jZXB0X3NldCI6MTkyNjcxfX0sImFuY2hvciI6eyJ0YWJsZSI6InBlcnNvbiIsImlkX2NvbCI6InBlcnNvbl9pZCJ9LCJvdXRwdXRzIjp7ImJhc2VsaW5lIjp7InR5cGUiOiJiYXNlbGluZSIsImNvbHVtbnMiOlsiZ2VuZGVyX2NvbmNlcHRfaWQiLCJ5ZWFyX29mX2JpcnRoIl0sImRlcml2ZWQiOiJhZ2VfYXRfaW5kZXgifX0sIm9wdGlvbnMiOnsidHJhbnNsYXRlX2NvbmNlcHRzIjp0cnVlLCJibG9ja19zZW5zaXRpdmUiOmZhbHNlLCJmYWN0b3JfY29uY2VwdHMiOmZhbHNlfX0", dsBase::vectorDS(baseline = "PROBE0"), "memory")}))' -> Error : Disclosive: exact birth components are blocked; request derived age_at_index to receive disclosure-controlled age groups.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'is.null(base::assign('dsOexec.8SapC5', value={dsOMOP::omopPlanExecuteDS("dsO.WY5IzM", "B64:eyJjb2hvcnQiOnsidHlwZSI6InNwZWMiLCJzcGVjIjp7InR5cGUiOiJjb25kaXRpb24iLCJjb25jZXB0X3NldCI6MTkyNjcxfX0sImFuY2hvciI6eyJ0YWJsZSI6InBlcnNvbiIsImlkX2NvbCI6InBlcnNvbl9pZCJ9LCJvdXRwdXRzIjp7ImJhc2VsaW5lIjp7InR5cGUiOiJiYXNlbGluZSIsImNvbHVtbnMiOlsiZ2VuZGVyX2NvbmNlcHRfaWQiLCJ5ZWFyX29mX2JpcnRoIl0sImRlcml2ZWQiOiJhZ2VfYXRfaW5kZXgifX0sIm9wdGlvbnMiOnsidHJhbnNsYXRlX2NvbmNlcHRzIjp0cnVlLCJibG9ja19zZW5zaXRpdmUiOmZhbHNlLCJmYWN0b3JfY29uY2VwdHMiOmZhbHNlfX0", dsBase::vectorDS(baseline = "PROBE0"), "memory")}))' -> Error : Disclosive: exact birth components are blocked; request derived age_at_index to receive disclosure-controlled age groups.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:75)
+	at org.obiba.opal.datashield.RestrictedAssignmentROperation.lambda$doWithConnection$0(RestrictedAssignmentROperation.java:34)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedAssignmentROperation.doWithConnection(RestrictedAssignmentROperation.java:34)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'is.null(base::assign('dsOexec.8SapC5', value={dsOMOP::omopPlanExecuteDS("dsO.WY5IzM", "B64:eyJjb2hvcnQiOnsidHlwZSI6InNwZWMiLCJzcGVjIjp7InR5cGUiOiJjb25kaXRpb24iLCJjb25jZXB0X3NldCI6MTkyNjcxfX0sImFuY2hvciI6eyJ0YWJsZSI6InBlcnNvbiIsImlkX2NvbCI6InBlcnNvbl9pZCJ9LCJvdXRwdXRzIjp7ImJhc2VsaW5lIjp7InR5cGUiOiJiYXNlbGluZSIsImNvbHVtbnMiOlsiZ2VuZGVyX2NvbmNlcHRfaWQiLCJ5ZWFyX29mX2JpcnRoIl0sImRlcml2ZWQiOiJhZ2VfYXRfaW5kZXgifX0sIm9wdGlvbnMiOnsidHJhbnNsYXRlX2NvbmNlcHRzIjp0cnVlLCJibG9ja19zZW5zaXRpdmUiOmZhbHNlLCJmYWN0b3JfY29uY2VwdHMiOmZhbHNlfX0", dsBase::vectorDS(baseline = "PROBE0"), "memory")}))' -> Error : Disclosive: exact birth components are blocked; request derived age_at_index to receive disclosure-controlled age groups.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 22 common frames omitted
+2026-11-12 11:03:53,650 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.WY5IzM", "dsomop:condition.duration_stats", "B64:eyJjb25jZXB0X2lkIjoxOTI2NzF9", combine = "union")' -> Error : Disclosive: operation blocked - insufficient individuals to meet disclosure threshold. No further details available.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.WY5IzM", "dsomop:condition.duration_stats", "B64:eyJjb25jZXB0X2lkIjoxOTI2NzF9", combine = "union")' -> Error : Disclosive: operation blocked - insufficient individuals to meet disclosure threshold. No further details available.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.WY5IzM", "dsomop:condition.duration_stats", "B64:eyJjb25jZXB0X2lkIjoxOTI2NzF9", combine = "union")' -> Error : Disclosive: operation blocked - insufficient individuals to meet disclosure threshold. No further details available.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:04:26,306 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'is.null(base::assign('dsOexec.bHUNvj', value={dsOMOP::omopPlanExecuteDS("dsO.pGe8Gw", "B64:eyJjb2hvcnQiOm51bGwsImFuY2hvciI6eyJ0YWJsZSI6InBlcnNvbiIsImlkX2NvbCI6InBlcnNvbl9pZCJ9LCJvdXRwdXRzIjp7InlvYiI6eyJ0eXBlIjoicGVyc29uX2xldmVsIiwidGFibGVzIjp7InBlcnNvbiI6eyJwZXJzb25feWVhcl9vZl9iaXJ0aCI6InllYXJfb2ZfYmlydGgifX0sInBvcHVsYXRpb25faWQiOiJiYXNlIiwib3B0aW9ucyI6W119fSwib3B0aW9ucyI6eyJ0cmFuc2xhdGVfY29uY2VwdHMiOnRydWUsImJsb2NrX3NlbnNpdGl2ZSI6dHJ1ZSwiZmFjdG9yX2NvbmNlcHRzIjp0cnVlfSwicG9wdWxhdGlvbnMiOnsiYmFzZSI6eyJpZCI6ImJhc2UiLCJsYWJlbCI6IkFsbCBQZXJzb25zIiwia2luZCI6ImNyaXRlcmlhIn19fQ", dsBase::vectorDS(yob = "E10"), "memory")}))' -> Error : Disclosive: column(s) 'year_of_birth' are blocked (free-text / source values) and cannot be extracted from table 'person'.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'is.null(base::assign('dsOexec.bHUNvj', value={dsOMOP::omopPlanExecuteDS("dsO.pGe8Gw", "B64:eyJjb2hvcnQiOm51bGwsImFuY2hvciI6eyJ0YWJsZSI6InBlcnNvbiIsImlkX2NvbCI6InBlcnNvbl9pZCJ9LCJvdXRwdXRzIjp7InlvYiI6eyJ0eXBlIjoicGVyc29uX2xldmVsIiwidGFibGVzIjp7InBlcnNvbiI6eyJwZXJzb25feWVhcl9vZl9iaXJ0aCI6InllYXJfb2ZfYmlydGgifX0sInBvcHVsYXRpb25faWQiOiJiYXNlIiwib3B0aW9ucyI6W119fSwib3B0aW9ucyI6eyJ0cmFuc2xhdGVfY29uY2VwdHMiOnRydWUsImJsb2NrX3NlbnNpdGl2ZSI6dHJ1ZSwiZmFjdG9yX2NvbmNlcHRzIjp0cnVlfSwicG9wdWxhdGlvbnMiOnsiYmFzZSI6eyJpZCI6ImJhc2UiLCJsYWJlbCI6IkFsbCBQZXJzb25zIiwia2luZCI6ImNyaXRlcmlhIn19fQ", dsBase::vectorDS(yob = "E10"), "memory")}))' -> Error : Disclosive: column(s) 'year_of_birth' are blocked (free-text / source values) and cannot be extracted from table 'person'.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:75)
+	at org.obiba.opal.datashield.RestrictedAssignmentROperation.lambda$doWithConnection$0(RestrictedAssignmentROperation.java:34)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedAssignmentROperation.doWithConnection(RestrictedAssignmentROperation.java:34)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'is.null(base::assign('dsOexec.bHUNvj', value={dsOMOP::omopPlanExecuteDS("dsO.pGe8Gw", "B64:eyJjb2hvcnQiOm51bGwsImFuY2hvciI6eyJ0YWJsZSI6InBlcnNvbiIsImlkX2NvbCI6InBlcnNvbl9pZCJ9LCJvdXRwdXRzIjp7InlvYiI6eyJ0eXBlIjoicGVyc29uX2xldmVsIiwidGFibGVzIjp7InBlcnNvbiI6eyJwZXJzb25feWVhcl9vZl9iaXJ0aCI6InllYXJfb2ZfYmlydGgifX0sInBvcHVsYXRpb25faWQiOiJiYXNlIiwib3B0aW9ucyI6W119fSwib3B0aW9ucyI6eyJ0cmFuc2xhdGVfY29uY2VwdHMiOnRydWUsImJsb2NrX3NlbnNpdGl2ZSI6dHJ1ZSwiZmFjdG9yX2NvbmNlcHRzIjp0cnVlfSwicG9wdWxhdGlvbnMiOnsiYmFzZSI6eyJpZCI6ImJhc2UiLCJsYWJlbCI6IkFsbCBQZXJzb25zIiwia2luZCI6ImNyaXRlcmlhIn19fQ", dsBase::vectorDS(yob = "E10"), "memory")}))' -> Error : Disclosive: column(s) 'year_of_birth' are blocked (free-text / source values) and cannot be extracted from table 'person'.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 22 common frames omitted
+2026-11-12 11:04:28,900 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsBase::dimDS("E10")' -> Error in eval(parse(text = x), envir = parent.frame()) : 
+  object 'E10' not found
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsBase::dimDS("E10")' -> Error in eval(parse(text = x), envir = parent.frame()) : 
+  object 'E10' not found
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsBase::dimDS("E10")' -> Error in eval(parse(text = x), envir = parent.frame()) : 
+  object 'E10' not found
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:04:28,952 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsBase::colnamesDS("E10")' -> Error in eval(parse(text = x), envir = parent.frame()) : 
+  object 'E10' not found
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsBase::colnamesDS("E10")' -> Error in eval(parse(text = x), envir = parent.frame()) : 
+  object 'E10' not found
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsBase::colnamesDS("E10")' -> Error in eval(parse(text = x), envir = parent.frame()) : 
+  object 'E10' not found
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:09:28,303 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopDpReleaseDS(omop.analysis.SBFCzZ, "B64:eyJzdGF0aXN0aWMiOiJjb3VudCIsInJlZHVjZXIiOiJhbnkiLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfbG9hZGVyIiwiZGF0YV9nZW5lcmF0aW9uIjoiMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMCIsInNuYXBzaG90X2lkIjoiY2RtX3giLCJwcml2YWN5X2Vwb2NoIjoyfQ")' -> Error : DP seeds, allocations, epochs and reroll controls are server-owned.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopDpReleaseDS(omop.analysis.SBFCzZ, "B64:eyJzdGF0aXN0aWMiOiJjb3VudCIsInJlZHVjZXIiOiJhbnkiLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfbG9hZGVyIiwiZGF0YV9nZW5lcmF0aW9uIjoiMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMCIsInNuYXBzaG90X2lkIjoiY2RtX3giLCJwcml2YWN5X2Vwb2NoIjoyfQ")' -> Error : DP seeds, allocations, epochs and reroll controls are server-owned.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopDpReleaseDS(omop.analysis.SBFCzZ, "B64:eyJzdGF0aXN0aWMiOiJjb3VudCIsInJlZHVjZXIiOiJhbnkiLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfbG9hZGVyIiwiZGF0YV9nZW5lcmF0aW9uIjoiMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMCIsInNuYXBzaG90X2lkIjoiY2RtX3giLCJwcml2YWN5X2Vwb2NoIjoyfQ")' -> Error : DP seeds, allocations, epochs and reroll controls are server-owned.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:09:28,422 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.SxOwnr", "dsomop:achilles.3", "B64:eyJzbmFwc2hvdF9pZCI6ImNkbV94IiwicHJpdmFjeV9lcG9jaCI6IjIiLCJkYXRhX2dlbmVyYXRpb24iOiIwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIn0", combine = "union")' -> Error : Analysis 'dsomop:achilles.3': unknown parameter(s): snapshot_id, privacy_epoch, data_generation.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.SxOwnr", "dsomop:achilles.3", "B64:eyJzbmFwc2hvdF9pZCI6ImNkbV94IiwicHJpdmFjeV9lcG9jaCI6IjIiLCJkYXRhX2dlbmVyYXRpb24iOiIwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIn0", combine = "union")' -> Error : Analysis 'dsomop:achilles.3': unknown parameter(s): snapshot_id, privacy_epoch, data_generation.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.SxOwnr", "dsomop:achilles.3", "B64:eyJzbmFwc2hvdF9pZCI6ImNkbV94IiwicHJpdmFjeV9lcG9jaCI6IjIiLCJkYXRhX2dlbmVyYXRpb24iOiIwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIn0", combine = "union")' -> Error : Analysis 'dsomop:achilles.3': unknown parameter(s): snapshot_id, privacy_epoch, data_generation.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:11:03,361 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.SxOwnr", "dsomop:measurement.value_stats", "B64:W10", combine = "union")' -> Error : Disclosive: operation blocked - insufficient individuals to meet disclosure threshold. No further details available.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.SxOwnr", "dsomop:measurement.value_stats", "B64:W10", combine = "union")' -> Error : Disclosive: operation blocked - insufficient individuals to meet disclosure threshold. No further details available.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.SxOwnr", "dsomop:measurement.value_stats", "B64:W10", combine = "union")' -> Error : Disclosive: operation blocked - insufficient individuals to meet disclosure threshold. No further details available.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:11:03,497 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.SxOwnr", "dsomop:measurement.value_stats", "B64:W10", combine = "union")' -> Error : Disclosive: operation blocked - insufficient individuals to meet disclosure threshold. No further details available.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.SxOwnr", "dsomop:measurement.value_stats", "B64:W10", combine = "union")' -> Error : Disclosive: operation blocked - insufficient individuals to meet disclosure threshold. No further details available.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.SxOwnr", "dsomop:measurement.value_stats", "B64:W10", combine = "union")' -> Error : Disclosive: operation blocked - insufficient individuals to meet disclosure threshold. No further details available.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:11:03,615 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.SxOwnr", "dsomop:measurement.value_stats", "B64:W10", combine = "union")' -> Error : Disclosive: operation blocked - insufficient individuals to meet disclosure threshold. No further details available.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.SxOwnr", "dsomop:measurement.value_stats", "B64:W10", combine = "union")' -> Error : Disclosive: operation blocked - insufficient individuals to meet disclosure threshold. No further details available.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.SxOwnr", "dsomop:measurement.value_stats", "B64:W10", combine = "union")' -> Error : Disclosive: operation blocked - insufficient individuals to meet disclosure threshold. No further details available.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:11:15,211 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.SxOwnr", "dsomop:measurement.value_stats", "B64:W10", combine = "union")' -> Error : Disclosive: operation blocked - insufficient individuals to meet disclosure threshold. No further details available.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.SxOwnr", "dsomop:measurement.value_stats", "B64:W10", combine = "union")' -> Error : Disclosive: operation blocked - insufficient individuals to meet disclosure threshold. No further details available.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.SxOwnr", "dsomop:measurement.value_stats", "B64:W10", combine = "union")' -> Error : Disclosive: operation blocked - insufficient individuals to meet disclosure threshold. No further details available.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:11:15,406 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.SxOwnr", "dsomop:measurement.value_stats", "B64:W10", combine = "union")' -> Error : Disclosive: operation blocked - insufficient individuals to meet disclosure threshold. No further details available.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.SxOwnr", "dsomop:measurement.value_stats", "B64:W10", combine = "union")' -> Error : Disclosive: operation blocked - insufficient individuals to meet disclosure threshold. No further details available.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.SxOwnr", "dsomop:measurement.value_stats", "B64:W10", combine = "union")' -> Error : Disclosive: operation blocked - insufficient individuals to meet disclosure threshold. No further details available.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:16:37,113 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : DP policy changed during this R session; restart the session after changing the snapshot or privacy parameters.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : DP policy changed during this R session; restart the session after changing the snapshot or privacy parameters.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : DP policy changed during this R session; restart the session after changing the snapshot or privacy parameters.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:17:13,100 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopDpReleaseDS(omop.analysis.soMDDp, "B64:eyJzdGF0aXN0aWMiOiJjb3VudCIsInJlZHVjZXIiOiJhbnkiLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfbG9hZGVyIn0")' -> Error : DP policy changed during this R session; restart the session after changing the snapshot or privacy parameters.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopDpReleaseDS(omop.analysis.soMDDp, "B64:eyJzdGF0aXN0aWMiOiJjb3VudCIsInJlZHVjZXIiOiJhbnkiLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfbG9hZGVyIn0")' -> Error : DP policy changed during this R session; restart the session after changing the snapshot or privacy parameters.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopDpReleaseDS(omop.analysis.soMDDp, "B64:eyJzdGF0aXN0aWMiOiJjb3VudCIsInJlZHVjZXIiOiJhbnkiLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfbG9hZGVyIn0")' -> Error : DP policy changed during this R session; restart the session after changing the snapshot or privacy parameters.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:17:13,217 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopDpReleaseDS(omop.analysis.soMDDp, "B64:eyJzdGF0aXN0aWMiOiJib3VuZGVkX3JlY29yZF9jb3VudCIsInJlZHVjZXIiOiJyZWNvcmRzIiwibWF4X2NvbnRyaWJ1dGlvbnMiOjEwLCJwb3B1bGF0aW9uX2lkIjoiZ19sb2FkZXIifQ")' -> Error : DP policy changed during this R session; restart the session after changing the snapshot or privacy parameters.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopDpReleaseDS(omop.analysis.soMDDp, "B64:eyJzdGF0aXN0aWMiOiJib3VuZGVkX3JlY29yZF9jb3VudCIsInJlZHVjZXIiOiJyZWNvcmRzIiwibWF4X2NvbnRyaWJ1dGlvbnMiOjEwLCJwb3B1bGF0aW9uX2lkIjoiZ19sb2FkZXIifQ")' -> Error : DP policy changed during this R session; restart the session after changing the snapshot or privacy parameters.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopDpReleaseDS(omop.analysis.soMDDp, "B64:eyJzdGF0aXN0aWMiOiJib3VuZGVkX3JlY29yZF9jb3VudCIsInJlZHVjZXIiOiJyZWNvcmRzIiwibWF4X2NvbnRyaWJ1dGlvbnMiOjEwLCJwb3B1bGF0aW9uX2lkIjoiZ19sb2FkZXIifQ")' -> Error : DP policy changed during this R session; restart the session after changing the snapshot or privacy parameters.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:17:13,332 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopDpReleaseDS(G_ages19, "B64:eyJzdGF0aXN0aWMiOiJjb3VudCIsInJlZHVjZXIiOiJhbnkiLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfYWdlcyJ9")' -> Error : DP policy changed during this R session; restart the session after changing the snapshot or privacy parameters.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopDpReleaseDS(G_ages19, "B64:eyJzdGF0aXN0aWMiOiJjb3VudCIsInJlZHVjZXIiOiJhbnkiLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfYWdlcyJ9")' -> Error : DP policy changed during this R session; restart the session after changing the snapshot or privacy parameters.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopDpReleaseDS(G_ages19, "B64:eyJzdGF0aXN0aWMiOiJjb3VudCIsInJlZHVjZXIiOiJhbnkiLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfYWdlcyJ9")' -> Error : DP policy changed during this R session; restart the session after changing the snapshot or privacy parameters.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:17:13,456 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopDpReleaseDS(G_ages19, "B64:eyJzdGF0aXN0aWMiOiJudW1lcmljX2hpc3RvZ3JhbSIsInZhcmlhYmxlIjoiYWdlX2F0XzIwMjUiLCJicmVha3MiOlswLDEwLDIwLDMwLDQwLDUwLDYwLDcwLDgwLDkwLDEwMCwxMTAsMTIwXSwicmVkdWNlciI6Im1lYW4iLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfYWdlcyJ9")' -> Error : DP policy changed during this R session; restart the session after changing the snapshot or privacy parameters.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopDpReleaseDS(G_ages19, "B64:eyJzdGF0aXN0aWMiOiJudW1lcmljX2hpc3RvZ3JhbSIsInZhcmlhYmxlIjoiYWdlX2F0XzIwMjUiLCJicmVha3MiOlswLDEwLDIwLDMwLDQwLDUwLDYwLDcwLDgwLDkwLDEwMCwxMTAsMTIwXSwicmVkdWNlciI6Im1lYW4iLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfYWdlcyJ9")' -> Error : DP policy changed during this R session; restart the session after changing the snapshot or privacy parameters.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopDpReleaseDS(G_ages19, "B64:eyJzdGF0aXN0aWMiOiJudW1lcmljX2hpc3RvZ3JhbSIsInZhcmlhYmxlIjoiYWdlX2F0XzIwMjUiLCJicmVha3MiOlswLDEwLDIwLDMwLDQwLDUwLDYwLDcwLDgwLDkwLDEwMCwxMTAsMTIwXSwicmVkdWNlciI6Im1lYW4iLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfYWdlcyJ9")' -> Error : DP policy changed during this R session; restart the session after changing the snapshot or privacy parameters.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:17:59,433 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopDpReleaseDS(omop.analysis.SBFCzZ, "B64:eyJzdGF0aXN0aWMiOiJjb3VudCIsInJlZHVjZXIiOiJhbnkiLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfbG9hZGVyIn0")' -> Error : dsomop.dp.snapshot_id contains unsupported characters.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopDpReleaseDS(omop.analysis.SBFCzZ, "B64:eyJzdGF0aXN0aWMiOiJjb3VudCIsInJlZHVjZXIiOiJhbnkiLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfbG9hZGVyIn0")' -> Error : dsomop.dp.snapshot_id contains unsupported characters.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopDpReleaseDS(omop.analysis.SBFCzZ, "B64:eyJzdGF0aXN0aWMiOiJjb3VudCIsInJlZHVjZXIiOiJhbnkiLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfbG9hZGVyIn0")' -> Error : dsomop.dp.snapshot_id contains unsupported characters.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:17:59,546 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopDpReleaseDS(omop.analysis.SBFCzZ, "B64:eyJzdGF0aXN0aWMiOiJib3VuZGVkX3JlY29yZF9jb3VudCIsInJlZHVjZXIiOiJyZWNvcmRzIiwibWF4X2NvbnRyaWJ1dGlvbnMiOjEwLCJwb3B1bGF0aW9uX2lkIjoiZ19sb2FkZXIifQ")' -> Error : dsomop.dp.snapshot_id contains unsupported characters.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopDpReleaseDS(omop.analysis.SBFCzZ, "B64:eyJzdGF0aXN0aWMiOiJib3VuZGVkX3JlY29yZF9jb3VudCIsInJlZHVjZXIiOiJyZWNvcmRzIiwibWF4X2NvbnRyaWJ1dGlvbnMiOjEwLCJwb3B1bGF0aW9uX2lkIjoiZ19sb2FkZXIifQ")' -> Error : dsomop.dp.snapshot_id contains unsupported characters.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopDpReleaseDS(omop.analysis.SBFCzZ, "B64:eyJzdGF0aXN0aWMiOiJib3VuZGVkX3JlY29yZF9jb3VudCIsInJlZHVjZXIiOiJyZWNvcmRzIiwibWF4X2NvbnRyaWJ1dGlvbnMiOjEwLCJwb3B1bGF0aW9uX2lkIjoiZ19sb2FkZXIifQ")' -> Error : dsomop.dp.snapshot_id contains unsupported characters.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:17:59,665 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopDpReleaseDS(G_ages, "B64:eyJzdGF0aXN0aWMiOiJjb3VudCIsInJlZHVjZXIiOiJhbnkiLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfYWdlcyJ9")' -> Error : dsomop.dp.snapshot_id contains unsupported characters.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopDpReleaseDS(G_ages, "B64:eyJzdGF0aXN0aWMiOiJjb3VudCIsInJlZHVjZXIiOiJhbnkiLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfYWdlcyJ9")' -> Error : dsomop.dp.snapshot_id contains unsupported characters.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopDpReleaseDS(G_ages, "B64:eyJzdGF0aXN0aWMiOiJjb3VudCIsInJlZHVjZXIiOiJhbnkiLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfYWdlcyJ9")' -> Error : dsomop.dp.snapshot_id contains unsupported characters.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:17:59,785 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopDpReleaseDS(G_ages, "B64:eyJzdGF0aXN0aWMiOiJudW1lcmljX2hpc3RvZ3JhbSIsInZhcmlhYmxlIjoiYWdlX2F0XzIwMjUiLCJicmVha3MiOlswLDEwLDIwLDMwLDQwLDUwLDYwLDcwLDgwLDkwLDEwMCwxMTAsMTIwXSwicmVkdWNlciI6Im1lYW4iLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfYWdlcyJ9")' -> Error : dsomop.dp.snapshot_id contains unsupported characters.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopDpReleaseDS(G_ages, "B64:eyJzdGF0aXN0aWMiOiJudW1lcmljX2hpc3RvZ3JhbSIsInZhcmlhYmxlIjoiYWdlX2F0XzIwMjUiLCJicmVha3MiOlswLDEwLDIwLDMwLDQwLDUwLDYwLDcwLDgwLDkwLDEwMCwxMTAsMTIwXSwicmVkdWNlciI6Im1lYW4iLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfYWdlcyJ9")' -> Error : dsomop.dp.snapshot_id contains unsupported characters.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopDpReleaseDS(G_ages, "B64:eyJzdGF0aXN0aWMiOiJudW1lcmljX2hpc3RvZ3JhbSIsInZhcmlhYmxlIjoiYWdlX2F0XzIwMjUiLCJicmVha3MiOlswLDEwLDIwLDMwLDQwLDUwLDYwLDcwLDgwLDkwLDEwMCwxMTAsMTIwXSwicmVkdWNlciI6Im1lYW4iLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfYWdlcyJ9")' -> Error : dsomop.dp.snapshot_id contains unsupported characters.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:17:59,905 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : dsomop.dp.snapshot_id contains unsupported characters.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : dsomop.dp.snapshot_id contains unsupported characters.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : dsomop.dp.snapshot_id contains unsupported characters.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:18:17,378 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.gfoly2", "dsomop:incidence.rate", "B64:eyJvdXRjb21lX2NvbmNlcHRfaWQiOiIxOTI2NzEiLCJ0YXJfc3RhcnRfb2Zmc2V0IjoiMCIsInRhcl9lbmRfb2Zmc2V0IjoiMzY1IiwidGFyX2FuY2hvcl9zdGFydCI6InN0YXJ0IiwidGFyX2FuY2hvcl9lbmQiOiJzdGFydCJ9", scope = "dsomop_cohort_711", combine = "union")' -> Error : This release has no fixed-synopsis protection: DP-only mode (dsomop.tools.mode = "dp" or dsomop.dp.exclusive = TRUE) accepts only unscoped questions over a public basis, keyed on the automatic data generation of the connected database. In auto mode the same question is answered with heuristic realised-contribution protection.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.gfoly2", "dsomop:incidence.rate", "B64:eyJvdXRjb21lX2NvbmNlcHRfaWQiOiIxOTI2NzEiLCJ0YXJfc3RhcnRfb2Zmc2V0IjoiMCIsInRhcl9lbmRfb2Zmc2V0IjoiMzY1IiwidGFyX2FuY2hvcl9zdGFydCI6InN0YXJ0IiwidGFyX2FuY2hvcl9lbmQiOiJzdGFydCJ9", scope = "dsomop_cohort_711", combine = "union")' -> Error : This release has no fixed-synopsis protection: DP-only mode (dsomop.tools.mode = "dp" or dsomop.dp.exclusive = TRUE) accepts only unscoped questions over a public basis, keyed on the automatic data generation of the connected database. In auto mode the same question is answered with heuristic realised-contribution protection.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.gfoly2", "dsomop:incidence.rate", "B64:eyJvdXRjb21lX2NvbmNlcHRfaWQiOiIxOTI2NzEiLCJ0YXJfc3RhcnRfb2Zmc2V0IjoiMCIsInRhcl9lbmRfb2Zmc2V0IjoiMzY1IiwidGFyX2FuY2hvcl9zdGFydCI6InN0YXJ0IiwidGFyX2FuY2hvcl9lbmQiOiJzdGFydCJ9", scope = "dsomop_cohort_711", combine = "union")' -> Error : This release has no fixed-synopsis protection: DP-only mode (dsomop.tools.mode = "dp" or dsomop.dp.exclusive = TRUE) accepts only unscoped questions over a public basis, keyed on the automatic data generation of the connected database. In auto mode the same question is answered with heuristic realised-contribution protection.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:18:17,564 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.gfoly2", "dsomop:cm.mdrr", "B64:eyJvdXRjb21lX2NvbmNlcHRfaWQiOiIxOTI2NzEiLCJ0YXJfc3RhcnRfb2Zmc2V0IjoiMCIsInRhcl9lbmRfb2Zmc2V0IjoiMzY1IiwidGFyX2FuY2hvcl9zdGFydCI6InN0YXJ0IiwidGFyX2FuY2hvcl9lbmQiOiJzdGFydCJ9", scope_cohort_1 = "dsomop_cohort_711", scope_cohort_2 = "dsomop_cohort_712", combine = "union")' -> Error : This release has no fixed-synopsis protection: DP-only mode (dsomop.tools.mode = "dp" or dsomop.dp.exclusive = TRUE) accepts only unscoped questions over a public basis, keyed on the automatic data generation of the connected database. In auto mode the same question is answered with heuristic realised-contribution protection.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.gfoly2", "dsomop:cm.mdrr", "B64:eyJvdXRjb21lX2NvbmNlcHRfaWQiOiIxOTI2NzEiLCJ0YXJfc3RhcnRfb2Zmc2V0IjoiMCIsInRhcl9lbmRfb2Zmc2V0IjoiMzY1IiwidGFyX2FuY2hvcl9zdGFydCI6InN0YXJ0IiwidGFyX2FuY2hvcl9lbmQiOiJzdGFydCJ9", scope_cohort_1 = "dsomop_cohort_711", scope_cohort_2 = "dsomop_cohort_712", combine = "union")' -> Error : This release has no fixed-synopsis protection: DP-only mode (dsomop.tools.mode = "dp" or dsomop.dp.exclusive = TRUE) accepts only unscoped questions over a public basis, keyed on the automatic data generation of the connected database. In auto mode the same question is answered with heuristic realised-contribution protection.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.gfoly2", "dsomop:cm.mdrr", "B64:eyJvdXRjb21lX2NvbmNlcHRfaWQiOiIxOTI2NzEiLCJ0YXJfc3RhcnRfb2Zmc2V0IjoiMCIsInRhcl9lbmRfb2Zmc2V0IjoiMzY1IiwidGFyX2FuY2hvcl9zdGFydCI6InN0YXJ0IiwidGFyX2FuY2hvcl9lbmQiOiJzdGFydCJ9", scope_cohort_1 = "dsomop_cohort_711", scope_cohort_2 = "dsomop_cohort_712", combine = "union")' -> Error : This release has no fixed-synopsis protection: DP-only mode (dsomop.tools.mode = "dp" or dsomop.dp.exclusive = TRUE) accepts only unscoped questions over a public basis, keyed on the automatic data generation of the connected database. In auto mode the same question is answered with heuristic realised-contribution protection.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:18:18,279 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopDpReleaseDS(G_ages, "B64:eyJzdGF0aXN0aWMiOiJjb3VudCIsInJlZHVjZXIiOiJhbnkiLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfYWdlcyJ9")' -> Error : This typed release has no fixed-synopsis protection: DP-only mode (dsomop.tools.mode = "dp" or dsomop.dp.exclusive = TRUE) accepts typed counts, capped record counts and registered-scale bounded means of unscoped pinned loader tables, keyed on the automatic data generation of the connected database. In auto mode the same release uses heuristic realised-contribution protection.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopDpReleaseDS(G_ages, "B64:eyJzdGF0aXN0aWMiOiJjb3VudCIsInJlZHVjZXIiOiJhbnkiLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfYWdlcyJ9")' -> Error : This typed release has no fixed-synopsis protection: DP-only mode (dsomop.tools.mode = "dp" or dsomop.dp.exclusive = TRUE) accepts typed counts, capped record counts and registered-scale bounded means of unscoped pinned loader tables, keyed on the automatic data generation of the connected database. In auto mode the same release uses heuristic realised-contribution protection.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopDpReleaseDS(G_ages, "B64:eyJzdGF0aXN0aWMiOiJjb3VudCIsInJlZHVjZXIiOiJhbnkiLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfYWdlcyJ9")' -> Error : This typed release has no fixed-synopsis protection: DP-only mode (dsomop.tools.mode = "dp" or dsomop.dp.exclusive = TRUE) accepts typed counts, capped record counts and registered-scale bounded means of unscoped pinned loader tables, keyed on the automatic data generation of the connected database. In auto mode the same release uses heuristic realised-contribution protection.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:18:18,405 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopDpReleaseDS(G_ages, "B64:eyJzdGF0aXN0aWMiOiJudW1lcmljX2hpc3RvZ3JhbSIsInZhcmlhYmxlIjoiYWdlX2F0XzIwMjUiLCJicmVha3MiOlswLDEwLDIwLDMwLDQwLDUwLDYwLDcwLDgwLDkwLDEwMCwxMTAsMTIwXSwicmVkdWNlciI6Im1lYW4iLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfYWdlcyJ9")' -> Error : This typed release has no fixed-synopsis protection: DP-only mode (dsomop.tools.mode = "dp" or dsomop.dp.exclusive = TRUE) accepts typed counts, capped record counts and registered-scale bounded means of unscoped pinned loader tables, keyed on the automatic data generation of the connected database. In auto mode the same release uses heuristic realised-contribution protection.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopDpReleaseDS(G_ages, "B64:eyJzdGF0aXN0aWMiOiJudW1lcmljX2hpc3RvZ3JhbSIsInZhcmlhYmxlIjoiYWdlX2F0XzIwMjUiLCJicmVha3MiOlswLDEwLDIwLDMwLDQwLDUwLDYwLDcwLDgwLDkwLDEwMCwxMTAsMTIwXSwicmVkdWNlciI6Im1lYW4iLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfYWdlcyJ9")' -> Error : This typed release has no fixed-synopsis protection: DP-only mode (dsomop.tools.mode = "dp" or dsomop.dp.exclusive = TRUE) accepts typed counts, capped record counts and registered-scale bounded means of unscoped pinned loader tables, keyed on the automatic data generation of the connected database. In auto mode the same release uses heuristic realised-contribution protection.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopDpReleaseDS(G_ages, "B64:eyJzdGF0aXN0aWMiOiJudW1lcmljX2hpc3RvZ3JhbSIsInZhcmlhYmxlIjoiYWdlX2F0XzIwMjUiLCJicmVha3MiOlswLDEwLDIwLDMwLDQwLDUwLDYwLDcwLDgwLDkwLDEwMCwxMTAsMTIwXSwicmVkdWNlciI6Im1lYW4iLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfYWdlcyJ9")' -> Error : This typed release has no fixed-synopsis protection: DP-only mode (dsomop.tools.mode = "dp" or dsomop.dp.exclusive = TRUE) accepts typed counts, capped record counts and registered-scale bounded means of unscoped pinned loader tables, keyed on the automatic data generation of the connected database. In auto mode the same release uses heuristic realised-contribution protection.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:18:18,559 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'is.null(base::assign('omop.analysis.8vNO1I', value={dsOMOP::omopAnalysisRunAssignDS("dsO.gfoly2", "dsomop:condition_occurrence.load", "B64:W10", combine = "union")}))' -> Error : The data custodian has set the community tools to DP-only mode (dsomop.tools.mode = "dp" or dsomop.dp.exclusive = TRUE), which blocks standard statistical releases. Questions with a DP release (per-person durations, per-person counts and demographic distributions of the query library) still run.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'is.null(base::assign('omop.analysis.8vNO1I', value={dsOMOP::omopAnalysisRunAssignDS("dsO.gfoly2", "dsomop:condition_occurrence.load", "B64:W10", combine = "union")}))' -> Error : The data custodian has set the community tools to DP-only mode (dsomop.tools.mode = "dp" or dsomop.dp.exclusive = TRUE), which blocks standard statistical releases. Questions with a DP release (per-person durations, per-person counts and demographic distributions of the query library) still run.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:75)
+	at org.obiba.opal.datashield.RestrictedAssignmentROperation.lambda$doWithConnection$0(RestrictedAssignmentROperation.java:34)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedAssignmentROperation.doWithConnection(RestrictedAssignmentROperation.java:34)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'is.null(base::assign('omop.analysis.8vNO1I', value={dsOMOP::omopAnalysisRunAssignDS("dsO.gfoly2", "dsomop:condition_occurrence.load", "B64:W10", combine = "union")}))' -> Error : The data custodian has set the community tools to DP-only mode (dsomop.tools.mode = "dp" or dsomop.dp.exclusive = TRUE), which blocks standard statistical releases. Questions with a DP release (per-person durations, per-person counts and demographic distributions of the query library) still run.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 22 common frames omitted
+2026-11-12 11:18:22,435 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopDpReleaseDS(g_no_such_table, "B64:eyJzdGF0aXN0aWMiOiJjb3VudCIsInJlZHVjZXIiOiJhbnkiLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfbG9hZGVyIn0")' -> Error : The OHDSI community tools (Achilles, OHDSI results, the analysis catalog and the query library) are disabled on this server. The data custodian can enable them again with the dsomop.tools.enabled option.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopDpReleaseDS(g_no_such_table, "B64:eyJzdGF0aXN0aWMiOiJjb3VudCIsInJlZHVjZXIiOiJhbnkiLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfbG9hZGVyIn0")' -> Error : The OHDSI community tools (Achilles, OHDSI results, the analysis catalog and the query library) are disabled on this server. The data custodian can enable them again with the dsomop.tools.enabled option.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopDpReleaseDS(g_no_such_table, "B64:eyJzdGF0aXN0aWMiOiJjb3VudCIsInJlZHVjZXIiOiJhbnkiLCJtYXhfY29udHJpYnV0aW9ucyI6MSwicG9wdWxhdGlvbl9pZCI6ImdfbG9hZGVyIn0")' -> Error : The OHDSI community tools (Achilles, OHDSI results, the analysis catalog and the query library) are disabled on this server. The data custodian can enable them again with the dsomop.tools.enabled option.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:18:22,481 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.bNaJSJ", "dsomop:achilles.3", "B64:W10", combine = "union")' -> Error : The OHDSI community tools (Achilles, OHDSI results, the analysis catalog and the query library) are disabled on this server. The data custodian can enable them again with the dsomop.tools.enabled option.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.bNaJSJ", "dsomop:achilles.3", "B64:W10", combine = "union")' -> Error : The OHDSI community tools (Achilles, OHDSI results, the analysis catalog and the query library) are disabled on this server. The data custodian can enable them again with the dsomop.tools.enabled option.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.bNaJSJ", "dsomop:achilles.3", "B64:W10", combine = "union")' -> Error : The OHDSI community tools (Achilles, OHDSI results, the analysis catalog and the query library) are disabled on this server. The data custodian can enable them again with the dsomop.tools.enabled option.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:18:22,527 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : The OHDSI community tools (Achilles, OHDSI results, the analysis catalog and the query library) are disabled on this server. The data custodian can enable them again with the dsomop.tools.enabled option.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : The OHDSI community tools (Achilles, OHDSI results, the analysis catalog and the query library) are disabled on this server. The data custodian can enable them again with the dsomop.tools.enabled option.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : The OHDSI community tools (Achilles, OHDSI results, the analysis catalog and the query library) are disabled on this server. The data custodian can enable them again with the dsomop.tools.enabled option.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:30:59,037 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.dphmPc", "dsomop:achilles.3", "B64:W10", combine = "union")' -> Error : Failed to fetch row : ERROR:  permission denied for table person
+
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.dphmPc", "dsomop:achilles.3", "B64:W10", combine = "union")' -> Error : Failed to fetch row : ERROR:  permission denied for table person
+
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:132)
+	at org.apache.shiro.util.DefaultScopedValues.lambda$run$0(DefaultScopedValues.java:58)
+	at java.base/jdk.internal.vm.ScopedValueContainer.runWithoutScope(Unknown Source)
+	at java.base/jdk.internal.vm.ScopedValueContainer.run(Unknown Source)
+	at java.base/java.lang.ScopedValue$Carrier.run(Unknown Source)
+	at org.apache.shiro.util.DefaultScopedValues.run(DefaultScopedValues.java:58)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:113)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopAnalysisRunDS("dsO.dphmPc", "dsomop:achilles.3", "B64:W10", combine = "union")' -> Error : Failed to fetch row : ERROR:  permission denied for table person
+
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 21 common frames omitted
+2026-11-12 11:38:33,887 ERROR org.obiba.opal.r.rock.RockService - Error when reading R server state
+org.springframework.web.client.ResourceAccessException: I/O error on GET request for "http://rock:8085/rserver": Connection refused
+	at org.springframework.web.client.RestTemplate.createResourceAccessException(RestTemplate.java:780)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:760)
+	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:677)
+	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:561)
+	at org.obiba.opal.r.rock.RockService.getState(RockService.java:153)
+	at org.obiba.opal.r.cluster.RServerCluster.lambda$getNextRServerService$25(RServerCluster.java:396)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(Unknown Source)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source)
+	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(Unknown Source)
+	at java.base/java.util.stream.ReferencePipeline.reduce(Unknown Source)
+	at java.base/java.util.stream.ReferencePipeline.min(Unknown Source)
+	at org.obiba.opal.r.cluster.RServerCluster.getNextRServerService(RServerCluster.java:403)
+	at org.obiba.opal.r.cluster.RServerCluster.newRServerSession(RServerCluster.java:140)
+	at org.obiba.opal.r.service.OpalRSessionManager.newSubjectRSession(OpalRSessionManager.java:410)
+	at org.obiba.opal.r.service.OpalRSessionManager.newSubjectRSession(OpalRSessionManager.java:260)
+	at org.obiba.opal.web.r.RSessionsResourceImpl.newRSession(RSessionsResourceImpl.java:82)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:222)
+	at jdk.proxy2/jdk.proxy2.$Proxy241.newRSession(Unknown Source)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:154)
+	at org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:118)
+	at org.jboss.resteasy.core.ResourceMethodInvoker.internalInvokeOnTarget(ResourceMethodInvoker.java:560)
+	at org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTargetAfterFilter(ResourceMethodInvoker.java:452)
+	at org.jboss.resteasy.core.ResourceMethodInvoker.lambda$invokeOnTarget$2(ResourceMethodInvoker.java:413)
+	at org.jboss.resteasy.core.interception.jaxrs.PreMatchContainerRequestContext.filter(PreMatchContainerRequestContext.java:321)
+	at org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTarget(ResourceMethodInvoker.java:415)
+	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:378)
+	at org.jboss.resteasy.core.ResourceLocatorInvoker.invokeOnTargetObject(ResourceLocatorInvoker.java:174)
+	at org.jboss.resteasy.core.ResourceLocatorInvoker.invoke(ResourceLocatorInvoker.java:131)
+	at org.jboss.resteasy.core.ResourceLocatorInvoker.invoke(ResourceLocatorInvoker.java:33)
+	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:429)
+	at org.jboss.resteasy.core.SynchronousDispatcher.lambda$invoke$4(SynchronousDispatcher.java:240)
+	at org.jboss.resteasy.core.SynchronousDispatcher.lambda$preprocess$0(SynchronousDispatcher.java:154)
+	at org.jboss.resteasy.core.interception.jaxrs.PreMatchContainerRequestContext.filter(PreMatchContainerRequestContext.java:321)
+	at org.jboss.resteasy.core.SynchronousDispatcher.preprocess(SynchronousDispatcher.java:157)
+	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:229)
+	at org.jboss.resteasy.plugins.server.servlet.ServletContainerDispatcher.service(ServletContainerDispatcher.java:222)
+	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:55)
+	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:51)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:614)
+	at org.eclipse.jetty.ee10.servlet.ServletHolder.handle(ServletHolder.java:754)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$ChainEnd.doFilter(ServletHandler.java:1642)
+	at org.obiba.shiro.web.filter.AuthenticationFilter.doFilterInternal(AuthenticationFilter.java:174)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:355)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:272)
+	at org.eclipse.jetty.ee10.servlet.FilterHolder.doFilter(FilterHolder.java:205)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1601)
+	at org.obiba.opal.server.httpd.OpalSessionHeaderFilter.doFilter(OpalSessionHeaderFilter.java:53)
+	at jakarta.servlet.http.HttpFilter.doFilter(HttpFilter.java:97)
+	at org.eclipse.jetty.ee10.servlet.FilterHolder.doFilter(FilterHolder.java:205)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1601)
+	at org.obiba.opal.server.httpd.OpalVersionFilter.doFilterInternal(OpalVersionFilter.java:39)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.eclipse.jetty.ee10.servlet.FilterHolder.doFilter(FilterHolder.java:205)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1601)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$MappedServlet.handle(ServletHandler.java:1556)
+	at org.eclipse.jetty.ee10.servlet.ServletChannel.dispatch(ServletChannel.java:871)
+	at org.eclipse.jetty.ee10.servlet.ServletChannel.handle(ServletChannel.java:449)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler.handle(ServletHandler.java:469)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:548)
+	at org.eclipse.jetty.ee10.servlet.SessionHandler.handle(SessionHandler.java:719)
+	at org.eclipse.jetty.server.handler.ContextHandler.handle(ContextHandler.java:1253)
+	at org.eclipse.jetty.server.handler.PathMappingsHandler.handle(PathMappingsHandler.java:146)
+	at org.eclipse.jetty.server.handler.gzip.GzipHandler.handle(GzipHandler.java:621)
+	at org.eclipse.jetty.server.Server.handle(Server.java:197)
+	at org.eclipse.jetty.server.internal.HttpChannelState$HandlerInvoker.run(HttpChannelState.java:804)
+	at org.eclipse.jetty.server.internal.HttpConnection.onFillable(HttpConnection.java:420)
+	at org.eclipse.jetty.server.internal.HttpConnection$FillableCallback.succeeded(HttpConnection.java:1789)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:105)
+	at org.eclipse.jetty.io.SelectableChannelEndPoint$1.run(SelectableChannelEndPoint.java:54)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.runTask(AdaptiveExecutionStrategy.java:492)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.epcRunTask(AdaptiveExecutionStrategy.java:428)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.consumeTask(AdaptiveExecutionStrategy.java:401)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.tryProduce(AdaptiveExecutionStrategy.java:255)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.run(AdaptiveExecutionStrategy.java:204)
+	at org.eclipse.jetty.util.thread.ReservedThreadExecutor$ReservedThread.run(ReservedThreadExecutor.java:317)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:1009)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.doRunJob(QueuedThreadPool.java:1240)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.run(QueuedThreadPool.java:1194)
+	at java.base/java.lang.Thread.run(Unknown Source)
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.connect0(Native Method)
+	at java.base/sun.nio.ch.Net.connect(Unknown Source)
+	at java.base/sun.nio.ch.Net.connect(Unknown Source)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(Unknown Source)
+	at java.base/java.net.Socket.connect(Unknown Source)
+	at java.base/java.net.Socket.connect(Unknown Source)
+	at java.base/sun.net.NetworkClient.doConnect(Unknown Source)
+	at java.base/sun.net.www.http.HttpClient.openServer(Unknown Source)
+	at java.base/sun.net.www.http.HttpClient.openServer(Unknown Source)
+	at java.base/sun.net.www.http.HttpClient.<init>(Unknown Source)
+	at java.base/sun.net.www.http.HttpClient.New(Unknown Source)
+	at java.base/sun.net.www.http.HttpClient.New(Unknown Source)
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(Unknown Source)
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.plainConnect0(Unknown Source)
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.plainConnect(Unknown Source)
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.connect(Unknown Source)
+	at org.springframework.http.client.SimpleClientHttpRequest.executeInternal(SimpleClientHttpRequest.java:80)
+	at org.springframework.http.client.AbstractStreamingClientHttpRequest.executeInternal(AbstractStreamingClientHttpRequest.java:87)
+	at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:80)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:754)
+	... 92 common frames omitted
+2026-11-12 11:38:33,890 ERROR org.obiba.opal.r.service.OpalRSessionManager - New subject R session failed: No R server is available in cluster: default
