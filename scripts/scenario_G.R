@@ -94,7 +94,11 @@ section("G0", "setup: versions, Rock identity, state directory, profile, a secon
   }
   big <- tryCatch(psql_value("SELECT count(*) FROM pg_database WHERE datname = 'omopbig'", db = "postgres"),
                   error = function(e) "0")
-  INFO$big <<- identical(big, "1")
+  # The large CDM counts only when its build finished (every synthetic person and the primary keys are there).
+  INFO$big <<- identical(big, "1") && isTRUE(tryCatch(as.numeric(psql_value(paste0(
+    "SELECT count(*) FROM cdm.person WHERE person_id > 10000000"), db = "omopbig")) >= BIG_PERSONS &&
+    identical(psql_value("SELECT count(*) FROM pg_indexes WHERE schemaname = 'cdm' AND indexname = 'person_pkey'", db = "omopbig"), "1"),
+    error = function(e) FALSE))
   if (INFO$big) {
     url <- paste0("omop+dbi:postgresql://omopdb:5432/omopbig?cdm_schema=cdm")
     capture("opal.resource_create(o, \"omop_data\", \"gibleed_big\", ...)",
