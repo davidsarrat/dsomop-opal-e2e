@@ -100,6 +100,27 @@ psql("DROP SCHEMA cdm2 CASCADE; DROP SCHEMA vocab CASCADE;", db="omopone")
 psql("CREATE DATABASE omoppub TEMPLATE omop53", db="postgres")
 psql("DROP SCHEMA cdm2 CASCADE; DROP SCHEMA vocab CASCADE; DROP SCHEMA public CASCADE; ALTER SCHEMA cdm RENAME TO public;",
      db="omoppub")
+# A small site (scenario G: NA pooling policies over two independent sites): GiBleed's first 150 persons only.
+psql("CREATE DATABASE omopsmall TEMPLATE omop", db="postgres")
+psql("DROP SCHEMA cdm2 CASCADE; DROP SCHEMA vocab CASCADE;", db="omopsmall")
+psql("""DO $$ DECLARE t text; BEGIN
+  FOR t IN SELECT c.table_name FROM information_schema.columns c
+           JOIN information_schema.tables x ON x.table_schema = c.table_schema AND x.table_name = c.table_name
+                                           AND x.table_type = 'BASE TABLE'
+           WHERE c.table_schema = 'cdm' AND c.column_name = 'person_id' AND c.table_name <> 'person' LOOP
+    EXECUTE format('DELETE FROM cdm.%I WHERE person_id NOT IN (SELECT person_id FROM cdm.person ORDER BY person_id LIMIT 150)', t);
+  END LOOP;
+  DELETE FROM cdm.person WHERE person_id NOT IN (SELECT person_id FROM cdm.person ORDER BY person_id LIMIT 150);
+END $$""", db="omopsmall")
+print("omopsmall.cdm: persons=" + psql("SELECT count(*) FROM cdm.person", db="omopsmall").strip())
+# A second database user with read access only (scenario G20: corpus alias, source visibility, read failures).
+reader_pw = os.environ.get("READER_PW", "")
+if reader_pw:
+    psql("CREATE ROLE e2e_reader LOGIN PASSWORD '" + reader_pw.replace("'", "''") + "'", db="postgres")
+    for db in ("omop", "omop53"):
+        psql(f"GRANT CONNECT ON DATABASE {db} TO e2e_reader", db="postgres")
+        psql("GRANT USAGE ON SCHEMA cdm TO e2e_reader; GRANT SELECT ON ALL TABLES IN SCHEMA cdm TO e2e_reader", db=db)
+    print("role e2e_reader: SELECT on omop.cdm and omop53.cdm")
 for db, schema in (("omop", "cdm"), ("omop53", "cdm"), ("omoppub", "public")):
     print(f"{db}.{schema}.cdm_source: " + psql(f"SELECT cdm_source_name, cdm_version, vocabulary_version FROM {schema}.cdm_source", db=db).strip())
 for db, schema in (("omop", "cdm"), ("omop", "cdm2"), ("omop", "vocab"), ("omop53", "cdm"), ("omoppub", "public")):

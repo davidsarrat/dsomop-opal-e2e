@@ -34,25 +34,33 @@ summary_line <- function(...) {
 
 admin <- function() opal.login(username = "administrator", password = Sys.getenv("OPAL_ADMIN_PW"),
                                url = OPAL_URL, opts = SSL)
-analyst_login <- function() {
+# The analyst's DataSHIELD login. The server is named as APHRC's is, so error texts compare one to one. Several
+# servers are several connections to this one Opal (scenario G: repeated logical-site connections, other users);
+# users[i] logs in with the password in <USER>_PW (ANALYST_PW, ANALYST2_PW). restore = a saved workspace name.
+analyst_login <- function(servers = "Ethiopia", users = rep("analyst", length(servers)), restore = NULL) {
   b <- DSI::newDSLoginBuilder()
-  # The server is named as APHRC's is, so error texts compare one to one.
-  b$append(server = "Ethiopia", url = OPAL_URL, user = "analyst", password = Sys.getenv("ANALYST_PW"),
-           driver = "OpalDriver", options = "list(ssl_verifyhost = 0, ssl_verifypeer = 0)")
-  DSI::datashield.login(b$build())
+  for (i in seq_along(servers)) {
+    b$append(server = servers[[i]], url = OPAL_URL, user = users[[i]],
+             password = Sys.getenv(paste0(toupper(users[[i]]), "_PW")),
+             driver = "OpalDriver", options = "list(ssl_verifyhost = 0, ssl_verifypeer = 0)")
+  }
+  DSI::datashield.login(b$build(), restore = restore)
 }
 
 capture <- function(label, expr) {
   t0 <- Sys.time()
   warnings <- character(0)
+  messages <- character(0)
   res <- tryCatch(
     list(ok = TRUE, value = withCallingHandlers(expr, warning = function(w) {
       warnings <<- c(warnings, conditionMessage(w)); invokeRestart("muffleWarning")
     }, message = function(m) {
+      messages <<- c(messages, trimws(conditionMessage(m)))
       say("  [message] ", trimws(conditionMessage(m))); invokeRestart("muffleMessage")
     })),
     error = function(e) list(ok = FALSE, error = conditionMessage(e)))
   res$warnings <- warnings
+  res$messages <- messages
   res$secs <- round(as.numeric(difftime(Sys.time(), t0, units = "secs")), 1)
   if (res$ok) say("OK    ", label, " (", res$secs, " s)") else say("ERROR ", label, " (", res$secs, " s): ", res$error)
   for (w in warnings) say("  [warning] ", w)

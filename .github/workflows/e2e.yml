@@ -3,8 +3,11 @@
 #   fresh   : a clean Opal; dsOMOP installed the way an admin does it (Opal > DataSHIELD > Packages > GitHub);
 #             the analyst's script and the full method audit.
 #   upgrade : dsOMOP <old_ref> first, then upgraded through the same install call, as APHRC's server was;
-#             reproduces "No such DataSHIELD 'ASSIGN' method with name: omopInitDS", then publishes.
+#             with a 1.x old_ref it reproduces "No such DataSHIELD 'ASSIGN' method with name: omopInitDS"; with a 2.x
+#             old_ref (e.g. 2.10.2) the new client is also run against that real old server first (combo_old_server.R).
+#   scenario G: the 2.10.3 checks that need a real Opal/Rock (scripts/scenario_G.R, scripts/scenario_G_old.R).
 # mode=candidate installs dsOMOP / dsOMOPClient from pkgs/ (vendored sources) instead of GitHub refs.
+# 2.10.3: gh workflow run e2e.yml -f mode=candidate -f old_ref=2.10.2 -f scenarios="C D E F G"
 name: dsomop-opal-e2e
 on:
   workflow_dispatch:
@@ -18,7 +21,7 @@ on:
         description: "Paths to run (JSON list)"
         default: '["fresh", "upgrade"]'
       old_ref:
-        description: "dsOMOP ref installed first on the upgrade path (1.1.1's commit: the ref '1.1.1' is both a branch and a tag)"
+        description: "dsOMOP ref installed first on the upgrade path (2.10.2 = the release before 2.10.3; 1.1.1 = commit 6a22d259db95a3bfd264d029b653587f935e32db, as the ref '1.1.1' is both a branch and a tag)"
         default: "6a22d259db95a3bfd264d029b653587f935e32db"
       server_ref:
         description: "dsOMOP ref (public mode)"
@@ -30,8 +33,14 @@ on:
         description: "CDM database behind the resources: omop (GiBleed as shipped, cdm_version v5.3.1) or omop53"
         default: "omop"
       scenarios:
-        description: "Scenarios after the path (C D E F)"
-        default: "C D E F"
+        description: "Scenarios after the path (C D E F G)"
+        default: "C D E F G"
+      old_client_ref:
+        description: "dsOMOPClient tag of the old client in scenario G (installed into its own library)"
+        default: "2.10.2"
+      big_persons:
+        description: "Persons of the synthetic CDM of scenario G16 (fresh path; 0 = none)"
+        default: "1000000"
       install_driver:
         description: "1 = install RPostgres through Opal; 0 = stock Rock image (RPostgreSQL only)"
         default: "0"
@@ -44,7 +53,7 @@ jobs:
       matrix:
         path: ${{ fromJSON(inputs.paths) }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 110
+    timeout-minutes: 170
     defaults:
       run:
         shell: bash
@@ -56,6 +65,9 @@ jobs:
       CLIENT_REF: ${{ inputs.client_ref }}
       CDM_DB: ${{ inputs.cdm_db }}
       INSTALL_DRIVER: ${{ inputs.install_driver }}
+      SCENARIOS: ${{ inputs.scenarios }}
+      OLD_CLIENT_REF: ${{ inputs.old_client_ref }}
+      BIG_PERSONS: ${{ matrix.path == 'fresh' && contains(inputs.scenarios, 'G') && inputs.big_persons || '0' }}
       STACK: e2e
       OPAL_URL: https://localhost:8443
       OUT: ${{ github.workspace }}/out
@@ -68,7 +80,7 @@ jobs:
             /usr/share/swift /usr/local/share/powershell /usr/share/miniconda /opt/az /opt/microsoft /opt/google
           df -h / | tail -1
           mkdir -p "$OUT"
-          for v in OPAL_ADMIN_PW ANALYST_PW OMOPDB_PW; do
+          for v in OPAL_ADMIN_PW ANALYST_PW ANALYST2_PW OMOPDB_PW READER_PW; do
             p="Aa1@$(python3 -c 'import secrets,string; a=string.ascii_letters+string.digits; print("".join(secrets.choice(a) for _ in range(20)))')"
             echo "::add-mask::$p"; echo "$v=$p" >> "$GITHUB_ENV"
           done
@@ -97,6 +109,19 @@ jobs:
         if: always() && matrix.path == 'fresh' && contains(inputs.scenarios, 'E')
         timeout-minutes: 30
         run: Rscript scripts/scenario_E.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
+      - name: Large synthetic CDM (scenario G16)
+        if: always() && env.BIG_PERSONS != '0'
+        timeout-minutes: 20
+        run: bash scripts/omopbig.sh 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
+      - name: Scenario G (2.10.3 on a real Opal/Rock)
+        if: always() && contains(inputs.scenarios, 'G')
+        timeout-minutes: 80
+        run: Rscript scripts/scenario_G.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
+      - name: Scenario G, old client (dsOMOPClient ${{ inputs.old_client_ref }} against this server)
+        if: always() && contains(inputs.scenarios, 'G')
+        timeout-minutes: 20
+        run: Rscript scripts/scenario_G_old.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
+      # F removes RPostgres from Rock: it runs after G, which uses the standard driver.
       - name: Scenario F (RPostgreSQL fallback)
         if: always() && matrix.path == 'fresh' && contains(inputs.scenarios, 'F')
         timeout-minutes: 15
@@ -113,7 +138,7 @@ jobs:
         run: |
           cd "$OUT"
           # Per-run passwords never reach git.
-          for v in "$OPAL_ADMIN_PW" "$ANALYST_PW" "$OMOPDB_PW"; do { grep -rlF -- "$v" . || true; } | xargs -r sed -i "s/$v/***/g"; done
+          for v in "$OPAL_ADMIN_PW" "$ANALYST_PW" "$ANALYST2_PW" "$OMOPDB_PW" "$READER_PW"; do { grep -rlF -- "$v" . || true; } | xargs -r sed -i "s/$v/***/g"; done
           git init -q && git checkout -q -b results && git add -A
           git -c user.name=e2e -c user.email=e2e@users.noreply.github.com commit -qm "e2e $GITHUB_RUN_ID $E2E_PATH $MODE"
           git push -q --force "https://x-access-token:${GITHUB_PAT}@github.com/${GITHUB_REPOSITORY}.git" \

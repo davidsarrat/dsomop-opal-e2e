@@ -11,6 +11,32 @@ res <- if (identical(MODE, "candidate")) "omop_data.gibleed" else "omop_data.gib
 say("== A1: install dsOMOP ", old, " (a new package: Opal publishes it)")
 install_server(o, old)
 show_dsomop_methods(o, paste("after installing", old))
+old_version <- rock_pkg_version("dsOMOP")
+
+# A1b: a 2.x server with the DP service creates its noise root at the first DP call. The upgrade must keep using it
+# (scenario G compares the root's public key id and the state files after the upgrade and the publish).
+if (grepl("^2\\.", old_version) && utils::compareVersion(old_version, "2.6.0") >= 0) {
+  say("== A1b: the analyst's first DP call under dsOMOP ", old_version, " creates the noise root")
+  c0 <- analyst_login()
+  k <- capture("ds.omop.connect", dsOMOPClient::ds.omop.connect(resource = res, symbol = "omop", conns = c0))
+  st <- if (k$ok) capture("DSI::datashield.aggregate(omopDpStatusDS())", DSI::datashield.aggregate(c0, quote(omopDpStatusDS()))) else k
+  key <- if (st$ok && is.list(st$value[[1]])) as.character(st$value[[1]]$noise_key_id %||% NA) else NA_character_
+  if (k$ok) capture("ds.omop.disconnect", dsOMOPClient::ds.omop.disconnect(symbol = "omop", conns = c0))
+  DSI::datashield.logout(c0)
+  files <- rock_eval('local({ s <- file.path(Sys.getenv("HOME"), ".dsomop"); f <- list.files(s, recursive = TRUE, all.files = TRUE); i <- file.info(file.path(s, f)); paste(f, i$size, format(i$mtime, "%Y-%m-%dT%H:%M:%OS3"), sep = " | ") })')
+  writeLines(c(paste0("version=", old_version), paste0("noise_key_id=", key), paste0("file=", files)),
+             out_file("dp-root-before-upgrade.txt"))
+  show("state files under the old version", files)
+  summary_line("[upgrade] A1b: DP status under dsOMOP ", old_version, ": ",
+               if (st$ok) paste0("noise root key id ", key) else paste0("FAIL: ", st$error))
+}
+# A1c: the new client against the real old server, before the upgrade (scenario G adds these V verdicts).
+if (grepl("^2\\.", old_version) && utils::compareVersion(old_version, "2.10.3") < 0 &&
+    grepl("G", Sys.getenv("SCENARIOS", "G"))) {
+  say("== A1c: the new client against the real dsOMOP ", old_version, " server")
+  tryCatch(source("scripts/combo_old_server.R", local = new.env()),
+           error = function(e) summary_line("[upgrade] A1c: combo_old_server.R stopped: ", conditionMessage(e)))
+}
 
 say("== A2: upgrade to ", target, " through the same Opal install call")
 install_server(o, target)

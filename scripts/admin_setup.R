@@ -61,14 +61,19 @@ resources <- list(
   gibleed_v1 = list(url = v1_url("omopdb", 5432, db, "cdm", "cdm"), format = "omop.cdm.db"),
   gibleed_v1_vocab = list(url = v1_url("omopdb", 5432, db, "cdm2", "vocab"), format = "omop.cdm.db"),
   gibleed_v1_schemaonly = list(url = v1_url("omopdb", 5432, db, "cdm"), format = "omop.cdm.db"),
-  gibleed_v1_plain = list(url = v1_url("omopdb", 5432, "omoppub"), format = "omop.cdm.db")
+  gibleed_v1_plain = list(url = v1_url("omopdb", 5432, "omoppub"), format = "omop.cdm.db"),
+  # Scenario G: a small independent site (GiBleed's first 150 persons) and the same CDM read by a second, read-only
+  # database user.
+  gibleed_small = list(url = v2_url("omopdb", 5432, "omopsmall", cdm_schema = "cdm"), format = "omop.dbi.db"),
+  gibleed_reader = list(url = v2_url("omopdb", 5432, db, cdm_schema = "cdm"), format = "omop.dbi.db",
+                        identity = "e2e_reader", secret_env = "READER_PW")
 )
 for (name in names(resources)) {
   r <- resources[[name]]
   say(sprintf("resource %-22s format %-12s url %s", name, r$format, r$url))
   capture(paste0("opal.resource_create(o, \"omop_data\", \"", name, "\", ...)"),
           opal.resource_create(o, "omop_data", name, r$url, format = r$format,
-                               identity = "omop", secret = Sys.getenv("OMOPDB_PW")))
+                               identity = r$identity %||% "omop", secret = Sys.getenv(r$secret_env %||% "OMOPDB_PW")))
   capture(paste0("opal.resource_perm_add(o, \"omop_data\", \"", name, "\", \"analyst\", permission = \"view\")"),
           opal.resource_perm_add(o, "omop_data", name, subject = "analyst", type = "user", permission = "view"))
 }
