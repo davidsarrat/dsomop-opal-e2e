@@ -1,6 +1,41 @@
-# DP release status (2.10.0)
+# DP release status (2.10.3)
 
 The current server contract is `dsomop-dp-release-v3` /
+`protected_release_fixed_basis_or_realised_v1` with typed payload protocol
+`dsomop-protected-release-v1`, paired with dsOMOPClient 2.10.3. Protected
+releases share canonical components: a fixed synopsis (unscoped question over
+a public basis) draws each atom's noise from the corpus, the automatic data
+generation, the privacy epoch, owner, population and atom and the atom's
+contribution fingerprint; a realised-sticky release (every other scope; a
+heuristic disclosure control without a joint differential-privacy guarantee)
+draws each component's noise from its owner, coordinate and a secret
+fingerprint of the realised bounded contributions. The automatic data
+generation is an HMAC under the noise root of the exact row count and largest
+identifier of every OMOP clinical table (plus `cdm_source`, vocabulary
+versions and the concept table), derived on the fly once per R session and
+held in memory only; no custodial setting is needed, and
+`dsomop.dp.snapshot_id` is a deprecated status label that nothing depends on.
+No key depends on request text, lineage cosmetics or earlier questions, and
+nothing but the root is stored. A reload that adds or removes rows re-draws
+every fixed synopsis; a reload or edit re-draws exactly the realised
+components whose contributions changed. In-place edits that change no count
+and no largest identifier, and changes during an open session, are not seen
+by the generation; the affected fixed components still re-draw by their
+fingerprints (DISCLOSURE_CONTROL.md). DP-only mode accepts only fixed
+synopses.
+
+Status declares `history_dependent = FALSE`, `history_based_admission = FALSE`,
+`persistent_state = "noise_root_only"`,
+`release_binding = "fixed_basis_or_realised_contributions_v1"`,
+`privacy_call_quota = "none"` and `service_capacity = "none"`, plus the
+guarantee scopes, the fixed-synopsis typed statistics and the registered public
+scales. dsOMOPClient 2.10.3 validates and pools protected payloads and refuses
+federations that mix them with older contracts; older clients refuse typed
+releases from 2.10.3 servers.
+
+## Seed-only contract (2.10.0 to 2.10.2, superseded)
+
+The 2.10.0 to 2.10.2 server contract was `dsomop-dp-release-v3` /
 `fixed_per_release_seed_data_versioned_v1`, paired with dsOMOPClient 2.10.0.
 Every answer is a deterministic function of the secret noise root, the public
 question, the keyed fingerprint of the bounded statistic and a private automatic
@@ -11,7 +46,7 @@ the same root, configuration and data; a reload that adds rows re-draws every
 answer at once. Typed admission and provenance/MAC checks remain mandatory, and
 primitives, sampler, mechanism and calibration are unchanged.
 
-Status declares `history_dependent = FALSE`,
+Status declared `history_dependent = FALSE`,
 `persistent_state = "noise_root_only"`,
 `release_binding = "seed_data_versioned_v1"`, `privacy_call_quota = "none"` and
 `service_capacity = "none"`. dsOMOPClient 2.10.0 accepts this contract and the
@@ -214,6 +249,9 @@ SQLite initialization test clears that opt-out. Test temporary storage remains
 behind `DSOMOP_TEST_ALLOW_EPHEMERAL_STATE=1`.
 
 ## Derived identity and privacy argument
+
+(Historical, 2.6.x: the derived snapshot described here is the public
+`snapshot_id` label since 2.10.3; it no longer enters any key.)
 
 The enabled default is TRUE in the option reader, DESCRIPTION Options and
 DATASHIELD manifest. Explicit FALSE / `DSOMOP_DP_ENABLED=0`, conflicting-option

@@ -233,13 +233,23 @@ utils::globalVariables(".data")
 }
 
 # Public protection labels of per-server analysis results (attribute
-# dsomop_protection set by dsOMOP >= 2.9.0; absent from older servers).
+# dsomop_protection set by dsOMOP >= 2.9.0; absent from older servers). The
+# labels of dsOMOP 2.10.3 protected routes must make consistent claims: a
+# fixed synopsis declares its finite vector epsilon and delta 0; heuristic
+# realised-contribution and mixed releases claim no epsilon and no delta.
 .analysis_protection_labels <- function(raw) {
   labels <- lapply(raw, function(x) {
     label <- if (is.data.frame(x)) attr(x, "dsomop_protection", exact = TRUE)
     if (is.list(label) && is.character(label$protection)) label else NULL
   })
-  labels[!vapply(labels, is.null, logical(1))]
+  labels <- labels[!vapply(labels, is.null, logical(1))]
+  for (server in names(labels)) {
+    if (labels[[server]]$protection[[1L]] %in%
+        c(.DP_PROTECTED_ROUTES, "mixed")) {
+      .dp_check_protected_claims(labels[[server]], server, "protection label")
+    }
+  }
+  labels
 }
 
 .analysis_complete_results <- function(raw, expected_servers, context) {
@@ -805,11 +815,24 @@ ds.omop.analysis.run <- function(name, params = list(), cohort = NULL,
   # or the standard fallback when its DP service is unavailable).
   protection <- .analysis_protection_labels(raw)
 
-  pool_out <- if (.result_type_wants_combine(type)) {
-    .pool_analysis_contract(
+  pool_out <- if (.result_type_wants_combine(type) &&
+                  identical(entry_meta$release_pooling$strategy,
+                            "protected_components")) {
+    # dsOMOP 2.10.3 protected releases: pool the signed components of
+    # compatible sites, never the projected per-site values (effects: the
+    # meta-analysis of the per-site protected estimates).
+    .pool_protected_analysis(raw, entry_meta$release_pooling,
+                             policy = pooling_policy, harmonization = contract)
+  } else if (.result_type_wants_combine(type)) {
+    out <- .pool_analysis_contract(
       raw, entry_meta$pooling_contract, policy = pooling_policy,
       harmonization = contract
     )
+    if (!is.null(out$result)) {
+      out$warnings <- unique(c(out$warnings,
+                               .analysis_mixed_pool_warnings(raw)))
+    }
+    out
   } else {
     list(result = NULL, warnings = character(0), harmonization = contract)
   }
@@ -846,7 +869,8 @@ ds.omop.analysis.run <- function(name, params = list(), cohort = NULL,
   .result_type_view(
     result, type,
     combine_reason = if (identical(entry_meta$pooling_contract$strategy,
-                                   "not_poolable")) {
+                                   "not_poolable") &&
+                         is.null(entry_meta$release_pooling)) {
       entry_meta$pooling_contract$reason
     } else NULL
   )

@@ -253,45 +253,45 @@ that a finite key supplies information-theoretic infinite randomness. See
 exactness argument, and [SAMPLER_DIAGNOSIS.md](SAMPLER_DIAGNOSIS.md) for the
 original defect.
 
-Since 2.10.0 dsOMOP stores nothing but the secret noise root. Every answer is a
-deterministic function of that root, the canonical question, the protected
-statistic and a private automatic database version (the largest identifier of
-each present clinical table, keyed with the root and never released). The same
-question on the same data returns the same answer, byte for byte, after
-restarts and on every R server that shares the root, without a store, capacity
-limit or lock. A database reload that adds rows changes the version, so every
-answer re-draws at once and nobody can tell which statistics changed. An
-in-place edit that adds no row with a larger identifier keeps the version and
-re-draws only the statistics it changed: repeating a question across such an
-edit shows whether its statistic changed, never by how much (the conditional
-equality of [isglobal-brge/dsOMOP#20](https://github.com/isglobal-brge/dsOMOP/issues/20)),
-so custodians rotate the epoch after in-place edits. Each database version is
-a new release for privacy accounting.
+Since 2.10.0 dsOMOP stores nothing but the secret noise root. Since 2.10.3
+every protected answer is a deterministic function of that root, its protected
+component (owner, family, coordinate and fixed noise profile) and either the
+custodial data generation (fixed synopses) or a secret fingerprint of the
+realised bounded contributions of the component's people (realised-sticky
+releases); see [DISCLOSURE_CONTROL.md](DISCLOSURE_CONTROL.md). The same question
+on the same data returns the same answer, byte for byte, after restarts and on
+every R server that shares the root, without a store, capacity limit or lock.
+Equivalent formulations, statistic aliases, public-grid views, dummy levels and
+lineage cosmetics reuse the same components. A reload re-draws exactly the
+realised components whose contributions changed: repeating a question across a
+refresh shows which components changed, never by how much (the conditional
+equality of [isglobal-brge/dsOMOP#20](https://github.com/isglobal-brge/dsOMOP/issues/20)).
+Fixed synopses re-draw only when the custodian declares a new generation.
 
-The public question includes authenticated dataset/query lineage, the typed
-statistic, public bounds/reducer/contribution contract, policy hash, domain,
-public snapshot, privacy epoch, mechanism and sensitivity. Display names and
-row order are not part of it. The keyed fingerprint of the bounded statistic
-selects the noise but is never returned, nor are raw PRF material and the
-database version. Component labels, samplers, sensitivities, epsilon
-allocations and clipping are unchanged.
+Display names, request spelling, scope names, row order and lineage cosmetics
+are part of no key. Contribution fingerprints, person tokens and raw PRF
+material are never returned. Protection labels report the owner, effective
+parameters, allocations, sensitivities, noise scales and guarantee scope.
 
-There is no cumulative epsilon budget or privacy call quota. A repeated
-question returns its answer instead of fresh noise, so averaging repeats gains
-nothing; different questions compose as usual. Invalid inputs, unproved
-provenance, a damaged root and requests outside the reviewed primitives still
-fail closed.
+There is no cumulative epsilon budget, privacy call quota or history-dependent
+admission. A repeated question returns its answer instead of fresh noise, so
+averaging repeats gains nothing; different questions compose as usual, and the
+realised-contribution route is a heuristic disclosure control, not a joint
+differential-privacy guarantee. Invalid inputs, unproved provenance, a damaged
+root and requests outside the reviewed primitives still fail closed.
 
-The release protocol is `dsomop-dp-release-v3`, with privacy contract
-`fixed_per_release_seed_data_versioned_v1`. Status reports
-`release_binding = "seed_data_versioned_v1"`,
+The DP service protocol remains `dsomop-dp-release-v3` (policy schema 4, exact
+sampler `dsomop-dp-exact-discrete-laplace-v1`, mechanism
+`dsomop-sticky-discrete-laplace-prf-v2`). Since 2.10.3 the privacy contract is
+`protected_release_fixed_basis_or_realised_v1`; status reports
+`release_protocol = "dsomop-protected-release-v1"`,
+`release_binding = "fixed_basis_or_realised_contributions_v1"`,
 `persistent_state = "noise_root_only"`, `service_capacity = "none"`,
-`history_dependent = FALSE` and `privacy_call_quota = "none"`. The exact
-sampler `dsomop-dp-exact-discrete-laplace-v1`, the mechanism
-`dsomop-sticky-discrete-laplace-prf-v2` and policy schema 4 are unchanged.
-Explicit DP releases need dsOMOPClient 2.10.0, which accepts this contract and
-the first-answer contract of servers 2.7.1 to 2.9.x; the analysis-catalog DP
-questions work with any client.
+`history_dependent = FALSE`, `history_based_admission = FALSE` and
+`privacy_call_quota = "none"`. Typed releases need dsOMOPClient 2.10.3, which
+validates and pools protected components; older clients refuse the new
+contract. The analysis-catalog questions work with any client (older clients
+display protected entries but do not pool them).
 
 dsOMOP 2.7.1 to 2.9.x kept a permanent first-answer store instead
 (`DSOMOP_STATE_DIR/release-bindings/`). 2.10.0 no longer reads it, so upgrading
@@ -336,18 +336,20 @@ scope of the gate.
 
 ### Custodian release state and freshness
 
-When `dsomop.dp.domain` / `DSOMOP_DP_DOMAIN` and
-`dsomop.dp.snapshot_id` / `DSOMOP_DP_SNAPSHOT_ID` are unset or have empty
-package defaults, initialization derives them from the connected resource.
-Each explicitly configured value takes precedence. The domain is a SHA-256
+No privacy setting needs configuring. When `dsomop.dp.domain` /
+`DSOMOP_DP_DOMAIN` is unset or has an empty package default, initialization
+derives it from the connected resource; an explicitly configured value takes
+precedence. The public `snapshot_id` status label is derived the same way;
+the deprecated `dsomop.dp.snapshot_id` / `DSOMOP_DP_SNAPSHOT_ID` only replaces
+that label, and nothing depends on it. The domain is a SHA-256
 hash of versioned, canonical database coordinates: normalized DBMS, lowercase
 host, effective port, database (canonical absolute file path for SQLite/DuckDB),
 and effective CDM and vocabulary schemas. Credentials, transport settings,
 resource display names, results schemas and temporary schemas are excluded.
 SQLite's implicit and explicit `main` schema have the same identity.
 
-Snapshot precedence is **explicit configuration → complete `cdm_source` →
-fallback**. The snapshot hashes the resource identity and the source fields
+Label precedence is **explicit configuration → complete `cdm_source` →
+fallback**. The label hashes the resource identity and the source fields
 `cdm_source_name`, `cdm_release_date`, `cdm_version` and `vocabulary_version`,
 converted to text. One complete row retains the `dsomop-dp-cdm-snapshot-v1`
 contract; multiple complete rows are all canonically sorted and hashed under
@@ -359,22 +361,26 @@ canonically sorted `vocabulary_id`/`vocabulary_version` pairs from `vocabulary`
 `dsomop-dp-cdm-snapshot-fallback-v1`. If vocabulary metadata is also unavailable
 or incomplete, resource identity alone is hashed under
 `dsomop-dp-cdm-snapshot-resource-only-v1`. Each explicit identifier wins
-independently, and an explicit snapshot skips metadata derivation.
+independently, and an explicit label skips metadata derivation.
 
-Reloads that add rows need no custodian action. Without an explicit snapshot,
-each R session reads the private database version once (one `MAX()` over the
-primary key of each present clinical table, an index lookup) and keys every
-answer with it, so such a reload re-draws every answer from the next session
-on, even when the `cdm_source` metadata did not change. After an in-place edit
-that adds no row with a larger identifier, bump `dsomop.dp.privacy_epoch` /
-`DSOMOP_DP_PRIVACY_EPOCH` and restart sessions; otherwise only the changed
-statistics re-draw, which shows which ones changed. A custodian who sets
-`dsomop.dp.snapshot_id` declares versions explicitly: the database is then not
-read, and the snapshot or the epoch must change with every reload. Rotating
-the snapshot or the epoch re-draws every answer, like a reload.
+Unscoped questions over public bases are fixed synopses keyed on an automatic
+data generation: a keyed fingerprint of the exact row count and largest
+identifier of every OMOP clinical table (plus `cdm_source`, the vocabulary
+versions and the concept table), derived on the fly once per R session and
+held in memory only. A reload that adds or removes rows re-draws every fixed
+synopsis at once, with no custodian action. An in-place edit that changes no
+count and no largest identifier, or a change while a session is open, leaves
+the generation unchanged; the components whose bounded contributions changed
+still re-draw (no exact difference is released), but comparing answers can
+show which ones changed. After in-place edits, bump `dsomop.dp.privacy_epoch`
+/ `DSOMOP_DP_PRIVACY_EPOCH` to re-draw every answer. Scoped questions are
+realised-sticky: a reload or edit re-draws exactly the components whose
+bounded contributions changed, and unchanged components keep their answers.
+See [DISCLOSURE_CONTROL.md](DISCLOSURE_CONTROL.md#the-automatic-data-generation-of-the-fixed-synopses).
 
-In-memory databases and unavailable/ambiguous resource coordinates still fail
-closed with instructions to configure both identifiers. Conflicting option and
+Without a configured domain, in-memory databases and unavailable/ambiguous
+resource coordinates still fail closed with instructions to configure the
+domain. Conflicting option and
 environment values still fail closed. No generic shared fallback domain is used.
 Connecting (`omopInitDS()`) never initializes DP; DP binds to the connected
 resource when a community tool first uses it. Policy changes during a session
@@ -396,17 +402,17 @@ log. `DSOMOP_TEST_ALLOW_EPHEMERAL_STATE=1` is for tests only.
 A custodian may instead inject exactly 32 raw CSPRNG bytes or 64 hexadecimal
 characters through `dsomop.dp.noise_root` / `DSOMOP_DP_NOISE_ROOT`; passphrases
 are rejected. Nothing is then written for DP, and R servers given the same
-root, domain, snapshot, epoch and mechanism configuration return the same
-answers on the same data, so replicas of one logical node share nothing else.
+root, domain, epoch and mechanism configuration return the same answers on
+the same data, so replicas of one logical node share nothing else.
 Distinct nodes must use distinct roots and domains; compare public
 noise-domain fingerprints during readiness checks. Root bytes are never put in
 OMOP handles or returned to analysts, and package loading remains key-free.
 Back up the root (or its secret-manager configuration): restoring it restores
 every answer.
 
-The guarantee is conditional: within one root, domain, snapshot, epoch and
-database version, a repeated valid question returns the same canonical bytes,
-so repeats add no observation. Different questions, database versions and
+The guarantee is conditional: within one root, domain and epoch, and on
+unchanged data, a repeated valid question returns the same canonical bytes,
+so repeats add no observation. Different questions, data changes and
 rotations compose; there is no finite lifetime privacy accountant or full
 temporal-transcript DP claim. Administrative timing, validation failures,
 availability and other DataSHIELD outputs remain outside this repeated-payload
@@ -414,8 +420,9 @@ guarantee. Retain the method allowlist, person contribution bounds and reviewed
 output contracts.
 
 Non-secret configuration is available through matching `dsomop.dp.*` options
-and `DSOMOP_DP_*` environment variables, including enablement, domain, public
-snapshot identifier, fixed release epsilon, privacy epoch and the server caps
+and `DSOMOP_DP_*` environment variables, including enablement, domain, the
+deprecated public snapshot label, fixed release epsilon, privacy epoch and the
+server caps
 for levels, contributions and numeric quantization. Explicit option and
 environment values must agree. `omopDpStatusDS()` is suitable as a production
 readiness check after the persistent state volume and final profile have been

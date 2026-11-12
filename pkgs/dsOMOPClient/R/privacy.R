@@ -16,6 +16,16 @@
 # the root is stored.
 .DP_STATELESS_PRIVACY_CONTRACT <- "fixed_per_release_seed_data_versioned_v1"
 .DP_STATELESS_BINDING <- "seed_data_versioned_v1"
+# Protected releases (dsOMOP 2.10.3): answers are deterministic in a fixed
+# public basis (fixed_synopsis) or in secret fingerprints of the realised
+# bounded contributions (realised_sticky, a heuristic without a joint DP
+# guarantee). Not poolable with per-release (2.7.1-2.10.2) servers.
+.DP_PROTECTED_PRIVACY_CONTRACT <- "protected_release_fixed_basis_or_realised_v1"
+.DP_PROTECTED_BINDING <- "fixed_basis_or_realised_contributions_v1"
+.DP_PROTECTED_GUARANTEE <-
+  "fixed_synopsis_or_heuristic_realised_contribution_reuse_v1"
+.DP_PROTECTED_RELEASE_PROTOCOL <- "dsomop-protected-release-v1"
+.DP_PROTECTED_ROUTES <- c("fixed_synopsis", "realised_sticky")
 .DP_VERSIONED_CONTRACT_FIELDS <- c(
   "protocol", "privacy_contract", "history_dependent", "persistent_state",
   "release_binding", "service_capacity"
@@ -438,7 +448,17 @@ omop_privacy <- function(statistic, variable = NULL, levels = NULL,
 }
 
 .dp_first_answer_contract <- function(status, server) {
-  expected <- if (identical(status$release_binding, .DP_STATELESS_BINDING)) {
+  expected <- if (identical(status$release_binding, .DP_PROTECTED_BINDING)) {
+    list(
+      history_dependent = FALSE,
+      history_based_admission = FALSE,
+      privacy_call_quota = "none",
+      persistent_state = "noise_root_only",
+      release_binding = .DP_PROTECTED_BINDING,
+      service_capacity = "none",
+      privacy_contract = .DP_PROTECTED_PRIVACY_CONTRACT
+    )
+  } else if (identical(status$release_binding, .DP_STATELESS_BINDING)) {
     list(
       history_dependent = FALSE,
       privacy_call_quota = "none",
@@ -560,8 +580,12 @@ omop_privacy <- function(statistic, variable = NULL, levels = NULL,
 #' treated as \code{FALSE}. Servers 2.9.0 and later also report
 #' \code{tools_mode}, the community tools' protection mode (\code{"auto"} by
 #' default, \code{"standard"} or \code{"dp"}).
-#' Each status contains the custodian's public \code{snapshot_id}. Federated
-#' sites may legitimately report different snapshot identifiers.
+#' Each status contains a public \code{snapshot_id} label. Federated sites may
+#' legitimately report different labels. On 2.10.3 servers it is a display
+#' value only: fixed synopses are keyed on an automatic data generation the
+#' server derives per session and never releases (\code{data_generation},
+#' \code{data_generation_basis} and \code{data_generation_residual} describe
+#' it).
 #' Release preflight rejects either a repeated \code{noise_domain_id} or a
 #' repeated server-owned logical \code{domain}. The second check also prevents
 #' one logical privacy node from being pooled twice when its connections expose
@@ -1312,6 +1336,22 @@ ds.omop.dp.release <- function(x, privacy, datasources = NULL, pool = TRUE,
 
   datasources <- .dp_datasources(datasources)
   statuses <- ds.omop.dp.status(datasources)
+  protected <- vapply(statuses, function(status) {
+    identical(status$privacy_contract, .DP_PROTECTED_PRIVACY_CONTRACT)
+  }, logical(1L))
+  if (any(protected)) {
+    if (!all(protected)) {
+      stop("Servers ", paste(names(statuses)[!protected], collapse = ", "),
+           " use the per-release DP contract of dsOMOP 2.10.2 or earlier, ",
+           "and ", paste(names(statuses)[protected], collapse = ", "),
+           " the protected-release contract of dsOMOP 2.10.3; their ",
+           "releases cannot be combined. Upgrade every server to dsOMOP ",
+           "2.10.3.", call. = FALSE)
+    }
+    return(.dp_protected_release(
+      x, privacy, server_privacy, datasources, statuses, want_combine,
+      result_type, format, population_id, type, pool))
+  }
   contract <- .dp_status_contract(statuses, privacy)
   harmonization <- NULL
   count_like <- privacy$statistic %in% c(

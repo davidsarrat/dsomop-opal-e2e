@@ -1,3 +1,198 @@
+# dsOMOP 2.10.3
+
+Security release: the P0 fixes of the OHDSI-tools audit.
+
+- Protected OHDSI-tool outputs now share canonical components across
+  equivalent automatic/typed analyses, public-grid views, statistic aliases and
+  validated lineage/rename variants. Complete registered domains and common
+  histogram/moment bases remove fresh draws from dummy levels, clamp-only outer
+  breaks and harmless cap variants. Flexible scopes reuse matching realised
+  bounded contributions; supported fixed-synopsis views use only their common
+  protected basis.
+- No privacy accountant, total-epsilon budget, rate limit, query cap, or
+  refusal based on the number of questions asked is introduced. Reference
+  calibration remains 0.1; component allocations and approximation metadata are
+  explicit. Public grids and clipping may change released precision. Old
+  clients must not pool unsupported protected payloads.
+- Automatic protection now covers the demonstrated disclosive distribution and
+  flexible-window routes, including direct readers and aliases. Known-disclosive
+  exact fallbacks are unavailable. Achilles observation-period support and
+  2102/506 contracts, SCCS exposed-case statistic support, overlap/MDRR
+  dependencies, model cell/complement admission, and PostgreSQL grouping for
+  Achilles 2/4/5/10/12 are corrected. Typed releases now honor the
+  community-tool enabled gate and redacted audit.
+- Residual risk: different overlapping scopes, data/mechanism changes and other
+  permitted exact methods can still support inference. Realised-contribution
+  sharing has data-dependent equality/correlation leakage and is not a general
+  transcript-DP guarantee. Exact support gates remain DataSHIELD-style
+  controls. See DISCLOSURE_CONTROL.md for the threat model, supported
+  fixed-synopsis guarantees and utility costs.
+
+## Corrected
+
+- Achilles 2, 4, 5, 10 and 12 group by every selected concept name and run on
+  PostgreSQL, SQL Server, DuckDB, Oracle and BigQuery (before, only SQLite and
+  MySQL/MariaDB accepted their SQL). Verified on PostgreSQL 14, MariaDB 10.6
+  and DuckDB, together with every live Achilles analysis.
+- Achilles reader: record analyses 220/420/620/720/820/1820, 505 and 1818 count
+  persons only over records inside an observation period, as upstream does,
+  through a correlated `EXISTS` (duplicate or overlapping periods add no
+  support). A missing observation_period table or stratum column withholds
+  these cells; contracted stratum keys are never shortened.
+- Achilles 2102 is persons by device exposure start month, by device concept:
+  the reader serves its rows (it returned none) and the live entry returns
+  persons instead of the monthly device record count (new output columns
+  `calendar_month, concept_id, concept_name, count_value`). The reader keeps
+  refusing 506; the live 506 counts one death (the earliest) per person.
+- The OHDSI results reader no longer releases SCCS effect statistics (rr, CI
+  bounds, p, log_rr, se_log_rr) resting on fewer than `nfilter.subset` exposed
+  cases: `sccs_result` statistics also need `covariate_subjects` and enough
+  outcomes inside and outside exposed time; `cm_result` (both arms) and
+  `plp_performances` (both outcome classes) get the same private statistic
+  basis, read even when only `rr` is selected. Tables without the basis return
+  NA statistics and keep their counts.
+- `cohortdx.cohort_overlap` no longer returns the redundant `either` row, which
+  next to `a_only` and `b_only` revealed a suppressed `both` region; sum the
+  released regions for the union.
+- The MDRR of `cm.mdrr`, `ohdsi.cohort_method.cm_result` and the diagnostics
+  summary is derived from the protected arm components in auto mode (one owner:
+  the three entries show the same value). On standard routes it is
+  unavailable, like the person-time it depends on; its standard kernel needs
+  each arm's persons, outcome persons, outcomes and person-time separately and
+  uses the released arm values (band(target) + band(comparator)), never the
+  band of their total.
+- PLP and propensity models admit a binary covariate only with `nfilter.tab`
+  persons with and without it within each outcome class or arm; an
+  inadmissible response releases no model (no intercept-only fallback, except
+  the propensity model's explicit intercept-only contract). PLP calibration
+  means need supported outcomes and non-outcomes per bin and are released at
+  banded precision. Interaction subgroup families are complete partitions
+  (with unknown gender and unknown age) released only when every level and its
+  complement pass in both arms.
+- CohortMethod, incidence, Kaplan-Meier and interaction ports intersect the
+  time at risk with the observation period containing the index (coalesced
+  periods, half-open windows): outcomes outside observation no longer count and
+  person-days count whole days of `[start, end + 1)`.
+- MariaDB servers with a distribution suffix in their version (for example
+  Ubuntu's `10.6.23-MariaDB-0ubuntu0.22.04.1`) are recognized. Before, the
+  last dotted number (`0.22.04`) was read as the server version, so every
+  connection to such a server was refused as older than MariaDB 10.2.
+
+## Newly protected (auto mode)
+
+- Release contracts (`R/tools_release_contracts.R`) cover Achilles 3, 10,
+  101-107, 203/403/603/703/803/1803, 206/406/606/706/806/1806/2106, 506 and
+  715-717; the reviewed QueryLibrary histograms and partitions,
+  `person.age_distribution_decade` and `observation_period.long_period_count`;
+  `fe.continuous`, `fe.comorbidity_index`, `cohortdx.time_distribution`,
+  `cm.followup_distribution`, the temporal covariate value distribution,
+  `txpath.duration_eras` and `char.time_to_event`; the distribution rows of
+  `fe.table1` and `char.target_covariates` and the MDRR of the CohortMethod
+  diagnostics summary (mixed frames); `incidence.rate`,
+  `cm.mdrr`/`cm_result`, `cm.effect_estimate` and the interaction estimate
+  (person-time status and time components; Poisson rate ratios derived from
+  them), and every alias of these entries. Every other scope is
+  realised-contribution protected.
+- Fixed synopses need no custodial configuration: unscoped questions over a
+  public basis are keyed on an automatic data generation, an HMAC under the
+  noise root of the exact row count and largest identifier of every OMOP
+  clinical table (plus `cdm_source`, the vocabulary versions and the concept
+  table), derived on the fly once per R session and held in memory only (no
+  file, table or cache). A reload that adds or removes rows re-draws every
+  fixed synopsis at once; equal data give equal answers in every session and
+  worker sharing the root. Fixed components are also keyed on their
+  contribution fingerprints, so an in-place edit or a change during an open
+  session (which the generation cannot see) re-draws the affected components
+  instead of releasing an exact difference. Status and labels describe the
+  generation (`data_generation`, `data_generation_basis`,
+  `data_generation_residual`), never its value. `dsomop.dp.snapshot_id` is
+  deprecated: it only replaces the public `snapshot_id` status label, and the
+  profile option `default.dsomop.dp.snapshot_id` is removed.
+- CohortMethod Cox effects are grouped-time Cox fits on a protected per-arm
+  histogram of exit-time bin × status (Breslow ties, capped at 3650 days,
+  labelled as such, not the raw Efron estimator); the SCCS incidence rate
+  ratio is estimated from a protected histogram of the q-gridded conditional
+  sufficient statistics (each person's first 10 events); both report standard
+  errors that include the release noise. In standard mode with the DP
+  service, incidence and CohortMethod person-time, rates, MDRRs and effects
+  are filled from the same protected run (mixed frames).
+- Continuous values of `fe.continuous`, target covariates and temporal value
+  distributions are reduced per person within concept × unit (unknown units a
+  separate stratum; only registry-declared conversions); registered
+  concept × unit scales (built-ins and `dsomop.release.measurement_scales`)
+  give bounded moments, other strata a coarse histogram. The outputs gain
+  `unit_concept_id` and `unit_name`.
+- The eight QueryLibrary record summaries release capped record-weighted
+  moments in auto and DP-only modes (K = 10 records per person by date and
+  key; persons, records and lattice sums; days [0, 10957], calendar months
+  [0, 360]; quantity and cost scales through `dsomop.release.quantity_scales`
+  and `dsomop.release.cost_scales`); standard mode is unchanged.
+- The public marginal hierarchy: one canonical parent person total per
+  eligible population, shared by its stratifications; strata are reconciled to
+  it and projected onto its displayed total, so a child request never moves
+  its parent. Person-time components belong to scientific owners (one outcome
+  definition, one time contract), never to labels or spellings. Protected
+  person-time is capped at the 3650-day horizon before event selection.
+- Free numeric parameters of every built-in aggregate entry snap to public
+  grids before evaluation (time-at-risk, windows, look-backs, ages, age bands,
+  `min_days`, reference year, alpha/power; model feature counts and calibration
+  bins) and the label reports requested and effective values. Day parameters
+  use the clinical grids (anchors 0, 1, 7, 14, 21, 28, 30, 60, 90, 120, 180,
+  270, 365, 545, 730, 1095, 1460, 1825, 3650): standard windows such as
+  [1, 365], look-back 365 and [0, 0] are unchanged.
+- The reviewed QueryLibrary histograms use the public grids of the release
+  layer (durations on the clinical duration grid up to 10957 days, counts per
+  person 0-100+); unbounded scales have an explicit underflow bin.
+- Typed releases are views of registered complete public bases (complete
+  categorical domains with Other and Unknown, fixed numeric atoms); the
+  release-person map is sealed with the table, aliases of one eligible
+  population share its person total, and compound identities use injective
+  length-framed encodings.
+- Every protected release carries a public `source$logical_source_id`;
+  realised and mixed releases state no `delta`.
+- Pooling: `release_pooling` descriptors carry the established contract;
+  dsOMOPClient 2.10.3 pools record summaries by their signed components and
+  effect estimates by inverse-variance meta-analysis of the per-site
+  protected estimates.
+
+## Newly refused or unavailable
+
+- Standard routes (standard mode, or auto mode without the DP service) release
+  exact scoped moments and quantiles of per-person distributions as NA
+  (`protected_output_required` / `protected_mechanism_unavailable`). Exact
+  flexible-window person-days, rates, MDRRs and effect estimates/CI/SE are
+  never released: without the DP service they are NA, with it (also in
+  standard mode) they come from the protected run.
+- The Achilles support of the reader's companion cells is recomputed on every
+  read (no per-handle cache), and private SCCS person support uses
+  `max(nfilter.subset, nfilter.tab)` for every person basis and complement.
+- The long observation-period count is released only from its protected
+  histogram; without the DP service it returns a stable unavailable row.
+- In auto mode the precomputed Achilles distribution reader returns its
+  summaries as NA (`protected_basis_unavailable`); the live analyses release
+  protected summaries.
+- DP-only mode accepts only fixed-synopsis releases: cohort- or table-scoped
+  protected questions, unscoped ones whose data generation cannot be derived,
+  and typed releases other than counts, capped record counts and
+  registered-scale means of unscoped pinned loader tables of a connected
+  database are refused with a stable message.
+- Typed `bounded_mean` needs one registered public scale
+  (`public_scale_unavailable` otherwise; custodians can add scales with
+  `dsomop.release.public_scales`). Typed counts now use the shared person-total
+  allocation (0.2 of the reference calibration), so a standalone typed count is
+  noisier than its former full-epsilon release.
+- `omopDpReleaseDS` requires the community tools (`dsomop.tools.enabled`) and
+  logs every attempt; it returns the protected payload of
+  `dsomop-protected-release-v1` and needs dsOMOPClient 2.10.3. The previous
+  per-request semantic identities and the private database version (largest
+  clinical primary keys) are removed: realised releases re-draw exactly the
+  components whose contributions changed, and fixed synopses follow the
+  automatic data generation.
+- DP status advertises the protected-release contract
+  (`privacy_contract = "protected_release_fixed_basis_or_realised_v1"`,
+  `history_based_admission = FALSE`); clients older than 2.10.3 refuse typed
+  releases from it.
+
 # dsOMOP 2.10.2
 
 - Reads every OMOP CDM version label. `cdm_source.cdm_version` values with a
