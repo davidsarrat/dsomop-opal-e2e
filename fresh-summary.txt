@@ -1,0 +1,16 @@
+[fresh] Opal 6.1.3: allowRPackageManagement on a fresh Opal = FALSE; after the administrator enables it = TRUE
+[fresh] O10 methods and Options republished: declared 59 agg + 14 assign; published 59 agg + 14 assign (version 2.10.3; installed 2.10.3); missing 0; wrong type 0; extra 0; wrong function 0; not exported 0; options 36 declared, missing 0, different 0
+O1: PASS
+O2: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.
+O3: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.
+O4: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.
+O5: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.
+O6: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.
+O7: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.
+O8: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.
+O9: FAIL [Client error: (400) Bad Request] Error while evaluating 'is.null(base::assign('ores', resourcer::newResourceClient(resourcer::newResource(name='o_big', url='omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=o_big&vocabulary_schema=o_big&results_schema=o_big', identity='omop', secret='***', format='omop.dbi.db'))))' -> Error in resolveResource(x) : 
+  No resolver could be found for resource: omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=o_big&vocabulary_schema=o_big&results_schema=o_big
+
+O10: PASS
+O11: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.
+O12: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.

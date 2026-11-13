@@ -1,0 +1,14 @@
+SUMMARY O1: PASS
+SUMMARY O2: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.
+SUMMARY O3: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.
+SUMMARY O4: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.
+SUMMARY O5: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.
+SUMMARY O6: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.
+SUMMARY O7: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.
+SUMMARY O8: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.
+SUMMARY O9: FAIL [Client error: (400) Bad Request] Error while evaluating 'is.null(base::assign('ores', resourcer::newResourceClient(resourcer::newResource(name='o_big', url='omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=o_big&vocabulary_schema=o_big&results_schema=o_big', identity='omop', secret='***', format='omop.dbi.db'))))' -> Error in resolveResource(x) : 
+  No resolver could be found for resource: omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=o_big&vocabulary_schema=o_big&results_schema=o_big
+
+SUMMARY O10: PASS
+SUMMARY O11: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.
+SUMMARY O12: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.
