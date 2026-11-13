@@ -1,0 +1,130 @@
+dsOMOP v2.10.3 loaded. OMOP CDM resource resolver registered.
+date-system-outputs: duckdb keeps downloaded extensions and secrets in a temporary directory:
+i /tmp/Rtmp97n8cr/duckdb
+This is removed when the R session ends.
+* Extensions are re-downloaded each session.
+* Secrets are lost.
+i Run duckdb(shared_home = TRUE) (or create ~/.duckdb) to keep them (suitable for most users).
+i Run duckdb(shared_home = FALSE) to accept the temporary directory (and silence this message).
+i See ?duckdb_storage for details and alternatives.
+........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+e2e4-categories: duckdb keeps downloaded extensions and secrets in a temporary directory:
+i /tmp/Rtmp97n8cr/duckdb
+This is removed when the R session ends.
+* Extensions are re-downloaded each session.
+* Secrets are lost.
+i Run duckdb(shared_home = TRUE) (or create ~/.duckdb) to keep them (suitable for most users).
+i Run duckdb(shared_home = FALSE) to accept the temporary directory (and silence this message).
+i See ?duckdb_storage for details and alternatives.
+1..............[dsomop-audit] 2026-11-13T20:42:19+0000 method=omopPlanExecuteDS detail={"outputs":["baseline","features"],"plan":{"version":1,"options":{"translate_concepts":false},"cohort":{"type":"cohort_table","cohort_definition_id":1},"outputs":{"baseline":{"type":"baseline","columns":"gender_concept_id","derived":"age_at_index","age_breaks":[0,18,65]},"features":{"type":"person_level","tables":{"person":"gender_concept_id"},"derived_columns":[{"kind":"sex_mf","name":"sex"}]}}},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:42:20+0000 method=publication detail={"output":"baseline","component":"baseline","passed":true}
+[dsomop-audit] 2026-11-13T20:42:20+0000 method=publication detail={"output":"features","component":"features","passed":true}
+.......[dsomop-audit] 2026-11-13T20:42:20+0000 method=omopPlanExecuteDS detail={"outputs":["baseline","features"],"plan":{"version":1,"options":{"translate_concepts":true},"cohort":{"type":"cohort_table","cohort_definition_id":1},"outputs":{"baseline":{"type":"baseline","columns":"gender_concept_id","derived":"age_at_index","age_breaks":[0,18,65]},"features":{"type":"person_level","tables":{"person":"gender_concept_id"},"derived_columns":[{"kind":"sex_mf","name":"sex"}]}}},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:42:22+0000 method=publication detail={"output":"baseline","component":"baseline","passed":true}
+[dsomop-audit] 2026-11-13T20:42:22+0000 method=publication detail={"output":"features","component":"features","passed":true}
+.......[dsomop-audit] 2026-11-13T20:42:22+0000 method=omopPlanExecuteDS detail={"outputs":["baseline","features"],"plan":{"version":1,"options":{"translate_concepts":false},"cohort":{"type":"cohort_table","cohort_definition_id":1},"outputs":{"baseline":{"type":"baseline","columns":"gender_concept_id","derived":"age_at_index","age_breaks":[0,18,65]},"features":{"type":"person_level","tables":{"person":"gender_concept_id"},"derived_columns":[{"kind":"sex_mf","name":"sex"}]}}},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:42:23+0000 method=publication detail={"output":"baseline","component":"baseline","passed":true}
+[dsomop-audit] 2026-11-13T20:42:23+0000 method=publication detail={"output":"features","component":"features","passed":true}
+.......[dsomop-audit] 2026-11-13T20:42:23+0000 method=omopPlanExecuteDS detail={"outputs":["baseline","features"],"plan":{"version":1,"options":{"translate_concepts":true},"cohort":{"type":"cohort_table","cohort_definition_id":1},"outputs":{"baseline":{"type":"baseline","columns":"gender_concept_id","derived":"age_at_index","age_breaks":[0,18,65]},"features":{"type":"person_level","tables":{"person":"gender_concept_id"},"derived_columns":[{"kind":"sex_mf","name":"sex"}]}}},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:42:23+0000 method=publication detail={"output":"baseline","component":"baseline","passed":true}
+[dsomop-audit] 2026-11-13T20:42:23+0000 method=publication detail={"output":"features","component":"features","passed":true}
+................................2....
+extraction: .........................................................................................................................................................................[dsomop-audit] 2026-11-13T20:42:41+0000 method=publication detail={"output":"wide","component":"wide","passed":true}
+.......[dsomop-audit] 2026-11-13T20:42:41+0000 method=publication detail={"output":"wide","component":"wide","passed":true}
+....[dsomop-audit] 2026-11-13T20:42:42+0000 method=publication detail={"output":"wide","component":"wide","passed":true}
+.............................
+publication-compiled: [dsomop-audit] 2026-11-13T20:42:47+0000 method=publication detail={"output":"out","component":"out","passed":true}
+....[dsomop-audit] 2026-11-13T20:42:47+0000 method=publication detail={"output":"out","component":"out","passed":true}
+.............[dsomop-audit] 2026-11-13T20:42:48+0000 method=publication detail={"output":"out","component":"out","passed":true}
+...............[dsomop-audit] 2026-11-13T20:42:50+0000 method=publication detail={"output":"out","component":"out","passed":true}
+........[dsomop-audit] 2026-11-13T20:42:51+0000 method=publication detail={"output":"out","component":"out","passed":true}
+.........[dsomop-audit] 2026-11-13T20:42:52+0000 method=publication detail={"output":"out","component":"out","passed":true}
+...........[dsomop-audit] 2026-11-13T20:42:53+0000 method=publication detail={"output":"out","component":"out","passed":true}
+.......duckdb keeps downloaded extensions and secrets in a temporary directory:
+i /tmp/Rtmp97n8cr/duckdb
+This is removed when the R session ends.
+* Extensions are re-downloaded each session.
+* Secrets are lost.
+i Run duckdb(shared_home = TRUE) (or create ~/.duckdb) to keep them (suitable for most users).
+i Run duckdb(shared_home = FALSE) to accept the temporary directory (and silence this message).
+i See ?duckdb_storage for details and alternatives.
+[dsomop-audit] 2026-11-13T20:42:54+0000 method=publication detail={"output":"out","component":"out","passed":true}
+.......[dsomop-audit] 2026-11-13T20:42:56+0000 method=publication detail={"output":"out","component":"out","passed":true}
+.....[dsomop-audit] 2026-11-13T20:42:56+0000 method=publication detail={"output":"out","component":"out","passed":false}
+........[dsomop-audit] 2026-11-13T20:42:57+0000 method=publication detail={"output":"out","component":"out","passed":true}
+...................................[dsomop-audit] 2026-11-13T20:42:59+0000 method=publication detail={"output":"out","component":"out","passed":false}
+........[dsomop-audit] 2026-11-13T20:43:00+0000 method=publication detail={"output":"out","component":"out","passed":false}
+.........[dsomop-audit] 2026-11-13T20:43:00+0000 method=publication detail={"output":"out","component":"out","passed":false}
+....[dsomop-audit] 2026-11-13T20:43:01+0000 method=publication detail={"output":"out","component":"out","passed":false}
+....[dsomop-audit] 2026-11-13T20:43:01+0000 method=publication detail={"output":"out","component":"out","passed":true}
+......[dsomop-audit] 2026-11-13T20:43:01+0000 method=publication detail={"output":"out","component":"out","passed":false}
+.......[dsomop-audit] 2026-11-13T20:43:02+0000 method=publication detail={"output":"out","component":"out","passed":true}
+......[dsomop-audit] 2026-11-13T20:43:03+0000 method=publication detail={"output":"out","component":"out","passed":false}
+.......[dsomop-audit] 2026-11-13T20:43:03+0000 method=publication detail={"output":"out","component":"risk","passed":true}
+[dsomop-audit] 2026-11-13T20:43:03+0000 method=publication detail={"output":"out","component":"events","passed":false}
+........[dsomop-audit] 2026-11-13T20:43:03+0000 method=publication detail={"output":"out","component":"risk","passed":true}
+[dsomop-audit] 2026-11-13T20:43:03+0000 method=publication detail={"output":"out","component":"events","passed":true}
+......[dsomop-audit] 2026-11-13T20:43:04+0000 method=publication detail={"output":"out","component":"risk","passed":true}
+[dsomop-audit] 2026-11-13T20:43:04+0000 method=publication detail={"output":"out","component":"events","passed":false}
+.......[dsomop-audit] 2026-11-13T20:43:04+0000 method=publication detail={"output":"out","component":"risk","passed":true}
+[dsomop-audit] 2026-11-13T20:43:05+0000 method=publication detail={"output":"out","component":"events","passed":false}
+........[dsomop-audit] 2026-11-13T20:43:05+0000 method=publication detail={"output":"out","component":"risk","passed":true}
+[dsomop-audit] 2026-11-13T20:43:05+0000 method=publication detail={"output":"out","component":"events","passed":true}
+......[dsomop-audit] 2026-11-13T20:43:06+0000 method=publication detail={"output":"out","component":"risk","passed":true}
+[dsomop-audit] 2026-11-13T20:43:06+0000 method=publication detail={"output":"out","component":"events","passed":false}
+.......[dsomop-audit] 2026-11-13T20:43:07+0000 method=publication detail={"output":"out","component":"risk","passed":true}
+[dsomop-audit] 2026-11-13T20:43:07+0000 method=publication detail={"output":"out","component":"events","passed":false}
+..[dsomop-audit] 2026-11-13T20:43:07+0000 method=publication detail={"output":"out","component":"risk","passed":false}
+[dsomop-audit] 2026-11-13T20:43:07+0000 method=publication detail={"output":"out","component":"events","passed":false}
+[dsomop-audit] 2026-11-13T20:43:07+0000 method=publication detail={"output":"out","component":"dictionary","passed":true}
+..........[dsomop-audit] 2026-11-13T20:43:07+0000 method=publication detail={"output":"out","component":"dictionary","passed":true}
+[dsomop-audit] 2026-11-13T20:43:07+0000 method=publication detail={"output":"out","component":"events","passed":false}
+[dsomop-audit] 2026-11-13T20:43:07+0000 method=publication detail={"output":"out","component":"risk","passed":false}
+..........[dsomop-audit] 2026-11-13T20:43:08+0000 method=publication detail={"output":"out","component":"risk","passed":false}
+[dsomop-audit] 2026-11-13T20:43:08+0000 method=publication detail={"output":"out","component":"events","passed":false}
+[dsomop-audit] 2026-11-13T20:43:09+0000 method=publication detail={"output":"out","component":"dictionary","passed":true}
+...........[dsomop-audit] 2026-11-13T20:43:09+0000 method=publication detail={"output":"out","component":"dictionary","passed":true}
+[dsomop-audit] 2026-11-13T20:43:10+0000 method=publication detail={"output":"out","component":"events","passed":false}
+[dsomop-audit] 2026-11-13T20:43:10+0000 method=publication detail={"output":"out","component":"risk","passed":false}
+...........[dsomop-audit] 2026-11-13T20:43:10+0000 method=publication detail={"output":"out","component":"risk","passed":false}
+[dsomop-audit] 2026-11-13T20:43:10+0000 method=publication detail={"output":"out","component":"events","passed":false}
+....
+staging-contract: ...........................................................................................................
+staging-csv: .....
+
+══ Failed ══════════════════════════════════════════════════════════════════════
+── 1. Error ('test-e2e4-categories.R:43:7'): categorical kinds survive every app
+Error: Invalid server disclosure option 'nfilter_levels_density': expected a finite number in [2.22044604925031e-16, 1].
+Backtrace:
+     ▆
+  1. ├─base::tryCatch(...) at test-e2e4-categories.R:42:5
+  2. │ └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+  3. └─.ws7_population(...) at test-e2e4-categories.R:43:7
+  4.   └─dsOMOP:::.compilePopulationByName(run$cctx, pop) at tests/testthat/helper-ws7.R:133:3
+  5.     └─dsOMOP:::.compilePopulation(ctx, node, deps) at dsOMOP/R/compile_population.R:440:3
+  6.       └─dsOMOP:::.compileIndexPopulation(ctx, name, node, deps) at dsOMOP/R/compile_population.R:481:3
+  7.         └─dsOMOP:::.populationCandidateFragment(...) at dsOMOP/R/compile_population.R:709:3
+  8.           └─dsOMOP:::.populationFreezeFragment(ctx, f) at dsOMOP/R/compile_population.R:145:3
+  9.             └─base::tryCatch(...) at dsOMOP/R/compile_population_materialise.R:52:3
+ 10.               └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+ 11.                 └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 12.                   └─value[[3L]](cond)
+
+── 2. Failure ('test-e2e4-categories.R:169:44'): private Parquet presentation wr
+Expected `levels(restored$code)` to be identical to `c("1", "2")`.
+Differences:
+`actual`:          
+`expected`: "1" "2"
+
+
+══ DONE ════════════════════════════════════════════════════════════════════════
+
+FAILURES BY FILE
+                   file blocks failed errors
+ test-e2e4-categories.R      2      1      1
+
+FAILING TESTS
+test-e2e4-categories.R | categorical kinds survive every applicable native output and file path | failed=0 error=TRUE
+test-e2e4-categories.R | private Parquet presentation writes typed factors including empty streams | failed=1 error=FALSE
+
+RESULT failed: 1 errors: 1 skipped: 0 passed: 1191 

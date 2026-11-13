@@ -1,0 +1,591 @@
+concept-label-analysis: Registered S3 method overwritten by 'bit':
+  method   from  
+  print.ri gamlss
+
+Logging into the collaborating servers
+[dsomop-audit] 2026-11-13T20:40:14+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}},"age":{"derived":{"kind":"age","reference_date":"2025-01-01"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:15+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:40:15+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}},"age":{"derived":{"kind":"age","reference_date":"2025-01-01"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:15+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:40:16+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}},"age":{"derived":{"kind":"age","reference_date":"2025-01-01"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:16+0000 method=publication detail={"output":"output","component":"output","passed":true}
+.
+Data in all studies were valid
+
+
+Study1: No errors reported from this study
+
+Study2: No errors reported from this study
+
+Study3: No errors reported from this study
+
+
+
+...
+Data in all studies were valid
+
+
+Study1: No errors reported from this study
+
+Study2: No errors reported from this study
+
+Study3: No errors reported from this study
+
+
+
+.[dsomop-audit] 2026-11-13T20:40:19+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"education","45000126":"education"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}},"age":{"derived":{"kind":"age","reference_date":"2025-01-01"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:19+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:40:19+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"education","45000126":"education"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}},"age":{"derived":{"kind":"age","reference_date":"2025-01-01"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:20+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:40:20+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"education","45000126":"education"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}},"age":{"derived":{"kind":"age","reference_date":"2025-01-01"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:20+0000 method=publication detail={"output":"output","component":"output","passed":true}
+WWWIteration 1...
+WWWCURRENT DEVIANCE:      120078
+Iteration 2...
+WWWCURRENT DEVIANCE:      1575
+Iteration 3...
+WWWCURRENT DEVIANCE:      1575
+SUMMARY OF MODEL STATE after iteration 3
+Current deviance 1575 on 51 degrees of freedom
+Convergence criterion TRUE (0)
+
+beta: 55.75 -16.5 -21.75
+
+Information matrix overall:
+                         (Intercept) educationSame [45000124]
+(Intercept)                       54                       24
+educationSame [45000124]          24                       24
+educationSame [45000125]           6                        0
+                         educationSame [45000125]
+(Intercept)                                     6
+educationSame [45000124]                        0
+educationSame [45000125]                        6
+
+Score vector overall:
+                         [,1]
+(Intercept)                 0
+educationSame [45000124]    0
+educationSame [45000125]    0
+
+Current deviance: 1575
+
+........
+Logging into the collaborating servers
+[dsomop-audit] 2026-11-13T20:40:24+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"comma,label","45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:25+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:40:25+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"comma,label","45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:25+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:40:25+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"comma,label","45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:26+0000 method=publication detail={"output":"output","component":"output","passed":true}
+
+Data in all studies were valid
+
+
+Study1: No errors reported from this study
+
+Study2: No errors reported from this study
+
+Study3: No errors reported from this study
+
+
+
+....
+Data in all studies were valid
+
+
+Study1: No errors reported from this study
+
+Study2: No errors reported from this study
+
+Study3: No errors reported from this study
+
+
+
+...[dsomop-audit] 2026-11-13T20:40:28+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"comma,label","45000126":"comma","45000127":"label"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:28+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:40:28+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"comma,label","45000126":"comma","45000127":"label"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:29+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:40:29+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"comma,label","45000126":"comma","45000127":"label"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:29+0000 method=publication detail={"output":"output","component":"output","passed":true}
+
+Data in all studies were valid
+
+
+Study1: No errors reported from this study
+
+Study2: No errors reported from this study
+
+Study3: No errors reported from this study
+
+
+
+....
+Data in all studies were valid
+
+
+Study1: No errors reported from this study
+
+Study2: No errors reported from this study
+
+Study3: No errors reported from this study
+
+
+
+...[dsomop-audit] 2026-11-13T20:40:31+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"NA","45000124":"C1","45000125":" \\\"quoted,\né\" ","45000126":"declared,only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:31+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:40:31+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"NA","45000124":"C1","45000125":" \\\"quoted,\né\" ","45000126":"declared,only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:32+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:40:32+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"NA","45000124":"C1","45000125":" \\\"quoted,\né\" ","45000126":"declared,only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:32+0000 method=publication detail={"output":"output","component":"output","passed":true}
+
+Data in all studies were valid
+
+
+Study1: No errors reported from this study
+
+Study2: No errors reported from this study
+
+Study3: No errors reported from this study
+
+
+
+....
+Data in all studies were valid
+
+
+Study1: No errors reported from this study
+
+Study2: No errors reported from this study
+
+Study3: No errors reported from this study
+
+
+
+...[dsomop-audit] 2026-11-13T20:40:34+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"comma,label","45000124":"comma,label","45000126":"comma","45000127":"label"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:35+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:40:35+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"comma,label","45000124":"comma,label","45000126":"comma","45000127":"label"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:35+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:40:35+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"comma,label","45000124":"comma,label","45000126":"comma","45000127":"label"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:35+0000 method=publication detail={"output":"output","component":"output","passed":true}
+
+Data in all studies were valid
+
+
+Study1: No errors reported from this study
+
+Study2: No errors reported from this study
+
+Study3: No errors reported from this study
+
+
+
+....
+Data in all studies were valid
+
+
+Study1: No errors reported from this study
+
+Study2: No errors reported from this study
+
+Study3: No errors reported from this study
+
+
+
+.....................
+concept-label-federation: 
+Logging into the collaborating servers
+[dsomop-audit] 2026-11-13T20:40:41+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:41+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:40:41+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:42+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:40:42+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:42+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:40:43+0000 method=omopPlanExplainDS detail={"plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]}}
+[dsomop-audit] 2026-11-13T20:40:43+0000 method=omopPlanExplainDS detail={"plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]}}
+[dsomop-audit] 2026-11-13T20:40:43+0000 method=omopPlanExplainDS detail={"plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]}}
+..............[dsomop-audit] 2026-11-13T20:40:43+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:44+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:40:44+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:44+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:40:44+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:45+0000 method=publication detail={"output":"output","component":"output","passed":true}
+.[dsomop-audit] 2026-11-13T20:40:45+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:46+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:40:46+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:47+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:40:47+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:48+0000 method=publication detail={"output":"output","component":"output","passed":true}
+.1
+Logging into the collaborating servers
+[dsomop-audit] 2026-11-13T20:40:56+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}},"features":{"table":"observation","concept_set":{"concepts":[45000123,45000124,45000125]}}},"populations":{"base":{"kind":"index","index":{"source":{"event":"obs_45000120"},"select":"all","end":{"strategy":"event_end"}}}},"outputs":{"output":{"rows":"base","format":"person_period","options":{"sources":[{"event":"features"}],"bins":{"width":10},"window":{"start":0,"end":9,"anchor":"index"},"analyses":["count"]}}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:57+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:40:57+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}},"features":{"table":"observation","concept_set":{"concepts":[45000123,45000124,45000125]}}},"populations":{"base":{"kind":"index","index":{"source":{"event":"obs_45000120"},"select":"all","end":{"strategy":"event_end"}}}},"outputs":{"output":{"rows":"base","format":"person_period","options":{"sources":[{"event":"features"}],"bins":{"width":10},"window":{"start":0,"end":9,"anchor":"index"},"analyses":["count"]}}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:58+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:40:58+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}},"features":{"table":"observation","concept_set":{"concepts":[45000123,45000124,45000125]}}},"populations":{"base":{"kind":"index","index":{"source":{"event":"obs_45000120"},"select":"all","end":{"strategy":"event_end"}}}},"outputs":{"output":{"rows":"base","format":"person_period","options":{"sources":[{"event":"features"}],"bins":{"width":10},"window":{"start":0,"end":9,"anchor":"index"},"analyses":["count"]}}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:40:59+0000 method=publication detail={"output":"output","component":"output","passed":true}
+...........[dsomop-audit] 2026-11-13T20:40:59+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}},"features":{"table":"observation","concept_set":{"concepts":[45000123,45000124,45000125]}}},"populations":{"base":{"kind":"index","index":{"source":{"event":"obs_45000120"},"select":"all","end":{"strategy":"event_end"}}}},"outputs":{"output":{"rows":"base","format":"person_period","options":{"sources":[{"event":"features"}],"bins":{"width":10},"window":{"start":0,"end":9,"anchor":"index"},"analyses":["count"]}}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:00+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:00+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}},"features":{"table":"observation","concept_set":{"concepts":[45000123,45000124,45000125]}}},"populations":{"base":{"kind":"index","index":{"source":{"event":"obs_45000120"},"select":"all","end":{"strategy":"event_end"}}}},"outputs":{"output":{"rows":"base","format":"person_period","options":{"sources":[{"event":"features"}],"bins":{"width":10},"window":{"start":0,"end":9,"anchor":"index"},"analyses":["count"]}}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:01+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:01+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}},"features":{"table":"observation","concept_set":{"concepts":[45000123,45000124,45000125]}}},"populations":{"base":{"kind":"index","index":{"source":{"event":"obs_45000120"},"select":"all","end":{"strategy":"event_end"}}}},"outputs":{"output":{"rows":"base","format":"person_period","options":{"sources":[{"event":"features"}],"bins":{"width":10},"window":{"start":0,"end":9,"anchor":"index"},"analyses":["count"]}}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:02+0000 method=publication detail={"output":"output","component":"output","passed":true}
+...........
+Logging into the collaborating servers
+[dsomop-audit] 2026-11-13T20:41:10+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"cohort":null,"anchor":{"table":"person","id_col":"person_id"},"outputs":{"output":{"type":"person_level","tables":{"observation":{"features":{"education":{"type":"latest_value","concept_set":45000120,"value_column":"value_as_concept_id","name":"education"}}},"death":{"features":{"cause":{"type":"latest_value","concept_set":[],"value_column":"cause_concept_id","name":"cause"}}}},"representation":"features","derived_columns":null,"population_id":"base","options":[]}},"options":{"translate_concepts":true,"block_sensitive":true,"factor_concepts":true},"populations":{"base":{"id":"base","label":"All Persons","kind":"criteria"}},"harmonization":{"version":2,"mode":"intersection","strict":true,"manifest":{"tables":{"observation":["observation_concept_id","observation_date","person_id","value_as_concept_id"],"death":["cause_concept_id","death_date","person_id"]},"reasons":{"observation":"output 'output'","death":"output 'output'"},"needs_vocabulary_identity":false,"issues":[],"cohort_required":[]},"schema":{"servers":["site1","site2","site3"],"tables":["death","observation"],"requirements":{"death":["cause_concept_id","death_date","person_id"],"observation":["observation_concept_id","observation_date","person_id","value_as_concept_id"]},"present":{"death":true,"observation":true},"columns":{"death":["cause_concept_id","death_date","person_id"],"observation":["observation_concept_id","observation_date","person_id","value_as_concept_id"]},"types":{"death":{"cause_concept_id":"numeric","death_date":"temporal","person_id":"numeric"},"observation":{"observation_concept_id":"numeric","observation_date":"temporal","person_id":"numeric","value_as_concept_id":"numeric"}},"semantic_versions":[]},"plan_signature":"{\"cohort\":null,\"anchor\":{\"table\":\"person\",\"id_col\":\"person_id\"},\"outputs\":{\"output\":{\"type\":\"person_level\",\"tables\":{\"observation\":{\"features\":{\"education\":{\"type\":\"latest_value\",\"concept_set\":45000120,\"value_co...<truncated>
+[dsomop-audit] 2026-11-13T20:41:10+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:10+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"cohort":null,"anchor":{"table":"person","id_col":"person_id"},"outputs":{"output":{"type":"person_level","tables":{"observation":{"features":{"education":{"type":"latest_value","concept_set":45000120,"value_column":"value_as_concept_id","name":"education"}}},"death":{"features":{"cause":{"type":"latest_value","concept_set":[],"value_column":"cause_concept_id","name":"cause"}}}},"representation":"features","derived_columns":null,"population_id":"base","options":[]}},"options":{"translate_concepts":true,"block_sensitive":true,"factor_concepts":true},"populations":{"base":{"id":"base","label":"All Persons","kind":"criteria"}},"harmonization":{"version":2,"mode":"intersection","strict":true,"manifest":{"tables":{"observation":["observation_concept_id","observation_date","person_id","value_as_concept_id"],"death":["cause_concept_id","death_date","person_id"]},"reasons":{"observation":"output 'output'","death":"output 'output'"},"needs_vocabulary_identity":false,"issues":[],"cohort_required":[]},"schema":{"servers":["site1","site2","site3"],"tables":["death","observation"],"requirements":{"death":["cause_concept_id","death_date","person_id"],"observation":["observation_concept_id","observation_date","person_id","value_as_concept_id"]},"present":{"death":true,"observation":true},"columns":{"death":["cause_concept_id","death_date","person_id"],"observation":["observation_concept_id","observation_date","person_id","value_as_concept_id"]},"types":{"death":{"cause_concept_id":"numeric","death_date":"temporal","person_id":"numeric"},"observation":{"observation_concept_id":"numeric","observation_date":"temporal","person_id":"numeric","value_as_concept_id":"numeric"}},"semantic_versions":[]},"plan_signature":"{\"cohort\":null,\"anchor\":{\"table\":\"person\",\"id_col\":\"person_id\"},\"outputs\":{\"output\":{\"type\":\"person_level\",\"tables\":{\"observation\":{\"features\":{\"education\":{\"type\":\"latest_value\",\"concept_set\":45000120,\"value_co...<truncated>
+[dsomop-audit] 2026-11-13T20:41:10+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:10+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"cohort":null,"anchor":{"table":"person","id_col":"person_id"},"outputs":{"output":{"type":"person_level","tables":{"observation":{"features":{"education":{"type":"latest_value","concept_set":45000120,"value_column":"value_as_concept_id","name":"education"}}},"death":{"features":{"cause":{"type":"latest_value","concept_set":[],"value_column":"cause_concept_id","name":"cause"}}}},"representation":"features","derived_columns":null,"population_id":"base","options":[]}},"options":{"translate_concepts":true,"block_sensitive":true,"factor_concepts":true},"populations":{"base":{"id":"base","label":"All Persons","kind":"criteria"}},"harmonization":{"version":2,"mode":"intersection","strict":true,"manifest":{"tables":{"observation":["observation_concept_id","observation_date","person_id","value_as_concept_id"],"death":["cause_concept_id","death_date","person_id"]},"reasons":{"observation":"output 'output'","death":"output 'output'"},"needs_vocabulary_identity":false,"issues":[],"cohort_required":[]},"schema":{"servers":["site1","site2","site3"],"tables":["death","observation"],"requirements":{"death":["cause_concept_id","death_date","person_id"],"observation":["observation_concept_id","observation_date","person_id","value_as_concept_id"]},"present":{"death":true,"observation":true},"columns":{"death":["cause_concept_id","death_date","person_id"],"observation":["observation_concept_id","observation_date","person_id","value_as_concept_id"]},"types":{"death":{"cause_concept_id":"numeric","death_date":"temporal","person_id":"numeric"},"observation":{"observation_concept_id":"numeric","observation_date":"temporal","person_id":"numeric","value_as_concept_id":"numeric"}},"semantic_versions":[]},"plan_signature":"{\"cohort\":null,\"anchor\":{\"table\":\"person\",\"id_col\":\"person_id\"},\"outputs\":{\"output\":{\"type\":\"person_level\",\"tables\":{\"observation\":{\"features\":{\"education\":{\"type\":\"latest_value\",\"concept_set\":45000120,\"value_co...<truncated>
+[dsomop-audit] 2026-11-13T20:41:10+0000 method=publication detail={"output":"output","component":"output","passed":true}
+.........[dsomop-audit] 2026-11-13T20:41:12+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"cohort":null,"anchor":{"table":"person","id_col":"person_id"},"outputs":{"output":{"type":"person_level","tables":{"observation":{"features":{"education":{"type":"latest_value","concept_set":45000120,"value_column":"value_as_concept_id","name":"education"}}},"death":{"features":{"cause":{"type":"latest_value","concept_set":[],"value_column":"cause_concept_id","name":"cause"}}}},"representation":"features","derived_columns":null,"population_id":"base","options":[]}},"options":{"translate_concepts":true,"block_sensitive":true,"factor_concepts":true},"populations":{"base":{"id":"base","label":"All Persons","kind":"criteria"}},"harmonization":{"version":2,"mode":"intersection","strict":true,"manifest":{"tables":{"observation":["observation_concept_id","observation_date","person_id","value_as_concept_id"],"death":["cause_concept_id","death_date","person_id"]},"reasons":{"observation":"output 'output'","death":"output 'output'"},"needs_vocabulary_identity":false,"issues":[],"cohort_required":[]},"schema":{"servers":["site1","site2","site3"],"tables":["death","observation"],"requirements":{"death":["cause_concept_id","death_date","person_id"],"observation":["observation_concept_id","observation_date","person_id","value_as_concept_id"]},"present":{"death":true,"observation":true},"columns":{"death":["cause_concept_id","death_date","person_id"],"observation":["observation_concept_id","observation_date","person_id","value_as_concept_id"]},"types":{"death":{"cause_concept_id":"numeric","death_date":"temporal","person_id":"numeric"},"observation":{"observation_concept_id":"numeric","observation_date":"temporal","person_id":"numeric","value_as_concept_id":"numeric"}},"semantic_versions":[]},"plan_signature":"{\"cohort\":null,\"anchor\":{\"table\":\"person\",\"id_col\":\"person_id\"},\"outputs\":{\"output\":{\"type\":\"person_level\",\"tables\":{\"observation\":{\"features\":{\"education\":{\"type\":\"latest_value\",\"concept_set\":45000120,\"value_co...<truncated>
+[dsomop-audit] 2026-11-13T20:41:12+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:12+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"cohort":null,"anchor":{"table":"person","id_col":"person_id"},"outputs":{"output":{"type":"person_level","tables":{"observation":{"features":{"education":{"type":"latest_value","concept_set":45000120,"value_column":"value_as_concept_id","name":"education"}}},"death":{"features":{"cause":{"type":"latest_value","concept_set":[],"value_column":"cause_concept_id","name":"cause"}}}},"representation":"features","derived_columns":null,"population_id":"base","options":[]}},"options":{"translate_concepts":true,"block_sensitive":true,"factor_concepts":true},"populations":{"base":{"id":"base","label":"All Persons","kind":"criteria"}},"harmonization":{"version":2,"mode":"intersection","strict":true,"manifest":{"tables":{"observation":["observation_concept_id","observation_date","person_id","value_as_concept_id"],"death":["cause_concept_id","death_date","person_id"]},"reasons":{"observation":"output 'output'","death":"output 'output'"},"needs_vocabulary_identity":false,"issues":[],"cohort_required":[]},"schema":{"servers":["site1","site2","site3"],"tables":["death","observation"],"requirements":{"death":["cause_concept_id","death_date","person_id"],"observation":["observation_concept_id","observation_date","person_id","value_as_concept_id"]},"present":{"death":true,"observation":true},"columns":{"death":["cause_concept_id","death_date","person_id"],"observation":["observation_concept_id","observation_date","person_id","value_as_concept_id"]},"types":{"death":{"cause_concept_id":"numeric","death_date":"temporal","person_id":"numeric"},"observation":{"observation_concept_id":"numeric","observation_date":"temporal","person_id":"numeric","value_as_concept_id":"numeric"}},"semantic_versions":[]},"plan_signature":"{\"cohort\":null,\"anchor\":{\"table\":\"person\",\"id_col\":\"person_id\"},\"outputs\":{\"output\":{\"type\":\"person_level\",\"tables\":{\"observation\":{\"features\":{\"education\":{\"type\":\"latest_value\",\"concept_set\":45000120,\"value_co...<truncated>
+[dsomop-audit] 2026-11-13T20:41:12+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:12+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"cohort":null,"anchor":{"table":"person","id_col":"person_id"},"outputs":{"output":{"type":"person_level","tables":{"observation":{"features":{"education":{"type":"latest_value","concept_set":45000120,"value_column":"value_as_concept_id","name":"education"}}},"death":{"features":{"cause":{"type":"latest_value","concept_set":[],"value_column":"cause_concept_id","name":"cause"}}}},"representation":"features","derived_columns":null,"population_id":"base","options":[]}},"options":{"translate_concepts":true,"block_sensitive":true,"factor_concepts":true},"populations":{"base":{"id":"base","label":"All Persons","kind":"criteria"}},"harmonization":{"version":2,"mode":"intersection","strict":true,"manifest":{"tables":{"observation":["observation_concept_id","observation_date","person_id","value_as_concept_id"],"death":["cause_concept_id","death_date","person_id"]},"reasons":{"observation":"output 'output'","death":"output 'output'"},"needs_vocabulary_identity":false,"issues":[],"cohort_required":[]},"schema":{"servers":["site1","site2","site3"],"tables":["death","observation"],"requirements":{"death":["cause_concept_id","death_date","person_id"],"observation":["observation_concept_id","observation_date","person_id","value_as_concept_id"]},"present":{"death":true,"observation":true},"columns":{"death":["cause_concept_id","death_date","person_id"],"observation":["observation_concept_id","observation_date","person_id","value_as_concept_id"]},"types":{"death":{"cause_concept_id":"numeric","death_date":"temporal","person_id":"numeric"},"observation":{"observation_concept_id":"numeric","observation_date":"temporal","person_id":"numeric","value_as_concept_id":"numeric"}},"semantic_versions":[]},"plan_signature":"{\"cohort\":null,\"anchor\":{\"table\":\"person\",\"id_col\":\"person_id\"},\"outputs\":{\"output\":{\"type\":\"person_level\",\"tables\":{\"observation\":{\"features\":{\"education\":{\"type\":\"latest_value\",\"concept_set\":45000120,\"value_co...<truncated>
+[dsomop-audit] 2026-11-13T20:41:13+0000 method=publication detail={"output":"output","component":"output","passed":true}
+.........
+Logging into the collaborating servers
+[dsomop-audit] 2026-11-13T20:41:18+0000 method=omopPlanExecuteDS detail={"outputs":["output","small"],"plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}},"few":{"table":"observation","concept_set":{"concepts":[45000125]}}},"populations":{"base":{"kind":"criteria"},"few":{"kind":"index","index":{"source":{"event":"few"},"select":"all","end":{"strategy":"event_end"}}}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"},"small":{"rows":"few","format":"wide","grain":"episode"}},"publish":["output","small"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:18+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:18+0000 method=publication detail={"output":"small","component":"small","passed":true}
+[dsomop-audit] 2026-11-13T20:41:19+0000 method=omopPlanExecuteDS detail={"outputs":["output","small"],"plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}},"few":{"table":"observation","concept_set":{"concepts":[45000125]}}},"populations":{"base":{"kind":"criteria"},"few":{"kind":"index","index":{"source":{"event":"few"},"select":"all","end":{"strategy":"event_end"}}}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"},"small":{"rows":"few","format":"wide","grain":"episode"}},"publish":["output","small"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:19+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:19+0000 method=publication detail={"output":"small","component":"small","passed":false}
+[dsomop-audit] 2026-11-13T20:41:19+0000 method=omopPlanExecuteDS detail={"outputs":["output","small"],"plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}},"few":{"table":"observation","concept_set":{"concepts":[45000125]}}},"populations":{"base":{"kind":"criteria"},"few":{"kind":"index","index":{"source":{"event":"few"},"select":"all","end":{"strategy":"event_end"}}}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"},"small":{"rows":"few","format":"wide","grain":"episode"}},"publish":["output","small"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:20+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:20+0000 method=publication detail={"output":"small","component":"small","passed":false}
+WWW..[dsomop-audit] 2026-11-13T20:41:20+0000 method=omopPlanExecuteDS detail={"outputs":["output","small"],"plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}},"few":{"table":"observation","concept_set":{"concepts":[45000125]}}},"populations":{"base":{"kind":"criteria"},"few":{"kind":"index","index":{"source":{"event":"few"},"select":"all","end":{"strategy":"event_end"}}}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"},"small":{"rows":"few","format":"wide","grain":"episode"}},"publish":["output","small"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:21+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:21+0000 method=publication detail={"output":"small","component":"small","passed":true}
+[dsomop-audit] 2026-11-13T20:41:21+0000 method=omopPlanExecuteDS detail={"outputs":["output","small"],"plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}},"few":{"table":"observation","concept_set":{"concepts":[45000125]}}},"populations":{"base":{"kind":"criteria"},"few":{"kind":"index","index":{"source":{"event":"few"},"select":"all","end":{"strategy":"event_end"}}}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"},"small":{"rows":"few","format":"wide","grain":"episode"}},"publish":["output","small"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:22+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:22+0000 method=publication detail={"output":"small","component":"small","passed":false}
+[dsomop-audit] 2026-11-13T20:41:22+0000 method=omopPlanExecuteDS detail={"outputs":["output","small"],"plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}},"few":{"table":"observation","concept_set":{"concepts":[45000125]}}},"populations":{"base":{"kind":"criteria"},"few":{"kind":"index","index":{"source":{"event":"few"},"select":"all","end":{"strategy":"event_end"}}}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"},"small":{"rows":"few","format":"wide","grain":"episode"}},"publish":["output","small"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:22+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:22+0000 method=publication detail={"output":"small","component":"small","passed":false}
+....
+Logging into the collaborating servers
+[dsomop-audit] 2026-11-13T20:41:26+0000 method=omopPlanExecuteDS detail={"outputs":["output","small"],"plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}},"few":{"table":"observation","concept_set":{"concepts":[45000125]}}},"populations":{"base":{"kind":"criteria"},"few":{"kind":"index","index":{"source":{"event":"few"},"select":"all","end":{"strategy":"event_end"}}}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"},"small":{"rows":"few","format":"wide","grain":"episode"}},"publish":["output","small"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:27+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:27+0000 method=publication detail={"output":"small","component":"small","passed":true}
+[dsomop-audit] 2026-11-13T20:41:27+0000 method=omopPlanExecuteDS detail={"outputs":["output","small"],"plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}},"few":{"table":"observation","concept_set":{"concepts":[45000125]}}},"populations":{"base":{"kind":"criteria"},"few":{"kind":"index","index":{"source":{"event":"few"},"select":"all","end":{"strategy":"event_end"}}}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"},"small":{"rows":"few","format":"wide","grain":"episode"}},"publish":["output","small"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:27+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:27+0000 method=publication detail={"output":"small","component":"small","passed":false}
+[dsomop-audit] 2026-11-13T20:41:27+0000 method=omopPlanExecuteDS detail={"outputs":["output","small"],"plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}},"few":{"table":"observation","concept_set":{"concepts":[45000125]}}},"populations":{"base":{"kind":"criteria"},"few":{"kind":"index","index":{"source":{"event":"few"},"select":"all","end":{"strategy":"event_end"}}}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"},"small":{"rows":"few","format":"wide","grain":"episode"}},"publish":["output","small"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:28+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:28+0000 method=publication detail={"output":"small","component":"small","passed":false}
+..[dsomop-audit] 2026-11-13T20:41:29+0000 method=omopPlanExecuteDS detail={"outputs":["output","small"],"plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}},"few":{"table":"observation","concept_set":{"concepts":[45000125]}}},"populations":{"base":{"kind":"criteria"},"few":{"kind":"index","index":{"source":{"event":"few"},"select":"all","end":{"strategy":"event_end"}}}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"},"small":{"rows":"few","format":"wide","grain":"episode"}},"publish":["output","small"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:30+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:30+0000 method=publication detail={"output":"small","component":"small","passed":true}
+[dsomop-audit] 2026-11-13T20:41:30+0000 method=omopPlanExecuteDS detail={"outputs":["output","small"],"plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}},"few":{"table":"observation","concept_set":{"concepts":[45000125]}}},"populations":{"base":{"kind":"criteria"},"few":{"kind":"index","index":{"source":{"event":"few"},"select":"all","end":{"strategy":"event_end"}}}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"},"small":{"rows":"few","format":"wide","grain":"episode"}},"publish":["output","small"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:31+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:31+0000 method=publication detail={"output":"small","component":"small","passed":false}
+[dsomop-audit] 2026-11-13T20:41:31+0000 method=omopPlanExecuteDS detail={"outputs":["output","small"],"plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}},"few":{"table":"observation","concept_set":{"concepts":[45000125]}}},"populations":{"base":{"kind":"criteria"},"few":{"kind":"index","index":{"source":{"event":"few"},"select":"all","end":{"strategy":"event_end"}}}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"},"small":{"rows":"few","format":"wide","grain":"episode"}},"publish":["output","small"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:31+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:31+0000 method=publication detail={"output":"small","component":"small","passed":false}
+....
+Logging into the collaborating servers
+[dsomop-audit] 2026-11-13T20:41:34+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:35+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:35+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:35+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:35+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:36+0000 method=publication detail={"output":"output","component":"output","passed":true}
+WWW..[dsomop-audit] 2026-11-13T20:41:36+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:37+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:37+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:37+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:37+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:37+0000 method=publication detail={"output":"output","component":"output","passed":true}
+WWW..
+Logging into the collaborating servers
+[dsomop-audit] 2026-11-13T20:41:41+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:41+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:41+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:41+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:42+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:42+0000 method=publication detail={"output":"output","component":"output","passed":true}
+...
+Logging into the collaborating servers
+[dsomop-audit] 2026-11-13T20:41:46+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"NA","45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:46+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:47+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"NA","45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:47+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:47+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"NA","45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:47+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:48+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"NA","45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:49+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:49+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"NA","45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:50+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:50+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"NA","45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:51+0000 method=publication detail={"output":"output","component":"output","passed":true}
+..2.3.45.[dsomop-audit] 2026-11-13T20:41:56+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"\\NA","45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:57+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:57+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"\\NA","45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:57+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:57+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"\\NA","45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:58+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:58+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"\\NA","45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:41:59+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:41:59+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"\\NA","45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:42:00+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:42:00+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"\\NA","45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:42:01+0000 method=publication detail={"output":"output","component":"output","passed":true}
+..6.7.89.[dsomop-audit] 2026-11-13T20:42:06+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"quoted \"text\", comma\nnext line","45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:42:06+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:42:06+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"quoted \"text\", comma\nnext line","45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:42:07+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:42:07+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"quoted \"text\", comma\nnext line","45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:42:07+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:42:08+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"quoted \"text\", comma\nnext line","45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:42:09+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:42:09+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"quoted \"text\", comma\nnext line","45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:42:10+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:42:10+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000123":"quoted \"text\", comma\nnext line","45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:42:11+0000 method=publication detail={"output":"output","component":"output","passed":true}
+..a.b.cd.
+e2e4-categories: 
+Logging into the collaborating servers
+[dsomop-audit] 2026-11-13T20:42:19+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}},"sex":{"derived":{"kind":"sex_mf"}},"age":{"derived":{"kind":"age","reference_date":"2020-01-01"}},"birth_band":{"derived":{"kind":"birth_year_band","width":5}},"band":{"derived":{"kind":"age","reference_date":"2020-01-01","bands":true,"age_breaks":[0,18,65]}},"month":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"month"}},"weekday":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"weekday"}},"season":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"season"}},"period":{"derived":{"kind":"calendar_date","reference":{"date":"2020-01-01"}},"date_spec":{"precision":"quarter","level_range":["2020-01-01","2020-12-31"]}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:42:19+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:42:20+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}},"sex":{"derived":{"kind":"sex_mf"}},"age":{"derived":{"kind":"age","reference_date":"2020-01-01"}},"birth_band":{"derived":{"kind":"birth_year_band","width":5}},"band":{"derived":{"kind":"age","reference_date":"2020-01-01","bands":true,"age_breaks":[0,18,65]}},"month":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"month"}},"weekday":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"weekday"}},"season":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"season"}},"period":{"derived":{"kind":"calendar_date","reference":{"date":"2020-01-01"}},"date_spec":{"precision":"quarter","level_range":["2020-01-01","2020-12-31"]}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:42:20+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:42:21+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}},"sex":{"derived":{"kind":"sex_mf"}},"age":{"derived":{"kind":"age","reference_date":"2020-01-01"}},"birth_band":{"derived":{"kind":"birth_year_band","width":5}},"band":{"derived":{"kind":"age","reference_date":"2020-01-01","bands":true,"age_breaks":[0,18,65]}},"month":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"month"}},"weekday":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"weekday"}},"season":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"season"}},"period":{"derived":{"kind":"calendar_date","reference":{"date":"2020-01-01"}},"date_spec":{"precision":"quarter","level_range":["2020-01-01","2020-12-31"]}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:42:21+0000 method=publication detail={"output":"output","component":"output","passed":true}
+.......................................................................................
+Data in all studies were valid
+
+
+Study1: No errors reported from this study
+
+Study2: No errors reported from this study
+
+Study3: No errors reported from this study
+
+
+
+.Iteration 1...
+CURRENT DEVIANCE:      79650
+Iteration 2...
+CURRENT DEVIANCE:      270
+Iteration 3...
+CURRENT DEVIANCE:      270
+SUMMARY OF MODEL STATE after iteration 3
+Current deviance 270 on 52 degrees of freedom
+Convergence criterion TRUE (0)
+
+beta: 40 -2
+
+Information matrix overall:
+            (Intercept) sexM
+(Intercept)          54   45
+sexM                 45   45
+
+Score vector overall:
+            [,1]
+(Intercept)    0
+sexM           0
+
+Current deviance: 270
+
+.[dsomop-audit] 2026-11-13T20:42:23+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}},"sex":{"derived":{"kind":"sex_mf"}},"age":{"derived":{"kind":"age","reference_date":"2020-01-01"}},"birth_band":{"derived":{"kind":"birth_year_band","width":5}},"band":{"derived":{"kind":"age","reference_date":"2020-01-01","bands":true,"age_breaks":[0,18,65]}},"month":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"month"}},"weekday":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"weekday"}},"season":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"season"}},"period":{"derived":{"kind":"calendar_date","reference":{"date":"2020-01-01"}},"date_spec":{"precision":"quarter","level_range":["2020-01-01","2020-12-31"]}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:42:24+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:42:24+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}},"sex":{"derived":{"kind":"sex_mf"}},"age":{"derived":{"kind":"age","reference_date":"2020-01-01"}},"birth_band":{"derived":{"kind":"birth_year_band","width":5}},"band":{"derived":{"kind":"age","reference_date":"2020-01-01","bands":true,"age_breaks":[0,18,65]}},"month":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"month"}},"weekday":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"weekday"}},"season":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"season"}},"period":{"derived":{"kind":"calendar_date","reference":{"date":"2020-01-01"}},"date_spec":{"precision":"quarter","level_range":["2020-01-01","2020-12-31"]}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:42:25+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:42:25+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}},"sex":{"derived":{"kind":"sex_mf"}},"age":{"derived":{"kind":"age","reference_date":"2020-01-01"}},"birth_band":{"derived":{"kind":"birth_year_band","width":5}},"band":{"derived":{"kind":"age","reference_date":"2020-01-01","bands":true,"age_breaks":[0,18,65]}},"month":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"month"}},"weekday":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"weekday"}},"season":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"season"}},"period":{"derived":{"kind":"calendar_date","reference":{"date":"2020-01-01"}},"date_spec":{"precision":"quarter","level_range":["2020-01-01","2020-12-31"]}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:42:26+0000 method=publication detail={"output":"output","component":"output","passed":true}
+......................................................................................
+
+══ Warnings ════════════════════════════════════════════════════════════════════
+1. A27 pooled ds.table and protected-object ds.glm use aligned categories ('test-concept-label-analysis.R:21:5') - glm.fit: algorithm did not converge
+
+2. A27 pooled ds.table and protected-object ds.glm use aligned categories ('test-concept-label-analysis.R:21:5') - glm.fit: algorithm did not converge
+
+3. A27 pooled ds.table and protected-object ds.glm use aligned categories ('test-concept-label-analysis.R:21:5') - glm.fit: algorithm did not converge
+
+4. A27 pooled ds.table and protected-object ds.glm use aligned categories ('test-concept-label-analysis.R:21:5') - glm.fit: algorithm did not converge
+
+5. A27 pooled ds.table and protected-object ds.glm use aligned categories ('test-concept-label-analysis.R:21:5') - glm.fit: algorithm did not converge
+
+6. A27 pooled ds.table and protected-object ds.glm use aligned categories ('test-concept-label-analysis.R:21:5') - glm.fit: algorithm did not converge
+
+7. A27 pooled ds.table and protected-object ds.glm use aligned categories ('test-concept-label-analysis.R:21:5') - glm.fit: algorithm did not converge
+
+8. A27 pooled ds.table and protected-object ds.glm use aligned categories ('test-concept-label-analysis.R:21:5') - glm.fit: algorithm did not converge
+
+9. A27 pooled ds.table and protected-object ds.glm use aligned categories ('test-concept-label-analysis.R:21:5') - glm.fit: algorithm did not converge
+
+10. A27 pooled ds.table and protected-object ds.glm use aligned categories ('test-concept-label-analysis.R:21:5') - glm.fit: algorithm did not converge
+
+11. A27 pooled ds.table and protected-object ds.glm use aligned categories ('test-concept-label-analysis.R:21:5') - glm.fit: algorithm did not converge
+
+12. A27 pooled ds.table and protected-object ds.glm use aligned categories ('test-concept-label-analysis.R:21:5') - glm.fit: algorithm did not converge
+
+13. A27 strict/error/skip reconciliation uses each retained component only ('test-concept-label-federation.R:84:18') - object 'dsOexec.EQUn8L' not found
+
+14. A27 strict/error/skip reconciliation uses each retained component only ('test-concept-label-federation.R:84:18') - object 'dsOexec.EQUn8L' not found
+
+15. A27 strict/error/skip reconciliation uses each retained component only ('test-concept-label-federation.R:84:18') - object 'dsOexec.EQUn8L' not found
+
+16. A27 incomplete and excessive shared contracts roll back every site ('test-concept-label-federation.R:115:5') - object 'dsOexec.brNmuK' not found
+
+17. A27 incomplete and excessive shared contracts roll back every site ('test-concept-label-federation.R:115:5') - object 'dsOexec.brNmuK' not found
+
+18. A27 incomplete and excessive shared contracts roll back every site ('test-concept-label-federation.R:115:5') - object 'dsOexec.brNmuK' not found
+
+19. A27 incomplete and excessive shared contracts roll back every site ('test-concept-label-federation.R:115:5') - object 'dsOexec.m2KuQg' not found
+
+20. A27 incomplete and excessive shared contracts roll back every site ('test-concept-label-federation.R:115:5') - object 'dsOexec.m2KuQg' not found
+
+21. A27 incomplete and excessive shared contracts roll back every site ('test-concept-label-federation.R:115:5') - object 'dsOexec.m2KuQg' not found
+
+══ Failed ══════════════════════════════════════════════════════════════════════
+── 1. Failure ('test-concept-label-federation.R:29:3'): A27 three-site education
+Expected `Reduce("+", lapply(staged, function(f) table(f$education)))` to equal `pooled`.
+Differences:
+  `actual`:  9  6 6 0
+`expected`: 24 24 6 0
+
+
+── 2. Failure ('test-concept-label-federation.R:158:7'): A27 memory and CSV pres
+Expected `as.character(staged[[site]]$education)` to be identical to `as.character(mem[[site]]$education)`.
+Differences:
+     actual | expected                        
+ [7] "NA"   | "NA"              [7]           
+ [8] "NA"   | "NA"              [8]           
+ [9] "NA"   | "NA"              [9]           
+[10] NA     - "Same [45000124]" [10]          
+[11] NA     - "Same [45000124]" [11]          
+[12] NA     - "Same [45000124]" [12]          
+[13] NA     - "Same [45000124]" [13]          
+[14] NA     - "Same [45000124]" [14]          
+[15] NA     - "Same [45000124]" [15]          
+[16] NA     - "Same [45000124]" [16]          
+ ... ...      ...               and 2 more ...
+
+
+── 3. Failure ('test-concept-label-federation.R:158:7'): A27 memory and CSV pres
+Expected `as.character(staged[[site]]$education)` to be identical to `as.character(mem[[site]]$education)`.
+Differences:
+     actual | expected                        
+ [7] "NA"   | "NA"              [7]           
+ [8] "NA"   | "NA"              [8]           
+ [9] "NA"   | "NA"              [9]           
+[10] NA     - "Same [45000124]" [10]          
+[11] NA     - "Same [45000124]" [11]          
+[12] NA     - "Same [45000124]" [12]          
+[13] NA     - "Same [45000124]" [13]          
+[14] NA     - "Same [45000124]" [14]          
+[15] NA     - "Same [45000124]" [15]          
+[16] NA     - "Same [45000124]" [16]          
+ ... ...      ...               and 2 more ...
+
+
+── 4. Failure ('test-concept-label-federation.R:162:5'): A27 memory and CSV pres
+Expected `pooled(staged)` to be identical to `pooled(mem)`.
+Differences:
+  `actual`: 22  4 4 0 24
+`expected`: 22 22 4 0  6
+
+
+── 5. Failure ('test-concept-label-federation.R:163:5'): A27 memory and CSV pres
+Expected `as.numeric(pooled(staged))` to equal `c(22, 22, 4, 0, 6)`.
+Differences:
+  `actual`: 22.0  4.0 4.0 0.0 24.0
+`expected`: 22.0 22.0 4.0 0.0  6.0
+
+
+── 6. Failure ('test-concept-label-federation.R:158:7'): A27 memory and CSV pres
+Expected `as.character(staged[[site]]$education)` to be identical to `as.character(mem[[site]]$education)`.
+Differences:
+     actual | expected                        
+ [7] "\\NA" | "\\NA"            [7]           
+ [8] "\\NA" | "\\NA"            [8]           
+ [9] "\\NA" | "\\NA"            [9]           
+[10] NA     - "Same [45000124]" [10]          
+[11] NA     - "Same [45000124]" [11]          
+[12] NA     - "Same [45000124]" [12]          
+[13] NA     - "Same [45000124]" [13]          
+[14] NA     - "Same [45000124]" [14]          
+[15] NA     - "Same [45000124]" [15]          
+[16] NA     - "Same [45000124]" [16]          
+ ... ...      ...               and 2 more ...
+
+
+── 7. Failure ('test-concept-label-federation.R:158:7'): A27 memory and CSV pres
+Expected `as.character(staged[[site]]$education)` to be identical to `as.character(mem[[site]]$education)`.
+Differences:
+     actual | expected                        
+ [7] "\\NA" | "\\NA"            [7]           
+ [8] "\\NA" | "\\NA"            [8]           
+ [9] "\\NA" | "\\NA"            [9]           
+[10] NA     - "Same [45000124]" [10]          
+[11] NA     - "Same [45000124]" [11]          
+[12] NA     - "Same [45000124]" [12]          
+[13] NA     - "Same [45000124]" [13]          
+[14] NA     - "Same [45000124]" [14]          
+[15] NA     - "Same [45000124]" [15]          
+[16] NA     - "Same [45000124]" [16]          
+ ... ...      ...               and 2 more ...
+
+
+── 8. Failure ('test-concept-label-federation.R:162:5'): A27 memory and CSV pres
+Expected `pooled(staged)` to be identical to `pooled(mem)`.
+Differences:
+  `actual`: 22  4 4 0 24
+`expected`: 22 22 4 0  6
+
+
+── 9. Failure ('test-concept-label-federation.R:163:5'): A27 memory and CSV pres
+Expected `as.numeric(pooled(staged))` to equal `c(22, 22, 4, 0, 6)`.
+Differences:
+  `actual`: 22.0  4.0 4.0 0.0 24.0
+`expected`: 22.0 22.0 4.0 0.0  6.0
+
+
+── 10. Failure ('test-concept-label-federation.R:158:7'): A27 memory and CSV pre
+Expected `as.character(staged[[site]]$education)` to be identical to `as.character(mem[[site]]$education)`.
+Differences:
+`lines(actual[[10]])`:   NA               
+`lines(expected[[10]])`: "Same [45000124]"
+
+`lines(actual[[11]])`:   NA               
+`lines(expected[[11]])`: "Same [45000124]"
+
+`lines(actual[[12]])`:   NA               
+`lines(expected[[12]])`: "Same [45000124]"
+
+`lines(actual[[13]])`:   NA               
+`lines(expected[[13]])`: "Same [45000124]"
+
+`lines(actual[[14]])`:   NA               
+`lines(expected[[14]])`: "Same [45000124]"
+
+`lines(actual[[15]])`:   NA               
+`lines(expected[[15]])`: "Same [45000124]"
+
+`lines(actual[[16]])`:   NA               
+`lines(expected[[16]])`: "Same [45000124]"
+
+`lines(actual[[17]])`:   NA               
+`lines(expected[[17]])`: "Same [45000124]"
+
+`lines(actual[[18]])`:   NA               
+`lines(expected[[18]])`: "Same [45000124]"
+
+  ... and 3 more
+
+
+Maximum number of 10 failures reached, some test results may be missing.
+
+══ DONE ════════════════════════════════════════════════════════════════════════
+
+FAILURES BY FILE
+                            file blocks failed errors
+ test-concept-label-federation.R      2     13      0
+
+FAILING TESTS
+test-concept-label-federation.R | A27 three-site education and cause factors pool by identity including zero cells | failed=1 error=FALSE
+test-concept-label-federation.R | A27 memory and CSV preserve literal NA labels and genuine missing cells | failed=12 error=FALSE
+
+RESULT failed: 13 errors: 0 skipped: 0 passed: 324 

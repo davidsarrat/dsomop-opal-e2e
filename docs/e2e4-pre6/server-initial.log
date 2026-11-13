@@ -1,0 +1,171 @@
+dsOMOP v2.10.3 loaded. OMOP CDM resource resolver registered.
+e2e4-categories: duckdb keeps downloaded extensions and secrets in a temporary directory:
+i /tmp/RtmpebYLJS/duckdb
+This is removed when the R session ends.
+* Extensions are re-downloaded each session.
+* Secrets are lost.
+i Run duckdb(shared_home = TRUE) (or create ~/.duckdb) to keep them (suitable for most users).
+i Run duckdb(shared_home = FALSE) to accept the temporary directory (and silence this message).
+i See ?duckdb_storage for details and alternatives.
+[dsomop-audit] 2026-11-13T20:35:10+0000 method=publication detail={"output":"o","component":"o","passed":true}
+[dsomop-audit] 2026-11-13T20:35:10+0000 method=publication detail={"output":"long","component":"long","passed":true}
+[dsomop-audit] 2026-11-13T20:35:10+0000 method=publication detail={"output":"survival","component":"survival","passed":true}
+[dsomop-audit] 2026-11-13T20:35:10+0000 method=publication detail={"output":"joined","component":"joined","passed":true}
+[dsomop-audit] 2026-11-13T20:35:10+0000 method=publication detail={"output":"panel","component":"panel","passed":true}
+[dsomop-audit] 2026-11-13T20:35:10+0000 method=publication detail={"output":"panel","component":"covariateRef","passed":true}
+[dsomop-audit] 2026-11-13T20:35:10+0000 method=publication detail={"output":"panel","component":"timeRef","passed":true}
+[dsomop-audit] 2026-11-13T20:35:10+0000 method=publication detail={"output":"period","component":"period","passed":true}
+[dsomop-audit] 2026-11-13T20:35:10+0000 method=publication detail={"output":"sparse","component":"sparse","passed":true}
+[dsomop-audit] 2026-11-13T20:35:10+0000 method=publication detail={"output":"sparse","component":"covariateRef","passed":true}
+[dsomop-audit] 2026-11-13T20:35:10+0000 method=publication detail={"output":"membership","component":"membership","passed":true}
+[dsomop-audit] 2026-11-13T20:35:10+0000 method=publication detail={"output":"dictionary","component":"dictionary","passed":true}
+.[dsomop-audit] 2026-11-13T20:35:14+0000 method=publication detail={"output":"o","component":"o","passed":true}
+[dsomop-audit] 2026-11-13T20:35:15+0000 method=publication detail={"output":"long","component":"long","passed":true}
+[dsomop-audit] 2026-11-13T20:35:15+0000 method=publication detail={"output":"survival","component":"survival","passed":true}
+[dsomop-audit] 2026-11-13T20:35:15+0000 method=publication detail={"output":"joined","component":"joined","passed":true}
+[dsomop-audit] 2026-11-13T20:35:16+0000 method=publication detail={"output":"panel","component":"panel","passed":true}
+[dsomop-audit] 2026-11-13T20:35:16+0000 method=publication detail={"output":"panel","component":"covariateRef","passed":true}
+[dsomop-audit] 2026-11-13T20:35:17+0000 method=publication detail={"output":"panel","component":"timeRef","passed":true}
+[dsomop-audit] 2026-11-13T20:35:17+0000 method=publication detail={"output":"period","component":"period","passed":true}
+[dsomop-audit] 2026-11-13T20:35:17+0000 method=publication detail={"output":"sparse","component":"sparse","passed":true}
+[dsomop-audit] 2026-11-13T20:35:18+0000 method=publication detail={"output":"sparse","component":"covariateRef","passed":true}
+[dsomop-audit] 2026-11-13T20:35:18+0000 method=publication detail={"output":"membership","component":"membership","passed":true}
+[dsomop-audit] 2026-11-13T20:35:19+0000 method=publication detail={"output":"dictionary","component":"dictionary","passed":true}
+.[dsomop-audit] 2026-11-13T20:35:23+0000 method=publication detail={"output":"o","component":"o","passed":true}
+[dsomop-audit] 2026-11-13T20:35:23+0000 method=publication detail={"output":"long","component":"long","passed":true}
+[dsomop-audit] 2026-11-13T20:35:24+0000 method=publication detail={"output":"survival","component":"survival","passed":true}
+[dsomop-audit] 2026-11-13T20:35:24+0000 method=publication detail={"output":"joined","component":"joined","passed":true}
+[dsomop-audit] 2026-11-13T20:35:25+0000 method=publication detail={"output":"panel","component":"panel","passed":true}
+[dsomop-audit] 2026-11-13T20:35:25+0000 method=publication detail={"output":"panel","component":"covariateRef","passed":true}
+[dsomop-audit] 2026-11-13T20:35:26+0000 method=publication detail={"output":"panel","component":"timeRef","passed":true}
+[dsomop-audit] 2026-11-13T20:35:26+0000 method=publication detail={"output":"period","component":"period","passed":true}
+[dsomop-audit] 2026-11-13T20:35:26+0000 method=publication detail={"output":"sparse","component":"sparse","passed":true}
+[dsomop-audit] 2026-11-13T20:35:27+0000 method=publication detail={"output":"sparse","component":"covariateRef","passed":true}
+[dsomop-audit] 2026-11-13T20:35:27+0000 method=publication detail={"output":"membership","component":"membership","passed":true}
+[dsomop-audit] 2026-11-13T20:35:28+0000 method=publication detail={"output":"dictionary","component":"dictionary","passed":true}
+.....................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................12...................................................
+e2e4-profile: [dsomop-audit] 2026-11-13T20:35:40+0000 method=omopPlanExecuteDS detail={"outputs":"panel","plan":{"version":1,"cohort":{"type":"cohort_table","cohort_definition_id":1},"outputs":{"panel":{"type":"person_period","table":"measurement","concept_set":3025315,"bin_width":30,"window_start":0,"window_end":365,"grain":"episode","time_origin":"index"}}},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:35:44+0000 method=publication detail={"output":"panel","component":"personPeriods","passed":true}
+[dsomop-audit] 2026-11-13T20:35:44+0000 method=publication detail={"output":"panel","component":"temporalCovariates","passed":true}
+[dsomop-audit] 2026-11-13T20:35:44+0000 method=publication detail={"output":"panel","component":"covariateRef","passed":true}
+[dsomop-audit] 2026-11-13T20:35:44+0000 method=publication detail={"output":"panel","component":"timeRef","passed":true}
+[dsomop-audit] 2026-11-13T20:35:44+0000 method=publication detail={"output":"panel","component":"personRef","passed":true}
+                           total.time total.pct self.time self.pct
+"FUN"                            5.92    100.00      0.11     1.86
+"lapply"                         5.92    100.00      0.03     0.51
+"doTryCatch"                     5.92    100.00      0.02     0.34
+"eval"                           5.92    100.00      0.02     0.34
+"tryCatch"                       5.92    100.00      0.01     0.17
+".dsomopWithReadSnapshot"        5.92    100.00      0.00     0.00
+".omopPlanExecuteDS"             5.92    100.00      0.00     0.00
+"doWithOneRestart"               5.92    100.00      0.00     0.00
+"omopPlanExecuteDS"              5.92    100.00      0.00     0.00
+"source_file"                    5.92    100.00      0.00     0.00
+"test_code"                      5.92    100.00      0.00     0.00
+"test_dir"                       5.92    100.00      0.00     0.00
+"test_files"                     5.92    100.00      0.00     0.00
+"test_files_serial"              5.92    100.00      0.00     0.00
+"test_that"                      5.92    100.00      0.00     0.00
+"testthat::test_local"           5.92    100.00      0.00     0.00
+"tryCatchList"                   5.92    100.00      0.00     0.00
+"tryCatchOne"                    5.92    100.00      0.00     0.00
+"withCallingHandlers"            5.92    100.00      0.00     0.00
+"withOneRestart"                 5.92    100.00      0.00     0.00
+"withRestarts"                   5.92    100.00      0.00     0.00
+"with_reporter"                  5.92    100.00      0.00     0.00
+".planExecute"                   3.29     55.57      0.00     0.00
+".extractPersonPeriod"           3.22     54.39      0.00     0.00
+"data.frame"                     2.37     40.03      0.24     4.05
+"as.data.frame"                  1.55     26.18      0.07     1.18
+"as.data.frame.integer"          1.45     24.49      0.24     4.05
+".irPrepare"                     1.41     23.82      0.00     0.00
+"vapply"                         1.31     22.13      0.18     3.04
+".publishOutputs"                1.20     20.27      0.00     0.00
+"paste"                          1.10     18.58      0.22     3.72
+".publishCommit"                 1.04     17.57      0.00     0.00
+".irValidate"                    1.00     16.89      0.00     0.00
+".pseudonymizeIdentifiers"       0.99     16.72      0.00     0.00
+".hashPersonKey"                 0.98     16.55      0.00     0.00
+                        self.time self.pct total.time total.pct
+".jsv_node"                  0.26     4.39       0.28      4.73
+"data.frame"                 0.24     4.05       2.37     40.03
+"as.data.frame.integer"      0.24     4.05       1.45     24.49
+"structure"                  0.24     4.05       0.37      6.25
+".loadCdmSpec"               0.23     3.89       0.23      3.89
+"paste"                      0.22     3.72       1.10     18.58
+".roleRecordsCsv"            0.22     3.72       0.23      3.89
+"%in%"                       0.21     3.55       0.89     15.03
+"as.list"                    0.21     3.55       0.46      7.77
+".deparseOpts"               0.21     3.55       0.40      6.76
+"vapply"                     0.18     3.04       1.31     22.13
+"deparse"                    0.18     3.04       0.80     13.51
+"rbind"                      0.18     3.04       0.56      9.46
+"strptime"                   0.18     3.04       0.18      3.04
+"list.files"                 0.14     2.36       0.14      2.36
+"FUN"                        0.11     1.86       5.92    100.00
+"sys.call"                   0.11     1.86       0.11      1.86
+"[[.data.frame"              0.10     1.69       0.26      4.39
+"grepl"                      0.10     1.69       0.10      1.69
+"mode"                       0.09     1.52       0.40      6.76
+.
+publication: [dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"out","component":"out","passed":true}
+......[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"out","component":"out","passed":false}
+...[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"out","component":"out","passed":false}
+.[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"out","component":"out","passed":true}
+.........................[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"out","component":"out","passed":true}
+..[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"passing","component":"passing","passed":true}
+[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"small","component":"small","passed":false}
+[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"small","component":"dictionary","passed":true}
+....[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"passing","component":"passing","passed":true}
+[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"small","component":"small","passed":false}
+[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"small","component":"dictionary","passed":true}
+....[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"passing","component":"passing","passed":true}
+[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"small","component":"small","passed":false}
+[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"small","component":"dictionary","passed":true}
+....[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"passing","component":"passing","passed":true}
+[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"small","component":"small","passed":false}
+[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"small","component":"dictionary","passed":true}
+....[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"passing","component":"passing","passed":true}
+[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"small","component":"small","passed":false}
+[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"small","component":"dictionary","passed":true}
+..[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"out","component":"first","passed":true}
+[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"out","component":"second","passed":true}
+......[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"first","component":"first","passed":true}
+[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"second","component":"second","passed":true}
+.....[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"first","component":"first","passed":true}
+[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"second","component":"second","passed":true}
+.....[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"first","component":"first","passed":true}
+[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"second","component":"second","passed":true}
+.....[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"out","component":"out","passed":true}
+...[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"out","component":"out","passed":true}
+....[dsomop-audit] 2026-11-13T20:35:46+0000 method=publication detail={"output":"out","component":"out","passed":true}
+....[dsomop-audit] 2026-11-13T20:35:47+0000 method=publication detail={"output":"out","component":"out","passed":false}
+.[dsomop-audit] 2026-11-13T20:35:47+0000 method=publication detail={"output":"out","component":"out","passed":true}
+.....
+
+══ Failed ══════════════════════════════════════════════════════════════════════
+── 1. Failure ('test-e2e4-categories.R:68:5'): categorical kinds survive every a
+Expected `levels(frame$sex)` to be identical to `c("F", "M")`.
+Differences:
+`actual` is NULL
+`expected` is a character vector ('F', 'M')
+
+
+── 2. Failure ('test-e2e4-categories.R:69:5'): categorical kinds survive every a
+Expected `levels(frame$band)` to be identical to `c("0-17", "18-64", "65+")`.
+Differences:
+`actual` is NULL
+`expected` is a character vector ('0-17', '18-64', '65+')
+
+
+══ DONE ════════════════════════════════════════════════════════════════════════
+No one is perfect!
+
+FAILURES BY FILE
+                   file blocks failed errors
+ test-e2e4-categories.R      1      2      0
+
+FAILING TESTS
+test-e2e4-categories.R | categorical kinds survive every applicable native output and file path | failed=2 error=FALSE
+
+RESULT failed: 2 errors: 0 skipped: 0 passed: 1112 

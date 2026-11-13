@@ -1,0 +1,30 @@
+[
+  {
+    "path": "/tmp/e2e4-pre6-python",
+    "allocated_bytes": 3289088
+  },
+  {
+    "path": "/tmp/e2e4-pre6-panel-profile.R",
+    "allocated_bytes": 4096
+  },
+  {
+    "path": "/tmp/e2e4-pre6-stack.log",
+    "allocated_bytes": 4096
+  },
+  {
+    "path": "/tmp/e2e4-pre6-results.log",
+    "allocated_bytes": 4096
+  },
+  {
+    "path": "/tmp/e2e4-pre6-server-round2.log",
+    "allocated_bytes": 20480
+  },
+  {
+    "path": "/tmp/e2e4-pre6-server-round3.log",
+    "allocated_bytes": 16384
+  },
+  {
+    "path": "/tmp/claude-1000/-workspace-app/a9e21344-5d10-4451-a8b6-63b53826c6ca/scratchpad/dsomop-e2e/scripts/o/__pycache__",
+    "allocated_bytes": 12288
+  }
+]

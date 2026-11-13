@@ -1,0 +1,1217 @@
+{
+  "logs": {
+    "43472800948-failed.log": {
+      "sha256": "064ac8886073c6f792e752bcf2d31f67919217622099e87bbb507cd321ae3019",
+      "size": 599595
+    },
+    "43493229424-failed.log": {
+      "sha256": "55f7397461ccbed28b13e7c5f7bd5dc7d5accfeb7844a20fb79a60813abaac51",
+      "size": 77126
+    },
+    "43493235081-failed.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    "43483690265-failed.log": {
+      "sha256": "c67918868b4c50566b430773d2e08126edee0442d23effe78c5bb6588ff12746",
+      "size": 45640
+    },
+    "43483695412-failed.log": {
+      "sha256": "b986e42834ec6883018b8eb469ca3a1b4380cd2d6486d8222eaf77f585e98d41",
+      "size": 1002454
+    },
+    "43472806671-failed.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    "00-COORDINATOR-NOTE-failed.log": {
+      "sha256": "1cbf8018e06c1473e16744f8af9e694f866992079b2b29d6c100aa6788a3da89",
+      "size": 1428
+    }
+  },
+  "results": {
+    "res/43483690265-1-opal-5.7.6-fresh-candidate": {
+      "commit": "518c42300c46b2f04384fe29ea8429168b990e6a",
+      "fresh-O-verdicts.csv": [
+        {
+          "id": "O1",
+          "status": "PASS",
+          "seconds": "6.882",
+          "evidence": "all assertions passed"
+        },
+        {
+          "id": "O2",
+          "status": "FAIL",
+          "seconds": "0.31",
+          "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+        },
+        {
+          "id": "O3",
+          "status": "FAIL",
+          "seconds": "0.298",
+          "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+        },
+        {
+          "id": "O4",
+          "status": "FAIL",
+          "seconds": "0.474",
+          "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+        },
+        {
+          "id": "O5",
+          "status": "FAIL",
+          "seconds": "0.462999999999999",
+          "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+        },
+        {
+          "id": "O6",
+          "status": "FAIL",
+          "seconds": "0.371",
+          "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+        },
+        {
+          "id": "O7",
+          "status": "FAIL",
+          "seconds": "0.475999999999999",
+          "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+        },
+        {
+          "id": "O8",
+          "status": "FAIL",
+          "seconds": "0.276000000000002",
+          "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+        },
+        {
+          "id": "O9",
+          "status": "FAIL",
+          "seconds": "0.539000000000001",
+          "evidence": "[Client error: (400) Bad Request] Error while evaluating 'is.null(base::assign('ores', resourcer::newResourceClient(resourcer::newResource(name='o_big', url='omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=o_big&vocabulary_schema=o_big&results_schema=o_big', identity='omop', secret='***', format='omop.dbi.db'))))' -> Error in resolveResource(x) : \n  No resolver could be found for resource: omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=o_big&vocabulary_schema=o_big&results_schema=o_big\n"
+        },
+        {
+          "id": "O10",
+          "status": "PASS",
+          "seconds": "0.738",
+          "evidence": "all assertions passed"
+        },
+        {
+          "id": "O11",
+          "status": "FAIL",
+          "seconds": "0.334",
+          "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+        },
+        {
+          "id": "O12",
+          "status": "FAIL",
+          "seconds": "0.399999999999999",
+          "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+        }
+      ],
+      "fresh-summary.txt": [
+        "O2: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.",
+        "O3: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.",
+        "O4: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.",
+        "O5: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.",
+        "O6: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.",
+        "O7: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.",
+        "O8: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.",
+        "O9: FAIL [Client error: (400) Bad Request] Error while evaluating 'is.null(base::assign('ores', resourcer::newResourceClient(resourcer::newResource(name='o_big', url='omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=o_big&vocabulary_schema=o_big&results_schema=o_big', identity='omop', secret='***', format='omop.dbi.db'))))' -> Error in resolveResource(x) : ",
+        "O11: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.",
+        "O12: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+      ],
+      "workflow-status.json": {
+        "GITHUB_RUN_ID": "43483690265",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "262780f3e87fda9090d0eb17b6daa784ba2046b4",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "5.7.6",
+        "E2E_PATH": "fresh",
+        "MODE": "candidate",
+        "JOB_STATUS": "failure",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "262780f3e87fda9090d0eb17b6daa784ba2046b4",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "failure",
+            "conclusion": "failure"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    "res/43483690265-1-opal-5.7.6-upgrade-candidate": {
+      "commit": "98e0b5fb45f138c0a629cb046f4887077c083c2a",
+      "upgrade-summary.txt": [],
+      "workflow-status.json": {
+        "GITHUB_RUN_ID": "43483690265",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "262780f3e87fda9090d0eb17b6daa784ba2046b4",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "5.7.6",
+        "E2E_PATH": "upgrade",
+        "MODE": "candidate",
+        "JOB_STATUS": "failure",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "262780f3e87fda9090d0eb17b6daa784ba2046b4",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "failure",
+            "conclusion": "failure"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    "res/43483690265-1-opal-6.1.3-fresh-candidate": {
+      "commit": "38c8ec05f194733ffe6457b0516e7d454eb98672",
+      "fresh-O-verdicts.csv": [
+        {
+          "id": "O1",
+          "status": "PASS",
+          "seconds": "7.284",
+          "evidence": "all assertions passed"
+        },
+        {
+          "id": "O2",
+          "status": "FAIL",
+          "seconds": "0.318",
+          "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+        },
+        {
+          "id": "O3",
+          "status": "FAIL",
+          "seconds": "0.271000000000001",
+          "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+        },
+        {
+          "id": "O4",
+          "status": "FAIL",
+          "seconds": "0.401",
+          "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+        },
+        {
+          "id": "O5",
+          "status": "FAIL",
+          "seconds": "0.561999999999999",
+          "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+        },
+        {
+          "id": "O6",
+          "status": "FAIL",
+          "seconds": "0.238",
+          "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+        },
+        {
+          "id": "O7",
+          "status": "FAIL",
+          "seconds": "0.411",
+          "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+        },
+        {
+          "id": "O8",
+          "status": "FAIL",
+          "seconds": "0.265000000000001",
+          "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+        },
+        {
+          "id": "O9",
+          "status": "FAIL",
+          "seconds": "0.488",
+          "evidence": "[Client error: (400) Bad Request] Error while evaluating 'is.null(base::assign('ores', resourcer::newResourceClient(resourcer::newResource(name='o_big', url='omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=o_big&vocabulary_schema=o_big&results_schema=o_big', identity='omop', secret='***', format='omop.dbi.db'))))' -> Error in resolveResource(x) : \n  No resolver could be found for resource: omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=o_big&vocabulary_schema=o_big&results_schema=o_big\n"
+        },
+        {
+          "id": "O10",
+          "status": "PASS",
+          "seconds": "0.84",
+          "evidence": "all assertions passed"
+        },
+        {
+          "id": "O11",
+          "status": "FAIL",
+          "seconds": "0.303000000000001",
+          "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+        },
+        {
+          "id": "O12",
+          "status": "FAIL",
+          "seconds": "0.436",
+          "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+        }
+      ],
+      "fresh-summary.txt": [
+        "O2: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.",
+        "O3: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.",
+        "O4: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.",
+        "O5: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.",
+        "O6: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.",
+        "O7: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.",
+        "O8: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.",
+        "O9: FAIL [Client error: (400) Bad Request] Error while evaluating 'is.null(base::assign('ores', resourcer::newResourceClient(resourcer::newResource(name='o_big', url='omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=o_big&vocabulary_schema=o_big&results_schema=o_big', identity='omop', secret='***', format='omop.dbi.db'))))' -> Error in resolveResource(x) : ",
+        "O11: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol.",
+        "O12: FAIL OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+      ],
+      "workflow-status.json": {
+        "GITHUB_RUN_ID": "43483690265",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "262780f3e87fda9090d0eb17b6daa784ba2046b4",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "6.1.3",
+        "E2E_PATH": "fresh",
+        "MODE": "candidate",
+        "JOB_STATUS": "failure",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "262780f3e87fda9090d0eb17b6daa784ba2046b4",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "failure",
+            "conclusion": "failure"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    "res/43483690265-1-opal-6.1.3-upgrade-candidate": {
+      "commit": "be60cfda7b3f0df8d3f9167c38ba1b0bd688a684",
+      "upgrade-summary.txt": [],
+      "workflow-status.json": {
+        "GITHUB_RUN_ID": "43483690265",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "262780f3e87fda9090d0eb17b6daa784ba2046b4",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "6.1.3",
+        "E2E_PATH": "upgrade",
+        "MODE": "candidate",
+        "JOB_STATUS": "failure",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "262780f3e87fda9090d0eb17b6daa784ba2046b4",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "failure",
+            "conclusion": "failure"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    "res/43493229424-1-opal-5.7.6-fresh-candidate": {
+      "commit": "651347d25c47097c96344ce1e3f8b603f8395e02",
+      "fresh-O-verdicts.csv": [
+        {
+          "id": "O1",
+          "status": "PASS",
+          "seconds": "8.469",
+          "evidence": "all assertions passed"
+        },
+        {
+          "id": "O2",
+          "status": "FAIL",
+          "seconds": "32.656",
+          "evidence": "The input object must be a factor."
+        },
+        {
+          "id": "O3",
+          "status": "FAIL",
+          "seconds": "21.719",
+          "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"acceptance2\", plan_override = NULL)' -> Error in get(resource_symbol, envir = session_env, inherits = FALSE) : \n  object 'ores' not found\n"
+        },
+        {
+          "id": "O4",
+          "status": "PASS",
+          "seconds": "109.274",
+          "evidence": "all assertions passed"
+        },
+        {
+          "id": "O5",
+          "status": "FAIL",
+          "seconds": "16.09",
+          "evidence": "Concept-factor recoding failed or was incomplete on: good, other. Execution-owned artifacts were revoked and removed."
+        },
+        {
+          "id": "O6",
+          "status": "PASS",
+          "seconds": "7.625",
+          "evidence": "all assertions passed"
+        },
+        {
+          "id": "O7",
+          "status": "FAIL",
+          "seconds": "24.17",
+          "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"matching\", plan_override = NULL)' -> Error in get(resource_symbol, envir = session_env, inherits = FALSE) : \n  object 'ores' not found\n"
+        },
+        {
+          "id": "O8",
+          "status": "FAIL",
+          "seconds": "10.697",
+          "evidence": "Selected servers share a DP noise domain; refusing a duplicate federated release from one logical privacy node."
+        },
+        {
+          "id": "O9",
+          "status": "PASS",
+          "seconds": "69.414",
+          "evidence": "all assertions passed"
+        },
+        {
+          "id": "O10",
+          "status": "PASS",
+          "seconds": "0.73399999999998",
+          "evidence": "all assertions passed"
+        },
+        {
+          "id": "O11",
+          "status": "FAIL",
+          "seconds": "12.1",
+          "evidence": "aggregate birth admission relaxed"
+        },
+        {
+          "id": "O12",
+          "status": "PASS",
+          "seconds": "22.251",
+          "evidence": "all assertions passed"
+        }
+      ],
+      "fresh-O9-new.json": {
+        "phase": "candidate",
+        "seconds": {
+          "baseline": 1.589,
+          "panel": 8.554
+        },
+        "max_memory_rows": {},
+        "version": "2.10.3"
+      },
+      "fresh-summary.txt": [
+        "O2: FAIL The input object must be a factor.",
+        "O3: FAIL [Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"acceptance2\", plan_override = NULL)' -> Error in get(resource_symbol, envir = session_env, inherits = FALSE) : ",
+        "O5: FAIL Concept-factor recoding failed or was incomplete on: good, other. Execution-owned artifacts were revoked and removed.",
+        "O7: FAIL [Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"matching\", plan_override = NULL)' -> Error in get(resource_symbol, envir = session_env, inherits = FALSE) : ",
+        "O8: FAIL Selected servers share a DP noise domain; refusing a duplicate federated release from one logical privacy node.",
+        "O11: FAIL aggregate birth admission relaxed"
+      ],
+      "workflow-status.json": {
+        "GITHUB_RUN_ID": "43493229424",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "d90102ab7475a0eaf26549f59ab3680f044081df",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "5.7.6",
+        "E2E_PATH": "fresh",
+        "MODE": "candidate",
+        "JOB_STATUS": "failure",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "d90102ab7475a0eaf26549f59ab3680f044081df",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "failure",
+            "conclusion": "failure"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    "res/43493229424-1-opal-5.7.6-upgrade-candidate": {
+      "commit": "c8862a1fca88eb5953fdccb0074ff20a30c44449",
+      "upgrade-O-verdicts.csv": [
+        {
+          "id": "O1",
+          "status": "PASS",
+          "seconds": "5.287",
+          "evidence": "all assertions passed"
+        },
+        {
+          "id": "O2",
+          "status": "FAIL",
+          "seconds": "24.609",
+          "evidence": "The input object must be a factor."
+        },
+        {
+          "id": "O3",
+          "status": "FAIL",
+          "seconds": "15.253",
+          "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"acceptance2\", plan_override = NULL)' -> Error in get(resource_symbol, envir = session_env, inherits = FALSE) : \n  object 'ores' not found\n"
+        },
+        {
+          "id": "O4",
+          "status": "PASS",
+          "seconds": "76.498",
+          "evidence": "all assertions passed"
+        },
+        {
+          "id": "O5",
+          "status": "FAIL",
+          "seconds": "12.181",
+          "evidence": "Concept-factor recoding failed or was incomplete on: other, good. Execution-owned artifacts were revoked and removed."
+        },
+        {
+          "id": "O6",
+          "status": "PASS",
+          "seconds": "4.94999999999999",
+          "evidence": "all assertions passed"
+        },
+        {
+          "id": "O7",
+          "status": "FAIL",
+          "seconds": "16.003",
+          "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"matching\", plan_override = NULL)' -> Error in get(resource_symbol, envir = session_env, inherits = FALSE) : \n  object 'ores' not found\n"
+        },
+        {
+          "id": "O8",
+          "status": "FAIL",
+          "seconds": "7.91",
+          "evidence": "Selected servers share a DP noise domain; refusing a duplicate federated release from one logical privacy node."
+        },
+        {
+          "id": "O9",
+          "status": "FAIL",
+          "seconds": "46.593",
+          "evidence": "v1-equivalent runtime regressed >25%"
+        },
+        {
+          "id": "O10",
+          "status": "FAIL",
+          "seconds": "0.00100000000000477",
+          "evidence": "upgraded O1-O3 failed"
+        },
+        {
+          "id": "O11",
+          "status": "FAIL",
+          "seconds": "8.40300000000002",
+          "evidence": "aggregate birth admission relaxed"
+        },
+        {
+          "id": "O12",
+          "status": "PASS",
+          "seconds": "15.548",
+          "evidence": "all assertions passed"
+        }
+      ],
+      "upgrade-O9-new.json": {
+        "phase": "candidate",
+        "seconds": {
+          "baseline": 0.971,
+          "panel": 5.364
+        },
+        "max_memory_rows": {},
+        "version": "2.10.3"
+      },
+      "upgrade-O9-old.json": {
+        "phase": "baseline",
+        "seconds": {
+          "baseline": 0.887,
+          "panel": 3.51
+        },
+        "max_memory_rows": {},
+        "version": "2.10.1"
+      },
+      "upgrade-summary.txt": [
+        "O2: FAIL The input object must be a factor.",
+        "O3: FAIL [Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"acceptance2\", plan_override = NULL)' -> Error in get(resource_symbol, envir = session_env, inherits = FALSE) : ",
+        "O5: FAIL Concept-factor recoding failed or was incomplete on: other, good. Execution-owned artifacts were revoked and removed.",
+        "O7: FAIL [Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"matching\", plan_override = NULL)' -> Error in get(resource_symbol, envir = session_env, inherits = FALSE) : ",
+        "O8: FAIL Selected servers share a DP noise domain; refusing a duplicate federated release from one logical privacy node.",
+        "O9: FAIL v1-equivalent runtime regressed >25%",
+        "O10: FAIL upgraded O1-O3 failed",
+        "O11: FAIL aggregate birth admission relaxed"
+      ],
+      "workflow-status.json": {
+        "GITHUB_RUN_ID": "43493229424",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "d90102ab7475a0eaf26549f59ab3680f044081df",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "5.7.6",
+        "E2E_PATH": "upgrade",
+        "MODE": "candidate",
+        "JOB_STATUS": "failure",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "d90102ab7475a0eaf26549f59ab3680f044081df",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "failure",
+            "conclusion": "failure"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    "res/43493229424-1-opal-6.1.3-fresh-candidate": {
+      "commit": "3f9126d12a59bcd250b2f0354107e42293ba4279",
+      "fresh-O-verdicts.csv": [
+        {
+          "id": "O1",
+          "status": "PASS",
+          "seconds": "6.142",
+          "evidence": "all assertions passed"
+        },
+        {
+          "id": "O2",
+          "status": "FAIL",
+          "seconds": "24.724",
+          "evidence": "The input object must be a factor."
+        },
+        {
+          "id": "O3",
+          "status": "FAIL",
+          "seconds": "17.614",
+          "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"acceptance2\", plan_override = NULL)' -> Error in get(resource_symbol, envir = session_env, inherits = FALSE) : \n  object 'ores' not found\n"
+        },
+        {
+          "id": "O4",
+          "status": "PASS",
+          "seconds": "80.539",
+          "evidence": "all assertions passed"
+        },
+        {
+          "id": "O5",
+          "status": "FAIL",
+          "seconds": "12.867",
+          "evidence": "Concept-factor recoding failed or was incomplete on: good, other. Execution-owned artifacts were revoked and removed."
+        },
+        {
+          "id": "O6",
+          "status": "PASS",
+          "seconds": "5.30700000000002",
+          "evidence": "all assertions passed"
+        },
+        {
+          "id": "O7",
+          "status": "FAIL",
+          "seconds": "18.259",
+          "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"matching\", plan_override = NULL)' -> Error in get(resource_symbol, envir = session_env, inherits = FALSE) : \n  object 'ores' not found\n"
+        },
+        {
+          "id": "O8",
+          "status": "FAIL",
+          "seconds": "9.548",
+          "evidence": "Selected servers share a DP noise domain; refusing a duplicate federated release from one logical privacy node."
+        },
+        {
+          "id": "O9",
+          "status": "PASS",
+          "seconds": "55.012",
+          "evidence": "all assertions passed"
+        },
+        {
+          "id": "O10",
+          "status": "PASS",
+          "seconds": "0.746000000000009",
+          "evidence": "all assertions passed"
+        },
+        {
+          "id": "O11",
+          "status": "FAIL",
+          "seconds": "9.25200000000001",
+          "evidence": "aggregate birth admission relaxed"
+        },
+        {
+          "id": "O12",
+          "status": "PASS",
+          "seconds": "16.507",
+          "evidence": "all assertions passed"
+        }
+      ],
+      "fresh-O9-new.json": {
+        "phase": "candidate",
+        "seconds": {
+          "baseline": 1.227,
+          "panel": 6.753
+        },
+        "max_memory_rows": {},
+        "version": "2.10.3"
+      },
+      "fresh-summary.txt": [
+        "O2: FAIL The input object must be a factor.",
+        "O3: FAIL [Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"acceptance2\", plan_override = NULL)' -> Error in get(resource_symbol, envir = session_env, inherits = FALSE) : ",
+        "O5: FAIL Concept-factor recoding failed or was incomplete on: good, other. Execution-owned artifacts were revoked and removed.",
+        "O7: FAIL [Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"matching\", plan_override = NULL)' -> Error in get(resource_symbol, envir = session_env, inherits = FALSE) : ",
+        "O8: FAIL Selected servers share a DP noise domain; refusing a duplicate federated release from one logical privacy node.",
+        "O11: FAIL aggregate birth admission relaxed"
+      ],
+      "workflow-status.json": {
+        "GITHUB_RUN_ID": "43493229424",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "d90102ab7475a0eaf26549f59ab3680f044081df",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "6.1.3",
+        "E2E_PATH": "fresh",
+        "MODE": "candidate",
+        "JOB_STATUS": "failure",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "d90102ab7475a0eaf26549f59ab3680f044081df",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "failure",
+            "conclusion": "failure"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    "res/43493229424-1-opal-6.1.3-upgrade-candidate": {
+      "commit": "4c29da7a1e9cc5c64f59257538aed206ed3bb619",
+      "upgrade-O-verdicts.csv": [
+        {
+          "id": "O1",
+          "status": "PASS",
+          "seconds": "5.812",
+          "evidence": "all assertions passed"
+        },
+        {
+          "id": "O2",
+          "status": "FAIL",
+          "seconds": "27.964",
+          "evidence": "The input object must be a factor."
+        },
+        {
+          "id": "O3",
+          "status": "FAIL",
+          "seconds": "17.471",
+          "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"acceptance2\", plan_override = NULL)' -> Error in get(resource_symbol, envir = session_env, inherits = FALSE) : \n  object 'ores' not found\n"
+        },
+        {
+          "id": "O4",
+          "status": "PASS",
+          "seconds": "79.72",
+          "evidence": "all assertions passed"
+        },
+        {
+          "id": "O5",
+          "status": "FAIL",
+          "seconds": "13.524",
+          "evidence": "Concept-factor recoding failed or was incomplete on: good, other. Execution-owned artifacts were revoked and removed."
+        },
+        {
+          "id": "O6",
+          "status": "PASS",
+          "seconds": "5.51599999999999",
+          "evidence": "all assertions passed"
+        },
+        {
+          "id": "O7",
+          "status": "FAIL",
+          "seconds": "19.025",
+          "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"matching\", plan_override = NULL)' -> Error in get(resource_symbol, envir = session_env, inherits = FALSE) : \n  object 'ores' not found\n"
+        },
+        {
+          "id": "O8",
+          "status": "FAIL",
+          "seconds": "8.36100000000002",
+          "evidence": "Selected servers share a DP noise domain; refusing a duplicate federated release from one logical privacy node."
+        },
+        {
+          "id": "O9",
+          "status": "FAIL",
+          "seconds": "54.861",
+          "evidence": "v1-equivalent runtime regressed >25%"
+        },
+        {
+          "id": "O10",
+          "status": "FAIL",
+          "seconds": "0",
+          "evidence": "upgraded O1-O3 failed"
+        },
+        {
+          "id": "O11",
+          "status": "FAIL",
+          "seconds": "10.271",
+          "evidence": "aggregate birth admission relaxed"
+        },
+        {
+          "id": "O12",
+          "status": "PASS",
+          "seconds": "16.411",
+          "evidence": "all assertions passed"
+        }
+      ],
+      "upgrade-O9-new.json": {
+        "phase": "candidate",
+        "seconds": {
+          "baseline": 1.312,
+          "panel": 6.803
+        },
+        "max_memory_rows": {},
+        "version": "2.10.3"
+      },
+      "upgrade-O9-old.json": {
+        "phase": "baseline",
+        "seconds": {
+          "baseline": 1.159,
+          "panel": 4.424
+        },
+        "max_memory_rows": {},
+        "version": "2.10.1"
+      },
+      "upgrade-summary.txt": [
+        "O2: FAIL The input object must be a factor.",
+        "O3: FAIL [Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"acceptance2\", plan_override = NULL)' -> Error in get(resource_symbol, envir = session_env, inherits = FALSE) : ",
+        "O5: FAIL Concept-factor recoding failed or was incomplete on: good, other. Execution-owned artifacts were revoked and removed.",
+        "O7: FAIL [Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"matching\", plan_override = NULL)' -> Error in get(resource_symbol, envir = session_env, inherits = FALSE) : ",
+        "O8: FAIL Selected servers share a DP noise domain; refusing a duplicate federated release from one logical privacy node.",
+        "O9: FAIL v1-equivalent runtime regressed >25%",
+        "O10: FAIL upgraded O1-O3 failed",
+        "O11: FAIL aggregate birth admission relaxed"
+      ],
+      "workflow-status.json": {
+        "GITHUB_RUN_ID": "43493229424",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "d90102ab7475a0eaf26549f59ab3680f044081df",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "6.1.3",
+        "E2E_PATH": "upgrade",
+        "MODE": "candidate",
+        "JOB_STATUS": "failure",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "d90102ab7475a0eaf26549f59ab3680f044081df",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "failure",
+            "conclusion": "failure"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    "res/43493235081-fresh-candidate": {
+      "commit": "642a831e4921803dcb7005cd2c73afffde4a5bdf",
+      "fresh-summary.txt": [
+        "[fresh] D: 73 methods: PASS 67, REFUSED 1 (to review), FAIL 0, NOT-EXERCISED 5; ran per Opal log: 69; PASS but absent from Opal log: ",
+        "[fresh] G: 100 checks: PASS 88, FAIL 0, INFO 12, ERROR 0 (37.9 min)",
+        "[fresh] G-old (dsOMOPClient 2.10.2 against dsOMOP 2.10.3): 10 checks: PASS 10, FAIL 0, INFO 0, ERROR 0"
+      ]
+    },
+    "res/43493235081-upgrade-candidate": {
+      "commit": "2f80b4966738fea53308a93bed6e744d58b5fb80",
+      "upgrade-summary.txt": [
+        "[upgrade] G: 104 checks: PASS 88, FAIL 0, INFO 16, ERROR 0 (27.2 min)",
+        "[upgrade] G-old (dsOMOPClient 2.10.2 against dsOMOP 2.10.3): 10 checks: PASS 10, FAIL 0, INFO 0, ERROR 0"
+      ]
+    }
+  }
+}

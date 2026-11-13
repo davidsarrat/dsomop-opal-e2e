@@ -1,0 +1,183 @@
+e2e4-categories: Registered S3 method overwritten by 'bit':
+  method   from  
+  print.ri gamlss
+
+Logging into the collaborating servers
+[dsomop-audit] 2026-11-13T20:49:57+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}},"sex":{"derived":{"kind":"sex_mf"}},"age":{"derived":{"kind":"age","reference_date":"2020-01-01"}},"birth_band":{"derived":{"kind":"birth_year_band","width":5}},"band":{"derived":{"kind":"age","reference_date":"2020-01-01","bands":true,"age_breaks":[0,18,65]}},"month":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"month"}},"weekday":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"weekday"}},"season":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"season"}},"period":{"derived":{"kind":"calendar_date","reference":{"date":"2020-01-01"}},"date_spec":{"precision":"quarter","level_range":["2020-01-01","2020-12-31"]}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:49:58+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:49:58+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}},"sex":{"derived":{"kind":"sex_mf"}},"age":{"derived":{"kind":"age","reference_date":"2020-01-01"}},"birth_band":{"derived":{"kind":"birth_year_band","width":5}},"band":{"derived":{"kind":"age","reference_date":"2020-01-01","bands":true,"age_breaks":[0,18,65]}},"month":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"month"}},"weekday":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"weekday"}},"season":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"season"}},"period":{"derived":{"kind":"calendar_date","reference":{"date":"2020-01-01"}},"date_spec":{"precision":"quarter","level_range":["2020-01-01","2020-12-31"]}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:49:59+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:49:59+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}},"sex":{"derived":{"kind":"sex_mf"}},"age":{"derived":{"kind":"age","reference_date":"2020-01-01"}},"birth_band":{"derived":{"kind":"birth_year_band","width":5}},"band":{"derived":{"kind":"age","reference_date":"2020-01-01","bands":true,"age_breaks":[0,18,65]}},"month":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"month"}},"weekday":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"weekday"}},"season":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"season"}},"period":{"derived":{"kind":"calendar_date","reference":{"date":"2020-01-01"}},"date_spec":{"precision":"quarter","level_range":["2020-01-01","2020-12-31"]}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:50:00+0000 method=publication detail={"output":"output","component":"output","passed":true}
+.......................................................................................
+Data in all studies were valid
+
+
+Study1: No errors reported from this study
+
+Study2: No errors reported from this study
+
+Study3: No errors reported from this study
+
+
+
+.Iteration 1...
+CURRENT DEVIANCE:      79650
+Iteration 2...
+CURRENT DEVIANCE:      270
+Iteration 3...
+CURRENT DEVIANCE:      270
+SUMMARY OF MODEL STATE after iteration 3
+Current deviance 270 on 52 degrees of freedom
+Convergence criterion TRUE (0)
+
+beta: 40 -2
+
+Information matrix overall:
+            (Intercept) sexM
+(Intercept)          54   45
+sexM                 45   45
+
+Score vector overall:
+            [,1]
+(Intercept)    0
+sexM           0
+
+Current deviance: 270
+
+.[dsomop-audit] 2026-11-13T20:50:02+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}},"sex":{"derived":{"kind":"sex_mf"}},"age":{"derived":{"kind":"age","reference_date":"2020-01-01"}},"birth_band":{"derived":{"kind":"birth_year_band","width":5}},"band":{"derived":{"kind":"age","reference_date":"2020-01-01","bands":true,"age_breaks":[0,18,65]}},"month":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"month"}},"weekday":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"weekday"}},"season":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"season"}},"period":{"derived":{"kind":"calendar_date","reference":{"date":"2020-01-01"}},"date_spec":{"precision":"quarter","level_range":["2020-01-01","2020-12-31"]}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:50:03+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:50:03+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}},"sex":{"derived":{"kind":"sex_mf"}},"age":{"derived":{"kind":"age","reference_date":"2020-01-01"}},"birth_band":{"derived":{"kind":"birth_year_band","width":5}},"band":{"derived":{"kind":"age","reference_date":"2020-01-01","bands":true,"age_breaks":[0,18,65]}},"month":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"month"}},"weekday":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"weekday"}},"season":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"season"}},"period":{"derived":{"kind":"calendar_date","reference":{"date":"2020-01-01"}},"date_spec":{"precision":"quarter","level_range":["2020-01-01","2020-12-31"]}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:50:04+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:50:04+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"labels":{"45000126":"declared only"}},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"education":{"source":{"event":"obs_45000120"},"reducer":{"fn":"last_value","value":"value_as_concept_id"}},"cause":{"raw":{"table":"death","column":"cause_concept_id"}},"sex":{"derived":{"kind":"sex_mf"}},"age":{"derived":{"kind":"age","reference_date":"2020-01-01"}},"birth_band":{"derived":{"kind":"birth_year_band","width":5}},"band":{"derived":{"kind":"age","reference_date":"2020-01-01","bands":true,"age_breaks":[0,18,65]}},"month":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"month"}},"weekday":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"weekday"}},"season":{"derived":{"kind":"date_part","reference":{"date":"2020-01-01"},"part":"season"}},"period":{"derived":{"kind":"calendar_date","reference":{"date":"2020-01-01"}},"date_spec":{"precision":"quarter","level_range":["2020-01-01","2020-12-31"]}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:50:05+0000 method=publication detail={"output":"output","component":"output","passed":true}
+......................................................................................[dsomop-audit] 2026-11-13T20:50:11+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"translate_concepts":false,"factor_concepts":false},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"sex":{"derived":{"kind":"sex_mf"}},"band":{"derived":{"kind":"age","reference_date":"2020-01-01","bands":true,"age_breaks":[0,18,65]}},"birth_band":{"derived":{"kind":"birth_year_band","width":5}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:50:11+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:50:11+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"translate_concepts":false,"factor_concepts":false},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"sex":{"derived":{"kind":"sex_mf"}},"band":{"derived":{"kind":"age","reference_date":"2020-01-01","bands":true,"age_breaks":[0,18,65]}},"birth_band":{"derived":{"kind":"birth_year_band","width":5}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:50:11+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:50:12+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"translate_concepts":false,"factor_concepts":false},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"sex":{"derived":{"kind":"sex_mf"}},"band":{"derived":{"kind":"age","reference_date":"2020-01-01","bands":true,"age_breaks":[0,18,65]}},"birth_band":{"derived":{"kind":"birth_year_band","width":5}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:50:12+0000 method=publication detail={"output":"output","component":"output","passed":true}
+............[dsomop-audit] 2026-11-13T20:50:12+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"translate_concepts":false,"factor_concepts":false},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"sex":{"derived":{"kind":"sex_mf"}},"band":{"derived":{"kind":"age","reference_date":"2020-01-01","bands":true,"age_breaks":[0,18,65]}},"birth_band":{"derived":{"kind":"birth_year_band","width":5}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:50:13+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:50:13+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"translate_concepts":false,"factor_concepts":false},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"sex":{"derived":{"kind":"sex_mf"}},"band":{"derived":{"kind":"age","reference_date":"2020-01-01","bands":true,"age_breaks":[0,18,65]}},"birth_band":{"derived":{"kind":"birth_year_band","width":5}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:50:14+0000 method=publication detail={"output":"output","component":"output","passed":true}
+[dsomop-audit] 2026-11-13T20:50:14+0000 method=omopPlanExecuteDS detail={"outputs":"output","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"options":{"translate_concepts":false,"factor_concepts":false},"events":{"obs_45000120":{"table":"observation","concept_set":{"concepts":[45000120],"include_descendants":false},"value":{"column":"value_as_number"}}},"populations":{"base":{"kind":"criteria"}},"variables":{"sex":{"derived":{"kind":"sex_mf"}},"band":{"derived":{"kind":"age","reference_date":"2020-01-01","bands":true,"age_breaks":[0,18,65]}},"birth_band":{"derived":{"kind":"birth_year_band","width":5}}},"outputs":{"output":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_output"}},"publish":["output"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:50:15+0000 method=publication detail={"output":"output","component":"output","passed":true}
+............
+publication-status: 12......3...45....................................6......7...................................
+
+══ Failed ══════════════════════════════════════════════════════════════════════
+── 1. Error ('test-publication-status.R:11:3'): status is retrieved before delet
+Error: Concept-factor level collection failed or was incomplete on: a, b. Unexpected aggregate: omopFactorLevelsDS Execution-owned artifacts were revoked and removed.
+Backtrace:
+    ▆
+ 1. └─dsOMOPClient::ds.omop.plan.execute(.publication_plan(), out = "D") at test-publication-status.R:11:3
+ 2.   └─dsOMOPClient:::.plan_execute_impl(...) at dsOMOPClient/R/plan.R:1878:3
+ 3.     └─base::tryCatch(...) at dsOMOPClient/R/plan.R:2058:3
+ 4.       └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+ 5.         └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 6.           └─value[[3L]](cond)
+
+── 2. Error ('test-publication-status.R:22:3'): ordinary successful publication 
+Error: Concept-factor level collection failed or was incomplete on: a, b. Unexpected aggregate: omopFactorLevelsDS Execution-owned artifacts were revoked and removed.
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_identical(...) at test-publication-status.R:22:3
+ 2. │ └─testthat::quasi_label(enquo(object), label)
+ 3. │   └─rlang::eval_bare(expr, quo_get_env(quo))
+ 4. └─dsOMOPClient::ds.omop.plan.execute(.publication_plan(), out = "D")
+ 5.   └─dsOMOPClient:::.plan_execute_impl(...) at dsOMOPClient/R/plan.R:1878:3
+ 6.     └─base::tryCatch(...) at dsOMOPClient/R/plan.R:2058:3
+ 7.       └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+ 8.         └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 9.           └─value[[3L]](cond)
+
+── 3. Error ('test-publication-status.R:54:3'): partial v1 out mappings retain o
+Error: Concept-factor level collection failed or was incomplete on: a. Unexpected aggregate: omopFactorLevelsDS Execution-owned artifacts were revoked and removed.
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_identical(...) at test-publication-status.R:54:3
+ 2. │ └─testthat::quasi_label(enquo(object), label)
+ 3. │   └─rlang::eval_bare(expr, quo_get_env(quo))
+ 4. └─dsOMOPClient::ds.omop.plan.execute(plan, out = out)
+ 5.   └─dsOMOPClient:::.plan_execute_impl(...) at dsOMOPClient/R/plan.R:1878:3
+ 6.     └─base::tryCatch(...) at dsOMOPClient/R/plan.R:2058:3
+ 7.       └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+ 8.         └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 9.           └─value[[3L]](cond)
+
+── 4. Error ('test-publication-status.R:79:5'): strict and non-strict skip reque
+Error: Concept-factor level collection failed or was incomplete on: a. Unexpected aggregate: omopFactorLevelsDS Execution-owned artifacts were revoked and removed.
+Backtrace:
+    ▆
+ 1. └─dsOMOPClient::ds.omop.plan.execute(...) at test-publication-status.R:79:5
+ 2.   └─dsOMOPClient:::.plan_execute_impl(...) at dsOMOPClient/R/plan.R:1878:3
+ 3.     └─base::tryCatch(...) at dsOMOPClient/R/plan.R:2058:3
+ 4.       └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+ 5.         └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 6.           └─value[[3L]](cond)
+
+── 5. Error ('test-publication-status.R:93:3'): non-strict/error keeps complete 
+Error: Concept-factor level collection failed or was incomplete on: a, b. Unexpected aggregate: omopFactorLevelsDS Execution-owned artifacts were revoked and removed.
+Backtrace:
+     ▆
+  1. ├─testthat::expect_warning(...) at test-publication-status.R:93:3
+  2. │ └─testthat:::expect_condition_matching_(...)
+  3. │   └─testthat:::quasi_capture(...)
+  4. │     ├─testthat (local) .capture(...)
+  5. │     │ └─base::withCallingHandlers(...)
+  6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo))
+  7. └─dsOMOPClient::ds.omop.plan.execute(...)
+  8.   └─dsOMOPClient:::.plan_execute_impl(...) at dsOMOPClient/R/plan.R:1878:3
+  9.     └─base::tryCatch(...) at dsOMOPClient/R/plan.R:2058:3
+ 10.       └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+ 11.         └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 12.           └─value[[3L]](cond)
+
+── 6. Error ('test-publication-status.R:238:3'): a warning promoted to an error 
+Error: Concept-factor level collection failed or was incomplete on: a. Unexpected aggregate: omopFactorLevelsDS Execution-owned artifacts were revoked and removed.
+Backtrace:
+     ▆
+  1. ├─testthat::expect_error(...) at test-publication-status.R:238:3
+  2. │ └─testthat:::expect_condition_matching_(...)
+  3. │   └─testthat:::quasi_capture(...)
+  4. │     ├─testthat (local) .capture(...)
+  5. │     │ └─base::withCallingHandlers(...)
+  6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo))
+  7. └─dsOMOPClient::ds.omop.plan.execute(...)
+  8.   └─dsOMOPClient:::.plan_execute_impl(...) at dsOMOPClient/R/plan.R:1878:3
+  9.     └─base::tryCatch(...) at dsOMOPClient/R/plan.R:2058:3
+ 10.       └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+ 11.         └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 12.           └─value[[3L]](cond)
+
+── 7. Error ('test-publication-status.R:279:3'): legacy composite aliases preser
+Error: Concept-factor level collection failed or was incomplete on: a, b. Unexpected aggregate: omopFactorLevelsDS Execution-owned artifacts were revoked and removed.
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_identical(...) at test-publication-status.R:279:3
+ 2. │ └─testthat::quasi_label(enquo(object), label)
+ 3. │   └─rlang::eval_bare(expr, quo_get_env(quo))
+ 4. └─dsOMOPClient::ds.omop.plan.execute(.publication_plan(), out = "D")
+ 5.   └─dsOMOPClient:::.plan_execute_impl(...) at dsOMOPClient/R/plan.R:1878:3
+ 6.     └─base::tryCatch(...) at dsOMOPClient/R/plan.R:2058:3
+ 7.       └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+ 8.         └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 9.           └─value[[3L]](cond)
+
+══ DONE ════════════════════════════════════════════════════════════════════════
+
+FAILURES BY FILE
+                      file blocks failed errors
+ test-publication-status.R      7      0      7
+
+FAILING TESTS
+test-publication-status.R | status is retrieved before deletion and dynamic symbols are returned | failed=0 error=TRUE
+test-publication-status.R | ordinary successful publication retains its v1 mapping | failed=0 error=TRUE
+test-publication-status.R | partial v1 out mappings retain only requested published symbols | failed=0 error=TRUE
+test-publication-status.R | strict and non-strict skip request all-or-none before publication | failed=0 error=TRUE
+test-publication-status.R | non-strict/error keeps complete families and warns with typed codes | failed=0 error=TRUE
+test-publication-status.R | a warning promoted to an error still rolls back before status deletion | failed=0 error=TRUE
+test-publication-status.R | legacy composite aliases preserve the successful return mapping | failed=0 error=TRUE
+
+RESULT failed: 0 errors: 7 skipped: 0 passed: 285 

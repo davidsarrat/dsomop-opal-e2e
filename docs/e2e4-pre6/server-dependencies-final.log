@@ -1,0 +1,155 @@
+dsOMOP v2.10.3 loaded. OMOP CDM resource resolver registered.
+assignment-policy: ...................................................................................................................................................[dsomop-audit] 2026-11-13T20:55:56+0000 method=publication detail={"output":"result","component":"result","passed":true}
+.......
+compile-reduce: duckdb keeps downloaded extensions and secrets in a temporary directory:
+i /tmp/Rtmp4aErow/duckdb
+This is removed when the R session ends.
+* Extensions are re-downloaded each session.
+* Secrets are lost.
+i Run duckdb(shared_home = TRUE) (or create ~/.duckdb) to keep them (suitable for most users).
+i Run duckdb(shared_home = FALSE) to accept the temporary directory (and silence this message).
+i See ?duckdb_storage for details and alternatives.
+......................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+concept-label-presentation: duckdb keeps downloaded extensions and secrets in a temporary directory:
+i /tmp/Rtmp4aErow/duckdb
+This is removed when the R session ends.
+* Extensions are re-downloaded each session.
+* Secrets are lost.
+i Run duckdb(shared_home = TRUE) (or create ~/.duckdb) to keep them (suitable for most users).
+i Run duckdb(shared_home = FALSE) to accept the temporary directory (and silence this message).
+i See ?duckdb_storage for details and alternatives.
+[dsomop-audit] 2026-11-13T20:56:55+0000 method=publication detail={"output":"o","component":"o","passed":true}
+..................[dsomop-audit] 2026-11-13T20:56:57+0000 method=publication detail={"output":"o","component":"o","passed":true}
+[dsomop-audit] 2026-11-13T20:56:57+0000 method=publication detail={"output":"long","component":"long","passed":true}
+[dsomop-audit] 2026-11-13T20:56:57+0000 method=publication detail={"output":"panel","component":"panel","passed":true}
+[dsomop-audit] 2026-11-13T20:56:57+0000 method=publication detail={"output":"panel","component":"covariateRef","passed":true}
+[dsomop-audit] 2026-11-13T20:56:57+0000 method=publication detail={"output":"panel","component":"timeRef","passed":true}
+[dsomop-audit] 2026-11-13T20:56:57+0000 method=publication detail={"output":"period","component":"period","passed":true}
+[dsomop-audit] 2026-11-13T20:56:57+0000 method=publication detail={"output":"sparse","component":"sparse","passed":true}
+[dsomop-audit] 2026-11-13T20:56:57+0000 method=publication detail={"output":"sparse","component":"covariateRef","passed":true}
+[dsomop-audit] 2026-11-13T20:56:57+0000 method=publication detail={"output":"membership","component":"membership","passed":true}
+[dsomop-audit] 2026-11-13T20:56:57+0000 method=publication detail={"output":"dictionary","component":"dictionary","passed":true}
+[dsomop-audit] 2026-11-13T20:56:57+0000 method=publication detail={"output":"survival","component":"survival","passed":true}
+[dsomop-audit] 2026-11-13T20:56:57+0000 method=publication detail={"output":"joined","component":"joined","passed":true}
+.[dsomop-audit] 2026-11-13T20:56:59+0000 method=publication detail={"output":"o","component":"o","passed":true}
+[dsomop-audit] 2026-11-13T20:56:59+0000 method=publication detail={"output":"long","component":"long","passed":true}
+[dsomop-audit] 2026-11-13T20:57:00+0000 method=publication detail={"output":"panel","component":"panel","passed":true}
+[dsomop-audit] 2026-11-13T20:57:00+0000 method=publication detail={"output":"panel","component":"covariateRef","passed":true}
+[dsomop-audit] 2026-11-13T20:57:01+0000 method=publication detail={"output":"panel","component":"timeRef","passed":true}
+[dsomop-audit] 2026-11-13T20:57:01+0000 method=publication detail={"output":"period","component":"period","passed":true}
+[dsomop-audit] 2026-11-13T20:57:02+0000 method=publication detail={"output":"sparse","component":"sparse","passed":true}
+[dsomop-audit] 2026-11-13T20:57:02+0000 method=publication detail={"output":"sparse","component":"covariateRef","passed":true}
+[dsomop-audit] 2026-11-13T20:57:02+0000 method=publication detail={"output":"membership","component":"membership","passed":true}
+[dsomop-audit] 2026-11-13T20:57:03+0000 method=publication detail={"output":"dictionary","component":"dictionary","passed":true}
+[dsomop-audit] 2026-11-13T20:57:03+0000 method=publication detail={"output":"survival","component":"survival","passed":true}
+[dsomop-audit] 2026-11-13T20:57:04+0000 method=publication detail={"output":"joined","component":"joined","passed":true}
+......................................................................................................................................................
+date-system-outputs: duckdb keeps downloaded extensions and secrets in a temporary directory:
+i /tmp/Rtmp4aErow/duckdb
+This is removed when the R session ends.
+* Extensions are re-downloaded each session.
+* Secrets are lost.
+i Run duckdb(shared_home = TRUE) (or create ~/.duckdb) to keep them (suitable for most users).
+i Run duckdb(shared_home = FALSE) to accept the temporary directory (and silence this message).
+i See ?duckdb_storage for details and alternatives.
+........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+extraction: .........................................................................................................................................................................[dsomop-audit] 2026-11-13T20:58:28+0000 method=publication detail={"output":"wide","component":"wide","passed":true}
+.......[dsomop-audit] 2026-11-13T20:58:30+0000 method=publication detail={"output":"wide","component":"wide","passed":true}
+....[dsomop-audit] 2026-11-13T20:58:31+0000 method=publication detail={"output":"wide","component":"wide","passed":true}
+.............................
+publication-compiled: [dsomop-audit] 2026-11-13T20:58:35+0000 method=publication detail={"output":"out","component":"out","passed":true}
+....[dsomop-audit] 2026-11-13T20:58:36+0000 method=publication detail={"output":"out","component":"out","passed":true}
+.............[dsomop-audit] 2026-11-13T20:58:37+0000 method=publication detail={"output":"out","component":"out","passed":true}
+...............[dsomop-audit] 2026-11-13T20:58:39+0000 method=publication detail={"output":"out","component":"out","passed":true}
+........[dsomop-audit] 2026-11-13T20:58:40+0000 method=publication detail={"output":"out","component":"out","passed":true}
+.........[dsomop-audit] 2026-11-13T20:58:41+0000 method=publication detail={"output":"out","component":"out","passed":true}
+...........[dsomop-audit] 2026-11-13T20:58:42+0000 method=publication detail={"output":"out","component":"out","passed":true}
+.......duckdb keeps downloaded extensions and secrets in a temporary directory:
+i /tmp/Rtmp4aErow/duckdb
+This is removed when the R session ends.
+* Extensions are re-downloaded each session.
+* Secrets are lost.
+i Run duckdb(shared_home = TRUE) (or create ~/.duckdb) to keep them (suitable for most users).
+i Run duckdb(shared_home = FALSE) to accept the temporary directory (and silence this message).
+i See ?duckdb_storage for details and alternatives.
+[dsomop-audit] 2026-11-13T20:58:43+0000 method=publication detail={"output":"out","component":"out","passed":true}
+.......[dsomop-audit] 2026-11-13T20:58:45+0000 method=publication detail={"output":"out","component":"out","passed":true}
+.....[dsomop-audit] 2026-11-13T20:58:45+0000 method=publication detail={"output":"out","component":"out","passed":false}
+........[dsomop-audit] 2026-11-13T20:58:46+0000 method=publication detail={"output":"out","component":"out","passed":true}
+...................................[dsomop-audit] 2026-11-13T20:58:49+0000 method=publication detail={"output":"out","component":"out","passed":false}
+........[dsomop-audit] 2026-11-13T20:58:49+0000 method=publication detail={"output":"out","component":"out","passed":false}
+.........[dsomop-audit] 2026-11-13T20:58:49+0000 method=publication detail={"output":"out","component":"out","passed":false}
+....[dsomop-audit] 2026-11-13T20:58:50+0000 method=publication detail={"output":"out","component":"out","passed":false}
+....[dsomop-audit] 2026-11-13T20:58:50+0000 method=publication detail={"output":"out","component":"out","passed":true}
+......[dsomop-audit] 2026-11-13T20:58:51+0000 method=publication detail={"output":"out","component":"out","passed":false}
+.......[dsomop-audit] 2026-11-13T20:58:51+0000 method=publication detail={"output":"out","component":"out","passed":true}
+......[dsomop-audit] 2026-11-13T20:58:52+0000 method=publication detail={"output":"out","component":"out","passed":false}
+.......[dsomop-audit] 2026-11-13T20:58:52+0000 method=publication detail={"output":"out","component":"risk","passed":true}
+[dsomop-audit] 2026-11-13T20:58:52+0000 method=publication detail={"output":"out","component":"events","passed":false}
+........[dsomop-audit] 2026-11-13T20:58:53+0000 method=publication detail={"output":"out","component":"risk","passed":true}
+[dsomop-audit] 2026-11-13T20:58:53+0000 method=publication detail={"output":"out","component":"events","passed":true}
+......[dsomop-audit] 2026-11-13T20:58:53+0000 method=publication detail={"output":"out","component":"risk","passed":true}
+[dsomop-audit] 2026-11-13T20:58:53+0000 method=publication detail={"output":"out","component":"events","passed":false}
+.......[dsomop-audit] 2026-11-13T20:58:54+0000 method=publication detail={"output":"out","component":"risk","passed":true}
+[dsomop-audit] 2026-11-13T20:58:54+0000 method=publication detail={"output":"out","component":"events","passed":false}
+........[dsomop-audit] 2026-11-13T20:58:54+0000 method=publication detail={"output":"out","component":"risk","passed":true}
+[dsomop-audit] 2026-11-13T20:58:55+0000 method=publication detail={"output":"out","component":"events","passed":true}
+......[dsomop-audit] 2026-11-13T20:58:56+0000 method=publication detail={"output":"out","component":"risk","passed":true}
+[dsomop-audit] 2026-11-13T20:58:56+0000 method=publication detail={"output":"out","component":"events","passed":false}
+.......[dsomop-audit] 2026-11-13T20:58:56+0000 method=publication detail={"output":"out","component":"risk","passed":true}
+[dsomop-audit] 2026-11-13T20:58:56+0000 method=publication detail={"output":"out","component":"events","passed":false}
+..[dsomop-audit] 2026-11-13T20:58:57+0000 method=publication detail={"output":"out","component":"risk","passed":false}
+[dsomop-audit] 2026-11-13T20:58:57+0000 method=publication detail={"output":"out","component":"events","passed":false}
+[dsomop-audit] 2026-11-13T20:58:57+0000 method=publication detail={"output":"out","component":"dictionary","passed":true}
+..........[dsomop-audit] 2026-11-13T20:58:57+0000 method=publication detail={"output":"out","component":"dictionary","passed":true}
+[dsomop-audit] 2026-11-13T20:58:57+0000 method=publication detail={"output":"out","component":"events","passed":false}
+[dsomop-audit] 2026-11-13T20:58:57+0000 method=publication detail={"output":"out","component":"risk","passed":false}
+..........[dsomop-audit] 2026-11-13T20:58:58+0000 method=publication detail={"output":"out","component":"risk","passed":false}
+[dsomop-audit] 2026-11-13T20:58:58+0000 method=publication detail={"output":"out","component":"events","passed":false}
+[dsomop-audit] 2026-11-13T20:58:58+0000 method=publication detail={"output":"out","component":"dictionary","passed":true}
+...........[dsomop-audit] 2026-11-13T20:58:59+0000 method=publication detail={"output":"out","component":"dictionary","passed":true}
+[dsomop-audit] 2026-11-13T20:58:59+0000 method=publication detail={"output":"out","component":"events","passed":false}
+[dsomop-audit] 2026-11-13T20:59:00+0000 method=publication detail={"output":"out","component":"risk","passed":false}
+...........[dsomop-audit] 2026-11-13T20:59:00+0000 method=publication detail={"output":"out","component":"risk","passed":false}
+[dsomop-audit] 2026-11-13T20:59:00+0000 method=publication detail={"output":"out","component":"events","passed":false}
+....
+publication: [dsomop-audit] 2026-11-13T20:59:00+0000 method=publication detail={"output":"out","component":"out","passed":true}
+......[dsomop-audit] 2026-11-13T20:59:00+0000 method=publication detail={"output":"out","component":"out","passed":false}
+...[dsomop-audit] 2026-11-13T20:59:00+0000 method=publication detail={"output":"out","component":"out","passed":false}
+.[dsomop-audit] 2026-11-13T20:59:00+0000 method=publication detail={"output":"out","component":"out","passed":true}
+.........................[dsomop-audit] 2026-11-13T20:59:00+0000 method=publication detail={"output":"out","component":"out","passed":true}
+..[dsomop-audit] 2026-11-13T20:59:00+0000 method=publication detail={"output":"passing","component":"passing","passed":true}
+[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"small","component":"small","passed":false}
+[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"small","component":"dictionary","passed":true}
+....[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"passing","component":"passing","passed":true}
+[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"small","component":"small","passed":false}
+[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"small","component":"dictionary","passed":true}
+....[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"passing","component":"passing","passed":true}
+[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"small","component":"small","passed":false}
+[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"small","component":"dictionary","passed":true}
+....[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"passing","component":"passing","passed":true}
+[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"small","component":"small","passed":false}
+[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"small","component":"dictionary","passed":true}
+....[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"passing","component":"passing","passed":true}
+[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"small","component":"small","passed":false}
+[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"small","component":"dictionary","passed":true}
+..[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"out","component":"first","passed":true}
+[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"out","component":"second","passed":true}
+......[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"first","component":"first","passed":true}
+[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"second","component":"second","passed":true}
+.....[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"first","component":"first","passed":true}
+[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"second","component":"second","passed":true}
+.....[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"first","component":"first","passed":true}
+[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"second","component":"second","passed":true}
+.....[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"out","component":"out","passed":true}
+...[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"out","component":"out","passed":true}
+....[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"out","component":"out","passed":true}
+....[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"out","component":"out","passed":false}
+.[dsomop-audit] 2026-11-13T20:59:01+0000 method=publication detail={"output":"out","component":"out","passed":true}
+.....
+staging-contract: ...........................................................................................................
+staging-csv: .....
+
+══ DONE ════════════════════════════════════════════════════════════════════════
+
+RESULT failed: 0 errors: 0 skipped: 0 passed: 1990 

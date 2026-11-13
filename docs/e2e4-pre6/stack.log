@@ -1,0 +1,8 @@
+Waiting for Opal version: attempt 1/2, curl=timeout, HTTP=none
+Opal version ready after 2 attempt(s)
+Waiting for Opal version: attempt 1/2, curl=timeout, HTTP=none
+Waiting for Opal version: attempt 2/2, curl=timeout, HTTP=none
+----------------------------------------------------------------------
+Ran 11 tests in 3.140s
+
+OK

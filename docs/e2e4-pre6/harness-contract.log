@@ -1,0 +1,8 @@
+PASS: OMOP cleanup precedes logout, repeats, and exposes cleanup errors
+PASS: administrator resolver registration before assignment
+PASS: timing initialization and cleanup use the resource's session
+Timing stopped at: 0 0 0
+PASS: old-server fixture selection and fresh namespace for upgrade
+PASS: aggregate refusals require explicit evidence and no returned values
+PASS: fixture initialization and failure cleanup use the invoking Opal session
+PASS: duplicate DP node is refused and a single-node release succeeds

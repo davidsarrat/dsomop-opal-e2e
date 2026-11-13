@@ -1,0 +1,72 @@
+dsOMOP v2.10.3 loaded. OMOP CDM resource resolver registered.
+e2e4-profile: W[dsomop-audit] 2026-11-13T20:33:36+0000 method=omopPlanExecuteDS detail={"outputs":"panel","plan":{"version":1,"cohort":{"type":"cohort_table","cohort_definition_id":1},"outputs":{"panel":{"type":"person_period","table":"measurement","concept_set":3025315,"bin_width":30,"window_start":0,"window_end":365,"grain":"episode","time_origin":"index"}}},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T20:33:43+0000 method=publication detail={"output":"panel","component":"personPeriods","passed":true}
+[dsomop-audit] 2026-11-13T20:33:43+0000 method=publication detail={"output":"panel","component":"temporalCovariates","passed":true}
+[dsomop-audit] 2026-11-13T20:33:43+0000 method=publication detail={"output":"panel","component":"covariateRef","passed":true}
+[dsomop-audit] 2026-11-13T20:33:43+0000 method=publication detail={"output":"panel","component":"timeRef","passed":true}
+[dsomop-audit] 2026-11-13T20:33:43+0000 method=publication detail={"output":"panel","component":"personRef","passed":true}
+                          total.time total.pct self.time self.pct
+"FUN"                           8.48    100.00      0.48     5.66
+"eval"                          8.48    100.00      0.15     1.77
+"lapply"                        8.48    100.00      0.08     0.94
+".omopPlanExecuteDS"            8.48    100.00      0.01     0.12
+"tryCatch"                      8.48    100.00      0.01     0.12
+"tryCatchOne"                   8.48    100.00      0.01     0.12
+".dsomopWithReadSnapshot"       8.48    100.00      0.00     0.00
+"doTryCatch"                    8.48    100.00      0.00     0.00
+"doWithOneRestart"              8.48    100.00      0.00     0.00
+"omopPlanExecuteDS"             8.48    100.00      0.00     0.00
+"source_file"                   8.48    100.00      0.00     0.00
+"test_code"                     8.48    100.00      0.00     0.00
+"test_dir"                      8.48    100.00      0.00     0.00
+"test_files"                    8.48    100.00      0.00     0.00
+"test_files_serial"             8.48    100.00      0.00     0.00
+"test_that"                     8.48    100.00      0.00     0.00
+"testthat::test_local"          8.48    100.00      0.00     0.00
+"tryCatchList"                  8.48    100.00      0.00     0.00
+"withCallingHandlers"           8.48    100.00      0.00     0.00
+"withOneRestart"                8.48    100.00      0.00     0.00
+"withRestarts"                  8.48    100.00      0.00     0.00
+"with_reporter"                 8.48    100.00      0.00     0.00
+"vapply"                        3.63     42.81      0.31     3.66
+".publishOutputs"               3.59     42.33      0.00     0.00
+".planExecute"                  3.47     40.92      0.00     0.00
+".extractPersonPeriod"          3.34     39.39      0.00     0.00
+"data.frame"                    2.36     27.83      0.31     3.66
+".publishPrepare"               2.34     27.59      0.00     0.00
+"inspect"                       2.23     26.30      0.00     0.00
+".publishPersons"               2.21     26.06      0.00     0.00
+".publishKeys"                  2.18     25.71      0.00     0.00
+"match"                         1.91     22.52      0.00     0.00
+"format.default"                1.73     20.40      0.31     3.66
+"as.data.frame"                 1.56     18.40      0.08     0.94
+"as.data.frame.integer"         1.46     17.22      0.13     1.53
+                    self.time self.pct total.time total.pct
+"FUN"                    0.48     5.66       8.48    100.00
+"prettyNum"              0.40     4.72       0.42      4.95
+"deparse"                0.34     4.01       0.89     10.50
+"vapply"                 0.31     3.66       3.63     42.81
+"data.frame"             0.31     3.66       2.36     27.83
+"format.default"         0.31     3.66       1.73     20.40
+"match.arg"              0.30     3.54       0.97     11.44
+"structure"              0.29     3.42       0.44      5.19
+"formals"                0.27     3.18       0.43      5.07
+"paste"                  0.22     2.59       1.20     14.15
+"as.list"                0.21     2.48       0.50      5.90
+".loadVendoredSpec"      0.19     2.24       0.25      2.95
+"pmatch"                 0.18     2.12       0.18      2.12
+"sys.parent"             0.18     2.12       0.18      2.12
+"rbind"                  0.17     2.00       0.54      6.37
+"strptime"               0.17     2.00       0.17      2.00
+"%in%"                   0.16     1.89       1.14     13.44
+".deparseOpts"           0.16     1.89       0.42      4.95
+"eval"                   0.15     1.77       8.48    100.00
+"findCenvVar"            0.14     1.65       0.24      2.83
+.
+
+══ Warnings ════════════════════════════════════════════════════════════════════
+1. profile O9 panel through publication ('test-e2e4-profile.R:12:3') - interval too short for this platform, using '0.010000'
+
+══ DONE ════════════════════════════════════════════════════════════════════════
+
+RESULT failed: 0 errors: 0 skipped: 0 passed: 1 

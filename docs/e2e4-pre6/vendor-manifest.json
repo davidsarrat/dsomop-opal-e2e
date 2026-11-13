@@ -1,0 +1,28 @@
+{
+  "dsOMOP": {
+    "commit": "83761bab354ce7a063d5a552ce467958bfcf4b30",
+    "files": {
+      "NEWS.md": "38bbd06420c00ed78c602bc62d621456a35b79c363d3179220e08b72b7d5cdb0",
+      "R/assignment_policy.R": "aae1de7b4fdaedd88e5d11908f72a8caf32bad39c020ad1c830a0b80e3b91718",
+      "R/compile_output.R": "f12f9fc86ad15c48864cf8ce8477f32219228bd202d01bb4e3d7f6bdd10fa70d",
+      "R/compile_reduce.R": "99a72954027760c4ebb1d9b44cf1f5f0bae6eaf732d0c36e0421338befc4dd51",
+      "R/concept_presentation.R": "ab9fb58e35c7314d458930f768ab236e0e094114869ab56df6d4b59ee49a98c1",
+      "R/concept_staging.R": "51c1070b2908f6a1de88ecf9127c990e1e43d8229bfd0fbf5bad09584b188cf9",
+      "R/extraction.R": "1a873030bc7d1c7bdacf0fd688bebb4e0a4b42eb7f8ef75a374ec7427dec7196",
+      "R/publish.R": "ca30ad710b3b9c206ee1fdd78410f42b42b23655306548c2e090c3dfeb17bbf0",
+      "R/staging_contract.R": "4a667691069d96d48debba735f5c2a4246e122873b2e0d68b18f29462d2d4484",
+      "tests/testthat/test-e2e4-categories.R": "17aafd9ed819691b459cc1c51aa0ae29b80092d2df04c636085290628a96f8bf",
+      "tests/testthat/test-publication.R": "5f2132495fd4026e7859a95df3b018ddc2201367481ad470ac89babf5168babd"
+    }
+  },
+  "dsOMOPClient": {
+    "commit": "9ee5197503805735da2d99082b968485cb5f3b09",
+    "files": {
+      "NEWS.md": "86a8c83e73502da007cf30586cb36bb3a3e8b0a567232daeeb38ce3a3cb8acc7",
+      "R/plan.R": "2efb4dafcc3ef5977a910bc9fdcc50de8344645586f10d94efdf1df56038739b",
+      "tests/testthat/test-e2e4-categories.R": "0020d46f5233bcab9a90d4a29fb376df3dc2271e6960502ea3d78a29e43dae09",
+      "tests/testthat/test-publication-status.R": "cff716e41bd6f423b55601e981b165bd474bae80cf89519729ed4039d0701ad2",
+      "tests/testthat/test-phase-e-ergonomics.R": "1740c13816d6f99831a0628e572fd2228ad22947155bbc7b2aea20fe0774b34e"
+    }
+  }
+}

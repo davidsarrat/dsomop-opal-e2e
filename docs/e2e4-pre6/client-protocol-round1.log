@@ -1,0 +1,45 @@
+phase-e-ergonomics: ...................1...2......................................3................................
+v2-execution: ......................................
+v2-plan: ..................................................................................................................
+v2-review: ............................................................................
+
+══ Failed ══════════════════════════════════════════════════════════════════════
+── 1. Error ('test-phase-e-ergonomics.R:200:24'): execute with out=NULL sends th
+Error: Concept presentation requires output.concept_labels on: srv
+Backtrace:
+    ▆
+ 1. └─dsOMOPClient (local) .ergo_capture(function() ds.omop.plan.execute(p)) at test-phase-e-ergonomics.R:200:3
+ 2.   └─dsOMOPClient (local) fn() at test-phase-e-ergonomics.R:89:3
+ 3.     └─dsOMOPClient::ds.omop.plan.execute(p) at test-phase-e-ergonomics.R:200:24
+ 4.       └─dsOMOPClient:::.plan_execute_impl(...) at dsOMOPClient/R/plan.R:1878:3
+
+── 2. Error ('test-phase-e-ergonomics.R:234:24'): execute with bare out='D' bind
+Error: Concept presentation requires output.concept_labels on: srv
+Backtrace:
+    ▆
+ 1. └─dsOMOPClient (local) .ergo_capture(function() ds.omop.plan.execute(p, out = "D")) at test-phase-e-ergonomics.R:234:3
+ 2.   └─dsOMOPClient (local) fn() at test-phase-e-ergonomics.R:89:3
+ 3.     └─dsOMOPClient::ds.omop.plan.execute(p, out = "D") at test-phase-e-ergonomics.R:234:24
+ 4.       └─dsOMOPClient:::.plan_execute_impl(...) at dsOMOPClient/R/plan.R:1878:3
+
+── 3. Error ('test-phase-e-ergonomics.R:551:5'): execute records last_output so 
+Error: Concept presentation requires output.concept_labels on: srv
+Backtrace:
+    ▆
+ 1. └─dsOMOPClient (local) .ergo_capture(...) at test-phase-e-ergonomics.R:550:3
+ 2.   └─dsOMOPClient (local) fn() at test-phase-e-ergonomics.R:89:3
+ 3.     └─dsOMOPClient::ds.omop.plan.execute(p) at test-phase-e-ergonomics.R:551:5
+ 4.       └─dsOMOPClient:::.plan_execute_impl(...) at dsOMOPClient/R/plan.R:1878:3
+
+══ DONE ════════════════════════════════════════════════════════════════════════
+
+FAILURES BY FILE
+                      file blocks failed errors
+ test-phase-e-ergonomics.R      3      0      3
+
+FAILING TESTS
+test-phase-e-ergonomics.R | execute with out=NULL sends the auto-derived mapping and returns it | failed=0 error=TRUE
+test-phase-e-ergonomics.R | execute with bare out='D' binds the sole output | failed=0 error=TRUE
+test-phase-e-ergonomics.R | execute records last_output so a later manipulate verb defaults to it | failed=0 error=TRUE
+
+RESULT failed: 0 errors: 3 skipped: 0 passed: 320 
