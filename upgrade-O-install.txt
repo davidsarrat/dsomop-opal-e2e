@@ -1,0 +1,7 @@
+OK    dsadmin.install_github_package(o, "dsOMOP", username = "isglobal-brge", ref = "2.10.1") (32.9 s)
+dsOMOP installed on Rock: 2.10.1
+OK    O6 connect new client / old server (4.7 s)
+  [warning] Server 'Ethiopia' runs dsOMOP 2.10.1, older than 2.10.3: its OHDSI community-tool results (analysis catalogue, Achilles and OHDSI readers, DP releases) lack the dsOMOP 2.10.3 security fixes, and this dsOMOPClient cannot repair them. They are reported under that server's own legacy contract; upgrade the server to dsOMOP 2.10.3.
+ERROR O6 native request / old server (0.1 s): A language-2 plan needs the publication protocol of dsOMOP 2.10.3 on every site, and Ethiopia lacks omopPlanStatusDS, omopStagedRevokeDS (it runs an older dsOMOP, or its methods are not published). Nothing was sent to any site. An administrator installs dsOMOP 2.10.3 on those servers and publishes its methods (Administration > DataSHIELD > Packages > dsOMOP > Publish).
+OK    O6 numeric v1 / old server (1.1 s)
+  [warning] dsOMOP on Ethiopia predates the publication protocol (Ethiopia lacks omopPlanStatusDS, omopStagedRevokeDS): this v1 plan runs as the legacy call on every site, as dsOMOPClient 2.10.2 sent it. Cross-site rollback and the publication guarantees of section 7.3 (publication status, on_small_site) do not apply until those servers run dsOMOP 2.10.3 with its methods published; each server applies its own disclosure rules.
