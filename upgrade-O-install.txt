@@ -1,0 +1,5 @@
+OK    dsadmin.install_github_package(o, "dsOMOP", username = "isglobal-brge", ref = "2.10.1") (30.8 s)
+dsOMOP installed on Rock: 2.10.1
+ERROR O6 connect new client / old server (2.8 s): Failed to initialize every OMOP handle:
+Ethiopia: No supported OHDSI CDM specification is available for version 'v5.3.1'. Refusing schema introspection because unknown tables and columns cannot be classified safely.
+  [warning] Server 'Ethiopia' runs dsOMOP 2.10.1, older than 2.10.3: its OHDSI community-tool results (analysis catalogue, Achilles and OHDSI readers, DP releases) lack the dsOMOP 2.10.3 security fixes, and this dsOMOPClient cannot repair them. They are reported under that server's own legacy contract; upgrade the server to dsOMOP 2.10.3.
