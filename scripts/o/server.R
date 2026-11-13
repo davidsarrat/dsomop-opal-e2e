@@ -33,7 +33,8 @@ o_execute <- function(plan, handle, mode = "memory", dp = FALSE, ...) {
   method <- if (dp) dsOMOP::omopDpPlanExecuteDS else dsOMOP::omopPlanExecuteDS
   O_exec <- method("ores", plan, as.list(out), output_mode = mode, ...)
   status <- dsOMOP::omopPlanStatusDS("O_exec")
-  if (status$status != "ok") stop("fixture execution refused: ", paste(vapply(status$rejected, `[[`, "", "code"), collapse = ","))
+  if (status$status != "ok") stop("fixture execution refused: ", paste(vapply(status$rejected,
+    function(x) paste(x$code, x$message, sep = ": "), ""), collapse = "; "))
   frames <- list()
   for (root in names(status$published)) for (comp in names(status$published[[root]])) {
     item <- status$published[[root]][[comp]]

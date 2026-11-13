@@ -74,6 +74,13 @@ local({
     outputs = omop_output("birth", format = "wide", grain = "person"))
   checks <- if (nzchar(only)) strsplit(only, ",", fixed = TRUE)[[1L]] else c("acceptance1", "acceptance2", "staged", "matching", "aggregate_policy")
   for (name in checks) {
+    if (name == "aggregate_policy") {
+      # The minimal reach fixture omits this optional column; GiBleed (the
+      # CI O11 resource) includes it. Add it only in this disposable probe.
+      DBI::dbExecute(db, paste0("ALTER TABLE ", schema, ".person ADD COLUMN birth_datetime TIMESTAMP"))
+      DBI::dbExecute(db, paste0("UPDATE ", schema,
+        ".person SET birth_datetime=make_timestamp(year_of_birth, 6, 15, 0, 0, 0)"))
+    }
     # Separate invoking environments reproduce Opal resource/handle scoping.
     session <- new.env(parent = environment()); session$ores <- resource()
     plan <- switch(name, acceptance1 = recipe_to_plan(study),
