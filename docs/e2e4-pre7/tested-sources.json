@@ -1,0 +1,17 @@
+{
+  "harness_commit": "d784164dda5b2bbb7a6ad04f68b03996d71d4067",
+  "sources": {
+    "scripts/o/server.R": {
+      "md5": "4848635e0c4b70e8dce3398e63412540",
+      "sha256": "d48a34fc8c8b30902a08e9eb330654c722f65ead475f2ef12f8b3d49ae6ffa69"
+    },
+    "scripts/tests/o-contract.R": {
+      "md5": "4bc12f8bc61482af53772063a73131eb",
+      "sha256": "8a4849d1cf3fcb7c8fc34a9017fe80a21ce22f35e349d40974257e53a10ec728"
+    },
+    "scripts/tests/o-installed.R": {
+      "md5": "140a186466601d480bd7218dc31d94b9",
+      "sha256": "3f13be1147a23b663a66a9c87dba2cde99637979f00cd9738ce2a311ee7e11f6"
+    }
+  }
+}

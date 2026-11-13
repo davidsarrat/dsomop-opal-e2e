@@ -1,0 +1,26 @@
+dsOMOP v2.10.3 loaded. OMOP CDM resource resolver registered.
+e2e4-pre7-harness: PASS: OMOP cleanup precedes logout, repeats, and exposes cleanup errors
+PASS: administrator resolver registration before assignment
+Timing stopped at: 0 0 0
+PASS: timing initialization and cleanup use the resource's session
+PASS: old-server fixture selection and fresh namespace for upgrade
+PASS: aggregate refusals require explicit evidence and no returned values
+PASS: fixture initialization and failure cleanup use the invoking Opal session
+PASS: duplicate DP node is refused and a single-node release succeeds
+PASS: analytic key comparisons preserve exact identity and numeric measures
+dsOMOP v2.10.3 loaded. OMOP CDM resource resolver registered.
+PASS: fixture source directory refuses writes in this process
+[dsomop-audit] 2026-11-13T21:53:00+0000 method=publication detail={"output":"result","component":"result","passed":true}
+Installed checks: test-assignment-policy.R tests= 3 assertions= 152 
+Installed checks: test-queries.R tests= 1 assertions= 2 
+Installed checks: test-ohdsi-results.R tests= 1 assertions= 1 
+Installed checks: test-analysis-catalog.R tests= 1 assertions= 10 
+[dsomop-audit] 2026-11-13T21:53:03+0000 method=omopPlanExecuteDS detail={"outputs":"birth","plan":{"version":2,"meta":{"language_version":"2.0","semantic_version":"2.0.0","generated_by":"dsOMOPClient","client_version":"2.10.3"},"populations":{"base":{"kind":"criteria"}},"variables":{"age":{"derived":{"kind":"age","reference":"index","reference_date":"2020-07-01","bands":false}},"age_group":{"derived":{"kind":"age","reference":"index","reference_date":"2020-07-01","bands":true,"age_breaks":[0,18,19,65]}},"year_of_birth":{"raw":{"table":"person","column":"year_of_birth"}},"month_of_birth":{"raw":{"table":"person","column":"month_of_birth"}},"birth_datetime":{"raw":{"table":"person","column":"birth_datetime"}}},"outputs":{"birth":{"rows":"base","format":"wide","grain":"person","result_symbol":"D_birth"}},"publish":["birth"]},"scope_present":false,"scope_table_count":0}
+[dsomop-audit] 2026-11-13T21:53:03+0000 method=publication detail={"output":"birth","component":"birth","passed":true}
+PASS: installed administrator check aggregate_policy 
+PASS: committed birth fixture writes are restored after assertion failure
+.
+
+══ DONE ════════════════════════════════════════════════════════════════════════
+
+RESULT failed: 0 errors: 0 skipped: 0 passed: 1 

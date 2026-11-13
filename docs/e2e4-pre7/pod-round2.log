@@ -1,0 +1,64 @@
+dsOMOP v2.10.3 loaded. OMOP CDM resource resolver registered.
+e2e4-pre7-harness: PASS: OMOP cleanup precedes logout, repeats, and exposes cleanup errors
+PASS: administrator resolver registration before assignment
+Timing stopped at: 0 0 0
+PASS: timing initialization and cleanup use the resource's session
+PASS: old-server fixture selection and fresh namespace for upgrade
+PASS: aggregate refusals require explicit evidence and no returned values
+PASS: fixture initialization and failure cleanup use the invoking Opal session
+PASS: duplicate DP node is refused and a single-node release succeeds
+dsOMOP v2.10.3 loaded. OMOP CDM resource resolver registered.
+Error in `testthat::test_file()`:
+! Failed to find test with description "roster lineage counts
+  participants represented by component rows".
+Backtrace:
+     ▆
+  1. ├─base::source("scripts/tests/o-installed.R")
+  2. │ ├─base::withVisible(eval(ei, envir))
+  3. │ └─base::eval(ei, envir)
+  4. │   └─base::eval(ei, envir)
+  5. ├─base::local(...)
+  6. │ └─base::eval.parent(substitute(eval(quote(expr), envir)))
+  7. │   └─base::eval(expr, p)
+  8. │     └─base::eval(expr, p)
+  9. └─base::eval(...)
+ 10.   └─base::eval(...)
+ 11.     ├─base::stopifnot(...)
+ 12.     └─o_installed_tests(...)
+ 13.       └─testthat::test_file(f, env = e, reporter = "silent", desc = descriptions, load_helpers = FALSE)
+ 14.         └─testthat:::test_files(...)
+ 15.           └─testthat:::test_files_serial(...)
+ 16.             ├─testthat::with_reporter(...)
+ 17.             │ └─base::tryCatch(...)
+ 18.             │   └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+ 19.             │     └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 20.             │       └─base (local) doTryCatch(return(expr), name, parentenv, handler)
+ 21.             └─base::lapply(...)
+ 22.               └─testthat (local) FUN(X[[i]], ...)
+ 23.                 └─testthat::source_file(...)
+ 24.                   └─testthat:::filter_desc(exprs, desc, error_call = error_call)
+ 25.                     └─testthat:::filter_desc(...)
+ 26.                       └─cli::cli_abort(...)
+ 27.                         └─rlang::abort(...)
+Execution halted
+1
+
+══ Failed ══════════════════════════════════════════════════════════════════════
+── 1. Failure ('test-e2e4-pre7-harness.R:9:3'): installed real-Opal harness admi
+Expected `status` to be identical to 0L.
+Differences:
+  `actual`: 1
+`expected`: 0
+
+
+══ DONE ════════════════════════════════════════════════════════════════════════
+Don't worry, you'll get it.
+
+FAILURES BY FILE
+                     file blocks failed errors
+ test-e2e4-pre7-harness.R      1      1      0
+
+FAILING TESTS
+test-e2e4-pre7-harness.R | installed real-Opal harness administrator checks pass | failed=1 error=FALSE
+
+RESULT failed: 1 errors: 0 skipped: 0 passed: 0 

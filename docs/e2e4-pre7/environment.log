@@ -1,0 +1,12 @@
+R version 4.6.2 (2026-10-29) 
+      dsOMOP dsOMOPClient     testthat    RPostgres      RSQLite 
+    "2.10.3"     "2.10.3"      "3.3.2"     "1.4.10"     "3.53.3" 
+Arrow: FALSE 
+         /root/e2e4-pre7/scripts/o/server.R 
+         "4848635e0c4b70e8dce3398e63412540" 
+ /root/e2e4-pre7/scripts/tests/o-contract.R 
+         "4bc12f8bc61482af53772063a73131eb" 
+/root/e2e4-pre7/scripts/tests/o-installed.R 
+         "140a186466601d480bd7218dc31d94b9" 
+[1] schema_name
+<0 rows> (or 0-length row.names)

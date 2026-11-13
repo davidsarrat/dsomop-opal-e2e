@@ -1,0 +1,10 @@
+[
+  {
+    "path": "/tmp/dsomop-pre7-python",
+    "allocated_bytes": 3289088
+  },
+  {
+    "path": "/workspace/dsomop/wt/int/dsOMOP/tests/testthat/test-e2e4-pre7-harness.R",
+    "allocated_bytes": 4096
+  }
+]
