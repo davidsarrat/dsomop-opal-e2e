@@ -1,0 +1,129 @@
+dsOMOP on Rock: 2.10.3; RPostgres: 1.4.10
+== gibleed_v1
+OK    ds.omop.connect(resource = "omop_data.gibleed_v1", symbol = "omop", conns = conns) (1.8 s)
+OK    tabs <- ds.omop.tables(symbol = "omop", conns = conns)[[1]] (0 s)
+--- tabs[tabs$schema_category == "CDM", c("table_name", "has_person_id")]
+             table_name has_person_id
+1                person          TRUE
+2    observation_period          TRUE
+3      visit_occurrence          TRUE
+4          visit_detail          TRUE
+5  condition_occurrence          TRUE
+6         drug_exposure          TRUE
+7  procedure_occurrence          TRUE
+8       device_exposure          TRUE
+9           measurement          TRUE
+10          observation          TRUE
+11                death          TRUE
+12                 note          TRUE
+13             note_nlp         FALSE
+14             specimen          TRUE
+15    fact_relationship         FALSE
+16             location         FALSE
+17            care_site         FALSE
+18             provider         FALSE
+19    payer_plan_period          TRUE
+20                 cost         FALSE
+21             drug_era          TRUE
+22             dose_era          TRUE
+23        condition_era          TRUE
+24             metadata         FALSE
+25           cdm_source         FALSE
+OK    ds.omop.disconnect(symbol = "omop", conns = conns) (0.3 s)
+SUMMARY [upgrade] C: 1.x resource gibleed_v1: OK
+== gibleed_v1_vocab
+OK    ds.omop.connect(resource = "omop_data.gibleed_v1_vocab", symbol = "omop", conns = conns) (1.1 s)
+OK    tabs <- ds.omop.tables(symbol = "omop", conns = conns)[[1]] (0.1 s)
+--- tabs[tabs$schema_category == "CDM", c("table_name", "has_person_id")]
+             table_name has_person_id
+1                person          TRUE
+2    observation_period          TRUE
+3      visit_occurrence          TRUE
+4          visit_detail          TRUE
+5  condition_occurrence          TRUE
+6         drug_exposure          TRUE
+7  procedure_occurrence          TRUE
+8       device_exposure          TRUE
+9           measurement          TRUE
+10          observation          TRUE
+11                death          TRUE
+12                 note          TRUE
+13             note_nlp         FALSE
+14             specimen          TRUE
+15    fact_relationship         FALSE
+16             location         FALSE
+17            care_site         FALSE
+18             provider         FALSE
+19    payer_plan_period          TRUE
+20                 cost         FALSE
+21             drug_era          TRUE
+22             dose_era          TRUE
+23        condition_era          TRUE
+24             metadata         FALSE
+25           cdm_source         FALSE
+OK    ds.omop.disconnect(symbol = "omop", conns = conns) (0.4 s)
+SUMMARY [upgrade] C: 1.x resource gibleed_v1_vocab: OK
+== gibleed_v1_schemaonly
+OK    ds.omop.connect(resource = "omop_data.gibleed_v1_schemaonly", symbol = "omop", conns = conns) (1.1 s)
+OK    tabs <- ds.omop.tables(symbol = "omop", conns = conns)[[1]] (0 s)
+--- tabs[tabs$schema_category == "CDM", c("table_name", "has_person_id")]
+             table_name has_person_id
+1                person          TRUE
+2    observation_period          TRUE
+3      visit_occurrence          TRUE
+4          visit_detail          TRUE
+5  condition_occurrence          TRUE
+6         drug_exposure          TRUE
+7  procedure_occurrence          TRUE
+8       device_exposure          TRUE
+9           measurement          TRUE
+10          observation          TRUE
+11                death          TRUE
+12                 note          TRUE
+13             note_nlp         FALSE
+14             specimen          TRUE
+15    fact_relationship         FALSE
+16             location         FALSE
+17            care_site         FALSE
+18             provider         FALSE
+19    payer_plan_period          TRUE
+20                 cost         FALSE
+21             drug_era          TRUE
+22             dose_era          TRUE
+23        condition_era          TRUE
+24             metadata         FALSE
+25           cdm_source         FALSE
+OK    ds.omop.disconnect(symbol = "omop", conns = conns) (0.3 s)
+SUMMARY [upgrade] C: 1.x resource gibleed_v1_schemaonly: OK
+== gibleed_v1_plain
+OK    ds.omop.connect(resource = "omop_data.gibleed_v1_plain", symbol = "omop", conns = conns) (1.1 s)
+OK    tabs <- ds.omop.tables(symbol = "omop", conns = conns)[[1]] (0 s)
+--- tabs[tabs$schema_category == "CDM", c("table_name", "has_person_id")]
+             table_name has_person_id
+1                person          TRUE
+2    observation_period          TRUE
+3      visit_occurrence          TRUE
+4          visit_detail          TRUE
+5  condition_occurrence          TRUE
+6         drug_exposure          TRUE
+7  procedure_occurrence          TRUE
+8       device_exposure          TRUE
+9           measurement          TRUE
+10          observation          TRUE
+11                death          TRUE
+12                 note          TRUE
+13             note_nlp         FALSE
+14             specimen          TRUE
+15    fact_relationship         FALSE
+16             location         FALSE
+17            care_site         FALSE
+18             provider         FALSE
+19    payer_plan_period          TRUE
+20                 cost         FALSE
+21             drug_era          TRUE
+22             dose_era          TRUE
+23        condition_era          TRUE
+24             metadata         FALSE
+25           cdm_source         FALSE
+OK    ds.omop.disconnect(symbol = "omop", conns = conns) (0.3 s)
+SUMMARY [upgrade] C: 1.x resource gibleed_v1_plain: OK
