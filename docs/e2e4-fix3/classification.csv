@@ -1,0 +1,5 @@
+run,job,classification,finding,evidence,fix,test,reason
+43472800948,"opal (5.7.6, fresh)",harness,H-version-text,43472800948-failed.log:2958,29901ea,scripts/tests/o-stack.py,Version endpoint is plain text; json.load aborts before package installation
+43472800948,"opal (5.7.6, upgrade)",harness,H-version-text,43472800948-failed.log:857,29901ea,scripts/tests/o-stack.py,Version endpoint is plain text; json.load aborts before package installation
+43472800948,"opal (6.1.3, fresh)",harness,H-version-text,43472800948-failed.log:4002,29901ea,scripts/tests/o-stack.py,Version endpoint is plain text; json.load aborts before package installation
+43472800948,"opal (6.1.3, upgrade)",harness,H-version-text,43472800948-failed.log:1887,29901ea,scripts/tests/o-stack.py,Version endpoint is plain text; json.load aborts before package installation

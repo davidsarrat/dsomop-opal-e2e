@@ -1,0 +1,35 @@
+{
+  "harness_fix": "29901eafec50a1aaebb63c6f293093041946411e",
+  "harness_input": "128c504",
+  "product_inputs": {
+    "dsOMOP": "22c7ef57fc8e17b3109af611883b8782cd5c1d6b",
+    "dsOMOPClient": "30a9794b4fe30c7b04f30390686157bf67ff4a63"
+  },
+  "tests": [
+    {
+      "command": "python3 scripts/tests/o-stack.py",
+      "before": "5 tests, 12 subtest/test failures on 128c504",
+      "after": "5 tests pass on source committed as 29901ea"
+    },
+    {
+      "command": "python3 scripts/tests/o-candidate.py",
+      "result": "2 tests pass on 29901ea"
+    },
+    {
+      "command": "python3 scripts/o/check_candidate.py",
+      "result": "matching integrated 2.10.3 sources and frozen inputs pass"
+    },
+    {
+      "command": "bash -n scripts/o/stack.sh",
+      "result": "pass"
+    }
+  ],
+  "audit_counts": {
+    "harness diagnostic": 488,
+    "harness environment": 44
+  },
+  "extra_halt_traceback_fatal_scan": [],
+  "r_tests": "none: no R/package source changed",
+  "real_opal_rerun": false,
+  "cleanup": "No scratch package copies created; no files deleted; free space 9.7 GiB"
+}

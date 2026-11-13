@@ -1,0 +1,26 @@
+{
+  "contract_failed_jobs": 4,
+  "contract_scenarios_unexercised": 48,
+  "contract_log_sha256": "064ac8886073c6f792e752bcf2d31f67919217622099e87bbb507cd321ae3019",
+  "e2e_verdicts": {
+    "fresh-G-old-verdicts.csv": {
+      "PASS": 10
+    },
+    "fresh-G-verdicts.csv": {
+      "INFO": 12,
+      "PASS": 88
+    },
+    "upgrade-G-old-verdicts.csv": {
+      "PASS": 10
+    },
+    "upgrade-G-verdicts.csv": {
+      "INFO": 15,
+      "PASS": 90
+    },
+    "upgrade-V-verdicts.csv": {
+      "PASS": 3,
+      "INFO": 2
+    }
+  },
+  "e2e_workflow_conclusion": "unverified; captured checks have no failures; API inaccessible"
+}
