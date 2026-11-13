@@ -7,7 +7,7 @@ N=${BIG_PERSONS:-1000000}
 [ "$N" -gt 0 ] || { echo "BIG_PERSONS=0: no large CDM"; exit 0; }
 t0=$(date +%s)
 docker exec omopdb createdb -U omop omopbig
-docker exec omopdb bash -c "pg_dump -U omop -d ${CDM_DB:-omop} --schema=cdm | psql -q -U omop -d omopbig" > /dev/null
+docker exec omopdb bash -o pipefail -c "pg_dump -U omop -d ${CDM_DB:-omop} --schema=cdm | psql -v ON_ERROR_STOP=1 -q -U omop -d omopbig" > /dev/null
 docker exec -i omopdb psql -v ON_ERROR_STOP=1 -v N="$N" -U omop -d omopbig -q <<'SQL'
 \timing on
 INSERT INTO cdm.person (person_id, gender_concept_id, year_of_birth, month_of_birth, day_of_birth, race_concept_id,
@@ -32,6 +32,12 @@ FROM generate_series(1, 2 * :N) g;
 ALTER TABLE cdm.person ADD PRIMARY KEY (person_id);
 ALTER TABLE cdm.observation_period ADD PRIMARY KEY (observation_period_id);
 ALTER TABLE cdm.condition_occurrence ADD PRIMARY KEY (condition_occurrence_id);
+-- GiBleed repeats drug_exposure_id (e.g. 62142). Preserve every record and
+-- make the copied synthetic fixture's surrogate IDs unique before indexing.
+-- The real GiBleed database is unchanged. No clinical rows are deduplicated.
+WITH numbered AS (SELECT ctid, row_number() OVER (ORDER BY drug_exposure_id, ctid) AS id
+                  FROM cdm.drug_exposure)
+UPDATE cdm.drug_exposure d SET drug_exposure_id = n.id FROM numbered n WHERE d.ctid = n.ctid;
 ALTER TABLE cdm.drug_exposure ADD PRIMARY KEY (drug_exposure_id);
 CREATE INDEX ON cdm.observation_period (person_id);
 CREATE INDEX ON cdm.condition_occurrence (person_id);

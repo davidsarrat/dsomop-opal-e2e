@@ -73,3 +73,25 @@ local({
             identical(calls[2], "assign resource"), identical(tail(calls, 1), "probe"))
 })
 cat("Administrator resolver ordering regression passed\n")
+
+local({
+  frame <- function(h) {
+    x <- data.frame(bin = 1:10, concept_id = 8507, value = pmax(0, h))
+    attr(x, "dsomop_release") <- list(owners = list(list(owner = "birth-year", cap = 1,
+      components = list(list(stratum = "gender=8507", n = sum(h), h = h)))))
+    x
+  }
+  a <- frame(-5:4)
+  b <- frame(-4:5)
+  stopifnot(identical(unname(g_component_changes(a, b)), c(11L, 11L)),
+            g_component_changes(a, a)[["changed"]] == 0)
+  # A changed display or public metadata cannot make a stale basis pass.
+  stale <- a; stale$value <- b$value; stale$concept_id <- 999
+  stopifnot(g_component_changes(a, stale)[["changed"]] == 0)
+  attr(b, "dsomop_release")$owners[[1]]$components[[1]]$h <- NULL
+  stopifnot(all(is.na(g_component_changes(a, b))))
+  stopifnot(identical(g_measurement_params(), list(concept_id = "3004410")))
+  scenario <- paste(readLines("scripts/scenario_G.R"), collapse = "\n")
+  stopifnot(length(gregexpr("g_measurement_params()", scenario, fixed = TRUE)[[1]]) == 2L)
+})
+cat("Signed-component redraw and measurement-request regressions passed\n")

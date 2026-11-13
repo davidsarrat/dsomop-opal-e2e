@@ -17,3 +17,35 @@ g_private_hex <- function(lines) {
   injected <- paste0('"data_generation":"', strrep("0", 64), '"')
   grepl("[0-9a-f]{40,}", gsub(injected, '"data_generation":"<analyst-injected>"', lines, fixed = TRUE))
 }
+
+# Only signed noisy components count as redraw evidence. Public bin numbers,
+# concept IDs, bounds and allocations are invariant metadata, not draws.
+g_component_values <- function(frame) {
+  rel <- attr(frame, "dsomop_release", exact = TRUE)
+  if (!is.list(rel) || !length(rel$owners)) return(NULL)
+  out <- list()
+  for (owner in rel$owners) {
+    if (!is.character(owner$owner) || length(owner$owner) != 1L) return(NULL)
+    for (component in c(if (!is.null(owner$root)) list(c(list(stratum = "<root>"), owner$root)),
+                        owner$components)) {
+      if (!is.character(component$stratum) || length(component$stratum) != 1L) return(NULL)
+      prefix <- paste(owner$owner, component$stratum, sep = "\r")
+      for (field in intersect(c("n", "s", "q", "h"), names(component))) {
+        value <- component[[field]]
+        if (is.null(value)) next
+        if (!is.numeric(value) || any(!is.finite(value))) return(NULL)
+        for (i in seq_along(value)) out[[paste(prefix, field, i, sep = "\r")]] <- value[[i]]
+      }
+    }
+  }
+  if (!length(out)) return(NULL)
+  unlist(out[order(names(out))], use.names = TRUE)
+}
+g_component_changes <- function(a, b) {
+  a <- g_component_values(a)
+  b <- g_component_values(b)
+  if (is.null(a) || is.null(b) || !identical(names(a), names(b)))
+    return(c(cells = NA_real_, changed = NA_real_))
+  c(cells = length(a), changed = sum(a != b))
+}
+g_measurement_params <- function() list(concept_id = "3004410")

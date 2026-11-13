@@ -1,0 +1,61 @@
+file,line,classification,finding,call
+fresh-scenario-D.txt,44,harness diagnostic,H-method-fixture: requested unregistered physical results table; correct refusal,ds.omop.ohdsi.results (pooled)
+fresh-scenario-D.txt,74,harness diagnostic,H-method-fixture: condition duration has insufficient eligible support; correct refusal,ds.omop.analysis.run (aggregate)
+fresh-scenario-G-old.txt,17,harness diagnostic,expected negative probe: correct refusal (not a product defect),old client: ds.omop.dp.status()
+fresh-scenario-G-old.txt,22,harness diagnostic,expected negative probe: correct refusal (not a product defect),"old client: ds.omop.dp.release(O_ages, count)"
+fresh-scenario-G.txt,284,harness diagnostic,expected negative probe: correct refusal (not a product defect),"G6: ds.omop.analysis.run(""dsomop:achilles.3"") pooled over both connections"
+fresh-scenario-G.txt,288,harness diagnostic,expected negative probe: correct refusal (not a product defect),"G6: ds.omop.analysis.run(""dsomop:condition_era.length_stats"") pooled over both connections"
+fresh-scenario-G.txt,292,harness diagnostic,expected negative probe: correct refusal (not a product defect),"G6: ds.omop.dp.release(loader, count) pooled over both connections"
+fresh-scenario-G.txt,294,harness diagnostic,expected negative probe: correct refusal (not a product defect),"G6: ds.omop.dp.release(loader, count, pool = FALSE) over both connections"
+fresh-scenario-G.txt,622,harness diagnostic,expected negative probe: correct refusal (not a product defect),S1: typed count with injected data_generation/snapshot_id/privacy_epoch
+fresh-scenario-G.txt,624,harness diagnostic,expected negative probe: correct refusal (not a product defect),S1: achilles.3 with injected snapshot_id/privacy_epoch/data_generation params
+fresh-scenario-G.txt,660,harness diagnostic,expected negative probe: correct refusal (not a product defect),GiBleed's all-null numeric measurements
+fresh-scenario-G.txt,2762,harness diagnostic,H-measurement: wrong requested concept,S1: measurement_value dsomop:measurement.value_stats through the client
+fresh-scenario-G.txt,2766,harness diagnostic,H-measurement: wrong requested concept,"S1: measurement_value raw, first"
+fresh-scenario-G.txt,2768,harness diagnostic,H-measurement: wrong requested concept,"S1: measurement_value raw, again"
+fresh-scenario-G.txt,4218,harness diagnostic,H-measurement: wrong requested concept,S1: measurement.value_stats
+fresh-scenario-G.txt,4220,harness diagnostic,H-measurement: wrong requested concept,S1: measurement.value_stats (repeat)
+fresh-scenario-G.txt,6569,harness diagnostic,expected negative probe: correct refusal (not a product defect),"S4 DP-only: dsomop:incidence.rate {""outcome_concept_id"":""192671"",""tar_start_offset"":""0"",""tar_end_offset"":""365"",""tar_anchor_start"":""start"",""tar_anchor_end"":""start""}"
+fresh-scenario-G.txt,6571,harness diagnostic,expected negative probe: correct refusal (not a product defect),"S4 DP-only: dsomop:cm.mdrr {""outcome_concept_id"":""192671"",""tar_start_offset"":""0"",""tar_end_offset"":""365"",""tar_anchor_start"":""start"",""tar_anchor_end"":""start""}"
+fresh-scenario-G.txt,6573,harness diagnostic,expected negative probe: correct refusal (not a product defect),S4 DP-only: dsomop:condition_era.length_stats 
+fresh-scenario-G.txt,6578,harness diagnostic,expected negative probe: correct refusal (not a product defect),S4 DP-only: typed count on prepared
+fresh-scenario-G.txt,6580,harness diagnostic,expected negative probe: correct refusal (not a product defect),S4 DP-only: typed numeric_histogram on prepared
+fresh-scenario-G.txt,6612,harness diagnostic,expected negative probe: correct refusal (not a product defect),S5: omopDpReleaseDS on a symbol that does not exist
+fresh-scenario-G.txt,6614,harness diagnostic,expected negative probe: correct refusal (not a product defect),S5: achilles.3
+fresh-scenario-G.txt,6616,harness diagnostic,expected negative probe: correct refusal (not a product defect),S5: omopDpStatusDS()
+fresh-scenario-G.txt,7094,harness diagnostic,expected negative probe: correct refusal (not a product defect),Reader handle 3: dsomop:achilles.3 
+fresh-scenario-G.txt,7132,harness diagnostic,expected negative probe: correct refusal (not a product defect),G13 loads + connection loss achilles.3
+fresh-scenario-G.txt,7134,harness diagnostic,expected negative probe: correct refusal (not a product defect),G13 loads + connection loss achilles.3
+fresh-scenario-G.txt,7138,harness diagnostic,expected negative probe: correct refusal (not a product defect),G13 loads + connection loss achilles.3
+fresh-scenario-G.txt,7140,harness diagnostic,expected negative probe: correct refusal (not a product defect),G13 loads + connection loss achilles.3
+fresh-scenario-G.txt,7144,harness diagnostic,expected negative probe: correct refusal (not a product defect),G13 loads + connection loss achilles.3
+fresh-scenario-G.txt,7146,harness diagnostic,expected negative probe: correct refusal (not a product defect),G13 loads + connection loss achilles.3
+upgrade-scenario-G-old.txt,17,harness diagnostic,expected negative probe: correct refusal (not a product defect),old client: ds.omop.dp.status()
+upgrade-scenario-G-old.txt,22,harness diagnostic,expected negative probe: correct refusal (not a product defect),"old client: ds.omop.dp.release(O_ages, count)"
+upgrade-scenario-G.txt,286,harness diagnostic,expected negative probe: correct refusal (not a product defect),"G6: ds.omop.analysis.run(""dsomop:achilles.3"") pooled over both connections"
+upgrade-scenario-G.txt,290,harness diagnostic,expected negative probe: correct refusal (not a product defect),"G6: ds.omop.analysis.run(""dsomop:condition_era.length_stats"") pooled over both connections"
+upgrade-scenario-G.txt,294,harness diagnostic,expected negative probe: correct refusal (not a product defect),"G6: ds.omop.dp.release(loader, count) pooled over both connections"
+upgrade-scenario-G.txt,296,harness diagnostic,expected negative probe: correct refusal (not a product defect),"G6: ds.omop.dp.release(loader, count, pool = FALSE) over both connections"
+upgrade-scenario-G.txt,624,harness diagnostic,expected negative probe: correct refusal (not a product defect),S1: typed count with injected data_generation/snapshot_id/privacy_epoch
+upgrade-scenario-G.txt,626,harness diagnostic,expected negative probe: correct refusal (not a product defect),S1: achilles.3 with injected snapshot_id/privacy_epoch/data_generation params
+upgrade-scenario-G.txt,662,harness diagnostic,expected negative probe: correct refusal (not a product defect),GiBleed's all-null numeric measurements
+upgrade-scenario-G.txt,2764,harness diagnostic,H-measurement: wrong requested concept,S1: measurement_value dsomop:measurement.value_stats through the client
+upgrade-scenario-G.txt,2768,harness diagnostic,H-measurement: wrong requested concept,"S1: measurement_value raw, first"
+upgrade-scenario-G.txt,2770,harness diagnostic,H-measurement: wrong requested concept,"S1: measurement_value raw, again"
+upgrade-scenario-G.txt,4223,harness diagnostic,H-measurement: wrong requested concept,S1: measurement.value_stats
+upgrade-scenario-G.txt,4225,harness diagnostic,H-measurement: wrong requested concept,S1: measurement.value_stats (repeat)
+upgrade-scenario-G.txt,6574,harness diagnostic,expected negative probe: correct refusal (not a product defect),"S4 DP-only: dsomop:incidence.rate {""outcome_concept_id"":""192671"",""tar_start_offset"":""0"",""tar_end_offset"":""365"",""tar_anchor_start"":""start"",""tar_anchor_end"":""start""}"
+upgrade-scenario-G.txt,6576,harness diagnostic,expected negative probe: correct refusal (not a product defect),"S4 DP-only: dsomop:cm.mdrr {""outcome_concept_id"":""192671"",""tar_start_offset"":""0"",""tar_end_offset"":""365"",""tar_anchor_start"":""start"",""tar_anchor_end"":""start""}"
+upgrade-scenario-G.txt,6578,harness diagnostic,expected negative probe: correct refusal (not a product defect),S4 DP-only: dsomop:condition_era.length_stats 
+upgrade-scenario-G.txt,6583,harness diagnostic,expected negative probe: correct refusal (not a product defect),S4 DP-only: typed count on prepared
+upgrade-scenario-G.txt,6585,harness diagnostic,expected negative probe: correct refusal (not a product defect),S4 DP-only: typed numeric_histogram on prepared
+upgrade-scenario-G.txt,6617,harness diagnostic,expected negative probe: correct refusal (not a product defect),S5: omopDpReleaseDS on a symbol that does not exist
+upgrade-scenario-G.txt,6619,harness diagnostic,expected negative probe: correct refusal (not a product defect),S5: achilles.3
+upgrade-scenario-G.txt,6621,harness diagnostic,expected negative probe: correct refusal (not a product defect),S5: omopDpStatusDS()
+upgrade-scenario-G.txt,7099,harness diagnostic,expected negative probe: correct refusal (not a product defect),Reader handle 3: dsomop:achilles.3 
+upgrade-scenario-G.txt,7141,harness diagnostic,expected negative probe: correct refusal (not a product defect),G13 loads + connection loss achilles.3
+upgrade-scenario-G.txt,7143,harness diagnostic,expected negative probe: correct refusal (not a product defect),G13 loads + connection loss achilles.3
+upgrade-scenario-G.txt,7147,harness diagnostic,expected negative probe: correct refusal (not a product defect),G13 loads + connection loss achilles.3
+upgrade-scenario-G.txt,7149,harness diagnostic,expected negative probe: correct refusal (not a product defect),G13 loads + connection loss achilles.3
+upgrade-scenario-G.txt,7153,harness diagnostic,expected negative probe: correct refusal (not a product defect),G13 loads + connection loss achilles.3
+upgrade-scenario-G.txt,7155,harness diagnostic,expected negative probe: correct refusal (not a product defect),G13 loads + connection loss achilles.3

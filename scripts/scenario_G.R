@@ -480,7 +480,8 @@ section("G10", "one protected route per family on GiBleed: finite or a stable un
     drug_era = list(id = "dsomop:drug_era.length_stats", main = c("mean", "avg", "n_persons")),
     observation_period = list(id = "dsomop:observation_period.length_stats", main = c("mean", "avg", "n_persons")),
     observation_months = list(id = "dsomop:observation_period.length_months_stats", main = c("mean", "avg", "n_persons")),
-    measurement_value = list(id = "dsomop:measurement.value_stats", main = c("n_persons", "n_records", "mean")),
+    measurement_value = list(id = "dsomop:measurement.value_stats", params = g_measurement_params(),
+                             main = c("n_persons", "n_values", "mean_value")),
     drug_quantity = list(id = "dsomop:drug.quantity_stats", main = c("n_persons", "n_records", "mean")))
   for (k in names(fam)) {
     f <- fam[[k]]
@@ -546,7 +547,8 @@ section("G17", "restored routes: interaction Cox, record H fallback, capped recu
   # Record H fallback: unregistered quantity / measurement scales still release a coarse value histogram (family H)
   # reconciled to the protected records (expected: an H owner or histogram cells next to N/R).
   for (id in c("dsomop:drug.quantity_stats", "dsomop:measurement.value_stats")) {
-    r <- run2(sub("^dsomop:", "", id), id, list())
+    r <- run2(sub("^dsomop:", "", id), id,
+              if (identical(id, "dsomop:measurement.value_stats")) g_measurement_params() else list())
     rel <- if (is.data.frame(r$df)) attr(r$df, "dsomop_release", exact = TRUE) else NULL
     fams <- vapply(rel$owners %||% list(), function(o) as.character(o$family %||% ""), "")
     alloc_h <- vapply(rel$owners %||% list(), function(o) as.numeric(o$allocation$H %||% o$allocation_fraction$H %||% 0)[1], numeric(1))
@@ -882,14 +884,14 @@ section("G21", "generation replay across data loads, in-place edits and person c
       a <- R0[[k]]
       b <- m$new_session[[k]]
       if (!isTRUE(a$ok) || !isTRUE(b$ok)) return(c(cells = NA, changed = NA))
-      cell_changes(a$value[[1]], b$value[[1]])
+      g_component_changes(a$value[[1]], b$value[[1]])
     })
     names(ch) <- fixed_keys
-    redrawn <- vapply(ch, function(x) is.finite(x[["cells"]]) && x[["cells"]] >= 4 && x[["changed"]] > x[["cells"]] / 2, logical(1))
-    eligible <- vapply(ch, function(x) is.finite(x[["cells"]]) && x[["cells"]] >= 4, logical(1))
-    ok <- all(agree$equal) && any(eligible) && all(redrawn[eligible])
+    redrawn <- vapply(ch, function(x) is.finite(x[["cells"]]) && x[["cells"]] >= 1 && x[["changed"]] > x[["cells"]] / 2, logical(1))
+    eligible <- vapply(ch, function(x) is.finite(x[["cells"]]) && x[["cells"]] >= 1, logical(1))
+    ok <- all(agree$equal) && all(eligible) && all(redrawn)
     verdict(id, if (ok) "PASS" else "FAIL", title,
-            sprintf("old handle, new handle and new session agree: %s%s; fixed synopses redrawn (changed/nonzero cells vs before): %s",
+            sprintf("old handle, new handle and new session agree: %s%s; fixed synopses redrawn (changed/signed components vs before): %s",
                     all(agree$equal), if (any(!agree$equal)) paste0(" (", paste(agree$probe[!agree$equal], collapse = ","), ")") else "",
                     paste(fixed_keys, vapply(ch, function(x) paste0(x[["changed"]], "/", x[["cells"]]), ""), sep = " ", collapse = "; ")))
   }
