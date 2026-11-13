@@ -1,0 +1,247 @@
+Preparing default conf in /srv ...
+Preparing default plugins in /srv ...
+Disabling default Agate setting as AGATE_HOST is not defined...
+Setting Rock R server connection...
+Setting password...
+Starting Opal before first run script...
+Waiting for Opal to be ready...
+JAVA=java
+JAVA_OPTS=-Xms1G -Xmx2G -XX:+UseG1GC
+OPAL_HOME=/srv
+OPAL_DIST=/usr/share/opal
+Archive:  /srv/plugins/opal-datasource-redcap-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-redcap-2.0.0/
+   creating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/jackson-dataformat-xml-2.17.2.jar  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/stax2-api-4.2.2.jar  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/README.md  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/opal-datasource-redcap-2.0.0.jar  
+Archive:  /srv/plugins/opal-datasource-readr-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-readr-2.0.0/
+   creating: /srv/plugins/opal-datasource-readr-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/export.json  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/README.md  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/lib/opal-datasource-readr-2.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/import.json  
+Archive:  /srv/plugins/opal-datasource-readxl-2.0.1-dist.zip
+   creating: /srv/plugins/opal-datasource-readxl-2.0.1/
+   creating: /srv/plugins/opal-datasource-readxl-2.0.1/lib/
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/import.json  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/lib/opal-datasource-readxl-2.0.1.jar  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/export.json  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/README.md  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/site.properties  
+Archive:  /srv/plugins/opal-datasource-spss-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-spss-2.0.0/
+   creating: /srv/plugins/opal-datasource-spss-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/lib/magma-datasource-spss-1.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/lib/spssreader-1.2.2.jar  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/README.md  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/lib/opal-datasource-spss-2.0.0.jar  
+Archive:  /srv/plugins/opal-datasource-limesurvey-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-limesurvey-2.0.0/
+   creating: /srv/plugins/opal-datasource-limesurvey-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/lib/opal-datasource-limesurvey-2.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/README.md  
+Archive:  /srv/plugins/opal-analysis-validate-2.0.0-dist.zip
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/lib/
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/report.Rmd  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/form.json  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/report.Rmd  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/routine.R  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/form.json  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/report.Rmd  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/routine.R  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/form.json  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/README.md  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/lib/opal-analysis-validate-2.0.0.jar  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/routine.R  
+Archive:  /srv/plugins/opal-datasource-googlesheets4-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/
+   creating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/lib/opal-datasource-googlesheets4-2.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/README.md  
+Listening for transport dt_socket at address: 8000
+Upgrading Opal...
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/usr/share/opal/lib/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+Upgrade successful.
+Listening for transport dt_socket at address: 8000
+ __    __    __      ____  _____        _      
+ \ \   \ \   \ \    / __ \|  __ \ /\   | |     
+  \ \   \ \   \ \  | |  | | |__) /  \  | |     
+   > >   > >   > > | |  | |  ___/ /\ \ | |     
+  / /   / /   / /  | |__| | |  / ____ \| |____ 
+ /_/   /_/   /_/    \____/|_| /_/    \_\______|
+                                               
+                                               
+Starting Opal...
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/usr/share/opal/lib/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+WARNING: A restricted method in java.lang.foreign.Linker has been called
+WARNING: java.lang.foreign.Linker::downcallHandle has been called by org.apache.lucene.store.PosixNativeAccess in an unnamed module (file:/usr/share/opal/lib/lucene-core-9.11.1.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+First run setup...
+Initializing Opal IDs database with MongoDB...
+Opal Server successfully started.
+Opal is attached to this console. Press ctrl-c to stop.
+Enter content:
+
+Initializing Opal data database with MongoDB...
+Enter content:
+
+First run complete. Stopping background Opal...
+Opal Server shutting down...
+Starting Opal...
+JAVA=java
+JAVA_OPTS=-Xms1G -Xmx2G -XX:+UseG1GC
+OPAL_HOME=/srv
+OPAL_DIST=/usr/share/opal
+Listening for transport dt_socket at address: 8000
+Upgrading Opal...
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/usr/share/opal/lib/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+Upgrade successful.
+Listening for transport dt_socket at address: 8000
+ __    __    __      ____  _____        _      
+ \ \   \ \   \ \    / __ \|  __ \ /\   | |     
+  \ \   \ \   \ \  | |  | | |__) /  \  | |     
+   > >   > >   > > | |  | |  ___/ /\ \ | |     
+  / /   / /   / /  | |__| | |  / ____ \| |____ 
+ /_/   /_/   /_/    \____/|_| /_/    \_\______|
+                                               
+                                               
+Starting Opal...
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/usr/share/opal/lib/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+WARNING: A restricted method in java.lang.foreign.Linker has been called
+WARNING: java.lang.foreign.Linker::downcallHandle has been called by org.apache.lucene.store.PosixNativeAccess in an unnamed module (file:/usr/share/opal/lib/lucene-core-9.11.1.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+Opal Server successfully started.
+Opal is attached to this console. Press ctrl-c to stop.
+2026-11-13 19:41:09,337 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'is.null(base::assign('D_panel', value={dsOMOP::omopAsFactorColumnsDS(D_panel, "B64:eyJjb25jZXB0X3Byb3RvY29sIjoxLCJjb2x1bW5zIjpbXSwiZXZpZGVuY2UiOiJhMWIyOGRjZDJjZDc0MGEyNDE1YTQxNTBkMGJlY2ZjNGNhOWYzMzc1MmMwMmM0YTY5OGVlZDY5ZmMzOTNiZjZiIiwibmFtZXMiOnsicm93X2lkIjoicm93X2lkIiwiY29ob3J0X3Jvd19pZCI6ImNvaG9ydF9yb3dfaWQiLCJwZXJzb25faWQiOiJwZXJzb25faWQiLCJwZXJpb2Rfc3RhcnRfZGF5cyI6InBlcmlvZF9zdGFydF9kYXlzIiwicGVyaW9kX2VuZF9kYXlzIjoicGVyaW9kX2VuZF9kYXlzIiwiZGF5cyI6ImRheXMiLCJ3ZWlnaHRfY291bnQiOiJ3ZWlnaHRfY291bnQiLCJ3ZWlnaHRfbGFzdCI6IndlaWdodF9sYXN0Iiwid2VpZ2h0X2NhcnJ5Ijoid2VpZ2h0X2NhcnJ5Iiwidml0YWxzXzMwMjUzMTVfY291bnQiOiJ2aXRhbHNfY29uY2VwdF8zMDI1MzE1X2NvdW50Iiwidml0YWxzXzMwMjUzMTVfbGFzdCI6InZpdGFsc19jb25jZXB0XzMwMjUzMTVfbGFzdCIsInZpdGFsc18zMDA0MjQ5X2NvdW50Ijoidml0YWxzX2NvbmNlcHRfMzAwNDI0OV9jb3VudCIsInZpdGFsc18zMDA0MjQ5X2xhc3QiOiJ2aXRhbHNfY29uY2VwdF8zMDA0MjQ5X2xhc3QiLCJibWlfY291bnQiOiJibWlfY291bnQiLCJibWlfbGFzdCI6ImJtaV9sYXN0IiwiYm1pX2NhcnJ5IjoiYm1pX2NhcnJ5In19")}))' -> Error in writer$WriteTable(table) : 
+  argument "chunk_size" is missing, with no default
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'is.null(base::assign('D_panel', value={dsOMOP::omopAsFactorColumnsDS(D_panel, "B64:eyJjb25jZXB0X3Byb3RvY29sIjoxLCJjb2x1bW5zIjpbXSwiZXZpZGVuY2UiOiJhMWIyOGRjZDJjZDc0MGEyNDE1YTQxNTBkMGJlY2ZjNGNhOWYzMzc1MmMwMmM0YTY5OGVlZDY5ZmMzOTNiZjZiIiwibmFtZXMiOnsicm93X2lkIjoicm93X2lkIiwiY29ob3J0X3Jvd19pZCI6ImNvaG9ydF9yb3dfaWQiLCJwZXJzb25faWQiOiJwZXJzb25faWQiLCJwZXJpb2Rfc3RhcnRfZGF5cyI6InBlcmlvZF9zdGFydF9kYXlzIiwicGVyaW9kX2VuZF9kYXlzIjoicGVyaW9kX2VuZF9kYXlzIiwiZGF5cyI6ImRheXMiLCJ3ZWlnaHRfY291bnQiOiJ3ZWlnaHRfY291bnQiLCJ3ZWlnaHRfbGFzdCI6IndlaWdodF9sYXN0Iiwid2VpZ2h0X2NhcnJ5Ijoid2VpZ2h0X2NhcnJ5Iiwidml0YWxzXzMwMjUzMTVfY291bnQiOiJ2aXRhbHNfY29uY2VwdF8zMDI1MzE1X2NvdW50Iiwidml0YWxzXzMwMjUzMTVfbGFzdCI6InZpdGFsc19jb25jZXB0XzMwMjUzMTVfbGFzdCIsInZpdGFsc18zMDA0MjQ5X2NvdW50Ijoidml0YWxzX2NvbmNlcHRfMzAwNDI0OV9jb3VudCIsInZpdGFsc18zMDA0MjQ5X2xhc3QiOiJ2aXRhbHNfY29uY2VwdF8zMDA0MjQ5X2xhc3QiLCJibWlfY291bnQiOiJibWlfY291bnQiLCJibWlfbGFzdCI6ImJtaV9sYXN0IiwiYm1pX2NhcnJ5IjoiYm1pX2NhcnJ5In19")}))' -> Error in writer$WriteTable(table) : 
+  argument "chunk_size" is missing, with no default
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:75)
+	at org.obiba.opal.datashield.RestrictedAssignmentROperation.lambda$doWithConnection$0(RestrictedAssignmentROperation.java:34)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedAssignmentROperation.doWithConnection(RestrictedAssignmentROperation.java:34)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:120)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:108)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'is.null(base::assign('D_panel', value={dsOMOP::omopAsFactorColumnsDS(D_panel, "B64:eyJjb25jZXB0X3Byb3RvY29sIjoxLCJjb2x1bW5zIjpbXSwiZXZpZGVuY2UiOiJhMWIyOGRjZDJjZDc0MGEyNDE1YTQxNTBkMGJlY2ZjNGNhOWYzMzc1MmMwMmM0YTY5OGVlZDY5ZmMzOTNiZjZiIiwibmFtZXMiOnsicm93X2lkIjoicm93X2lkIiwiY29ob3J0X3Jvd19pZCI6ImNvaG9ydF9yb3dfaWQiLCJwZXJzb25faWQiOiJwZXJzb25faWQiLCJwZXJpb2Rfc3RhcnRfZGF5cyI6InBlcmlvZF9zdGFydF9kYXlzIiwicGVyaW9kX2VuZF9kYXlzIjoicGVyaW9kX2VuZF9kYXlzIiwiZGF5cyI6ImRheXMiLCJ3ZWlnaHRfY291bnQiOiJ3ZWlnaHRfY291bnQiLCJ3ZWlnaHRfbGFzdCI6IndlaWdodF9sYXN0Iiwid2VpZ2h0X2NhcnJ5Ijoid2VpZ2h0X2NhcnJ5Iiwidml0YWxzXzMwMjUzMTVfY291bnQiOiJ2aXRhbHNfY29uY2VwdF8zMDI1MzE1X2NvdW50Iiwidml0YWxzXzMwMjUzMTVfbGFzdCI6InZpdGFsc19jb25jZXB0XzMwMjUzMTVfbGFzdCIsInZpdGFsc18zMDA0MjQ5X2NvdW50Ijoidml0YWxzX2NvbmNlcHRfMzAwNDI0OV9jb3VudCIsInZpdGFsc18zMDA0MjQ5X2xhc3QiOiJ2aXRhbHNfY29uY2VwdF8zMDA0MjQ5X2xhc3QiLCJibWlfY291bnQiOiJibWlfY291bnQiLCJibWlfbGFzdCI6ImJtaV9sYXN0IiwiYm1pX2NhcnJ5IjoiYm1pX2NhcnJ5In19")}))' -> Error in writer$WriteTable(table) : 
+  argument "chunk_size" is missing, with no default
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 17 common frames omitted
+2026-11-13 19:41:09,366 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'is.null(base::assign('D_panel', value={dsOMOP::omopAsFactorColumnsDS(D_panel, "B64:eyJjb25jZXB0X3Byb3RvY29sIjoxLCJjb2x1bW5zIjpbXSwiZXZpZGVuY2UiOiJhMWIyOGRjZDJjZDc0MGEyNDE1YTQxNTBkMGJlY2ZjNGNhOWYzMzc1MmMwMmM0YTY5OGVlZDY5ZmMzOTNiZjZiIiwibmFtZXMiOnsicm93X2lkIjoicm93X2lkIiwiY29ob3J0X3Jvd19pZCI6ImNvaG9ydF9yb3dfaWQiLCJwZXJzb25faWQiOiJwZXJzb25faWQiLCJwZXJpb2Rfc3RhcnRfZGF5cyI6InBlcmlvZF9zdGFydF9kYXlzIiwicGVyaW9kX2VuZF9kYXlzIjoicGVyaW9kX2VuZF9kYXlzIiwiZGF5cyI6ImRheXMiLCJ3ZWlnaHRfY291bnQiOiJ3ZWlnaHRfY291bnQiLCJ3ZWlnaHRfbGFzdCI6IndlaWdodF9sYXN0Iiwid2VpZ2h0X2NhcnJ5Ijoid2VpZ2h0X2NhcnJ5Iiwidml0YWxzXzMwMjUzMTVfY291bnQiOiJ2aXRhbHNfY29uY2VwdF8zMDI1MzE1X2NvdW50Iiwidml0YWxzXzMwMjUzMTVfbGFzdCI6InZpdGFsc19jb25jZXB0XzMwMjUzMTVfbGFzdCIsInZpdGFsc18zMDA0MjQ5X2NvdW50Ijoidml0YWxzX2NvbmNlcHRfMzAwNDI0OV9jb3VudCIsInZpdGFsc18zMDA0MjQ5X2xhc3QiOiJ2aXRhbHNfY29uY2VwdF8zMDA0MjQ5X2xhc3QiLCJibWlfY291bnQiOiJibWlfY291bnQiLCJibWlfbGFzdCI6ImJtaV9sYXN0IiwiYm1pX2NhcnJ5IjoiYm1pX2NhcnJ5In19")}))' -> Error in writer$WriteTable(table) : 
+  argument "chunk_size" is missing, with no default
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'is.null(base::assign('D_panel', value={dsOMOP::omopAsFactorColumnsDS(D_panel, "B64:eyJjb25jZXB0X3Byb3RvY29sIjoxLCJjb2x1bW5zIjpbXSwiZXZpZGVuY2UiOiJhMWIyOGRjZDJjZDc0MGEyNDE1YTQxNTBkMGJlY2ZjNGNhOWYzMzc1MmMwMmM0YTY5OGVlZDY5ZmMzOTNiZjZiIiwibmFtZXMiOnsicm93X2lkIjoicm93X2lkIiwiY29ob3J0X3Jvd19pZCI6ImNvaG9ydF9yb3dfaWQiLCJwZXJzb25faWQiOiJwZXJzb25faWQiLCJwZXJpb2Rfc3RhcnRfZGF5cyI6InBlcmlvZF9zdGFydF9kYXlzIiwicGVyaW9kX2VuZF9kYXlzIjoicGVyaW9kX2VuZF9kYXlzIiwiZGF5cyI6ImRheXMiLCJ3ZWlnaHRfY291bnQiOiJ3ZWlnaHRfY291bnQiLCJ3ZWlnaHRfbGFzdCI6IndlaWdodF9sYXN0Iiwid2VpZ2h0X2NhcnJ5Ijoid2VpZ2h0X2NhcnJ5Iiwidml0YWxzXzMwMjUzMTVfY291bnQiOiJ2aXRhbHNfY29uY2VwdF8zMDI1MzE1X2NvdW50Iiwidml0YWxzXzMwMjUzMTVfbGFzdCI6InZpdGFsc19jb25jZXB0XzMwMjUzMTVfbGFzdCIsInZpdGFsc18zMDA0MjQ5X2NvdW50Ijoidml0YWxzX2NvbmNlcHRfMzAwNDI0OV9jb3VudCIsInZpdGFsc18zMDA0MjQ5X2xhc3QiOiJ2aXRhbHNfY29uY2VwdF8zMDA0MjQ5X2xhc3QiLCJibWlfY291bnQiOiJibWlfY291bnQiLCJibWlfbGFzdCI6ImJtaV9sYXN0IiwiYm1pX2NhcnJ5IjoiYm1pX2NhcnJ5In19")}))' -> Error in writer$WriteTable(table) : 
+  argument "chunk_size" is missing, with no default
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:75)
+	at org.obiba.opal.datashield.RestrictedAssignmentROperation.lambda$doWithConnection$0(RestrictedAssignmentROperation.java:34)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedAssignmentROperation.doWithConnection(RestrictedAssignmentROperation.java:34)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:120)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:108)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'is.null(base::assign('D_panel', value={dsOMOP::omopAsFactorColumnsDS(D_panel, "B64:eyJjb25jZXB0X3Byb3RvY29sIjoxLCJjb2x1bW5zIjpbXSwiZXZpZGVuY2UiOiJhMWIyOGRjZDJjZDc0MGEyNDE1YTQxNTBkMGJlY2ZjNGNhOWYzMzc1MmMwMmM0YTY5OGVlZDY5ZmMzOTNiZjZiIiwibmFtZXMiOnsicm93X2lkIjoicm93X2lkIiwiY29ob3J0X3Jvd19pZCI6ImNvaG9ydF9yb3dfaWQiLCJwZXJzb25faWQiOiJwZXJzb25faWQiLCJwZXJpb2Rfc3RhcnRfZGF5cyI6InBlcmlvZF9zdGFydF9kYXlzIiwicGVyaW9kX2VuZF9kYXlzIjoicGVyaW9kX2VuZF9kYXlzIiwiZGF5cyI6ImRheXMiLCJ3ZWlnaHRfY291bnQiOiJ3ZWlnaHRfY291bnQiLCJ3ZWlnaHRfbGFzdCI6IndlaWdodF9sYXN0Iiwid2VpZ2h0X2NhcnJ5Ijoid2VpZ2h0X2NhcnJ5Iiwidml0YWxzXzMwMjUzMTVfY291bnQiOiJ2aXRhbHNfY29uY2VwdF8zMDI1MzE1X2NvdW50Iiwidml0YWxzXzMwMjUzMTVfbGFzdCI6InZpdGFsc19jb25jZXB0XzMwMjUzMTVfbGFzdCIsInZpdGFsc18zMDA0MjQ5X2NvdW50Ijoidml0YWxzX2NvbmNlcHRfMzAwNDI0OV9jb3VudCIsInZpdGFsc18zMDA0MjQ5X2xhc3QiOiJ2aXRhbHNfY29uY2VwdF8zMDA0MjQ5X2xhc3QiLCJibWlfY291bnQiOiJibWlfY291bnQiLCJibWlfbGFzdCI6ImJtaV9sYXN0IiwiYm1pX2NhcnJ5IjoiYm1pX2NhcnJ5In19")}))' -> Error in writer$WriteTable(table) : 
+  argument "chunk_size" is missing, with no default
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 17 common frames omitted
+2026-11-13 19:42:49,335 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopColumnStatsDS("dsO.DOrTNX", "person", "year_of_birth", concept_id = NULL, cohort = NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopColumnStatsDS("dsO.DOrTNX", "person", "year_of_birth", concept_id = NULL, cohort = NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.lambda$doWithConnection$0(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.lambda$evaluate$0(DataShieldTracer.java:220)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:208)
+	at org.obiba.opal.datashield.DataShieldTracer$Operation.evaluate(DataShieldTracer.java:219)
+	at org.obiba.opal.datashield.AbstractRestrictedRScriptROperation.evaluate(AbstractRestrictedRScriptROperation.java:97)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:32)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:375)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:363)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:120)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:108)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopColumnStatsDS("dsO.DOrTNX", "person", "year_of_birth", concept_id = NULL, cohort = NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 16 common frames omitted
+
+[collector exit=0]
