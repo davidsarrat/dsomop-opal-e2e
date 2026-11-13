@@ -27,7 +27,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v7.0.1
-      - name: Require a coordinated 2.10.4 candidate
+      - name: Require a coordinated native-language candidate
         run: |
           python3 scripts/o/check_candidate.py
           mkdir -p "$OUT"

@@ -126,7 +126,7 @@ if (con$ok) {
   for (bs in c(TRUE, FALSE)) {
     probe <- ds.omop.plan.baseline(ds.omop.plan.cohort(ds.omop.plan(), spec = list(type = "condition", concept_set = c(192671))),
                                    columns = c("gender_concept_id", "year_of_birth"), derived = c("age_at_index"))
-    probe <- ds.omop.plan.options(probe, block_sensitive = bs, factor_concepts = FALSE)
+    probe <- ds.omop.plan.options(probe, block_sensitive = bs, translate_concepts = FALSE, factor_concepts = FALSE)
     pr <- capture(paste0("probe: baseline with year_of_birth, block_sensitive = ", bs),
                   ds.omop.plan.execute(probe, out = c(baseline = paste0("PROBE", as.integer(bs))), symbol = S, conns = conns))
     summary_line("[", E2E_PATH, "] D probe: server-side table with exact year_of_birth (block_sensitive = ", bs, "): ",
@@ -205,6 +205,8 @@ fail_re <- "No such DataSHIELD|could not find function|is not an exported object
 audit <- do.call(rbind, lapply(c(agg, asg), function(m) {
   r <- calls[calls$method == m, , drop = FALSE]
   status <- if (!nrow(r)) "NOT-EXERCISED" else if (any(r$ok)) "PASS" else if (any(grepl(fail_re, r$error))) "FAIL" else "REFUSED"
+  # A successful wrapper does not prove that every optional method ran.
+  if (status == "PASS" && !is.na(ran[[m]]) && ran[[m]] == 0L) status <- "NOT-EXERCISED"
   data.frame(method = m, type = if (m %in% agg) "aggregate" else "assign",
              client = paste(unique(r$client), collapse = " | "), status = status,
              server_calls_in_opal_log = ran[[m]],

@@ -8,11 +8,22 @@ if (E2E_PATH == "upgrade") {
   stopifnot(identical(rock_pkg_version("dsOMOP"), "2.10.1"))
   dsadmin.publish_package(o, "dsOMOP")
   c0 <- analyst_login()
-  # The new client must refuse the actual old profile before any assignment.
+  # Connecting remains supported for v1. The native request must refuse before
+  # assigning outputs on an old profile; connection setup itself assigns handles.
+  r <- capture("O6 connect new client / old server", ds.omop.connect("omop_data.gibleed", conns = c0))
+  stopifnot(r$ok)
   before <- DSI::datashield.symbols(c0)
-  r <- capture("O6 new client / old server", ds.omop.connect("omop_data.gibleed", conns = c0))
-  stopifnot(!r$ok, grepl("omopPlanStatusDS|omopStagedRevokeDS|operation|publish", r$error),
+  native <- omop_recipe(variables = list(age = omop_age()),
+                        outputs = omop_output("native", format = "wide"))
+  r <- capture("O6 native request / old server", recipe_execute(native, out = c(native = "O_refused"), conns = c0))
+  stopifnot(!r$ok, grepl("omopPlanStatusDS|omopStagedRevokeDS|operation|publish|publication|Upgrade|language", r$error),
             identical(before, DSI::datashield.symbols(c0)))
+  legacy <- omop_recipe(variables = omop_variable_age(year = 2020),
+                        outputs = omop_output("legacy", type = "wide"),
+                        options = list(translate_concepts = FALSE))
+  r <- capture("O6 numeric v1 / old server", recipe_execute(legacy, out = c(legacy = "O_legacy"), conns = c0))
+  stopifnot(r$ok)
+  ds.omop.disconnect(conns = c0)
   DSI::datashield.logout(c0)
   # Baseline timings are produced by the actual old server, before replacement.
   # The frozen fixture source works with the old server; export before timing.
@@ -23,7 +34,7 @@ if (E2E_PATH == "upgrade") {
 }
 install_server(o, server_target())
 dsadmin.publish_package(o, "dsOMOP")
-stopifnot(identical(rock_pkg_version("dsOMOP"), "2.10.4"))
+stopifnot(identical(rock_pkg_version("dsOMOP"), candidate_version()))
 p <- check_publication(o, "O10 methods and Options republished")
 stopifnot(length(c(p$missing_aggregate, p$missing_assign, p$wrong_type,
                   p$wrong_function, p$not_exported, p$options_missing)) == 0L)

@@ -73,7 +73,7 @@ small_recipe <- function() omop_recipe(
 
 scenario("O1", function() with_sites(function(conns) {
   v <- ds.omop.server.version(conns)
-  check(all(v$running == "2.10.4" & v$published == "2.10.4" & v$ready), "version/publication mismatch")
+  check(all(v$running == candidate_version() & v$published == candidate_version() & v$ready), "version/publication mismatch")
   caps <- dsOMOPClient:::.get_session("omopO")$capabilities
   for (cap in caps) {
     lang <- cap$recipe_language
@@ -209,7 +209,7 @@ scenario("O10", function() {
     rows <- do.call(rbind, verdicts)
     check(all(rows$status[rows$id %in% c("O1", "O2", "O3")] == "PASS"), "upgraded O1-O3 failed")
     check(file.exists(out_file("O9-old.json")), "2.10.1 install phase missing")
-  } else check(identical(rock_pkg_version("dsOMOP"), "2.10.4"), "fresh package version")
+  } else check(identical(rock_pkg_version("dsOMOP"), candidate_version()), "fresh package version")
 })
 scenario("O11", function() {
   set_strict(TRUE)

@@ -280,3 +280,12 @@ assert_candidate_server <- function() {
                                         expected, ", Rock has ", actual)
   invisible(TRUE)
 }
+
+# Use the coordinated source version; capabilities, not a prospective release
+# label, determine whether the native contract is supported.
+candidate_version <- function() {
+  versions <- vapply(c("dsOMOP", "dsOMOPClient"), function(pkg)
+    unname(read.dcf(file.path("pkgs", pkg, "DESCRIPTION"))[1, "Version"]), "")
+  if (length(unique(versions)) != 1L) stop("Candidate package versions differ.", call. = FALSE)
+  unname(versions[[1]])
+}

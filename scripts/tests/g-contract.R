@@ -140,3 +140,47 @@ local({
   stopifnot(identical(g_check_site_errors(failed), failed))
 })
 cat("Partial client errors cannot pass the method audit\n")
+
+# Replay the actual V2 body with preparation succeeding and failing. This
+# catches a follow-on release of an output that preparation never assigned.
+local({
+  expressions <- as.list(parse("scripts/combo_old_server.R"))
+  section_call <- Filter(function(x) is.call(x) && identical(x[[1]], as.name("section")) &&
+    identical(x[[2]], "V2"), expressions)[[1]]
+  AGES_RECIPE <- list(options = list(translate_concepts = TRUE))
+  V <- list(ok = TRUE, symbol = "omop", conns = list(site = "site"))
+  prep_ok <- TRUE; releases <- 0L
+  capture_ds <- function(label, expr) tryCatch(list(ok = TRUE, value = expr),
+    error = function(e) list(ok = FALSE, error = conditionMessage(e)))
+  ds.omop.dp.prepare <- function(x, ...) {
+    stopifnot(identical(x$options$translate_concepts, FALSE))
+    if (!prep_ok) stop("fixture preparation failed")
+    "V_ages"
+  }
+  ds.omop.dp.release <- function(...) {
+    releases <<- releases + 1L
+    list(meta = list(privacy = list(contract = "legacy")), per_site = list(list(protocol = "legacy")))
+  }
+  omop_privacy <- function(...) NULL
+  warned <- function(...) TRUE
+  said <- function(...) "upgrade the server"
+  squash <- function(x, ...) paste(x, collapse = " ")
+  verdict <- function(id, status, ...) stopifnot(status == "PASS")
+  fn <- eval(section_call[[4]])
+  fn()
+  stopifnot(releases == 1L, isTRUE(AGES_RECIPE$options$translate_concepts))
+  prep_ok <- FALSE
+  error <- tryCatch({ fn(); "" }, error = conditionMessage)
+  stopifnot(grepl("Legacy preparation failed", error), releases == 1L)
+})
+cat("Old-server preparation regression passed\n")
+
+local({
+  common <- parse("scripts/common.R")
+  environment(get_fn) <- environment()
+  candidate_version <- get_fn("candidate_version")
+  stopifnot(candidate_version() == unname(read.dcf("pkgs/dsOMOP/DESCRIPTION")[1,"Version"]))
+  for (file in list.files("scripts/o", pattern = "[.]R$", full.names = TRUE)) parse(file)
+  invisible(parse("scripts/scenario_D.R"))
+})
+cat("Candidate version and changed R syntax passed\n")

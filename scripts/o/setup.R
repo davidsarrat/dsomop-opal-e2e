@@ -26,7 +26,7 @@ versions$postgres <- opal.execute(o, 'dsOMOP::omopInitDS("ores"); DBI::dbGetQuer
 jsonlite::write_json(versions, out_file("O-runtime.json"), auto_unbox = TRUE, pretty = TRUE)
 opal.logout(o)
 
-if (identical(rock_pkg_version("dsOMOP"), "2.10.4")) {
+if (identical(rock_pkg_version("dsOMOP"), candidate_version())) {
   library(dsOMOPClient)
   birth <- omop_recipe(variables = list(
     omop_variable(name = "year_of_birth", table = "person", column = "year_of_birth"),

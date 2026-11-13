@@ -26,8 +26,13 @@ section("V1", "connect: an explicit upgrade warning", function() {
 
 section("V2", "typed release: honest per-site legacy result with an upgrade warning, no 2.10.3 claims", function() {
   if (!isTRUE(V$ok)) stop("no session")
-  prep <- capture_ds("ds.omop.dp.prepare(ages) on the old server", ds.omop.dp.prepare(AGES_RECIPE, out = c(ages = "V_ages"),
+  # A-27 presentation requires a new server. This probe deliberately exercises
+  # the supported numeric v1 route, not vocabulary-label negotiation.
+  legacy_ages <- AGES_RECIPE
+  legacy_ages$options$translate_concepts <- FALSE
+  prep <- capture_ds("ds.omop.dp.prepare(ages) on the old server", ds.omop.dp.prepare(legacy_ages, out = c(ages = "V_ages"),
                                                                                      symbol = V$symbol, conns = V$conns))
+  if (!prep$ok) stop("Legacy preparation failed: ", prep$error, call. = FALSE)
   rel <- capture_ds("ds.omop.dp.release(V_ages, count) on the old server", ds.omop.dp.release("V_ages", omop_privacy("count"),
                                                                                              datasources = V$conns))
   claims <- if (rel$ok) identical(rel$value$meta$privacy$contract, "protected_release_fixed_basis_or_realised_v1") ||
