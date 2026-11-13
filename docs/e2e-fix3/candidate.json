@@ -1,0 +1,14 @@
+{
+  "server_commit": "3d1db25cb3a271429cbcf5e388849cb08a002575",
+  "client_commit": "398f75974a05f3c6bf3585ccea80ca8e15f3f099",
+  "version": "2.10.3",
+  "updated_vendor_files": [
+    "NEWS.md",
+    "R/privacy_sampler.R",
+    "R/tools_release.R",
+    "tests/testthat/test-e2e-fix3-performance.R",
+    "tests/testthat/test-e2e-fix3.R",
+    "tools/e2e-fix3/baseline-build.R",
+    "tools/e2e-fix3/baseline-sampler.R"
+  ]
+}

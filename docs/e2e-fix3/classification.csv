@@ -1,0 +1,2 @@
+file,id,status,title,evidence,classification,finding
+fresh-G-verdicts.csv,G16b big,FAIL,"first-release latency on 1,000,000 synthetic persons: cold <= 60 s, warm <= 15 s, 4 concurrent cold <= 120 s","cold 24.7 s, warm 18.7 s, warm other question 18.7 s, 4 concurrent cold 86.5 s; generation snapshot alone on Rock 0.873000000000047 s; CDM rows 7411111; tables read by the cold release: person:2005388, cdm_source:1",product defect,P-latency
