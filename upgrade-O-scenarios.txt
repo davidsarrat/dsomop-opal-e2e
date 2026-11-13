@@ -1,0 +1,31 @@
+SUMMARY O1: PASS
+SUMMARY O2: FAIL The input object must be a factor.
+SUMMARY O3: FAIL [Client error: (400) Bad Request] Error while evaluating 'source("/tmp/o-harness/server.R"); o_server_check("acceptance2", plan_override = NULL)' -> Error in get(resource_symbol, envir = session_env, inherits = FALSE) : 
+  object 'ores' not found
+
+ERROR publication matrix (4.1 s): Plan publication refused: other:small [insufficient_support]. Execution-owned artifacts were revoked and removed.
+ERROR publication matrix (6.1 s): Plan publication refused: other:small [insufficient_support]. Execution-owned artifacts were revoked and removed.
+OK    publication matrix (4 s)
+OK    publication matrix (6.1 s)
+OK    publication matrix (3.9 s)
+  [warning] Plan publication is partial: other:small [insufficient_support].
+OK    publication matrix (6 s)
+  [warning] Plan publication is partial: other:small [insufficient_support].
+OK    publication matrix (3.8 s)
+OK    publication matrix (5.9 s)
+SUMMARY O4: PASS
+SUMMARY O5: FAIL Concept-factor recoding failed or was incomplete on: good, other. Execution-owned artifacts were revoked and removed.
+SUMMARY O6: PASS
+SUMMARY O7: FAIL [Client error: (400) Bad Request] Error while evaluating 'source("/tmp/o-harness/server.R"); o_server_check("matching", plan_override = NULL)' -> Error in get(resource_symbol, envir = session_env, inherits = FALSE) : 
+  object 'ores' not found
+
+SUMMARY O8: FAIL Selected servers share a DP noise domain; refusing a duplicate federated release from one logical privacy node.
+SUMMARY O9: FAIL v1-equivalent runtime regressed >25%
+SUMMARY O10: FAIL upgraded O1-O3 failed
+ERROR class-1 assignment (0 s): Disclosive: variable 'person_person_source_value' requests blocked class-1 column 'person_source_value', which the server cannot release.
+OK    aggregate birth policy (0.1 s)
+SUMMARY O11: FAIL aggregate birth admission relaxed
+OK    publication matrix (3.8 s)
+  [warning] Plan publication is partial: other:small [insufficient_support].
+OK    publication matrix (3.8 s)
+SUMMARY O12: PASS

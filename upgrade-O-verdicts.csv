@@ -1,0 +1,17 @@
+"id","status","seconds","evidence"
+"O1","PASS",5.812,"all assertions passed"
+"O2","FAIL",27.964,"The input object must be a factor."
+"O3","FAIL",17.471,"[Client error: (400) Bad Request] Error while evaluating 'source(""/tmp/o-harness/server.R""); o_server_check(""acceptance2"", plan_override = NULL)' -> Error in get(resource_symbol, envir = session_env, inherits = FALSE) : 
+  object 'ores' not found
+"
+"O4","PASS",79.72,"all assertions passed"
+"O5","FAIL",13.524,"Concept-factor recoding failed or was incomplete on: good, other. Execution-owned artifacts were revoked and removed."
+"O6","PASS",5.51599999999999,"all assertions passed"
+"O7","FAIL",19.025,"[Client error: (400) Bad Request] Error while evaluating 'source(""/tmp/o-harness/server.R""); o_server_check(""matching"", plan_override = NULL)' -> Error in get(resource_symbol, envir = session_env, inherits = FALSE) : 
+  object 'ores' not found
+"
+"O8","FAIL",8.36100000000002,"Selected servers share a DP noise domain; refusing a duplicate federated release from one logical privacy node."
+"O9","FAIL",54.861,"v1-equivalent runtime regressed >25%"
+"O10","FAIL",0,"upgraded O1-O3 failed"
+"O11","FAIL",10.271,"aggregate birth admission relaxed"
+"O12","PASS",16.411,"all assertions passed"
