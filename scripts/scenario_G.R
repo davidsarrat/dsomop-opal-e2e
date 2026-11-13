@@ -1164,13 +1164,18 @@ section("G16", "cold and warm first-release latency (GiBleed, and a synthetic CD
     return(invisible())
   }
   gen <- admin_handle_eval(paste0('local({ ', HANDLE_CODE, '
-    list(snapshot_seconds = system.time(dsOMOP:::.dsomopWithReadSnapshot(h, dsOMOP:::.dsomopDpMembershipHash(h)))[["elapsed"]]) })'), resource = "omop_data.gibleed_big")
+    ns <- asNamespace("dsOMOP")
+    accelerated <- exists("C_dsomop_person_hmac", ns, inherits = FALSE) &&
+      !is.null(.Call(get("C_dsomop_person_hmac", ns), "public-build-probe", raw(32)))
+    list(hash_acceleration = accelerated,
+         snapshot_seconds = system.time(dsOMOP:::.dsomopWithReadSnapshot(h, dsOMOP:::.dsomopDpMembershipHash(h)))[["elapsed"]]) })'), resource = "omop_data.gibleed_big")
   b <- measure_db("big", "omop_data.gibleed_big", "omopbig")
   ok <- isTRUE(b$cold_ok) && is.finite(b$cold) && b$cold <= 60 && is.finite(b$warm) && b$warm <= 15 && isTRUE(b$x4_ok) && b$x4 <= 120
   verdict("G16b big", if (ok) "PASS" else "FAIL",
           sprintf("first-release latency on %s synthetic persons: cold <= 60 s, warm <= 15 s, 4 concurrent cold <= 120 s", format(BIG_PERSONS, big.mark = ",")),
-          sprintf("cold %s s, warm %s s, warm other question %s s, 4 concurrent cold %s s; generation snapshot alone on Rock %s s; CDM rows %s; tables read by the cold release: %s%s",
-                  b$cold, b$warm, b$warm2, b$x4, if (is.list(gen)) gen$snapshot_seconds else paste(gen, collapse = " "), b$rows,
+          sprintf("cold %s s, warm %s s, warm other question %s s, 4 concurrent cold %s s; generation snapshot alone on Rock %s s; hash acceleration %s; CDM rows %s; tables read by the cold release: %s%s",
+                  b$cold, b$warm, b$warm2, b$x4, if (is.list(gen)) gen$snapshot_seconds else paste(gen, collapse = " "),
+                  if (is.list(gen)) isTRUE(gen$hash_acceleration) else FALSE, b$rows,
                   paste(utils::head(paste0(b$tables$table, ":", b$tables$read), 12), collapse = ", "),
                   if (nzchar(b$error %||% "")) paste("; error", squash(b$error, 300)) else ""))
 })
