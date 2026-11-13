@@ -82,14 +82,15 @@ if (con$ok) {
        ds.omop.ohdsi.results("achilles_results", symbol = S, conns = conns))
   step(c("omopOhdsiResultContractDS", "omopOhdsiResultsDS"), "ds.omop.ohdsi.results (pooled)",
        ds.omop.ohdsi.results("achilles_results", scope = "pooled", symbol = S, conns = conns))
-  step("omopOhdsiSummaryDS", "ds.omop.ohdsi.summary", ds.omop.ohdsi.summary("achilles", symbol = S, conns = conns))
+  step("omopOhdsiSummaryDS", "ds.omop.ohdsi.summary", ds.omop.ohdsi.summary("cohort_diagnostics", symbol = S, conns = conns))
 
   # Cohorts.
   step("omopCohortListDS", "ds.omop.cohort.list", ds.omop.cohort.list(symbol = S, conns = conns))
-  step("omopCohortGetDefinitionDS", "ds.omop.cohort.definition", ds.omop.cohort.definition(1, symbol = S, conns = conns))
   c1 <- step("omopCohortCreateDS", "ds.omop.cohort.create (condition)",
              ds.omop.cohort.create(spec = list(type = "condition", concept_set = c(192671)), cohort_id = 100,
                                    name = "gi_bleed", mode = "temporary", symbol = S, conns = conns))
+  if (c1$ok) step("omopCohortGetDefinitionDS", "ds.omop.cohort.definition (created cohort)",
+                  ds.omop.cohort.definition(100, symbol = S, conns = conns))
   c2 <- step("omopCohortCreateDS", "ds.omop.cohort.create (drug)",
              ds.omop.cohort.create(spec = list(type = "drug", concept_set = c(1118084)), cohort_id = 101,
                                    name = "celecoxib", mode = "temporary", symbol = S, conns = conns))
@@ -136,8 +137,11 @@ if (con$ok) {
     if ("mode" %in% names(catalog)) show("catalog modes", table(catalog$mode))
   }
   step("omopAnalysisGetDS", "ds.omop.analysis.get", ds.omop.analysis.get("dsomop:condition.duration_stats", symbol = S, conns = conns))
+  # GiBleed's condition durations do not meet the final support gate. Use a
+  # supported public partition for positive aggregate-method coverage; G keeps
+  # explicit low-support refusals as negative controls.
   step("omopAnalysisRunDS", "ds.omop.analysis.run (aggregate)",
-       ds.omop.analysis.run("dsomop:condition.duration_stats", params = list(concept_id = 192671), symbol = S, conns = conns))
+       ds.omop.analysis.run("dsomop:achilles.3", symbol = S, conns = conns))
   assign_names <- if (!is.null(catalog) && all(c("mode", "name") %in% names(catalog))) catalog$name[catalog$mode == "assign"] else character(0)
   say("assign-mode entries: ", length(assign_names), if (length(assign_names)) paste0(" (first: ", paste(head(assign_names, 5), collapse = ", "), ")") else "")
   done_assign <- FALSE

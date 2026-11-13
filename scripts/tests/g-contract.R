@@ -120,3 +120,12 @@ local({
   stopifnot(grepl("dependency did not install", error))
 })
 cat("Exact-archive and missing-dependency install regressions passed\n")
+
+local({
+  scenario <- paste(readLines("scripts/scenario_D.R"), collapse = "\n")
+  stopifnot(grepl('ds.omop.analysis.run("dsomop:achilles.3",', scenario, fixed = TRUE),
+            grepl('ds.omop.ohdsi.summary("cohort_diagnostics",', scenario, fixed = TRUE),
+            grepl('ds.omop.cohort.definition(100,', scenario, fixed = TRUE),
+            !grepl('ds.omop.cohort.definition(1,', scenario, fixed = TRUE))
+})
+cat("Scenario D positive fixture selection regressions passed\n")

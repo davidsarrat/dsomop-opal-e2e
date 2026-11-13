@@ -4,7 +4,7 @@ set -euo pipefail
 curl -LsSf https://astral.sh/uv/install.sh | sh > /dev/null
 export PATH="$HOME/.local/bin:$PATH"
 uv tool install easy-opal > /dev/null
-easy-opal --version || true
+uv tool list
 easy-opal --runtime docker setup --stack-name "$STACK" --host localhost --port 8443 \
   --ssl-strategy self-signed --password "$OPAL_ADMIN_PW" --yes
 easy-opal --runtime docker up

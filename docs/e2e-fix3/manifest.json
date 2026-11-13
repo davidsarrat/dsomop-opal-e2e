@@ -1,0 +1,312 @@
+[
+  {
+    "file": "fresh-G-audit-lines.txt",
+    "bytes": 116353,
+    "sha256": "f9f4c81b807a6914439935e10d6b8cf71d33735e0118f43b677f2d62b552d87f"
+  },
+  {
+    "file": "fresh-G-old-verdicts.csv",
+    "bytes": 5583,
+    "sha256": "3bdb7f6897bbf78f1dd005a9d53b196b7448c9fee7be7aab98334b85324c2b6b"
+  },
+  {
+    "file": "fresh-G-verdicts.csv",
+    "bytes": 27318,
+    "sha256": "76030f5b9d51d2c4c289272aa1967d18db46f81503e53ddf2351bf6d1f57567c"
+  },
+  {
+    "file": "fresh-G16-plans-big.txt",
+    "bytes": 1670,
+    "sha256": "9a2c96b454f05740e6a6326c2c9d476e3b6a40126e5ff168930f6769428c6a4d"
+  },
+  {
+    "file": "fresh-G16-plans-gibleed.txt",
+    "bytes": 989,
+    "sha256": "e52ee6caa00ccba5ba905917137be23dce288d1c3c4ab191233bf5164b55b22f"
+  },
+  {
+    "file": "fresh-admin-setup.txt",
+    "bytes": 5821,
+    "sha256": "75a5abfd922667226c4ad3213ea4e407bd97b32906b592510c0c1984bd27bffd"
+  },
+  {
+    "file": "fresh-datashield-log.txt",
+    "bytes": 139060,
+    "sha256": "e0c41fe36d018571e83701ffd2e0842aef2c70c553b9f500c105fe761ea4a318"
+  },
+  {
+    "file": "fresh-method-audit-calls.csv",
+    "bytes": 6587,
+    "sha256": "c36eab12e56d581256b1cbfdbb7ee5efcd31bc3190f0e1bf66ba7a0333e91ee4"
+  },
+  {
+    "file": "fresh-method-audit.csv",
+    "bytes": 6119,
+    "sha256": "9568fef84298bf520abef4f42c2660c4c486cb5933e8a67d509bc05a00668a1f"
+  },
+  {
+    "file": "fresh-omopbig.txt",
+    "bytes": 389,
+    "sha256": "af1e1c7de819db6a80df10947af170a2a53774efd81519b7ae3e95e81deb79c6"
+  },
+  {
+    "file": "fresh-omopdb-load.txt",
+    "bytes": 4507,
+    "sha256": "2d2718bb05ec3c80b23965b71d3d0cce1f53c5c7cee5f95e5773aa7f6a927fb1"
+  },
+  {
+    "file": "fresh-opal-srv-logs/datashield.log",
+    "bytes": 2691302,
+    "sha256": "0d3051df80148af964624f54aa1ceba6ac6fd50565e4a1cd0cd49ea2d86fb973"
+  },
+  {
+    "file": "fresh-opal-srv-logs/opal.log",
+    "bytes": 312175,
+    "sha256": "15677fddf32b767be57cf5076d6e6ddb06e7a0897912c7ec5c6d87a5a030f6ce"
+  },
+  {
+    "file": "fresh-opal-srv-logs/polyglot.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "file": "fresh-opal-srv-logs/rest.log",
+    "bytes": 7564462,
+    "sha256": "cba34a01d4cf44600836fda2af57369e96af0b445c404ff4a539ed822c89cdcc"
+  },
+  {
+    "file": "fresh-opal-srv-logs/sql.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "file": "fresh-opal-srv-logs.tgz",
+    "bytes": 417486,
+    "sha256": "f48b6184d6d08ba3341eac76874b38703c58fcbd44440ea227d7e206913b27d4"
+  },
+  {
+    "file": "fresh-opal.log",
+    "bytes": 168563,
+    "sha256": "d57413a3fceb1fea81da89336b6af498f3a5e7eb1a15216b273da9dde393e158"
+  },
+  {
+    "file": "fresh-path.txt",
+    "bytes": 22748,
+    "sha256": "6ee77171c6031720383a4eb824586cb93a6ea9f08629cb2a8c1f43fec0b0fbff"
+  },
+  {
+    "file": "fresh-rock-Rserve-after-restart.log",
+    "bytes": 207451,
+    "sha256": "cbe8dd7be479c62c51d64015fe53835f39acec0de801e0331395392d855cfbf3"
+  },
+  {
+    "file": "fresh-rock-Rserve-before-restart.log",
+    "bytes": 200038,
+    "sha256": "822028cf541ca20b3436981dea84aa9a6e2beee362857906248a78a0d678aa3d"
+  },
+  {
+    "file": "fresh-rock-packages-initial.txt",
+    "bytes": 614,
+    "sha256": "8feed59c2bab0e01e24c2150afedceed8cb6866e422fa8dedcb9f29bae74f556"
+  },
+  {
+    "file": "fresh-rock-srv-logs/Rserve.log",
+    "bytes": 222297,
+    "sha256": "1d28c85ca09558676697e20fec0cad33a58206706f3b21b66c591d73ee390c3a"
+  },
+  {
+    "file": "fresh-rock-srv-logs/rock.log",
+    "bytes": 22641,
+    "sha256": "21308ca89a6340bd6322445cd31f4074592d9a69723475e78787e9279944e54f"
+  },
+  {
+    "file": "fresh-rock-srv-logs.tgz",
+    "bytes": 18074,
+    "sha256": "69bc4837b951181bef2e99151527b2c3195149f1735f59d66c8c7961a08dc090"
+  },
+  {
+    "file": "fresh-rock.log",
+    "bytes": 1456,
+    "sha256": "ea82e67a5bfaa60bdc61b0a087925d6c538abe079dcd401f0ebb7307219ce9a7"
+  },
+  {
+    "file": "fresh-scenario-C.txt",
+    "bytes": 5545,
+    "sha256": "747610e46d9c5359ee7fe2eb4fd5a0d37403241f169aa76f4bc120897eff079a"
+  },
+  {
+    "file": "fresh-scenario-D.txt",
+    "bytes": 16995,
+    "sha256": "c63dc7b228511b5eeb41fcbf27817733fc29af5e7481a16166e3ee675acb0847"
+  },
+  {
+    "file": "fresh-scenario-E.txt",
+    "bytes": 51243,
+    "sha256": "96e512be9bc51de4efa163a9cf4869cb5a908e0129ff02605ff7db7a3bf455cb"
+  },
+  {
+    "file": "fresh-scenario-F.txt",
+    "bytes": 5563,
+    "sha256": "543448c05bf0e15a6aff1acb63a0e246b3f1912b38e3c784a244361bc05a98cc"
+  },
+  {
+    "file": "fresh-scenario-G-old.txt",
+    "bytes": 10158,
+    "sha256": "fd96a5af3ba4cd80ed87b1d9d49499d9382f43d88f67a3c87a5f5dc5f6f1759c"
+  },
+  {
+    "file": "fresh-scenario-G.txt",
+    "bytes": 351064,
+    "sha256": "90a3dae446401f8200361efbf35174461d3035cc8bc46c907d5c2e83c65f74bd"
+  },
+  {
+    "file": "fresh-steps.log",
+    "bytes": 583462,
+    "sha256": "0d45d6964b2eb9b9bca83c7b8e12612be7fe5786ca7d54f50a0b198c824d741e"
+  },
+  {
+    "file": "fresh-summary.txt",
+    "bytes": 38796,
+    "sha256": "1b65760718ed18f4ee2623c92d5480c058140fb4b4fc45d50d64dbcd6afc3f95"
+  },
+  {
+    "file": "upgrade-G-audit-lines.txt",
+    "bytes": 116128,
+    "sha256": "20f5ffa3cdc7f11c45e469571e9cfd500abade69d72e1a87c95dd5af4f058c51"
+  },
+  {
+    "file": "upgrade-G-old-verdicts.csv",
+    "bytes": 5583,
+    "sha256": "3bdb7f6897bbf78f1dd005a9d53b196b7448c9fee7be7aab98334b85324c2b6b"
+  },
+  {
+    "file": "upgrade-G-verdicts.csv",
+    "bytes": 29533,
+    "sha256": "2ff9f027392947bb42081db20ba404487c448d963b9dbaa3a896e6433620e967"
+  },
+  {
+    "file": "upgrade-G16-plans-gibleed.txt",
+    "bytes": 989,
+    "sha256": "2d47e5fd7039e15b25013b468fb1160576fd4d840c9dc072c61a753c2a09b674"
+  },
+  {
+    "file": "upgrade-V-verdicts.csv",
+    "bytes": 2140,
+    "sha256": "1a4c0c31dd843e1fda0895102de577ec0af008a9088ebff83fe0606f16704637"
+  },
+  {
+    "file": "upgrade-admin-setup.txt",
+    "bytes": 5821,
+    "sha256": "d363e35ae0248b5b1ccce41a5a82fda6c5e7976b3aedcccda9d342e0af7055c4"
+  },
+  {
+    "file": "upgrade-dp-root-before-upgrade.txt",
+    "bytes": 339,
+    "sha256": "ea7744beecd6e4163027633e258111443c2cf72f9b224958c9ae296639937a0c"
+  },
+  {
+    "file": "upgrade-omopdb-load.txt",
+    "bytes": 4507,
+    "sha256": "2d2718bb05ec3c80b23965b71d3d0cce1f53c5c7cee5f95e5773aa7f6a927fb1"
+  },
+  {
+    "file": "upgrade-opal-srv-logs/datashield.log",
+    "bytes": 2184138,
+    "sha256": "c63c040708a67d138bb0181dd4f4dd93b64b3fe3016f2db76b56d5b728d01081"
+  },
+  {
+    "file": "upgrade-opal-srv-logs/opal.log",
+    "bytes": 291381,
+    "sha256": "695c71c50818128be11823cacd59ff708b301a4e16770839b00a2b5f8f9f677f"
+  },
+  {
+    "file": "upgrade-opal-srv-logs/polyglot.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "file": "upgrade-opal-srv-logs/rest.log",
+    "bytes": 6873212,
+    "sha256": "d9c9c713ded569715622ee4e443c9628ddbea00de3ac7ac4090eea087a2013c3"
+  },
+  {
+    "file": "upgrade-opal-srv-logs/sql.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "file": "upgrade-opal-srv-logs.tgz",
+    "bytes": 371850,
+    "sha256": "04891ea6ae3fa95b9dcd4538cb566ba190463206ce00ddde2f0fecf95ac20188"
+  },
+  {
+    "file": "upgrade-opal.log",
+    "bytes": 152423,
+    "sha256": "a6a94214d7b37ce88308f8195462cc7b5d69481c32f850163fa5256f51fe647a"
+  },
+  {
+    "file": "upgrade-path.txt",
+    "bytes": 46523,
+    "sha256": "71c8909bfae84dbb12e8be6a0bb69ebc20f04110204e348ff912512d9b1c8c36"
+  },
+  {
+    "file": "upgrade-rock-Rserve-after-restart.log",
+    "bytes": 186030,
+    "sha256": "b201abb8be347cbc2b7bbdad672b21030dc017babd7f9f485265e779f00e000d"
+  },
+  {
+    "file": "upgrade-rock-Rserve-before-restart.log",
+    "bytes": 178617,
+    "sha256": "00299d9ddff40af5b34dd34546a5c0fa63a24bb8923ca15d0865726e8bf1f5fa"
+  },
+  {
+    "file": "upgrade-rock-packages-initial.txt",
+    "bytes": 614,
+    "sha256": "8feed59c2bab0e01e24c2150afedceed8cb6866e422fa8dedcb9f29bae74f556"
+  },
+  {
+    "file": "upgrade-rock-srv-logs/Rserve.log",
+    "bytes": 194751,
+    "sha256": "a9bfc09b807e06ec2eba5945de757b91b0fbd1ed356057549ec896acfe71189d"
+  },
+  {
+    "file": "upgrade-rock-srv-logs/rock.log",
+    "bytes": 21595,
+    "sha256": "7b7b20c42a22fd69d78ec261c1e67dfc100b5f9254cd67baa7855847e260a9e0"
+  },
+  {
+    "file": "upgrade-rock-srv-logs.tgz",
+    "bytes": 15588,
+    "sha256": "dcb903f9b7f4832dfc4edf5b04d34c877c648375012c08a87ff9719bd8561651"
+  },
+  {
+    "file": "upgrade-rock.log",
+    "bytes": 1456,
+    "sha256": "ea82e67a5bfaa60bdc61b0a087925d6c538abe079dcd401f0ebb7307219ce9a7"
+  },
+  {
+    "file": "upgrade-scenario-C.txt",
+    "bytes": 5555,
+    "sha256": "f42e887e2738447f17232564e9afbc82ee9091c8a7cd2b7983273fc1d40092da"
+  },
+  {
+    "file": "upgrade-scenario-G-old.txt",
+    "bytes": 10184,
+    "sha256": "a1a69962ac5ab649e1ad5df0e29a50995df70a0dbf247b94a3b7af9d2840fa77"
+  },
+  {
+    "file": "upgrade-scenario-G.txt",
+    "bytes": 349248,
+    "sha256": "05a7fe01310f8972cb9c19deca40b290932e299ab762c44588fb50d0830b58be"
+  },
+  {
+    "file": "upgrade-steps.log",
+    "bytes": 533888,
+    "sha256": "3dcedd3dcb89666fae2122927b5e06919559a7fa044f63a88788f6c768e20be9"
+  },
+  {
+    "file": "upgrade-summary.txt",
+    "bytes": 38084,
+    "sha256": "3aaf7164e489dfbaf96975069946b426c15b4570f066a77d2a2463fa1300a22e"
+  }
+]
