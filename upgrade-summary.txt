@@ -1,0 +1,18 @@
+[upgrade] Opal 5.7.6: allowRPackageManagement on a fresh Opal = FALSE; after the administrator enables it = TRUE
+[upgrade] O10 methods and Options republished: declared 59 agg + 14 assign; published 59 agg + 14 assign (version 2.10.3; installed 2.10.3); missing 0; wrong type 0; extra 0; wrong function 0; not exported 0; options 36 declared, missing 0, different 0
+O1: PASS
+O2: FAIL The input object must be a factor.
+O3: FAIL [Client error: (400) Bad Request] Error while evaluating 'source("/tmp/o-harness/server.R"); o_server_check("acceptance2", plan_override = NULL)' -> Error in get(resource_symbol, envir = session_env, inherits = FALSE) : 
+  object 'ores' not found
+
+O4: PASS
+O5: FAIL Concept-factor recoding failed or was incomplete on: other, good. Execution-owned artifacts were revoked and removed.
+O6: PASS
+O7: FAIL [Client error: (400) Bad Request] Error while evaluating 'source("/tmp/o-harness/server.R"); o_server_check("matching", plan_override = NULL)' -> Error in get(resource_symbol, envir = session_env, inherits = FALSE) : 
+  object 'ores' not found
+
+O8: FAIL Selected servers share a DP noise domain; refusing a duplicate federated release from one logical privacy node.
+O9: FAIL v1-equivalent runtime regressed >25%
+O10: FAIL upgraded O1-O3 failed
+O11: FAIL aggregate birth admission relaxed
+O12: PASS
