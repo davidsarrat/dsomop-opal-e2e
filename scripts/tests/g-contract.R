@@ -1,5 +1,22 @@
 # Targeted harness regressions: Rscript scripts/tests/g-contract.R
 source("scripts/g_contract.R")
+local({
+  # Replay the upgrade run's zero protected comparator time and NA MDRR.
+  frame <- data.frame(arm = c("target", "comparator"), persons = c(1867, 845),
+                      person_days = c(634618, 0), outcomes = c(377, 114), mdrr = NA_real_)
+  attr(frame, "dsomop_protection") <- list(protection = "realised_sticky")
+  stopifnot(!g_has_unavailable_reason(frame))
+  frame$unavailable_reason <- c(NA_character_, " ")
+  attr(frame, "dsomop_protection")$note <- "an unrelated unavailable field"
+  stopifnot(!g_has_unavailable_reason(frame))
+  attr(frame, "dsomop_protection")$unavailable_reason <- "The protected MDRR is unavailable."
+  stopifnot(g_has_unavailable_reason(frame),
+            !g_has_unavailable_reason(frame[FALSE, ]),
+            !g_has_unavailable_reason(NULL))
+  attr(frame, "dsomop_protection") <- NULL
+  frame$unavailable_reason <- "Protected components do not support the estimate."
+  stopifnot(g_has_unavailable_reason(frame))
+})
 stopifnot(identical(g_status_call(), quote(omopDpStatusDS("dsomop-protected-release-v1"))))
 r <- list(ok = TRUE, value = list(pooled = data.frame(estimate = NA_real_,
                               estimate_fixed = 1.4, estimate_random = 1.4)))

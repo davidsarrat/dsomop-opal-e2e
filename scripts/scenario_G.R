@@ -501,7 +501,7 @@ section("G10", "one protected route per family on GiBleed: finite or a stable un
     cols <- if (is.data.frame(df)) intersect(f$main, names(df)) else character(0)
     finite <- if (length(cols)) any(vapply(cols, function(cn) any(is.finite(suppressWarnings(as.numeric(df[[cn]])))), logical(1))) else FALSE
     lab_txt <- if (!is.null(df)) canon(attr(df, "dsomop_protection", exact = TRUE)) else ""
-    reason <- is.data.frame(df) && (any(grepl("unavailable|withheld|reason", names(df))) || grepl("unavailable|withheld", lab_txt))
+    reason <- g_has_unavailable_reason(df)
     label_ok <- is.null(f$label) || grepl(f$label, lab_txt, ignore.case = TRUE)
     status <- if (!r$ok || !r1$ok) "FAIL" else if (!stable || !label_ok) "FAIL" else if (finite || reason) "PASS" else "FAIL"
     verdict(paste0("G10 ", k), status, sprintf("%s: a finite protected result or a stable unavailable row, labelled as asked", f$id),

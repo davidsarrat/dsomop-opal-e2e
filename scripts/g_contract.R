@@ -50,6 +50,18 @@ g_component_changes <- function(a, b) {
 }
 g_measurement_params <- function() list(concept_id = "3004410")
 
+# An unavailable result needs an actual explanation, not merely a column name
+# or an unrelated mention of "unavailable" somewhere in its metadata.
+g_has_unavailable_reason <- function(frame) {
+  if (!is.data.frame(frame) || !nrow(frame)) return(FALSE)
+  fields <- c("unavailable_reason", "withheld_reason", "masked_reason", "reason")
+  label <- attr(frame, "dsomop_protection", exact = TRUE)
+  nonempty <- function(x) is.character(x) && any(!is.na(x) & nzchar(trimws(x)))
+  any(vapply(c(frame[intersect(fields, names(frame))],
+               if (is.list(label)) label[intersect(fields, names(label))]),
+             nonempty, logical(1L)))
+}
+
 # Several client discovery/read helpers return partial results with ds_errors
 # instead of throwing. A method audit must not count these calls as PASS.
 g_check_site_errors <- function(result) {
