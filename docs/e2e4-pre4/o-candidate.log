@@ -1,0 +1,7 @@
+test_integrated_checkout (__main__.CandidateTests.test_integrated_checkout) ... ok
+test_mismatch_old_and_incomplete_candidates (__main__.CandidateTests.test_mismatch_old_and_incomplete_candidates) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.011s
+
+OK

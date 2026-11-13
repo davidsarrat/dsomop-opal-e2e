@@ -1,0 +1,83 @@
+{
+  "harness_base": "27478a56ac2e4abfc4086427c16cc0ee4dc3408b",
+  "tested_harness": "13de084fe700af4bd816e707bb451a220f869b10",
+  "failure_logs": {
+    "43472800948-failed.log": {
+      "bytes": 599595,
+      "sha256": "064ac8886073c6f792e752bcf2d31f67919217622099e87bbb507cd321ae3019",
+      "json_decode_errors": [
+        {
+          "job": "opal (5.7.6, upgrade)",
+          "step": "Pinned Opal and Rock",
+          "line": 857
+        },
+        {
+          "job": "opal (6.1.3, upgrade)",
+          "step": "Pinned Opal and Rock",
+          "line": 1887
+        },
+        {
+          "job": "opal (5.7.6, fresh)",
+          "step": "Pinned Opal and Rock",
+          "line": 2958
+        },
+        {
+          "job": "opal (6.1.3, fresh)",
+          "step": "Pinned Opal and Rock",
+          "line": 4002
+        }
+      ]
+    },
+    "43472806671-failed.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "json_decode_errors": []
+    }
+  },
+  "results": {
+    "res/43472806671-fresh-candidate": {
+      "commit": "075e49cf874f3dc0390657468be5dc11bda0b925",
+      "verdicts": {
+        "fresh-G-old-verdicts.csv": {
+          "PASS": 10
+        },
+        "fresh-G-verdicts.csv": {
+          "INFO": 12,
+          "PASS": 88
+        }
+      }
+    },
+    "res/43472806671-upgrade-candidate": {
+      "commit": "24e8704e61ed0574c35cfdb36c455c9ae537c3d5",
+      "verdicts": {
+        "upgrade-G-old-verdicts.csv": {
+          "PASS": 10
+        },
+        "upgrade-G-verdicts.csv": {
+          "INFO": 15,
+          "PASS": 90
+        },
+        "upgrade-V-verdicts.csv": {
+          "PASS": 3,
+          "INFO": 2
+        }
+      }
+    }
+  },
+  "product": {
+    "dsOMOP": {
+      "commit": "22c7ef57fc8e17b3109af611883b8782cd5c1d6b",
+      "branch": "feat/2.10.3",
+      "status": "",
+      "vendored_files_compared": 663,
+      "mismatches": []
+    },
+    "dsOMOPClient": {
+      "commit": "30a9794b4fe30c7b04f30390686157bf67ff4a63",
+      "branch": "feat/2.10.3",
+      "status": "",
+      "vendored_files_compared": 198,
+      "mismatches": []
+    }
+  }
+}
