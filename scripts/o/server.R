@@ -114,6 +114,23 @@ o_server_check <- function(name, plan_override = NULL) {
     }
     r <- o_execute(a$plan, h); on.exit(o_revoke(r), add = TRUE, after = FALSE)
     o_compare(r, a$expected, h)
+    if (name == "acceptance1") {
+      frame <- r$frames[[1L]]
+      stopifnot(is.factor(frame$sex), identical(levels(frame$sex), c("F", "M")))
+      staged <- o_execute(a$plan, h, "staged")
+      on.exit(o_revoke(staged), add = TRUE, after = FALSE)
+      for (component in names(r$frames)) {
+        chunks <- list()
+        o_ns(".publishReadChunks")(staged$frames[[component]], function(x) chunks[[length(chunks)+1L]] <<- x)
+        restored <- do.call(rbind, chunks)
+        memory <- r$frames[[component]]
+        for (col in names(memory)[vapply(memory, is.factor, TRUE)]) {
+          stopifnot(is.factor(restored[[col]]), identical(is.ordered(restored[[col]]), is.ordered(memory[[col]])),
+            identical(levels(restored[[col]]), levels(memory[[col]])),
+            identical(as.character(restored[[col]]), as.character(memory[[col]])))
+        }
+      }
+    }
   } else if (name == "staged") {
     for (n in c(7, 9)) {
       a <- o_plan(n); r <- o_execute(a$plan, h, "staged")
