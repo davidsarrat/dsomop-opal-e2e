@@ -1,0 +1,26 @@
+Aggregate  (cost=92.41..92.42 rows=1 width=12) (actual rows=1 loops=1)
+  Buffers: shared hit=52
+  ->  Seq Scan on person  (cost=0.00..78.94 rows=2694 width=4) (actual rows=2694 loops=1)
+        Buffers: shared hit=52
+Planning:
+  Buffers: shared hit=26
+Planning Time: 0.151 ms
+Execution Time: 0.383 ms
+Sort  (cost=232.44..239.17 rows=2694 width=4) (actual rows=2694 loops=1)
+  Sort Key: person_id
+  Sort Method: quicksort  Memory: 97kB
+  Buffers: shared hit=55
+  ->  Seq Scan on person  (cost=0.00..78.94 rows=2694 width=4) (actual rows=2694 loops=1)
+        Buffers: shared hit=52
+Planning:
+  Buffers: shared hit=10
+Planning Time: 0.046 ms
+Execution Time: 0.519 ms
+Aggregate  (cost=1831.98..1831.99 rows=1 width=12) (actual rows=1 loops=1)
+  Buffers: shared hit=852
+  ->  Seq Scan on condition_occurrence  (cost=0.00..1505.32 rows=65332 width=4) (actual rows=65332 loops=1)
+        Buffers: shared hit=852
+Planning:
+  Buffers: shared hit=5
+Planning Time: 0.061 ms
+Execution Time: 5.685 ms
