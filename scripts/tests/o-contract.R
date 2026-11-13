@@ -194,3 +194,14 @@ local({
   stopifnot(identical(calls, c(2L, 1L)), checked)
 })
 cat("PASS: duplicate DP node is refused and a single-node release succeeds\n")
+
+local({
+  o_rows <- get_fn("scripts/o/server.R", "o_rows", environment())
+  numeric <- data.frame(person_id = c("b", "a"), set_id = c(2L, 1L), w = c(1, 0.5))
+  text <- transform(numeric, set_id = as.character(set_id))
+  stopifnot(identical(o_rows(numeric), o_rows(text)),
+    !identical(o_rows(numeric), o_rows(transform(text, set_id = c("3", "1")))),
+    !identical(o_rows(numeric), o_rows(transform(text, w = c(1, 0.6)))),
+    identical(o_rows(data.frame(set_id = "9007199254740993"))$set_id, "9007199254740993"))
+})
+cat("PASS: analytic key comparisons preserve exact identity and numeric measures\n")

@@ -18,6 +18,9 @@ o_error <- function(expr, pattern) {
   invisible(TRUE)
 }
 o_rows <- function(x) {
+  # SQL BIGINT analytic keys arrive as decimal strings; the frozen JSON oracle
+  # uses numbers. Compare key identity exactly without numeric coercion.
+  if ("set_id" %in% names(x)) x$set_id <- as.character(x$set_id)
   x <- as.data.frame(lapply(x, function(v) if (is.factor(v)) as.character(v) else v), stringsAsFactors = FALSE)
   key <- do.call(paste, c(lapply(x, function(v) ifelse(is.na(v), "<NA>", as.character(v))), sep = "\034"))
   x <- x[order(key), , drop = FALSE]; rownames(x) <- NULL
@@ -77,9 +80,12 @@ o_installed_tests <- function(files) {
     descriptions <- vapply(tests, function(x) as.character(x[[2]]), "")
     descriptions <- descriptions[grepl(pattern, descriptions)]
     stopifnot(length(descriptions) > 0L)
-    r <- testthat::test_file(f, env = e, reporter = "silent", desc = descriptions,
-                            load_helpers = FALSE)
-    d <- as.data.frame(r)
+    # desc is one exact (possibly nested) test path, not a regex or a union.
+    selections <- if (identical(pattern, ".*")) list(NULL) else as.list(descriptions)
+    results <- lapply(selections, function(description) as.data.frame(
+      testthat::test_file(f, env = e, reporter = "silent", desc = description,
+                         load_helpers = FALSE)))
+    d <- do.call(rbind, results)
     failed <- d$failed > 0 | d$error | d$skipped
     if (!nrow(d) || any(failed))
       stop("Installed fixture checks failed in ", f, ": ", paste(d$test[failed], collapse = "; "))
@@ -101,6 +107,25 @@ o_installed_tests <- function(files) {
     }
   }
   TRUE
+}
+# Fixture writes commit before calling a public method: that method owns its
+# read transaction. Restore birth values on success AND assertion failure.
+o_with_birth_fixture <- function(h, fn) {
+  person <- as.character(DBI::dbQuoteIdentifier(h$conn, DBI::Id(schema = h$cdm_schema, table = "person")))
+  backup <- as.character(DBI::dbQuoteIdentifier(h$conn, basename(tempfile("o_birth_"))))
+  DBI::dbExecute(h$conn, paste0("CREATE TEMP TABLE ", backup,
+    " AS SELECT person_id, year_of_birth FROM ", person))
+  on.exit(DBI::dbWithTransaction(h$conn, {
+    DBI::dbExecute(h$conn, paste0("UPDATE ", person,
+      " AS p SET year_of_birth=b.year_of_birth FROM ", backup, " AS b WHERE p.person_id=b.person_id"))
+    DBI::dbExecute(h$conn, paste0("DROP TABLE ", backup))
+  }), add = TRUE)
+  DBI::dbWithTransaction(h$conn, {
+    DBI::dbExecute(h$conn, paste0("UPDATE ", person, " SET year_of_birth=1980"))
+    DBI::dbExecute(h$conn, paste0("UPDATE ", person,
+      " SET year_of_birth=2002 WHERE person_id=(SELECT MIN(person_id) FROM ", person, ")"))
+  })
+  fn()
 }
 o_server_check <- function(name, plan_override = NULL) {
   old <- options(nfilter.subset = 5L, dsomop.query_strict = TRUE)
@@ -165,13 +190,16 @@ o_server_check <- function(name, plan_override = NULL) {
     sqlite$person_key <- NULL # discard the synthetic fixture's historical raw key
     for (field in grep("person_key|pseudonym", ls(h), value = TRUE)) sqlite[[field]] <- h[[field]]
     r <- o_execute(a$plan, sqlite); o_compare(r, a$expected, sqlite); o_revoke(r)
-    DBI::dbBegin(h$conn); on.exit(DBI::dbRollback(h$conn), add = TRUE, after = FALSE)
-    for (table in DBI::dbListTables(sqlite$conn)) {
-      id <- DBI::Id(schema = h$cdm_schema, table = table)
-      d <- DBI::dbReadTable(h$conn, id)
-      DBI::dbExecute(h$conn, paste("TRUNCATE TABLE", DBI::dbQuoteIdentifier(h$conn, id)))
-      DBI::dbWriteTable(h$conn, id, d[rev(seq_len(nrow(d))), , drop = FALSE], append = TRUE)
-    }
+    # Reordering keeps the fixture's values unchanged. Finish the write
+    # transaction before the public executor opens its own read snapshot.
+    DBI::dbWithTransaction(h$conn, {
+      for (table in DBI::dbListTables(sqlite$conn)) {
+        id <- DBI::Id(schema = h$cdm_schema, table = table)
+        d <- DBI::dbReadTable(h$conn, id)
+        DBI::dbExecute(h$conn, paste("TRUNCATE TABLE", DBI::dbQuoteIdentifier(h$conn, id)))
+        DBI::dbWriteTable(h$conn, id, d[rev(seq_len(nrow(d))), , drop = FALSE], append = TRUE)
+      }
+    })
     h$blueprint <- NULL
     r <- o_execute(a$plan, h); o_compare(r, a$expected, h); o_revoke(r)
     # Reload all SQLite fixture rows in reverse order, keeping immutable identities.
@@ -220,16 +248,16 @@ o_server_check <- function(name, plan_override = NULL) {
     stopifnot(all(vapply(bands, function(b) length(b) == 2L &&
       as.integer(b[[1]]) %% 10L == 0L && as.integer(b[[2]]) - as.integer(b[[1]]) == 9L, TRUE)))
     # Public requested narrow band: construct a synthetic one-person band on GiBleed.
-    # Transaction rolls back this fixture-only change even when an assertion fails.
-    DBI::dbBegin(h$conn); on.exit(DBI::dbRollback(h$conn), add = TRUE, after = FALSE)
-    DBI::dbExecute(h$conn, "UPDATE cdm.person SET year_of_birth=1980")
-    DBI::dbExecute(h$conn, "UPDATE cdm.person SET year_of_birth=2002 WHERE person_id=(SELECT MIN(person_id) FROM cdm.person)")
-    # Native public API request is constructed by the client and passed by setup in birth-plan.json.
-    p <- jsonlite::fromJSON(file.path(O_HARNESS_ROOT, "birth-plan.json"), simplifyVector = FALSE)
-    r <- o_execute(p, h); on.exit(o_revoke(r), add = TRUE, after = FALSE)
-    x <- r$frames[[1]]
-    stopifnot(sum(as.character(x$age_group) == "18-18", na.rm = TRUE) == 1L,
-              all(c("year_of_birth", "month_of_birth", "birth_datetime", "age") %in% names(x)))
+    # Restore this fixture-only change even when an assertion fails; the
+    # public executor must be free to own its read transaction.
+    o_with_birth_fixture(h, function() {
+      p <- if (is.null(plan_override)) jsonlite::fromJSON(
+        file.path(O_HARNESS_ROOT, "birth-plan.json"), simplifyVector = FALSE) else plan_override
+      r <- o_execute(p, h); on.exit(o_revoke(r), add = TRUE)
+      x <- r$frames[[1]]
+      stopifnot(sum(as.character(x$age_group) == "18-18", na.rm = TRUE) == 1L,
+                all(c("year_of_birth", "month_of_birth", "birth_datetime", "age") %in% names(x)))
+    })
   } else stop("unknown administrator check: ", name)
   TRUE
 }

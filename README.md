@@ -75,6 +75,18 @@ PyYAML; workflow failure paths with Docker/R/git stand-ins), and
 `python3 scripts/tests/o-candidate.py`. These checks never start containers or
 push branches and do not certify O1–O12 on real Opal.
 
+`scripts/tests/o-installed.R` exercises the administrator helpers against the
+installed candidate and a disposable PostgreSQL/SQLite reach fixture on the
+R test pod. It requires `DSOMOP_O_SOURCE` (candidate source with tests and
+acceptance fixtures) and `DSOMOP_O_HARNESS` (`scripts/o`), plus installed matching
+server/client packages. It checks the simple-layer oracle, survival, staging,
+matching and selected installed publisher/aggregate tests. Fixture sources are
+read in place; no write access to the Docker-copied source tree is required.
+Oracle comparisons resolve keys through the installed provider without storing
+raw keys on production handles. Administrator failures return concise error
+messages so a serialized plan cannot hide the assertion in Opal's error wrapper.
+The old-client workflow step still runs after scenario failures if setup passed.
+
 | Scenario | Executed assertions |
 |---|---|
 | O1 | Actual installed/published version, language 2, required operations, dialect fields. |
@@ -103,7 +115,9 @@ The reach fixture is exported using the frozen loader, with its signature
 compared to SQLite. A separate cohort 909 gives ten persons in `o_reach` and
 four in `o_small`; unrelated roots still qualify. The 10k fixture uses the same
 public deterministic generator. O11 temporarily changes public synthetic
-GiBleed births inside a rolled-back database transaction. Test options and
+GiBleed births with committed fixture writes, then restores the original births
+on both success and assertion failure. Fixture writes finish before the public
+executor opens its own read snapshot; O7 similarly commits its row reorder first. Test options and
 failure injection are harness-only; this is not a production deployment recipe.
 
 `matching_oracle.R` is the WS-0 SQL/base-R reference sampler with only its seed
