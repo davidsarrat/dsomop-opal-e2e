@@ -47,6 +47,8 @@ for p in sorted(base.rglob('*')):
         if l.startswith('SUMMARY ') or (l.startswith('[') and 'summary' not in rel): continue
         # The old-server refusal has its reason on the following log line.
         context=l+' '+(' '.join(lines[i:i+2]) if l.rstrip().endswith(':') else '')
+        if l.startswith('Error : Disclosive:'):
+            context += ' ' + ' '.join(lines[max(0,i-4):i-1])
         if l.startswith('{'):
             event = json.loads(l)
             stamp = datetime.datetime.strptime(event['@timestamp'][:23], '%Y-%m-%dT%H:%M:%S.%f')
