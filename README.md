@@ -1,7 +1,8 @@
 # dsOMOP on a real Opal, end to end
 
-Private harness. Two manual workflows; results come back as `results/<run>-<path>-<mode>` (e2e) and
-`results/<run>-vendor-candidate` (vendor) branches, plus the job summary.
+Private harness. Three manual workflows; results come back as `results/<run>-<path>-<mode>` (e2e),
+`results/<run>-vendor-candidate` (vendor), and
+`results/<run>-<attempt>-opal-<version>-<path>-candidate` (Opal contract) branches.
 
 **`e2e.yml` (`dsomop-opal-e2e`)** brings up an easy-opal stack (Opal, Rock, MongoDB, nginx) on a GitHub runner, a
 PostgreSQL OMOP CDM (OHDSI Eunomia GiBleed, CDM 5.3) on the stack's network, and runs:
@@ -52,8 +53,27 @@ versions must match and be at least 2.10.3; the preflight also requires native
 normalizer/label sources. Runtime O1 still checks language operations and publication;
 the source archive must include tests/fixtures and the frozen acceptance corpus.
 The coordinator commits/pushes the candidate and dispatches
-`opal-contract.yml`. WS-10 never pushes. This workflow uploads artifacts and
-has read-only repository permissions; it does not publish a results branch.
+`opal-contract.yml`. WS-10 never pushes. The workflow has repository contents
+write permission and publishes a separate results branch for every matrix job
+and rerun attempt, including jobs that fail during startup or installation.
+Evidence includes step outcomes in `workflow-status.json`, command output,
+container logs, image digests and the last HTTP readiness responses. The status
+snapshot precedes publication and stack removal; it is not the final GitHub job
+conclusion. Per-run passwords and tokens are redacted before publishing or
+uploading. Artifact upload is an independent fallback if branch publication fails.
+
+Bootstrap waits for an exact plain-text Opal version and a running server in the
+default R cluster. Each endpoint gets up to 90 attempts with five-second pauses;
+each HTTP request has a five-second connection timeout and a 15-second total
+timeout. Startup transport errors, non-200 statuses and malformed bodies retry;
+a well-formed different version fails immediately. No stack environment is
+exported on readiness failure. The pins and scenario assertions are unchanged.
+
+Targeted harness checks: `python3 scripts/tests/o-stack.py` (local HTTP server,
+real curl, Docker stand-in), `python3 scripts/tests/o-results.py` (requires
+PyYAML; workflow failure paths with Docker/R/git stand-ins), and
+`python3 scripts/tests/o-candidate.py`. These checks never start containers or
+push branches and do not certify O1–O12 on real Opal.
 
 | Scenario | Executed assertions |
 |---|---|

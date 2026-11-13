@@ -2,11 +2,14 @@ name: dsomop-2.10.4-opal-contract
 on:
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   opal:
     runs-on: ubuntu-24.04
     timeout-minutes: 150
+    defaults:
+      run:
+        shell: bash
     strategy:
       fail-fast: false
       matrix:
@@ -27,9 +30,10 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v7.0.1
+        id: checkout
       - name: Require a coordinated native-language candidate
+        id: candidate
         run: |
-          python3 scripts/o/check_candidate.py
           mkdir -p "$OUT"
           df -h .
           for v in OPAL_ADMIN_PW ANALYST_PW ANALYST2_PW OMOPDB_PW READER_PW; do
@@ -37,45 +41,59 @@ jobs:
             echo "::add-mask::$p"
             echo "$v=$p" >> "$GITHUB_ENV"
           done
+          python3 scripts/o/check_candidate.py 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Pinned Opal and Rock
-        run: bash scripts/o/stack.sh
+        id: stack
+        run: bash scripts/o/stack.sh 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - uses: r-lib/actions/setup-r@v2
+        id: setup_r
         with:
           r-version: release
           use-public-rspm: true
       - name: Install client and fixture dependencies
+        id: dependencies
         run: |
-          Rscript scripts/install_r.R
-          Rscript -e 'install.packages(c("dsBaseClient", "RSQLite", "RPostgres", "testthat"))'
+          Rscript scripts/install_r.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
+          Rscript -e 'install.packages(c("dsBaseClient", "RSQLite", "RPostgres", "testthat"))' 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Load GiBleed and create resources
+        id: resources
         run: |
-          bash scripts/omopdb.sh
-          Rscript scripts/admin_setup.R
+          bash scripts/omopdb.sh 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
+          Rscript scripts/admin_setup.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Copy administrator-only fixture scripts
+        id: fixtures
         run: |
-          docker cp pkgs/dsOMOP "$ROCK:/tmp/o-server-source"
-          docker cp scripts/o "$ROCK:/tmp/o-harness"
+          docker cp pkgs/dsOMOP "$ROCK:/tmp/o-server-source" 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
+          docker cp scripts/o "$ROCK:/tmp/o-harness" 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Fresh or upgrade path; old-server negotiation before upgrade
-        run: Rscript scripts/o/install.R
+        id: install
+        run: Rscript scripts/o/install.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Export frozen reach fixtures and install runtime probes
-        run: |
-          Rscript scripts/o/setup.R
+        id: probes
+        run: Rscript scripts/o/setup.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Scenarios O1 through O12
-        run: Rscript scripts/o/run.R
+        id: scenarios
+        run: Rscript scripts/o/run.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Old client against new server (O6)
+        id: old_client
         run: |
-          Rscript -e 'remotes::install_github("isglobal-brge/dsOMOPClient", ref="2.10.1", lib="/tmp/o-old-client", upgrade="never")'
-          R_LIBS=/tmp/o-old-client Rscript scripts/o/old_client.R
+          Rscript -e 'remotes::install_github("isglobal-brge/dsOMOPClient", ref="2.10.1", lib="/tmp/o-old-client", upgrade="never")' 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
+          R_LIBS=/tmp/o-old-client Rscript scripts/o/old_client.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Runtime evidence and logs
+        id: evidence
         if: always()
-        run: |
-          docker logs "$STACK-rock" > "$OUT/rock.log" 2>&1 || true
-          docker logs "$STACK-opal" > "$OUT/opal.log" 2>&1 || true
-          for v in "$OPAL_ADMIN_PW" "$ANALYST_PW" "$ANALYST2_PW" "$OMOPDB_PW" "$READER_PW"; do
-            { grep -rlF -- "$v" "$OUT" || true; } | xargs -r sed -i "s/$v/***/g"
-          done
+        env:
+          JOB_STATUS: ${{ job.status }}
+          STEPS_JSON: ${{ toJSON(steps) }}
+        run: python3 scripts/o/results.py
+      - name: Results to a branch (including failed jobs)
+        if: always() && steps.evidence.outcome == 'success'
+        timeout-minutes: 5
+        run: bash scripts/o/publish-results.sh
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && steps.evidence.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 4
         with:
           name: opal-${{ matrix.opal }}-${{ matrix.path }}
           path: out/
