@@ -125,7 +125,18 @@ local({
   scenario <- paste(readLines("scripts/scenario_D.R"), collapse = "\n")
   stopifnot(grepl('ds.omop.analysis.run("dsomop:achilles.3",', scenario, fixed = TRUE),
             grepl('ds.omop.ohdsi.summary("cohort_diagnostics",', scenario, fixed = TRUE),
-            grepl('ds.omop.cohort.definition(100,', scenario, fixed = TRUE),
-            !grepl('ds.omop.cohort.definition(1,', scenario, fixed = TRUE))
+            grepl('absent fixture; expected refusal', scenario, fixed = TRUE),
+            grepl('g_check_site_errors(capture(client, expr))', scenario, fixed = TRUE))
 })
 cat("Scenario D positive fixture selection regressions passed\n")
+
+local({
+  r <- list(ok = TRUE, value = list(Ethiopia = data.frame(n = 10)), secs = 0.1)
+  stopifnot(identical(g_check_site_errors(r), r))
+  attr(r$value, "ds_errors") <- list(Small = "Cohort definition 1 not found.")
+  checked <- g_check_site_errors(r)
+  stopifnot(!checked$ok, grepl("not found", checked$error), identical(checked$value, r$value))
+  failed <- list(ok = FALSE, error = "transport failed")
+  stopifnot(identical(g_check_site_errors(failed), failed))
+})
+cat("Partial client errors cannot pass the method audit\n")

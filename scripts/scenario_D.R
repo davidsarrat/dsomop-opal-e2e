@@ -1,6 +1,7 @@
 # Scenario D: every DataSHIELD method dsOMOP declares, exercised through dsOMOPClient as the non-admin analyst on a
 # real Opal; Opal's own DataSHIELD log says which server functions actually ran.
 source("scripts/common.R")
+source("scripts/g_contract.R")
 suppressPackageStartupMessages(library(dsOMOPClient))
 start_log("scenario-D")
 res <- if (identical(MODE, "candidate")) "omop_data.gibleed" else "omop_data.gibleed_tls_disable"
@@ -20,7 +21,7 @@ note <- function(methods, client, r) {
     stringsAsFactors = FALSE)
 }
 step <- function(methods, client, expr) {
-  r <- capture(client, expr)
+  r <- g_check_site_errors(capture(client, expr))
   if (!r$ok) ds_errors()
   note(methods, client, r)
   invisible(r)
@@ -86,11 +87,14 @@ if (con$ok) {
 
   # Cohorts.
   step("omopCohortListDS", "ds.omop.cohort.list", ds.omop.cohort.list(symbol = S, conns = conns))
+  # Temporary cohort creation writes membership only, not a persisted
+  # cohort_definition. GiBleed has no supported definition fixture: exercise
+  # the expected absent-definition refusal and report REFUSED, never PASS.
+  step("omopCohortGetDefinitionDS", "ds.omop.cohort.definition (absent fixture; expected refusal)",
+       ds.omop.cohort.definition(1, symbol = S, conns = conns))
   c1 <- step("omopCohortCreateDS", "ds.omop.cohort.create (condition)",
              ds.omop.cohort.create(spec = list(type = "condition", concept_set = c(192671)), cohort_id = 100,
                                    name = "gi_bleed", mode = "temporary", symbol = S, conns = conns))
-  if (c1$ok) step("omopCohortGetDefinitionDS", "ds.omop.cohort.definition (created cohort)",
-                  ds.omop.cohort.definition(100, symbol = S, conns = conns))
   c2 <- step("omopCohortCreateDS", "ds.omop.cohort.create (drug)",
              ds.omop.cohort.create(spec = list(type = "drug", concept_set = c(1118084)), cohort_id = 101,
                                    name = "celecoxib", mode = "temporary", symbol = S, conns = conns))

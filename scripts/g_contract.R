@@ -49,3 +49,14 @@ g_component_changes <- function(a, b) {
   c(cells = length(a), changed = sum(a != b))
 }
 g_measurement_params <- function() list(concept_id = "3004410")
+
+# Several client discovery/read helpers return partial results with ds_errors
+# instead of throwing. A method audit must not count these calls as PASS.
+g_check_site_errors <- function(result) {
+  errors <- if (isTRUE(result$ok)) attr(result$value, "ds_errors", exact = TRUE) else NULL
+  if (length(errors)) {
+    result$ok <- FALSE
+    result$error <- paste(unlist(errors, use.names = TRUE), collapse = " | ")
+  }
+  result
+}

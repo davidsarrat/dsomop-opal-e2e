@@ -12,7 +12,7 @@ def classification(text, file):
     if 'Unknown tool_id' in text:
         return 'harness defect', 'H-tool', 'scenario D supplies an invalid tool ID; use cohort_diagnostics'
     if 'Cohort definition 1 not found' in text:
-        return 'harness defect', 'H-cohort', 'scenario D requests an absent definition; read its created cohort 100'
+        return 'harness defect', 'H-cohort', 'absent-definition control was reported PASS; label it and honor client ds_errors'
     if 'condition.duration_stats' in text or ('Disclosive:' in text and 'scenario-D' in file):
         return 'harness defect', 'H-positive', 'positive D aggregate fixture lacks support; use supported achilles.3'
     if 'achilles_results' in text or 'physical OHDSI result contract' in text:
@@ -55,9 +55,9 @@ for p in sorted(base.rglob('*')):
             if abs((nearest[0]-stamp).total_seconds()) < 2:
                 context += ' '+nearest[1]
         cat,code,why=classification(context,rel)
-        rows.append(dict(file=rel,line=i,classification=cat,finding=code,reason=why,evidence=l))
+        rows.append(dict(file=rel,line=i,classification=cat,finding=code,reason=why,evidence=l.rstrip()))
 with (out/'all-errors.csv').open('w') as f:
-    w=csv.DictWriter(f,fieldnames=['file','line','classification','finding','reason','evidence']);w.writeheader();w.writerows(rows)
+    w=csv.DictWriter(f,fieldnames=['file','line','classification','finding','reason','evidence'],lineterminator='\n');w.writeheader();w.writerows(rows)
 (out/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
 unknown=[r for r in rows if r['classification']=='UNCLASSIFIED']
 print('Indexed',len(rows),'error/failure headings;',len(unknown),'unclassified')
