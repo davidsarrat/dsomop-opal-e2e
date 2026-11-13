@@ -46,7 +46,7 @@ o_compare <- function(run, oracle, handle) {
     stopifnot(is.data.frame(actual), setequal(names(actual), spec$released_columns))
     expected <- spec$rows
     public <- attr(actual, "dsomop_pseudonymization", exact = TRUE)
-    tokens <- o_ns(".pseudonymizeIdentifiers")(data.frame(person_id = expected$person_id), handle$person_key, public)
+    tokens <- o_ns(".pseudonymizeIdentifiers")(data.frame(person_id = expected$person_id), o_ns(".personKey")(handle), public)
     expected$person_id <- tokens$person_id
     cols <- unique(c("person_id", spec$comparison_columns))
     # Compare complete multisets per genuine person, preserving repeated rows.
@@ -69,16 +69,21 @@ o_installed_tests <- function(files) {
       "test-ohdsi-results.R" = "public OHDSI endpoint rejects raw CDM",
       "test-analysis-catalog.R" = "external aggregate firewall",
       ".*")
-    expressions <- parse(f)
-    selected <- Filter(function(x) !is.call(x) || !identical(x[[1]], as.name("test_that")) ||
-      grepl(pattern, as.character(x[[2]])), as.list(expressions))
-    stopifnot(any(vapply(selected, function(x) is.call(x) && identical(x[[1]], as.name("test_that")), TRUE)))
-    tmp <- tempfile("test-o-selected-", tmpdir = getwd(), fileext = ".R")
-    writeLines(unlist(lapply(selected, deparse)), tmp)
-    r <- testthat::test_file(tmp, env = e, reporter = "silent")
-    unlink(tmp)
+    # Docker-copied fixtures are read-only to Rock. Let testthat select the
+    # descriptions in place; retain the original cwd for test_path() fixtures.
+    # Only the three explicit helpers above belong in this installed-code probe.
+    tests <- Filter(function(x) is.call(x) && identical(x[[1]], as.name("test_that")),
+                    as.list(parse(f)))
+    descriptions <- vapply(tests, function(x) as.character(x[[2]]), "")
+    descriptions <- descriptions[grepl(pattern, descriptions)]
+    stopifnot(length(descriptions) > 0L)
+    r <- testthat::test_file(f, env = e, reporter = "silent", desc = descriptions,
+                            load_helpers = FALSE)
     d <- as.data.frame(r)
-    stopifnot(nrow(d) > 0L, sum(d$failed) == 0, !any(d$error), !any(d$skipped))
+    failed <- d$failed > 0 | d$error | d$skipped
+    if (!nrow(d) || any(failed))
+      stop("Installed fixture checks failed in ", f, ": ", paste(d$test[failed], collapse = "; "))
+    cat("Installed checks:", f, "tests=", nrow(d), "assertions=", sum(d$passed), "\n")
   }
   if ("test-analysis-catalog.R" %in% files) {
     for (field in c("year_of_birth", "month_of_birth", "birth_datetime")) {
@@ -157,6 +162,7 @@ o_server_check <- function(name, plan_override = NULL) {
     e <- o_fixture_env(); sqlite <- e$build_extended_reach_handle(100L)
     on.exit(DBI::dbDisconnect(sqlite$conn), add = TRUE, after = FALSE)
     # Same public key contract makes cross-dialect fixture identity comparable.
+    sqlite$person_key <- NULL # discard the synthetic fixture's historical raw key
     for (field in grep("person_key|pseudonym", ls(h), value = TRUE)) sqlite[[field]] <- h[[field]]
     r <- o_execute(a$plan, sqlite); o_compare(r, a$expected, sqlite); o_revoke(r)
     DBI::dbBegin(h$conn); on.exit(DBI::dbRollback(h$conn), add = TRUE, after = FALSE)

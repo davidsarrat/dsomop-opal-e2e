@@ -57,15 +57,24 @@ local({
   opal.execute <- function(o, code) {
     if (grepl('loadNamespace("dsOMOP")', code, fixed = TRUE)) ready <<- TRUE
     else stopifnot(ready, assigned)
+    if (grepl('tryCatch(list(ok = o_server_check(', code, fixed = TRUE))
+      return(list(ok = TRUE))
     TRUE
   }
+  `%||%` <- function(a, b) if (is.null(a)) b else a
   opal.assign.resource <- function(...) {
     stopifnot(ready); assigned <<- TRUE
   }
-  check <- function(ok, ...) stopifnot(ok)
+  check <- function(ok, message) if (!isTRUE(ok)) stop(message)
   admin_check <- get_fn("scripts/o/run.R", "admin_check", environment())
   admin_check("fixture")
   stopifnot(ready, assigned)
+  opal.execute <- function(o, code) {
+    if (grepl('loadNamespace', code, fixed = TRUE)) return(TRUE)
+    list(ok = FALSE, error = "specific fixture failure")
+  }
+  msg <- tryCatch(admin_check("fixture", plan = list(version = 2)), error = conditionMessage)
+  stopifnot(grepl("specific fixture failure", msg, fixed = TRUE), nchar(msg) < 200L)
   # Every O administrator assignment must load the namespace first in that session.
   for (path in c("scripts/o/run.R", "scripts/o/install.R", "scripts/o/setup.R")) {
     lines <- readLines(path)

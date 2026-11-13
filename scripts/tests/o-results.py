@@ -132,6 +132,10 @@ if sys.argv[1] == 'push' and os.environ['MOCK_PUSH_FAILS'] == '1':
         self.assertIn('workflow-status.json', result['files'])
         self.assertEqual(ARTIFACT['if'], "always() && steps.evidence.outcome == 'success'")
 
+    def test_old_client_check_runs_after_scenario_failure_but_requires_setup(self):
+        old_client = next(s for s in STEPS if s.get('id') == 'old_client')
+        self.assertEqual(old_client['if'], "always() && steps.probes.outcome == 'success'")
+
     def test_workflow_finalizers_do_not_depend_on_product_success(self):
         self.assertEqual(WORKFLOW['permissions']['contents'], 'write')
         self.assertFalse(JOB['strategy']['fail-fast'])

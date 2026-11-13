@@ -76,6 +76,7 @@ jobs:
         run: Rscript scripts/o/run.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Old client against new server (O6)
         id: old_client
+        if: always() && steps.probes.outcome == 'success'
         run: |
           Rscript -e 'remotes::install_github("isglobal-brge/dsOMOPClient", ref="2.10.1", lib="/tmp/o-old-client", upgrade="never")' 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
           R_LIBS=/tmp/o-old-client Rscript scripts/o/old_client.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"

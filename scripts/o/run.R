@@ -58,9 +58,13 @@ admin_check <- function(name, resource = "omop_data.o_reach", plan = NULL) {
   wire <- if (is.null(plan)) "NULL" else paste0("jsonlite::fromJSON(",
     encodeString(jsonlite::toJSON(plan, auto_unbox = TRUE, null = "null", digits = NA), quote = '"'),
     ", simplifyVector = FALSE)")
-  result <- opal.execute(o, paste0('source("/tmp/o-harness/server.R"); o_server_check(', deparse(name),
-                                  ', plan_override = ', wire, ')'))
-  check(isTRUE(result), paste("administrator fixture assertions failed:", name))
+  # Catch on Rock so Opal's error wrapper cannot bury the cause behind the
+  # (potentially very long) serialized plan expression in the verdict CSV.
+  result <- opal.execute(o, paste0('source("/tmp/o-harness/server.R"); tryCatch(list(ok = o_server_check(',
+    deparse(name), ', plan_override = ', wire,
+    ')), error = function(e) list(ok = FALSE, error = conditionMessage(e)))'))
+  check(isTRUE(result$ok), paste("administrator fixture assertions failed:", name,
+                                result$error %||% "check did not return TRUE"))
 }
 # Profiling reports remote refusals in result metadata as well as conditions.
 # Require an explicit refusal and no returned rows or pooled value.
