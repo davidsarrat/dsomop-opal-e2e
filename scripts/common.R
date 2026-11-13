@@ -159,14 +159,20 @@ introspect <- function(conns, label) {
 build_candidate <- function() {
   log <- system2("R", c("CMD", "build", "--no-build-vignettes", "--no-manual", "pkgs/dsOMOP"), stdout = TRUE, stderr = TRUE)
   say(paste(tail(log, 3), collapse = "\n"))
-  normalizePath(list.files(".", pattern = "^dsOMOP_.*\\.tar\\.gz$", full.names = TRUE)[1])
+  expected <- unname(read.dcf("pkgs/dsOMOP/DESCRIPTION")[1, "Version"])
+  archive <- paste0("dsOMOP_", expected, ".tar.gz")
+  if (!is.null(attr(log, "status")) && attr(log, "status") != 0L)
+    stop("Candidate build failed: ", paste(tail(log, 20), collapse = "\n"))
+  normalizePath(archive, mustWork = TRUE)
 }
 install_candidate_deps <- function(o) {
   d <- read.dcf("pkgs/dsOMOP/DESCRIPTION")
   imports <- trimws(sub("\\(.*", "", strsplit(gsub("\n", " ", d[1, "Imports"]), ",")[[1]]))
   imports <- setdiff(imports[nzchar(imports)], c("stats", "utils", "methods", "tools", "grDevices", "graphics", "parallel"))
   for (p in imports) if (identical(rock_pkg_version(p), "not installed")) {
-    capture(paste0("dsadmin.install_package(o, \"", p, "\") [CRAN dependency of the candidate]"), dsadmin.install_package(o, p))
+    r <- capture(paste0("dsadmin.install_package(o, \"", p, "\") [CRAN dependency of the candidate]"), dsadmin.install_package(o, p))
+    if (!r$ok || identical(rock_pkg_version(p), "not installed"))
+      stop("Candidate dependency did not install on Rock: ", p)
   }
 }
 install_server <- function(o, ref) {
@@ -175,10 +181,12 @@ install_server <- function(o, ref) {
     expected <- unname(read.dcf("pkgs/dsOMOP/DESCRIPTION")[1, "Version"])
     tb <- build_candidate()
     r <- capture(paste0("dsadmin.install_local_package(o, \"", basename(tb), "\")"), dsadmin.install_local_package(o, tb))
-    if (!r$ok || !identical(rock_pkg_version("dsOMOP"), expected)) {
-      # Opal's local install swallows R errors (RPackageResourceHelper.installLocalPackage logs a warning and
-      # answers 201): install from Rock's own R session instead; the package is then published explicitly.
-      say("Opal's local install left dsOMOP at '", rock_pkg_version("dsOMOP"), "'; installing from Rock's R session")
+    {
+      # A 201 response and even the expected version do not prove this archive
+      # was installed (successive candidates share 2.10.3). Install this exact
+      # archive from Rock's service R session and require R CMD INSTALL success.
+      say("After Opal's local call dsOMOP is '", rock_pkg_version("dsOMOP"),
+          "'; installing the exact candidate archive from Rock's R session")
       copied <- system2("docker", c("cp", shQuote(tb), shQuote(paste0(Sys.getenv("ROCK"), ":/tmp/"))))
       if (!identical(copied, 0L)) stop("Cannot copy the candidate archive to Rock")
       code <- sprintf('local({ log <- tempfile(); on.exit(unlink(log)); status <- system2(file.path(R.home("bin"), "R"), c("CMD", "INSTALL", "-l", shQuote(.libPaths()[1]), shQuote("/tmp/%s")), stdout = log, stderr = log); list(status = status, library = .libPaths()[1], log = readLines(log, warn = FALSE)) })', basename(tb))

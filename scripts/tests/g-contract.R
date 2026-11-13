@@ -42,6 +42,9 @@ local({
   environment(install_server) <- environment()
   install_server(NULL, "candidate")
   stopifnot(fallback == 1L, identical(actual, expected))
+  # A different archive at the same version must still be installed.
+  install_server(NULL, "candidate")
+  stopifnot(fallback == 2L)
   actual <- "2.10.2"
   rock_eval <- function(code) list(status = 1L, log = "installation failed")
   error <- tryCatch({ install_server(NULL, "candidate"); "" }, error = conditionMessage)
@@ -95,3 +98,25 @@ local({
   stopifnot(length(gregexpr("g_measurement_params()", scenario, fixed = TRUE)[[1]]) == 2L)
 })
 cat("Signed-component redraw and measurement-request regressions passed\n")
+
+local({
+  common <- parse("scripts/common.R")
+  environment(get_fn) <- environment()
+  build_candidate <- get_fn("build_candidate")
+  environment(build_candidate) <- environment()
+  say <- function(...) NULL
+  system2 <- function(...) structure("build error", status = 1L)
+  error <- tryCatch({ build_candidate(); "" }, error = conditionMessage)
+  stopifnot(grepl("Candidate build failed", error))
+  system2 <- function(...) "built"
+  normalizePath <- function(path, mustWork) { stopifnot(mustWork); path }
+  expected <- paste0("dsOMOP_", unname(read.dcf("pkgs/dsOMOP/DESCRIPTION")[1, "Version"]), ".tar.gz")
+  stopifnot(identical(build_candidate(), expected))
+  install_candidate_deps <- get_fn("install_candidate_deps")
+  environment(install_candidate_deps) <- environment()
+  rock_pkg_version <- function(pkg) "not installed"
+  capture <- function(...) list(ok = TRUE)
+  error <- tryCatch({ install_candidate_deps(NULL); "" }, error = conditionMessage)
+  stopifnot(grepl("dependency did not install", error))
+})
+cat("Exact-archive and missing-dependency install regressions passed\n")
