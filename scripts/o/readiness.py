@@ -44,23 +44,31 @@ def wait_for(kind, endpoint, accept, filename):
     for attempt in range(1, attempts + 1):
         # Do not parse HTTP status, curl diagnostics or stale/partial bytes as a body.
         body_file.write_bytes(b"")
-        response = subprocess.run([
-            "curl", "--silent", "--show-error", "--connect-timeout", "5", "--max-time", "15",
-            "--header", f"Accept: {accept}", "--user", "administrator:" + os.environ["OPAL_ADMIN_PW"],
-            "--output", str(body_file), "--write-out", "%{http_code}",
-            os.environ["OPAL_URL"].rstrip("/") + endpoint,
-        ], capture_output=True, text=True, timeout=20)
-        status = response.stdout.strip()
+        try:
+            response = subprocess.run([
+                "curl", "--silent", "--show-error", "--connect-timeout", "5", "--max-time", "15",
+                "--header", f"Accept: {accept}", "--user", "administrator:" + os.environ["OPAL_ADMIN_PW"],
+                "--output", str(body_file), "--write-out", "%{http_code}",
+                os.environ["OPAL_URL"].rstrip("/") + endpoint,
+            ], capture_output=True, text=True, timeout=20)
+            status = response.stdout.strip()
+            code = response.returncode
+            diagnostic = response.stderr
+        except subprocess.TimeoutExpired:
+            # Even a stalled curl process is transient during startup. Discard
+            # partial bytes and retry within the same bounded attempt budget.
+            status, code = "", "timeout"
+            diagnostic = "curl process exceeded 20 seconds\n"
         body = body_file.read_text(errors="replace")
         (out / (filename + ".http")).write_text(
-            f"attempt={attempt} curl_exit={response.returncode} http_status={status}\n" + response.stderr)
-        if response.returncode == 0 and status == "200":
+            f"attempt={attempt} curl_exit={code} http_status={status}\n" + diagnostic)
+        if code == 0 and status == "200":
             if validate(body, kind, os.environ["OPAL_VERSION"]):
                 (out / filename).write_text(body)
                 print(f"Opal {kind} ready after {attempt} attempt(s)", flush=True)
                 return
         print(f"Waiting for Opal {kind}: attempt {attempt}/{attempts}, "
-              f"curl={response.returncode}, HTTP={status or 'none'}", flush=True)
+              f"curl={code}, HTTP={status or 'none'}", flush=True)
         if attempt < attempts:
             time.sleep(interval)
     raise ValueError(f"Opal {kind} endpoint did not become ready after {attempts} attempts; "

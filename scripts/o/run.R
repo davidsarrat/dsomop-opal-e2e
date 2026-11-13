@@ -24,7 +24,8 @@ with_sites <- function(fn, resources = c("omop_data.o_reach", "omop_data.o_reach
   conns <- analyst_login(c("good", "other")[seq_along(resources)])
   on.exit(DSI::datashield.logout(conns), add = TRUE)
   ds.omop.connect(resource = stats::setNames(resources, names(conns)), symbol = "omopO", conns = conns)
-  on.exit(try(ds.omop.disconnect(symbol = "omopO", conns = conns), silent = TRUE), add = TRUE)
+  # Cleanup must run while the DataSHIELD connections are still live.
+  on.exit(ds.omop.disconnect(symbol = "omopO", conns = conns), add = TRUE, after = FALSE)
   fn(conns)
 }
 run_recipe <- function(rec, conns, out = NULL, ...) recipe_execute(rec, out = out, symbol = "omopO", conns = conns, ...)
@@ -52,6 +53,7 @@ status_order <- function(conns) {
 }
 admin_check <- function(name, resource = "omop_data.o_reach", plan = NULL) {
   o <- admin(); on.exit(opal.logout(o))
+  opal.execute(o, 'loadNamespace("dsOMOP"); TRUE')
   opal.assign.resource(o, "ores", resource)
   wire <- if (is.null(plan)) "NULL" else paste0("jsonlite::fromJSON(",
     encodeString(jsonlite::toJSON(plan, auto_unbox = TRUE, null = "null", digits = NA), quote = '"'),
@@ -191,6 +193,7 @@ scenario("O8", function() {
 })
 scenario("O9", function() {
   o <- admin(); on.exit(opal.logout(o))
+  opal.execute(o, 'loadNamespace("dsOMOP"); TRUE')
   opal.assign.resource(o, "ores", "omop_data.o_big")
   current <- opal.execute(o, 'source("/tmp/o-harness/performance.R"); o_performance("ores", "candidate")')
   jsonlite::write_json(current, out_file("O9-new.json"), auto_unbox = TRUE, pretty = TRUE)

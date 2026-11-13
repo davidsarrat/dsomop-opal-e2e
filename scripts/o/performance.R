@@ -1,10 +1,14 @@
 # Same v1 workloads and fixture for old and new servers. No relaxed row cap.
 o_performance <- function(symbol, phase) {
-  dsOMOP::omopInitDS(symbol)
+  # omopInitDS resolves resources in its immediate caller, the Opal session.
+  session <- parent.frame()
+  eval(substitute(dsOMOP::omopInitDS(s), list(s = symbol)), session)
+  on.exit(eval(substitute(dsOMOP::omopCleanupDS(s, close = TRUE),
+                          list(s = symbol)), session), add = TRUE)
   plans <- o_performance_plans()
   timings <- lapply(names(plans), function(n) {
     median(replicate(3, system.time({
-      target <- new.env(parent = globalenv())
+      target <- new.env(parent = session)
       target$p <- plans[[n]]; target$symbol <- symbol; target$out <- setNames(list(paste0("O_perf_",n)), n)
       evalq(O_exec <- dsOMOP::omopPlanExecuteDS(symbol, p, out), target)
       if (phase == "candidate") {

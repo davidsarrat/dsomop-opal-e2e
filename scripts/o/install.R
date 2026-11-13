@@ -10,7 +10,7 @@ if (E2E_PATH == "upgrade") {
   c0 <- analyst_login()
   # Connecting remains supported for v1. The native request must refuse before
   # assigning outputs on an old profile; connection setup itself assigns handles.
-  r <- capture("O6 connect new client / old server", ds.omop.connect("omop_data.gibleed", conns = c0))
+  r <- capture("O6 connect new client / old server", ds.omop.connect("omop_data.gibleed_legacy", conns = c0))
   stopifnot(r$ok)
   before <- DSI::datashield.symbols(c0)
   native <- omop_recipe(variables = list(age = omop_age()),
@@ -28,9 +28,13 @@ if (E2E_PATH == "upgrade") {
   # Baseline timings are produced by the actual old server, before replacement.
   # The frozen fixture source works with the old server; export before timing.
   source("scripts/o/setup.R", local = new.env(parent = globalenv()))
+  opal.execute(o, 'loadNamespace("dsOMOP"); TRUE')
   opal.assign.resource(o, "ores", "omop_data.o_big")
   baseline <- opal.execute(o, 'source("/tmp/o-harness/performance.R"); o_performance("ores", "baseline")')
   jsonlite::write_json(baseline, out_file("O9-old.json"), auto_unbox = TRUE)
+  # The old timing session loaded 2.10.1. Never reuse its namespace after upgrade.
+  opal.logout(o)
+  o <- admin()
 }
 install_server(o, server_target())
 dsadmin.publish_package(o, "dsOMOP")

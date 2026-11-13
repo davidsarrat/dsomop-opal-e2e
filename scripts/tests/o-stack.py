@@ -2,6 +2,8 @@
 from collections import Counter
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
+import importlib.util
+from unittest.mock import patch
 import os
 from pathlib import Path
 import socket
@@ -75,6 +77,33 @@ esac
             server.shutdown()
             thread.join()
             server.server_close()
+
+    def test_stalled_curl_process_retries_and_preserves_timeout_evidence(self):
+        spec = importlib.util.spec_from_file_location("readiness", "scripts/o/readiness.py")
+        readiness = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(readiness)
+        with tempfile.TemporaryDirectory() as directory:
+            env = dict(OUT=directory, OPAL_READY_ATTEMPTS="2", OPAL_READY_INTERVAL="0",
+                       OPAL_ADMIN_PW="test", OPAL_URL="http://unused", OPAL_VERSION="6.1.3")
+            body = Path(directory) / "version.last"
+            calls = []
+            def response(*args, **kwargs):
+                calls.append(1)
+                if len(calls) == 1:
+                    body.write_text("6.1.3")  # A partial timeout body is not readiness.
+                    raise subprocess.TimeoutExpired("curl", 20)
+                self.assertIn("curl_exit=timeout", (Path(directory) / "version.http").read_text())
+                self.assertEqual(body.read_text(), "")
+                body.write_text("6.1.3")
+                return subprocess.CompletedProcess([], 0, "200", "")
+            with patch.dict(os.environ, env), patch.object(readiness.subprocess, "run", side_effect=response):
+                readiness.wait_for("version", "/ws/system/version", "text/plain", "version")
+            self.assertEqual(len(calls), 2)
+            self.assertEqual((Path(directory) / "version").read_text(), "6.1.3")
+            with patch.dict(os.environ, env), patch.object(readiness.subprocess, "run",
+                    side_effect=subprocess.TimeoutExpired("curl", 20)):
+                with self.assertRaisesRegex(ValueError, "after 2 attempts"):
+                    readiness.wait_for("version", "/ws/system/version", "text/plain", "version")
 
     def test_plain_text_versions_for_both_pins(self):
         for version in ("6.1.3", "5.7.6"):
