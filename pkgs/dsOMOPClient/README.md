@@ -37,9 +37,9 @@ Key features include:
 AggregateMethods inventory, and rejects methods named `c`/`list` or aliases
 whose target is `c`, `list`, `base::c` or `base::list`. Those generic
 constructors can otherwise wrap and return a protected server object without a
-reviewed disclosure gate. This preflight is defence in depth: the controller
-must remove the methods from the complete global DataSHIELD profile, because a
-caller using DSI directly can bypass the client package.
+reviewed disclosure gate. This preflight is defence in depth: these aliases are
+unsafe in the complete global DataSHIELD profile, and a caller using DSI directly can bypass the client
+package. dsOMOP does not publish them.
 
 ## Structure
 
@@ -89,6 +89,64 @@ the new version's methods: an administrator publishes its settings again
 (Administration > DataSHIELD > Packages > dsOMOP > Publish).
 `ds.omop.connect()` stops with the same explanation when a server cannot be
 used, and reports each server's own error instead of DSI's generic notice.
+
+### Upgrading to 2.10.3
+
+The matching release is dsOMOP 2.10.3 plus dsOMOPClient 2.10.3. Automatic
+server protection needs no privacy settings, secret provisioning, epoch bump,
+ETL coordination or TLS change. Existing valid roots survive package upgrade.
+Opal's installed-package and published-profile versions are distinct; the
+version check identifies an installed 2.10.3 whose profile still has older
+methods, so ordinary profile publication completes that package upgrade.
+
+Language-2 execution requires the publication methods at every site. Supported
+legacy recipes keep their v1 path; [NEWS.md](NEWS.md) describes corrected,
+newly permitted and newly refused cases and their migration paths. During a
+mixed-server upgrade, v1 execution uses the documented legacy path with a
+warning, while language-2 execution stops before assignment.
+
+Protected 2.10.3 payloads pool only with compatible 2.10.3 contracts.
+`type = "split"` keeps labelled per-site results when versions differ. Old typed
+clients receive an upgrade refusal, and a new client warns about old servers;
+installing the client alone does not repair server-side inference defects.
+Outputs can change under the repaired public grids and component contracts.
+Protection labels distinguish fixed-synopsis mechanisms from heuristic
+realised-contribution reuse; neither is a finite lifetime or full-transcript
+privacy guarantee.
+
+## Recipe language 2 in 2.10.3
+
+Use `omop_study()` for a study with explicit baseline and follow-up inputs, or
+compose `omop_event()`, `omop_population()`, `omop_reduce()` and `omop_output()`
+for the advanced layer. Both produce the same typed recipe language;
+`print()` shows defaults and `recipe_to_code()` prints the advanced expansion.
+See [populations and studies](vignettes/v03_cohorts.Rmd) and
+[events and outputs](vignettes/v04_extraction.Rmd), including coded education
+level and cause of death. Examples remain `eval = FALSE` until the integrated
+compilers pass acceptance; advertised operations determine what a build runs.
+
+| Backend | Required 2.10.3 verification | Runtime release target |
+|---|---|---|
+| PostgreSQL | Live typed SQL and recipe tests | 16 (development pod: 14) |
+| SQLite / RSQLite | Embedded tests and runtime window-frame probe | Actual SQLite and RSQLite versions recorded |
+| DuckDB | Optional embedded tests | Actual engine/driver version recorded |
+| MySQL / MariaDB | Live vendor tests; floors 8.0 / 10.2 | 8.4 / 11.4 (pod: 8.4.11 / 10.6) |
+| SQL Server / Synapse / PDW, Oracle, Redshift, BigQuery, Snowflake, Spark / Databricks | Rendered SQL contracts only; no cross-statement temporary materialisation | No live runtime claim |
+| Opal / Rock | O1–O12 on both pinned Opal versions | Opal 6.1.3 and 5.7.6; R ≥4.2 |
+
+The server README contains the construct-by-construct matrix. A supported
+connector alone does not establish recipe support. Unsupported constructs
+refuse at preflight with `dialect_unsupported`. Check both installed and
+published package versions with `ds.omop.server.version()`; use matching
+2.10.3 packages and republish methods and Options on Opal after upgrading.
+
+Small private inputs are allowed. Each independently accessible final patient
+component needs `nfilter.subset` distinct persons. Strict servers refuse the
+whole plan on a small root; non-strict servers with `on_small_site = "error"`
+return passing families and warn with `partial` status. With `"skip"`, either
+server mode commits nothing at a small site and returns NULL for it; passing
+sites remain. Only support failure is skippable. Technical failures roll back
+the federation. Keep the returned dynamic inventory rather than guessing names.
 
 ## Federated result views
 
