@@ -1,0 +1,15 @@
+"id","status","seconds","evidence"
+"O1","PASS",6.882,"all assertions passed"
+"O2","FAIL",0.31,"OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+"O3","FAIL",0.298,"OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+"O4","FAIL",0.474,"OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+"O5","FAIL",0.462999999999999,"OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+"O6","FAIL",0.371,"OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+"O7","FAIL",0.475999999999999,"OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+"O8","FAIL",0.276000000000002,"OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+"O9","FAIL",0.539000000000001,"[Client error: (400) Bad Request] Error while evaluating 'is.null(base::assign('ores', resourcer::newResourceClient(resourcer::newResource(name='o_big', url='omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=o_big&vocabulary_schema=o_big&results_schema=o_big', identity='omop', secret='***', format='omop.dbi.db'))))' -> Error in resolveResource(x) : 
+  No resolver could be found for resource: omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=o_big&vocabulary_schema=o_big&results_schema=o_big
+"
+"O10","PASS",0.738,"all assertions passed"
+"O11","FAIL",0.334,"OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+"O12","FAIL",0.399999999999999,"OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
