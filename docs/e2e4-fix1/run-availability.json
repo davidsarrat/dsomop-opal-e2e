@@ -1,0 +1,13 @@
+{
+  "43452232732": {
+    "fresh": "4bfbe4b29b36b24ce7e1b6ab381331ec96778129",
+    "upgrade": "29040504ac466e72714ec0c357fdaca6e005e2e9"
+  },
+  "43452223095": {
+    "refs_present": false,
+    "read_access": "HTTPS and SSH unauthenticated; gh has no authenticated host",
+    "requested_from_user": true,
+    "locally_reproduced": "original preflight rejects coordinated 2.10.3 before stack provisioning",
+    "run_log_verification": "unavailable; O1-O12 runtime outcomes cannot be verified"
+  }
+}

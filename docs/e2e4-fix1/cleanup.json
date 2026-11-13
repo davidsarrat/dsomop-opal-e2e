@@ -1,0 +1,250 @@
+[
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-G-audit-lines.txt",
+    "bytes": 115224
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-G-old-verdicts.csv",
+    "bytes": 5583
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-G-verdicts.csv",
+    "bytes": 27236
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-G16-plans-big.txt",
+    "bytes": 1675
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-G16-plans-gibleed.txt",
+    "bytes": 989
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-admin-setup.txt",
+    "bytes": 5819
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-datashield-log.txt",
+    "bytes": 126259
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-method-audit-calls.csv",
+    "bytes": 6191
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-method-audit.csv",
+    "bytes": 5717
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-omopbig.txt",
+    "bytes": 389
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-omopdb-load.txt",
+    "bytes": 4507
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-opal-srv-logs/datashield.log",
+    "bytes": 2690582
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-opal-srv-logs/opal.log",
+    "bytes": 313873
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-opal-srv-logs/polyglot.log",
+    "bytes": 0
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-opal-srv-logs/rest.log",
+    "bytes": 7479163
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-opal-srv-logs/sql.log",
+    "bytes": 0
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-opal-srv-logs.tgz",
+    "bytes": 417434
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-opal.log",
+    "bytes": 170198
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-path.txt",
+    "bytes": 22748
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-rock-Rserve-after-restart.log",
+    "bytes": 205737
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-rock-Rserve-before-restart.log",
+    "bytes": 198324
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-rock-packages-initial.txt",
+    "bytes": 614
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-rock-srv-logs/Rserve.log",
+    "bytes": 220505
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-rock-srv-logs/rock.log",
+    "bytes": 23368
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-rock-srv-logs.tgz",
+    "bytes": 17667
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-rock.log",
+    "bytes": 1612
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-scenario-C.txt",
+    "bytes": 5547
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-scenario-D.txt",
+    "bytes": 16426
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-scenario-E.txt",
+    "bytes": 51245
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-scenario-F.txt",
+    "bytes": 5565
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-scenario-G-old.txt",
+    "bytes": 10166
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-scenario-G.txt",
+    "bytes": 350677
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-steps.log",
+    "bytes": 570883
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/fresh-summary.txt",
+    "bytes": 38778
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-G-audit-lines.txt",
+    "bytes": 114459
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-G-old-verdicts.csv",
+    "bytes": 5583
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-G-verdicts.csv",
+    "bytes": 29723
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-G16-plans-gibleed.txt",
+    "bytes": 989
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-V-verdicts.csv",
+    "bytes": 3022
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-admin-setup.txt",
+    "bytes": 5833
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-dp-root-before-upgrade.txt",
+    "bytes": 339
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-omopdb-load.txt",
+    "bytes": 4507
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-opal-srv-logs/datashield.log",
+    "bytes": 2153280
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-opal-srv-logs/opal.log",
+    "bytes": 286882
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-opal-srv-logs/polyglot.log",
+    "bytes": 0
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-opal-srv-logs/rest.log",
+    "bytes": 6824277
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-opal-srv-logs/sql.log",
+    "bytes": 0
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-opal-srv-logs.tgz",
+    "bytes": 370362
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-opal.log",
+    "bytes": 145848
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-path.txt",
+    "bytes": 47791
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-rock-Rserve-after-restart.log",
+    "bytes": 184380
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-rock-Rserve-before-restart.log",
+    "bytes": 176967
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-rock-packages-initial.txt",
+    "bytes": 614
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-rock-srv-logs/Rserve.log",
+    "bytes": 193101
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-rock-srv-logs/rock.log",
+    "bytes": 22767
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-rock-srv-logs.tgz",
+    "bytes": 15561
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-rock.log",
+    "bytes": 1924
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-scenario-C.txt",
+    "bytes": 5555
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-scenario-G-old.txt",
+    "bytes": 10174
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-scenario-G.txt",
+    "bytes": 347765
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-steps.log",
+    "bytes": 539104
+  },
+  {
+    "path": "/tmp/dsomop-e2e4-fix1-evidence/upgrade-summary.txt",
+    "bytes": 37873
+  }
+]

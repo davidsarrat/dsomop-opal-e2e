@@ -1,0 +1,61 @@
+[
+  {
+    "package": "dsOMOP",
+    "commit": "77c6e6c2fb6ea5c3212146f027707dffe777e22e",
+    "changed": [
+      {
+        "file": ".gitignore",
+        "bytes": 825
+      },
+      {
+        "file": "NAMESPACE",
+        "bytes": 2546
+      },
+      {
+        "file": "NEWS.md",
+        "bytes": 52196
+      },
+      {
+        "file": "R/native.R",
+        "bytes": 140
+      },
+      {
+        "file": "R/tools_release.R",
+        "bytes": 84229
+      },
+      {
+        "file": "cleanup",
+        "bytes": 29
+      },
+      {
+        "file": "configure",
+        "bytes": 2733
+      },
+      {
+        "file": "src/Makevars.win",
+        "bytes": 138
+      },
+      {
+        "file": "src/release_hmac.c",
+        "bytes": 4141
+      },
+      {
+        "file": "tests/testthat/test-e2e4-hmac.R",
+        "bytes": 2402
+      },
+      {
+        "file": "tests/testthat/test-e2e4-profile.R",
+        "bytes": 1284
+      },
+      {
+        "file": "tools/e2e4-fix1/baseline-hashing.R",
+        "bytes": 1416
+      }
+    ]
+  },
+  {
+    "package": "dsOMOPClient",
+    "commit": "30a9794b4fe30c7b04f30390686157bf67ff4a63",
+    "changed": []
+  }
+]
