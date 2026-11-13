@@ -1,0 +1,119 @@
+Opal version: 6.2.1
+--- general configuration before
+$name
+[1] "Opal"
+
+$languages
+$languages[[1]]
+[1] "en"
+
+
+$defaultCharSet
+[1] "ISO-8859-1"
+
+$enforced2FA
+[1] FALSE
+
+$allowRPackageManagement
+[1] FALSE
+
+$allowRPatOnly
+[1] FALSE
+
+OK    opal.put(o, "system", "conf", "general", "_rPackage") (0 s)
+--- general configuration after
+$name
+[1] "Opal"
+
+$languages
+$languages[[1]]
+[1] "en"
+
+
+$defaultCharSet
+[1] "ISO-8859-1"
+
+$enforced2FA
+[1] FALSE
+
+$allowRPackageManagement
+[1] TRUE
+
+$allowRPatOnly
+[1] FALSE
+
+SUMMARY [upgrade] Opal 6.2.1: allowRPackageManagement on a fresh Opal = FALSE; after the administrator enables it = TRUE
+--- DataSHIELD profiles
+     name cluster enabled restrictedAccess
+1 default default    TRUE            FALSE
+--- default profile
+List of 4
+ $ name            : chr "default"
+ $ cluster         : chr "default"
+ $ enabled         : logi TRUE
+ $ restrictedAccess: logi FALSE
+NULL
+OK    oadmin.user_add(o, "analyst") (0.2 s)
+OK    dsadmin.perm_add(o, "analyst", "user", "use") (0.1 s)
+OK    opal.project_create(o, "omop_data") (0.1 s)
+CDM database behind the resources: omop (gibleed_asshipped always uses omop, cdm_version as shipped)
+resource gibleed                format omop.dbi.db  url omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=cdm
+OK    opal.resource_create(o, "omop_data", "gibleed", ...) (0.1 s)
+OK    opal.resource_perm_add(o, "omop_data", "gibleed", "analyst", permission = "view") (0 s)
+resource gibleed_noschema       format omop.dbi.db  url omop+dbi:postgresql://omopdb:5432/omopone
+OK    opal.resource_create(o, "omop_data", "gibleed_noschema", ...) (0.1 s)
+OK    opal.resource_perm_add(o, "omop_data", "gibleed_noschema", "analyst", permission = "view") (0.1 s)
+resource gibleed_tls_disable    format omop.dbi.db  url omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=cdm&sslmode=disable
+OK    opal.resource_create(o, "omop_data", "gibleed_tls_disable", ...) (0.1 s)
+OK    opal.resource_perm_add(o, "omop_data", "gibleed_tls_disable", "analyst", permission = "view") (0 s)
+resource gibleed_legacy         format omop.dbi.db  url omop+dbi:postgresql://omopdb:5432/omop53?cdm_schema=cdm
+OK    opal.resource_create(o, "omop_data", "gibleed_legacy", ...) (0.1 s)
+OK    opal.resource_perm_add(o, "omop_data", "gibleed_legacy", "analyst", permission = "view") (0.1 s)
+resource gibleed_asshipped      format omop.dbi.db  url omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=cdm
+OK    opal.resource_create(o, "omop_data", "gibleed_asshipped", ...) (0.1 s)
+OK    opal.resource_perm_add(o, "omop_data", "gibleed_asshipped", "analyst", permission = "view") (0 s)
+resource gibleed_v1             format omop.cdm.db  url postgresql://omopdb:5432/omop//dsomop::/schema:cdm/vocabulary_schema:cdm
+OK    opal.resource_create(o, "omop_data", "gibleed_v1", ...) (0.1 s)
+OK    opal.resource_perm_add(o, "omop_data", "gibleed_v1", "analyst", permission = "view") (0 s)
+resource gibleed_v1_vocab       format omop.cdm.db  url postgresql://omopdb:5432/omop//dsomop::/schema:cdm2/vocabulary_schema:vocab
+OK    opal.resource_create(o, "omop_data", "gibleed_v1_vocab", ...) (0.1 s)
+OK    opal.resource_perm_add(o, "omop_data", "gibleed_v1_vocab", "analyst", permission = "view") (0 s)
+resource gibleed_v1_schemaonly  format omop.cdm.db  url postgresql://omopdb:5432/omop//dsomop::/schema:cdm
+OK    opal.resource_create(o, "omop_data", "gibleed_v1_schemaonly", ...) (0 s)
+OK    opal.resource_perm_add(o, "omop_data", "gibleed_v1_schemaonly", "analyst", permission = "view") (0.1 s)
+resource gibleed_v1_plain       format omop.cdm.db  url postgresql://omopdb:5432/omoppub
+OK    opal.resource_create(o, "omop_data", "gibleed_v1_plain", ...) (0.1 s)
+OK    opal.resource_perm_add(o, "omop_data", "gibleed_v1_plain", "analyst", permission = "view") (0 s)
+resource gibleed_small          format omop.dbi.db  url omop+dbi:postgresql://omopdb:5432/omopsmall?cdm_schema=cdm
+OK    opal.resource_create(o, "omop_data", "gibleed_small", ...) (0.1 s)
+OK    opal.resource_perm_add(o, "omop_data", "gibleed_small", "analyst", permission = "view") (0 s)
+resource gibleed_reader         format omop.dbi.db  url omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=cdm
+OK    opal.resource_create(o, "omop_data", "gibleed_reader", ...) (0.1 s)
+OK    opal.resource_perm_add(o, "omop_data", "gibleed_reader", "analyst", permission = "view") (0 s)
+--- Rock as Opal's R sessions see it
+$libPaths
+[1] "/var/lib/rock/R/library"       "/usr/local/lib/R/site-library" "/usr/local/lib/R/library"     
+
+$user
+[1] "rock"
+
+$R
+[1] "R version 4.6.1 (2026-06-24)"
+
+$packages
+     dsBase   resourcer         DBI   RPostgres RPostgreSQL     RSQLite          R6    jsonlite    filelock     openssl     remotes      dsOMOP 
+    "6.3.5"     "1.5.2"     "1.3.0"    "1.4.10"     "0.7-8"    "3.53.3"     "2.6.1"     "2.0.0"         "-"     "2.5.0"     "2.5.0"         "-" 
+
+--- resources
+                    name                                                                         url      format
+1                gibleed                       omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=cdm omop.dbi.db
+2      gibleed_asshipped                       omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=cdm omop.dbi.db
+3         gibleed_legacy                     omop+dbi:postgresql://omopdb:5432/omop53?cdm_schema=cdm omop.dbi.db
+4       gibleed_noschema                                   omop+dbi:postgresql://omopdb:5432/omopone omop.dbi.db
+5         gibleed_reader                       omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=cdm omop.dbi.db
+6          gibleed_small                  omop+dbi:postgresql://omopdb:5432/omopsmall?cdm_schema=cdm omop.dbi.db
+7    gibleed_tls_disable       omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=cdm&sslmode=disable omop.dbi.db
+8             gibleed_v1    postgresql://omopdb:5432/omop//dsomop::/schema:cdm/vocabulary_schema:cdm omop.cdm.db
+9       gibleed_v1_plain                                            postgresql://omopdb:5432/omoppub omop.cdm.db
+10 gibleed_v1_schemaonly                          postgresql://omopdb:5432/omop//dsomop::/schema:cdm omop.cdm.db
+11      gibleed_v1_vocab postgresql://omopdb:5432/omop//dsomop::/schema:cdm2/vocabulary_schema:vocab omop.cdm.db
