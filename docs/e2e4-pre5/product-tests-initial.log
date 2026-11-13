@@ -1,0 +1,9 @@
+FAILURES BY FILE
+                file blocks failed errors
+ test-e2e4-poisson.R      1      1      1
+
+FAILING TESTS
+test-e2e4-poisson.R | unavailable protected Poisson rates explain protected components | failed=1 error=TRUE
+
+RESULT failed: 1 errors: 1 skipped: 0 passed: 434 
+RESULT failed: 1 errors: 1 skipped: 0 passed: 434 

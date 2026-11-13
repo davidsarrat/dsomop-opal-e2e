@@ -1,0 +1,519 @@
+{
+  "refs": {
+    "res/43483690265-1-opal-5.7.6-fresh-candidate": {
+      "commit": "518c42300c46b2f04384fe29ea8429168b990e6a",
+      "verdicts": {
+        "fresh-O-verdicts.csv": {
+          "counts": {
+            "PASS": 2,
+            "FAIL": 10
+          },
+          "failures": [
+            {
+              "id": "O2",
+              "status": "FAIL",
+              "seconds": "0.31",
+              "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+            },
+            {
+              "id": "O3",
+              "status": "FAIL",
+              "seconds": "0.298",
+              "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+            },
+            {
+              "id": "O4",
+              "status": "FAIL",
+              "seconds": "0.474",
+              "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+            },
+            {
+              "id": "O5",
+              "status": "FAIL",
+              "seconds": "0.462999999999999",
+              "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+            },
+            {
+              "id": "O6",
+              "status": "FAIL",
+              "seconds": "0.371",
+              "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+            },
+            {
+              "id": "O7",
+              "status": "FAIL",
+              "seconds": "0.475999999999999",
+              "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+            },
+            {
+              "id": "O8",
+              "status": "FAIL",
+              "seconds": "0.276000000000002",
+              "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+            },
+            {
+              "id": "O9",
+              "status": "FAIL",
+              "seconds": "0.539000000000001",
+              "evidence": "[Client error: (400) Bad Request] Error while evaluating 'is.null(base::assign('ores', resourcer::newResourceClient(resourcer::newResource(name='o_big', url='omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=o_big&vocabulary_schema=o_big&results_schema=o_big', identity='omop', secret='***', format='omop.dbi.db'))))' -> Error in resolveResource(x) : \n  No resolver could be found for resource: omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=o_big&vocabulary_schema=o_big&results_schema=o_big\n"
+            },
+            {
+              "id": "O11",
+              "status": "FAIL",
+              "seconds": "0.334",
+              "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+            },
+            {
+              "id": "O12",
+              "status": "FAIL",
+              "seconds": "0.399999999999999",
+              "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+            }
+          ]
+        }
+      },
+      "workflow": {
+        "GITHUB_RUN_ID": "43483690265",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "262780f3e87fda9090d0eb17b6daa784ba2046b4",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "5.7.6",
+        "E2E_PATH": "fresh",
+        "MODE": "candidate",
+        "JOB_STATUS": "failure",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "262780f3e87fda9090d0eb17b6daa784ba2046b4",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "failure",
+            "conclusion": "failure"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    "res/43483690265-1-opal-5.7.6-upgrade-candidate": {
+      "commit": "98e0b5fb45f138c0a629cb046f4887077c083c2a",
+      "verdicts": {},
+      "workflow": {
+        "GITHUB_RUN_ID": "43483690265",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "262780f3e87fda9090d0eb17b6daa784ba2046b4",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "5.7.6",
+        "E2E_PATH": "upgrade",
+        "MODE": "candidate",
+        "JOB_STATUS": "failure",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "262780f3e87fda9090d0eb17b6daa784ba2046b4",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "failure",
+            "conclusion": "failure"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    "res/43483690265-1-opal-6.1.3-fresh-candidate": {
+      "commit": "38c8ec05f194733ffe6457b0516e7d454eb98672",
+      "verdicts": {
+        "fresh-O-verdicts.csv": {
+          "counts": {
+            "PASS": 2,
+            "FAIL": 10
+          },
+          "failures": [
+            {
+              "id": "O2",
+              "status": "FAIL",
+              "seconds": "0.318",
+              "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+            },
+            {
+              "id": "O3",
+              "status": "FAIL",
+              "seconds": "0.271000000000001",
+              "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+            },
+            {
+              "id": "O4",
+              "status": "FAIL",
+              "seconds": "0.401",
+              "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+            },
+            {
+              "id": "O5",
+              "status": "FAIL",
+              "seconds": "0.561999999999999",
+              "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+            },
+            {
+              "id": "O6",
+              "status": "FAIL",
+              "seconds": "0.238",
+              "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+            },
+            {
+              "id": "O7",
+              "status": "FAIL",
+              "seconds": "0.411",
+              "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+            },
+            {
+              "id": "O8",
+              "status": "FAIL",
+              "seconds": "0.265000000000001",
+              "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+            },
+            {
+              "id": "O9",
+              "status": "FAIL",
+              "seconds": "0.488",
+              "evidence": "[Client error: (400) Bad Request] Error while evaluating 'is.null(base::assign('ores', resourcer::newResourceClient(resourcer::newResource(name='o_big', url='omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=o_big&vocabulary_schema=o_big&results_schema=o_big', identity='omop', secret='***', format='omop.dbi.db'))))' -> Error in resolveResource(x) : \n  No resolver could be found for resource: omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=o_big&vocabulary_schema=o_big&results_schema=o_big\n"
+            },
+            {
+              "id": "O11",
+              "status": "FAIL",
+              "seconds": "0.303000000000001",
+              "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+            },
+            {
+              "id": "O12",
+              "status": "FAIL",
+              "seconds": "0.436",
+              "evidence": "OMOP session 'omopO' is already active; disconnect it before reusing the symbol."
+            }
+          ]
+        }
+      },
+      "workflow": {
+        "GITHUB_RUN_ID": "43483690265",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "262780f3e87fda9090d0eb17b6daa784ba2046b4",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "6.1.3",
+        "E2E_PATH": "fresh",
+        "MODE": "candidate",
+        "JOB_STATUS": "failure",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "262780f3e87fda9090d0eb17b6daa784ba2046b4",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "failure",
+            "conclusion": "failure"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    "res/43483690265-1-opal-6.1.3-upgrade-candidate": {
+      "commit": "be60cfda7b3f0df8d3f9167c38ba1b0bd688a684",
+      "verdicts": {},
+      "workflow": {
+        "GITHUB_RUN_ID": "43483690265",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "262780f3e87fda9090d0eb17b6daa784ba2046b4",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "6.1.3",
+        "E2E_PATH": "upgrade",
+        "MODE": "candidate",
+        "JOB_STATUS": "failure",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "262780f3e87fda9090d0eb17b6daa784ba2046b4",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "failure",
+            "conclusion": "failure"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    "res/43483695412-fresh-candidate": {
+      "commit": "40ac8eabce31256d80cc7e3af61d19482cbfb987",
+      "verdicts": {
+        "fresh-G-old-verdicts.csv": {
+          "counts": {
+            "PASS": 10
+          },
+          "failures": []
+        },
+        "fresh-G-verdicts.csv": {
+          "counts": {
+            "INFO": 13,
+            "PASS": 85,
+            "FAIL": 1
+          },
+          "failures": [
+            {
+              "id": "G10 poisson",
+              "status": "FAIL",
+              "title": "dsomop:cm.effect_estimate: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "no finite value and no reason; 2 rows; estimate=NA NA; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled NULL"
+            }
+          ]
+        }
+      }
+    },
+    "res/43483695412-upgrade-candidate": {
+      "commit": "f34e37828cb59a6520b53dcd3ffd592a678b607c",
+      "verdicts": {
+        "upgrade-G-old-verdicts.csv": {
+          "counts": {
+            "PASS": 10
+          },
+          "failures": []
+        },
+        "upgrade-G-verdicts.csv": {
+          "counts": {
+            "INFO": 15,
+            "PASS": 90
+          },
+          "failures": []
+        },
+        "upgrade-V-verdicts.csv": {
+          "counts": {
+            "PASS": 3,
+            "INFO": 2
+          },
+          "failures": []
+        }
+      }
+    }
+  },
+  "logs": {
+    "43472800948-failed.log": {
+      "bytes": 599595,
+      "sha256": "064ac8886073c6f792e752bcf2d31f67919217622099e87bbb507cd321ae3019"
+    },
+    "43483690265-failed.log": {
+      "bytes": 45640,
+      "sha256": "c67918868b4c50566b430773d2e08126edee0442d23effe78c5bb6588ff12746"
+    },
+    "43483695412-failed.log": {
+      "bytes": 1002454,
+      "sha256": "b986e42834ec6883018b8eb469ca3a1b4380cd2d6486d8222eaf77f585e98d41"
+    },
+    "43472806671-failed.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  }
+}

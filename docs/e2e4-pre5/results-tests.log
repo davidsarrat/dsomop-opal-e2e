@@ -1,0 +1,11 @@
+test_failed_r_install_still_publishes_with_failure_log (__main__.ResultsTests.test_failed_r_install_still_publishes_with_failure_log) ... ok
+test_failed_startup_publishes_four_distinct_results (__main__.ResultsTests.test_failed_startup_publishes_four_distinct_results) ... ok
+test_failure_before_output_and_password_setup (__main__.ResultsTests.test_failure_before_output_and_password_setup) ... ok
+test_push_failure_remains_failure_with_evidence_for_artifact (__main__.ResultsTests.test_push_failure_remains_failure_with_evidence_for_artifact) ... ok
+test_rerun_does_not_overwrite_previous_attempt (__main__.ResultsTests.test_rerun_does_not_overwrite_previous_attempt) ... ok
+test_workflow_finalizers_do_not_depend_on_product_success (__main__.ResultsTests.test_workflow_finalizers_do_not_depend_on_product_success) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.292s
+
+OK

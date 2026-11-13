@@ -1,0 +1,20 @@
+test_cluster_requires_running_default_server (__main__.StackTests.test_cluster_requires_running_default_server) ... ok
+test_docker_failures_do_not_export_stack (__main__.StackTests.test_docker_failures_do_not_export_stack) ... ok
+test_exhausted_readiness_does_not_export_a_stack (__main__.StackTests.test_exhausted_readiness_does_not_export_a_stack) ... ok
+test_invalid_body_is_never_accepted (__main__.StackTests.test_invalid_body_is_never_accepted) ... ok
+test_malformed_successful_responses_then_ready (__main__.StackTests.test_malformed_successful_responses_then_ready) ... ok
+test_plain_text_versions_for_both_pins (__main__.StackTests.test_plain_text_versions_for_both_pins) ... ok
+test_redirect_is_not_readiness_even_with_expected_body (__main__.StackTests.test_redirect_is_not_readiness_even_with_expected_body) ... ok
+test_stalled_curl_process_retries_and_preserves_timeout_evidence (__main__.StackTests.test_stalled_curl_process_retries_and_preserves_timeout_evidence) ... Waiting for Opal version: attempt 1/2, curl=timeout, HTTP=none
+Opal version ready after 2 attempt(s)
+Waiting for Opal version: attempt 1/2, curl=timeout, HTTP=none
+Waiting for Opal version: attempt 2/2, curl=timeout, HTTP=none
+ok
+test_transient_http_and_transport_failures_then_ready (__main__.StackTests.test_transient_http_and_transport_failures_then_ready) ... ok
+test_unreviewed_pin_fails_before_provisioning (__main__.StackTests.test_unreviewed_pin_fails_before_provisioning) ... ok
+test_wrong_version_fails_immediately (__main__.StackTests.test_wrong_version_fails_immediately) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 3.258s
+
+OK

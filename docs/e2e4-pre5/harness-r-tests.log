@@ -1,0 +1,13 @@
+PASS: OMOP cleanup precedes logout, repeats, and exposes cleanup errors
+PASS: administrator resolver registration before assignment
+PASS: timing initialization and cleanup use the resource's session
+Timing stopped at: 0 0 0
+PASS: old-server fixture selection and fresh namespace for upgrade
+Harness contract regressions passed
+Administrator resolver ordering regression passed
+Signed-component redraw and measurement-request regressions passed
+Exact-archive and missing-dependency install regressions passed
+Scenario D positive fixture selection regressions passed
+Partial client errors cannot pass the method audit
+Old-server preparation regression passed
+Candidate version and changed R syntax passed
