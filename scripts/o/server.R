@@ -100,8 +100,11 @@ o_installed_tests <- function(files) {
 o_server_check <- function(name, plan_override = NULL) {
   old <- options(nfilter.subset = 5L, dsomop.query_strict = TRUE)
   on.exit(options(old))
-  dsOMOP::omopInitDS("ores")
-  h <- o_ns(".getHandle")("ores")
+  # The resource is owned by the invoking Opal R session, not this helper.
+  session <- parent.frame()
+  evalq(dsOMOP::omopInitDS("ores"), session)
+  on.exit(evalq(dsOMOP::omopCleanupDS("ores", close = TRUE), session), add = TRUE)
+  h <- evalq(dsOMOP:::.getHandle("ores"), session)
   if (name %in% c("acceptance1", "acceptance2")) {
     a <- o_plan(if (name == "acceptance1") 1 else 2)
     if (!is.null(plan_override)) {
@@ -109,7 +112,7 @@ o_server_check <- function(name, plan_override = NULL) {
       a$plan <- plan_override
       names(a$expected$outputs) <- names(plan_override$outputs)
     }
-    r <- o_execute(a$plan, h); on.exit(o_revoke(r), add = TRUE)
+    r <- o_execute(a$plan, h); on.exit(o_revoke(r), add = TRUE, after = FALSE)
     o_compare(r, a$expected, h)
   } else if (name == "staged") {
     for (n in c(7, 9)) {
@@ -135,11 +138,11 @@ o_server_check <- function(name, plan_override = NULL) {
     a <- o_plan(10)
     r <- o_execute(a$plan, h); o_compare(r, a$expected, h); o_revoke(r)
     e <- o_fixture_env(); sqlite <- e$build_extended_reach_handle(100L)
-    on.exit(DBI::dbDisconnect(sqlite$conn), add = TRUE)
+    on.exit(DBI::dbDisconnect(sqlite$conn), add = TRUE, after = FALSE)
     # Same public key contract makes cross-dialect fixture identity comparable.
     for (field in grep("person_key|pseudonym", ls(h), value = TRUE)) sqlite[[field]] <- h[[field]]
     r <- o_execute(a$plan, sqlite); o_compare(r, a$expected, sqlite); o_revoke(r)
-    DBI::dbBegin(h$conn); on.exit(DBI::dbRollback(h$conn), add = TRUE)
+    DBI::dbBegin(h$conn); on.exit(DBI::dbRollback(h$conn), add = TRUE, after = FALSE)
     for (table in DBI::dbListTables(sqlite$conn)) {
       id <- DBI::Id(schema = h$cdm_schema, table = table)
       d <- DBI::dbReadTable(h$conn, id)
@@ -171,7 +174,7 @@ o_server_check <- function(name, plan_override = NULL) {
     # A result-cohort scope is not person-local, even when every output is wide.
     o_error(o_execute(a$plan, h, dp = TRUE, scope = 1L), "not_person_local")
     ordinary <- o_execute(a$plan, h)
-    on.exit(o_revoke(ordinary), add = TRUE)
+    on.exit(o_revoke(ordinary), add = TRUE, after = FALSE)
     external <- ordinary$frames[[1]]
     stopifnot(inherits(external, "omop.table"))
     o_error(o_execute(a$plan, h, dp = TRUE, scope_table_1 = external), "not_person_local")
@@ -195,12 +198,12 @@ o_server_check <- function(name, plan_override = NULL) {
       as.integer(b[[1]]) %% 10L == 0L && as.integer(b[[2]]) - as.integer(b[[1]]) == 9L, TRUE)))
     # Public requested narrow band: construct a synthetic one-person band on GiBleed.
     # Transaction rolls back this fixture-only change even when an assertion fails.
-    DBI::dbBegin(h$conn); on.exit(DBI::dbRollback(h$conn), add = TRUE)
+    DBI::dbBegin(h$conn); on.exit(DBI::dbRollback(h$conn), add = TRUE, after = FALSE)
     DBI::dbExecute(h$conn, "UPDATE cdm.person SET year_of_birth=1980")
     DBI::dbExecute(h$conn, "UPDATE cdm.person SET year_of_birth=2002 WHERE person_id=(SELECT MIN(person_id) FROM cdm.person)")
     # Native public API request is constructed by the client and passed by setup in birth-plan.json.
     p <- jsonlite::fromJSON(file.path(O_HARNESS_ROOT, "birth-plan.json"), simplifyVector = FALSE)
-    r <- o_execute(p, h); on.exit(o_revoke(r), add = TRUE)
+    r <- o_execute(p, h); on.exit(o_revoke(r), add = TRUE, after = FALSE)
     x <- r$frames[[1]]
     stopifnot(sum(as.character(x$age_group) == "18-18", na.rm = TRUE) == 1L,
               all(c("year_of_birth", "month_of_birth", "birth_datetime", "age") %in% names(x)))

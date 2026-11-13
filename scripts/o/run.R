@@ -62,6 +62,21 @@ admin_check <- function(name, resource = "omop_data.o_reach", plan = NULL) {
                                   ', plan_override = ', wire, ')'))
   check(isTRUE(result), paste("administrator fixture assertions failed:", name))
 }
+# Profiling reports remote refusals in result metadata as well as conditions.
+# Require an explicit refusal and no returned rows or pooled value.
+o_aggregate_refused <- function(captured, errors) {
+  value <- captured$value
+  has_value <- function(x) {
+    if (is.null(x)) return(FALSE)
+    if (is.data.frame(x)) return(nrow(x) > 0L)
+    if (is.list(x)) return(any(vapply(x, has_value, TRUE)))
+    length(x) > 0L
+  }
+  text <- paste(captured$error, value$meta$warnings, captured$warnings, unlist(errors), collapse = " ")
+  !has_value(value$per_site) && !has_value(value$pooled) &&
+    grepl("blocked|sensitive|not allowed", text, ignore.case = TRUE) &&
+    (!captured$ok || inherits(value, "dsomop_result"))
+}
 set_strict <- function(strict) {
   o <- admin(); on.exit(opal.logout(o))
   dsadmin.set_option(o, "dsomop.query_strict", if (strict) "TRUE" else "FALSE")
@@ -95,6 +110,8 @@ scenario("O2", function() with_sites(function(conns) {
   run_recipe(study, conns, out = c(baseline = "O_baseline"))
   dsBaseClient::ds.dim("O_baseline", datasources = conns)
   dsBaseClient::ds.summary("O_baseline$age", datasources = conns)
+  classes <- dsBaseClient::ds.class("O_baseline$sex", datasources = conns)
+  check(all(vapply(classes, function(x) "factor" %in% x, TRUE)), "derived sex is not a factor")
   dsBaseClient::ds.table("O_baseline$sex", datasources = conns)
   levels <- dsBaseClient::ds.levels("O_baseline$sex", datasources = conns)
   check(length(levels) == length(conns) && all(vapply(levels, identical, TRUE, levels[[1]])),
@@ -184,8 +201,12 @@ scenario("O8", function() {
     local <- omop_study(index = omop_event("condition_occurrence", 201820),
                         baseline = list(age = omop_age()), outputs = "baseline")
     ds.omop.dp.prepare(local, out = c(baseline = "O_dp"), symbol = "omopO", conns = conns)
-    released <- ds.omop.dp.release("O_dp", omop_privacy("count", population_id = "O_fixture"), datasources = conns)
-    check(!is.null(released), "DP release missing")
+    # Both logical sites use one Rock noise root. Pooling them must refuse.
+    duplicate <- capture("duplicate DP node", ds.omop.dp.release("O_dp",
+      omop_privacy("count", population_id = "O_fixture"), datasources = conns))
+    check(!duplicate$ok && grepl("share a DP noise domain", duplicate$error), "duplicate DP node was accepted")
+    released <- ds.omop.dp.release("O_dp", omop_privacy("count", population_id = "O_fixture"), datasources = conns[1L])
+    check(!is.null(released), "single-node DP release missing")
     r <- capture("matching descendant DP", ds.omop.dp.prepare(recipe(10), symbol = "omopO", conns = conns))
     check(!r$ok && grepl("not_person_local", r$error), "matching DP must refuse by provenance")
   })
@@ -238,7 +259,7 @@ scenario("O11", function() {
         function() ds.omop.value.counts("person", field, symbol = "omopO", conns = conns),
         function() ds.omop.crosstab("person", field, "gender_concept_id", symbol = "omopO", conns = conns))) {
         r <- capture("aggregate birth policy", fn())
-        check(!r$ok && grepl("blocked|sensitive|not allowed", paste(r$error, unlist(DSI::datashield.errors())), ignore.case = TRUE), "aggregate birth admission relaxed")
+        check(o_aggregate_refused(r, DSI::datashield.errors()), "aggregate birth admission relaxed")
       }
     }
   }, "omop_data.gibleed")

@@ -125,3 +125,63 @@ local({
             env$resources$gibleed_asshipped$url == "omop")
 })
 cat("PASS: old-server fixture selection and fresh namespace for upgrade\n")
+local({
+  o_aggregate_refused <- get_fn("scripts/o/run.R", "o_aggregate_refused", environment())
+  result <- function(per_site = list(), pooled = NULL, warnings = "Server: blocked sensitive column")
+    structure(list(per_site = per_site, pooled = pooled, meta = list(warnings = warnings)), class = "dsomop_result")
+  stopifnot(o_aggregate_refused(list(ok = FALSE, error = "blocked column"), list()),
+    o_aggregate_refused(list(ok = TRUE, value = result()), list()),
+    !o_aggregate_refused(list(ok = TRUE, value = result(warnings = "network failure")), list()),
+    !o_aggregate_refused(list(ok = TRUE, value = result(per_site = list(site = data.frame(n = 1)))), list()),
+    !o_aggregate_refused(list(ok = TRUE, value = result(pooled = data.frame(n = 1))), list()),
+    !o_aggregate_refused(list(ok = TRUE, value = list()), list()))
+})
+cat("PASS: aggregate refusals require explicit evidence and no returned values\n")
+local({
+  active <- FALSE; closed <- FALSE
+  omopInitDS <- function(symbol) {
+    stopifnot(exists(symbol, parent.frame(), inherits = FALSE), !active)
+    assign(paste0(".dsomop_handle_", symbol), "fixture-handle", parent.frame())
+    active <<- TRUE
+  }
+  omopCleanupDS <- function(symbol, close) {
+    stopifnot(active, close); closed <<- TRUE; active <<- FALSE
+  }
+  .getHandle <- function(symbol) get(paste0(".dsomop_handle_", symbol), parent.frame(), inherits = FALSE)
+  o_ns <- function(name) get(name)
+  # This check follows the exact init/getHandle path, then deliberately fails.
+  # Rewrite ::: only for this test's stand-in, just as :: in get_fn().
+  forms <- parse("scripts/o/server.R")
+  selected <- Filter(function(x) is.call(x) && identical(x[[1]], as.name("<-")) &&
+    identical(x[[2]], as.name("o_server_check")), as.list(forms))
+  rewrite <- function(x) {
+    if (!is.call(x)) return(x)
+    if ((identical(x[[1]], as.name("::")) || identical(x[[1]], as.name(":::"))) && identical(x[[2]], as.name("dsOMOP"))) return(x[[3]])
+    as.call(lapply(as.list(x), rewrite))
+  }
+  eval(rewrite(selected[[1L]]))
+  session <- new.env(parent = environment()); session$ores <- "resource"
+  msg <- tryCatch(evalq(o_server_check("injected_unknown"), session), error = conditionMessage)
+  stopifnot(grepl("unknown administrator check", msg), closed, !active)
+})
+cat("PASS: fixture initialization and failure cleanup use the invoking Opal session\n")
+local({
+  calls <- integer(); checked <- FALSE
+  with_sites <- function(fn) fn(list(good = 1L, other = 2L))
+  omop_study <- function(...) "recipe"; omop_event <- omop_age <- function(...) NULL
+  omop_privacy <- function(...) NULL; recipe <- function(...) "matching"
+  ds.omop.dp.prepare <- function(rec, ...) { if (identical(rec, "matching")) stop("not_person_local") }
+  ds.omop.dp.release <- function(..., datasources) {
+    calls <<- c(calls, length(datasources))
+    if (length(datasources) == 2L) stop("Selected servers share a DP noise domain")
+    list(count = 10)
+  }
+  capture <- function(label, expr) tryCatch(list(ok = TRUE, value = force(expr)), error = function(e) list(ok = FALSE, error = conditionMessage(e)))
+  check <- function(ok, ...) stopifnot(ok)
+  admin_check <- function(name) { stopifnot(name == "dp"); checked <<- TRUE }
+  scenario <- function(id, fn) { stopifnot(id == "O8"); fn() }
+  forms <- Filter(function(x) is.call(x) && identical(x[[1]], as.name("scenario")) && identical(x[[2]], "O8"), as.list(parse("scripts/o/run.R")))
+  eval(forms[[1L]])
+  stopifnot(identical(calls, c(2L, 1L)), checked)
+})
+cat("PASS: duplicate DP node is refused and a single-node release succeeds\n")
