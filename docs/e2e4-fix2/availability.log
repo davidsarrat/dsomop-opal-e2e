@@ -1,0 +1,16 @@
+$ git for-each-ref --format=%(refname) %(objectname)
+refs/remotes/origin/results/43464880783-fresh-candidate 9b94610535d24022d4102621bde698744ed7d987
+refs/remotes/origin/results/43464880783-upgrade-candidate bf0b009bb9ab0103e6dcd64589f52e8800698104
+refs/remotes/res/43464880783-fresh-candidate 9b94610535d24022d4102621bde698744ed7d987
+refs/remotes/res/43464880783-upgrade-candidate bf0b009bb9ab0103e6dcd64589f52e8800698104
+exit=0
+
+$ git ls-remote origin refs/heads/*43464871866*
+error: unable to read askpass response from '/bin/false'
+fatal: could not read Username for 'https://github.com': terminal prompts disabled
+exit=128
+
+$ gh auth status
+You are not logged into any GitHub hosts. To log in, run: gh auth login
+exit=1
+

@@ -1,0 +1,18 @@
+{
+  "43464880783": {
+    "fresh": "9b94610535d24022d4102621bde698744ed7d987",
+    "upgrade": "bf0b009bb9ab0103e6dcd64589f52e8800698104"
+  },
+  "43464871866": {
+    "refs_present": false,
+    "read_access": "git ls-remote origin fails authentication; gh auth status reports no authenticated hosts",
+    "requested_from_user": true,
+    "matrix_jobs_unverified": [
+      "6.1.3/fresh",
+      "6.1.3/upgrade",
+      "5.7.6/fresh",
+      "5.7.6/upgrade"
+    ],
+    "workflow": "artifact upload only; no result branch writer"
+  }
+}

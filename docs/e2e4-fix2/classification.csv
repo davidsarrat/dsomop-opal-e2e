@@ -1,0 +1,2 @@
+file,id,status,title,evidence,classification,fix,test
+upgrade-G-verdicts.csv,G10 mdrr,FAIL,"dsomop:cm.mdrr: a finite protected result or a stable unavailable row, labelled as asked",no finite value and no reason; 2 rows; mdrr=NA NA; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled 2 rows,product,860c31f,test-e2e4-mdrr.R

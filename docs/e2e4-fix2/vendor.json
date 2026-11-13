@@ -1,0 +1,21 @@
+{
+  "server": "860c31fee8d32bea6aaefad76d8d237c19c0209b",
+  "client": "30a9794",
+  "files": [
+    {
+      "path": "R/tools_release_contracts.R",
+      "bytes": 96358,
+      "sha256": "2812d89830e0ff7734ae1524e230bf15a54c74d3ffa8bddf0f2dae847d3e0203"
+    },
+    {
+      "path": "NEWS.md",
+      "bytes": 52582,
+      "sha256": "4b78224c054dec3bdb09a0d8757c641fd877999c6ad75e47a351f7ff342e551c"
+    },
+    {
+      "path": "tests/testthat/test-e2e4-mdrr.R",
+      "bytes": 2979,
+      "sha256": "908b4e1e63f26d6194c3de19dd4dc7bd8ca49e061999f199d53cdd8df28b7a39"
+    }
+  ]
+}
