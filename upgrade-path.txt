@@ -1,0 +1,576 @@
+== A1: install dsOMOP 2.10.4 (a new package: Opal publishes it)
+OK    dsadmin.install_github_package(o, "dsOMOP", username = "isglobal-brge", ref = "2.10.4") (37.9 s)
+dsOMOP installed on Rock: 2.10.4
+dsOMOP methods published (after installing 2.10.4): 59 aggregate + 14 assign; versions: 2.10.4; omopInitDS published: TRUE
+--- assign methods after installing 2.10.4
+                      name   type    class                           value package version
+74 omopAnalysisRunAssignDS assign function dsOMOP::omopAnalysisRunAssignDS  dsOMOP  2.10.4
+75   omopAsFactorColumnsDS assign function   dsOMOP::omopAsFactorColumnsDS  dsOMOP  2.10.4
+76          omopBindRowsDS assign function          dsOMOP::omopBindRowsDS  dsOMOP  2.10.4
+77           omopCleanupDS assign function           dsOMOP::omopCleanupDS  dsOMOP  2.10.4
+78     omopCohortCombineDS assign function     dsOMOP::omopCohortCombineDS  dsOMOP  2.10.4
+79      omopCohortCreateDS assign function      dsOMOP::omopCohortCreateDS  dsOMOP  2.10.4
+80   omopCohortFromTableDS assign function   dsOMOP::omopCohortFromTableDS  dsOMOP  2.10.4
+81     omopDpPlanExecuteDS assign function     dsOMOP::omopDpPlanExecuteDS  dsOMOP  2.10.4
+82            omopFilterDS assign function            dsOMOP::omopFilterDS  dsOMOP  2.10.4
+83              omopInitDS assign function              dsOMOP::omopInitDS  dsOMOP  2.10.4
+84             omopMergeDS assign function             dsOMOP::omopMergeDS  dsOMOP  2.10.4
+85            omopMutateDS assign function            dsOMOP::omopMutateDS  dsOMOP  2.10.4
+86       omopPlanExecuteDS assign function       dsOMOP::omopPlanExecuteDS  dsOMOP  2.10.4
+87            omopSelectDS assign function            dsOMOP::omopSelectDS  dsOMOP  2.10.4
+--- aggregate methods after installing 2.10.4
+                               name      type    class                                   value package version
+56           omopAchillesAnalysesDS aggregate function          dsOMOP::omopAchillesAnalysesDS  dsOMOP  2.10.4
+57            omopAchillesCatalogDS aggregate function           dsOMOP::omopAchillesCatalogDS  dsOMOP  2.10.4
+58       omopAchillesDistributionDS aggregate function      dsOMOP::omopAchillesDistributionDS  dsOMOP  2.10.4
+59            omopAchillesResultsDS aggregate function           dsOMOP::omopAchillesResultsDS  dsOMOP  2.10.4
+60             omopAchillesStatusDS aggregate function            dsOMOP::omopAchillesStatusDS  dsOMOP  2.10.4
+61                omopAnalysisGetDS aggregate function               dsOMOP::omopAnalysisGetDS  dsOMOP  2.10.4
+62               omopAnalysisListDS aggregate function              dsOMOP::omopAnalysisListDS  dsOMOP  2.10.4
+63                omopAnalysisRunDS aggregate function               dsOMOP::omopAnalysisRunDS  dsOMOP  2.10.4
+64                  omopCdmSourceDS aggregate function                 dsOMOP::omopCdmSourceDS  dsOMOP  2.10.4
+65                 omopCdmVersionDS aggregate function                dsOMOP::omopCdmVersionDS  dsOMOP  2.10.4
+66        omopCohortGetDefinitionDS aggregate function       dsOMOP::omopCohortGetDefinitionDS  dsOMOP  2.10.4
+67                 omopCohortListDS aggregate function                dsOMOP::omopCohortListDS  dsOMOP  2.10.4
+68                omopColumnStatsDS aggregate function               dsOMOP::omopColumnStatsDS  dsOMOP  2.10.4
+69           omopConceptAncestorsDS aggregate function          dsOMOP::omopConceptAncestorsDS  dsOMOP  2.10.4
+70             omopConceptClassesDS aggregate function            dsOMOP::omopConceptClassesDS  dsOMOP  2.10.4
+71           omopConceptDrilldownDS aggregate function          dsOMOP::omopConceptDrilldownDS  dsOMOP  2.10.4
+72          omopConceptPrevalenceDS aggregate function         dsOMOP::omopConceptPrevalenceDS  dsOMOP  2.10.4
+73       omopConceptRelationshipsDS aggregate function      dsOMOP::omopConceptRelationshipsDS  dsOMOP  2.10.4
+74            omopConceptSynonymsDS aggregate function           dsOMOP::omopConceptSynonymsDS  dsOMOP  2.10.4
+75                   omopCrossTabDS aggregate function                  dsOMOP::omopCrossTabDS  dsOMOP  2.10.4
+76                 omopDateCountsDS aggregate function                dsOMOP::omopDateCountsDS  dsOMOP  2.10.4
+77         omopDisclosureSettingsDS aggregate function        dsOMOP::omopDisclosureSettingsDS  dsOMOP  2.10.4
+78             omopDomainCoverageDS aggregate function            dsOMOP::omopDomainCoverageDS  dsOMOP  2.10.4
+79                    omopDomainsDS aggregate function                   dsOMOP::omopDomainsDS  dsOMOP  2.10.4
+80                  omopDpReleaseDS aggregate function                 dsOMOP::omopDpReleaseDS  dsOMOP  2.10.4
+81                   omopDpStatusDS aggregate function                  dsOMOP::omopDpStatusDS  dsOMOP  2.10.4
+82           omopExpandConceptSetDS aggregate function          dsOMOP::omopExpandConceptSetDS  dsOMOP  2.10.4
+83               omopFactorLevelsDS aggregate function              dsOMOP::omopFactorLevelsDS  dsOMOP  2.10.4
+84            omopGetCapabilitiesDS aggregate function           dsOMOP::omopGetCapabilitiesDS  dsOMOP  2.10.4
+85             omopGetDescendantsDS aggregate function            dsOMOP::omopGetDescendantsDS  dsOMOP  2.10.4
+86                omopListColumnsDS aggregate function               dsOMOP::omopListColumnsDS  dsOMOP  2.10.4
+87               omopListConceptsDS aggregate function              dsOMOP::omopListConceptsDS  dsOMOP  2.10.4
+88                 omopListTablesDS aggregate function                dsOMOP::omopListTablesDS  dsOMOP  2.10.4
+89              omopLocateConceptDS aggregate function             dsOMOP::omopLocateConceptDS  dsOMOP  2.10.4
+90             omopLookupConceptsDS aggregate function            dsOMOP::omopLookupConceptsDS  dsOMOP  2.10.4
+91                omopMissingnessDS aggregate function               dsOMOP::omopMissingnessDS  dsOMOP  2.10.4
+92           omopNumericHistogramDS aggregate function          dsOMOP::omopNumericHistogramDS  dsOMOP  2.10.4
+93           omopNumericQuantilesDS aggregate function          dsOMOP::omopNumericQuantilesDS  dsOMOP  2.10.4
+94               omopNumericRangeDS aggregate function              dsOMOP::omopNumericRangeDS  dsOMOP  2.10.4
+95        omopOhdsiResultContractDS aggregate function       dsOMOP::omopOhdsiResultContractDS  dsOMOP  2.10.4
+96               omopOhdsiResultsDS aggregate function              dsOMOP::omopOhdsiResultsDS  dsOMOP  2.10.4
+97                omopOhdsiStatusDS aggregate function               dsOMOP::omopOhdsiStatusDS  dsOMOP  2.10.4
+98               omopOhdsiSummaryDS aggregate function              dsOMOP::omopOhdsiSummaryDS  dsOMOP  2.10.4
+99                omopOhdsiTablesDS aggregate function               dsOMOP::omopOhdsiTablesDS  dsOMOP  2.10.4
+100                      omopPingDS aggregate function                      dsOMOP::omopPingDS  dsOMOP  2.10.4
+101               omopPlanExplainDS aggregate function               dsOMOP::omopPlanExplainDS  dsOMOP  2.10.4
+102               omopPlanPreviewDS aggregate function               dsOMOP::omopPlanPreviewDS  dsOMOP  2.10.4
+103                omopPlanStatusDS aggregate function                dsOMOP::omopPlanStatusDS  dsOMOP  2.10.4
+104                 omopQueryExecDS aggregate function                 dsOMOP::omopQueryExecDS  dsOMOP  2.10.4
+105                  omopQueryGetDS aggregate function                  dsOMOP::omopQueryGetDS  dsOMOP  2.10.4
+106 omopQueryLibraryStickyCatalogDS aggregate function dsOMOP::omopQueryLibraryStickyCatalogDS  dsOMOP  2.10.4
+107                 omopQueryListDS aggregate function                 dsOMOP::omopQueryListDS  dsOMOP  2.10.4
+108         omopRelationshipGraphDS aggregate function         dsOMOP::omopRelationshipGraphDS  dsOMOP  2.10.4
+109             omopSafeCutpointsDS aggregate function             dsOMOP::omopSafeCutpointsDS  dsOMOP  2.10.4
+110            omopSearchConceptsDS aggregate function            dsOMOP::omopSearchConceptsDS  dsOMOP  2.10.4
+111              omopStagedRevokeDS aggregate function              dsOMOP::omopStagedRevokeDS  dsOMOP  2.10.4
+112                omopTableStatsDS aggregate function                dsOMOP::omopTableStatsDS  dsOMOP  2.10.4
+113               omopValueCountsDS aggregate function               dsOMOP::omopValueCountsDS  dsOMOP  2.10.4
+114              omopVocabulariesDS aggregate function              dsOMOP::omopVocabulariesDS  dsOMOP  2.10.4
+== A1b: the analyst's first DP call under dsOMOP 2.10.4 creates the noise root
+OK    ds.omop.connect (3 s)
+ERROR DSI::datashield.aggregate(omopDpStatusDS()) (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+OK    ds.omop.disconnect (0.5 s)
+--- state files under the old version
+[1] "secrets/pseudonym_root | 32 | 600 | 2026-11-14T23:31:32.439"     "secrets/pseudonym_root.lock | 0 | 600 | 2026-11-14T23:31:32.406"
+SUMMARY [upgrade] A1b: DP status under dsOMOP 2.10.4: FAIL: There are some DataSHIELD errors, list them with datashield.errors()
+== A2: upgrade to candidate through the same Opal install call
+* checking for empty or unneeded directories
+* building ‘dsOMOP_2.10.5.tar.gz’
+
+OK    dsadmin.install_local_package(o, "dsOMOP_2.10.5.tar.gz") (1.3 s)
+After Opal's local call dsOMOP is '2.10.4'; installing the exact candidate archive from Rock's R session
+--- Rock candidate installation (service R session and library)
+$status
+[1] 0
+
+$library
+[1] "/var/lib/rock/R/library"
+
+$log
+ [1] "* installing *source* package ‘dsOMOP’ ..."                                                                                                                                                                                                            
+ [2] "** this is package ‘dsOMOP’ version ‘2.10.5’"                                                                                                                                                                                                          
+ [3] "** using staged installation"                                                                                                                                                                                                                          
+ [4] "dsOMOP: request-local OpenSSL HMAC acceleration enabled"                                                                                                                                                                                               
+ [5] "** libs"                                                                                                                                                                                                                                               
+ [6] "using C compiler: ‘gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0’"                                                                                                                                                                                       
+ [7] "gcc -std=gnu2x -I\"/usr/local/lib/R/include\" -DNDEBUG -DDSOMOP_HAVE_OPENSSL   -I/usr/local/include    -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c release_hmac.c -o release_hmac.o"
+ [8] "gcc -std=gnu2x -shared -L/usr/local/lib/R/lib -L/usr/local/lib -o dsOMOP.so release_hmac.o -lcrypto -L/usr/local/lib/R/lib -lR"                                                                                                                        
+ [9] "installing to /var/lib/rock/R/library/00LOCK-dsOMOP/00new/dsOMOP/libs"                                                                                                                                                                                 
+[10] "** R"                                                                                                                                                                                                                                                  
+[11] "** inst"                                                                                                                                                                                                                                               
+[12] "** byte-compile and prepare package for lazy loading"                                                                                                                                                                                                  
+[13] "** help"                                                                                                                                                                                                                                               
+[14] "*** installing help indices"                                                                                                                                                                                                                           
+[15] "** building package indices"                                                                                                                                                                                                                           
+[16] "** testing if installed package can be loaded from temporary location"                                                                                                                                                                                 
+[17] "** checking absolute paths in shared objects and dynamic libraries"                                                                                                                                                                                    
+[18] "** testing if installed package can be loaded from final location"                                                                                                                                                                                     
+[19] "** testing if installed package keeps a record of temporary installation path"                                                                                                                                                                         
+[20] "* DONE (dsOMOP)"                                                                                                                                                                                                                                       
+
+dsOMOP installed on Rock: 2.10.5
+dsOMOP methods published (after upgrading to candidate (no publish)): 59 aggregate + 14 assign; versions: 2.10.4; omopInitDS published: TRUE
+--- assign methods after upgrading to candidate (no publish)
+                      name   type    class                           value package version
+74 omopAnalysisRunAssignDS assign function dsOMOP::omopAnalysisRunAssignDS  dsOMOP  2.10.4
+75   omopAsFactorColumnsDS assign function   dsOMOP::omopAsFactorColumnsDS  dsOMOP  2.10.4
+76          omopBindRowsDS assign function          dsOMOP::omopBindRowsDS  dsOMOP  2.10.4
+77           omopCleanupDS assign function           dsOMOP::omopCleanupDS  dsOMOP  2.10.4
+78     omopCohortCombineDS assign function     dsOMOP::omopCohortCombineDS  dsOMOP  2.10.4
+79      omopCohortCreateDS assign function      dsOMOP::omopCohortCreateDS  dsOMOP  2.10.4
+80   omopCohortFromTableDS assign function   dsOMOP::omopCohortFromTableDS  dsOMOP  2.10.4
+81     omopDpPlanExecuteDS assign function     dsOMOP::omopDpPlanExecuteDS  dsOMOP  2.10.4
+82            omopFilterDS assign function            dsOMOP::omopFilterDS  dsOMOP  2.10.4
+83              omopInitDS assign function              dsOMOP::omopInitDS  dsOMOP  2.10.4
+84             omopMergeDS assign function             dsOMOP::omopMergeDS  dsOMOP  2.10.4
+85            omopMutateDS assign function            dsOMOP::omopMutateDS  dsOMOP  2.10.4
+86       omopPlanExecuteDS assign function       dsOMOP::omopPlanExecuteDS  dsOMOP  2.10.4
+87            omopSelectDS assign function            dsOMOP::omopSelectDS  dsOMOP  2.10.4
+--- aggregate methods after upgrading to candidate (no publish)
+                               name      type    class                                   value package version
+56           omopAchillesAnalysesDS aggregate function          dsOMOP::omopAchillesAnalysesDS  dsOMOP  2.10.4
+57            omopAchillesCatalogDS aggregate function           dsOMOP::omopAchillesCatalogDS  dsOMOP  2.10.4
+58       omopAchillesDistributionDS aggregate function      dsOMOP::omopAchillesDistributionDS  dsOMOP  2.10.4
+59            omopAchillesResultsDS aggregate function           dsOMOP::omopAchillesResultsDS  dsOMOP  2.10.4
+60             omopAchillesStatusDS aggregate function            dsOMOP::omopAchillesStatusDS  dsOMOP  2.10.4
+61                omopAnalysisGetDS aggregate function               dsOMOP::omopAnalysisGetDS  dsOMOP  2.10.4
+62               omopAnalysisListDS aggregate function              dsOMOP::omopAnalysisListDS  dsOMOP  2.10.4
+63                omopAnalysisRunDS aggregate function               dsOMOP::omopAnalysisRunDS  dsOMOP  2.10.4
+64                  omopCdmSourceDS aggregate function                 dsOMOP::omopCdmSourceDS  dsOMOP  2.10.4
+65                 omopCdmVersionDS aggregate function                dsOMOP::omopCdmVersionDS  dsOMOP  2.10.4
+66        omopCohortGetDefinitionDS aggregate function       dsOMOP::omopCohortGetDefinitionDS  dsOMOP  2.10.4
+67                 omopCohortListDS aggregate function                dsOMOP::omopCohortListDS  dsOMOP  2.10.4
+68                omopColumnStatsDS aggregate function               dsOMOP::omopColumnStatsDS  dsOMOP  2.10.4
+69           omopConceptAncestorsDS aggregate function          dsOMOP::omopConceptAncestorsDS  dsOMOP  2.10.4
+70             omopConceptClassesDS aggregate function            dsOMOP::omopConceptClassesDS  dsOMOP  2.10.4
+71           omopConceptDrilldownDS aggregate function          dsOMOP::omopConceptDrilldownDS  dsOMOP  2.10.4
+72          omopConceptPrevalenceDS aggregate function         dsOMOP::omopConceptPrevalenceDS  dsOMOP  2.10.4
+73       omopConceptRelationshipsDS aggregate function      dsOMOP::omopConceptRelationshipsDS  dsOMOP  2.10.4
+74            omopConceptSynonymsDS aggregate function           dsOMOP::omopConceptSynonymsDS  dsOMOP  2.10.4
+75                   omopCrossTabDS aggregate function                  dsOMOP::omopCrossTabDS  dsOMOP  2.10.4
+76                 omopDateCountsDS aggregate function                dsOMOP::omopDateCountsDS  dsOMOP  2.10.4
+77         omopDisclosureSettingsDS aggregate function        dsOMOP::omopDisclosureSettingsDS  dsOMOP  2.10.4
+78             omopDomainCoverageDS aggregate function            dsOMOP::omopDomainCoverageDS  dsOMOP  2.10.4
+79                    omopDomainsDS aggregate function                   dsOMOP::omopDomainsDS  dsOMOP  2.10.4
+80                  omopDpReleaseDS aggregate function                 dsOMOP::omopDpReleaseDS  dsOMOP  2.10.4
+81                   omopDpStatusDS aggregate function                  dsOMOP::omopDpStatusDS  dsOMOP  2.10.4
+82           omopExpandConceptSetDS aggregate function          dsOMOP::omopExpandConceptSetDS  dsOMOP  2.10.4
+83               omopFactorLevelsDS aggregate function              dsOMOP::omopFactorLevelsDS  dsOMOP  2.10.4
+84            omopGetCapabilitiesDS aggregate function           dsOMOP::omopGetCapabilitiesDS  dsOMOP  2.10.4
+85             omopGetDescendantsDS aggregate function            dsOMOP::omopGetDescendantsDS  dsOMOP  2.10.4
+86                omopListColumnsDS aggregate function               dsOMOP::omopListColumnsDS  dsOMOP  2.10.4
+87               omopListConceptsDS aggregate function              dsOMOP::omopListConceptsDS  dsOMOP  2.10.4
+88                 omopListTablesDS aggregate function                dsOMOP::omopListTablesDS  dsOMOP  2.10.4
+89              omopLocateConceptDS aggregate function             dsOMOP::omopLocateConceptDS  dsOMOP  2.10.4
+90             omopLookupConceptsDS aggregate function            dsOMOP::omopLookupConceptsDS  dsOMOP  2.10.4
+91                omopMissingnessDS aggregate function               dsOMOP::omopMissingnessDS  dsOMOP  2.10.4
+92           omopNumericHistogramDS aggregate function          dsOMOP::omopNumericHistogramDS  dsOMOP  2.10.4
+93           omopNumericQuantilesDS aggregate function          dsOMOP::omopNumericQuantilesDS  dsOMOP  2.10.4
+94               omopNumericRangeDS aggregate function              dsOMOP::omopNumericRangeDS  dsOMOP  2.10.4
+95        omopOhdsiResultContractDS aggregate function       dsOMOP::omopOhdsiResultContractDS  dsOMOP  2.10.4
+96               omopOhdsiResultsDS aggregate function              dsOMOP::omopOhdsiResultsDS  dsOMOP  2.10.4
+97                omopOhdsiStatusDS aggregate function               dsOMOP::omopOhdsiStatusDS  dsOMOP  2.10.4
+98               omopOhdsiSummaryDS aggregate function              dsOMOP::omopOhdsiSummaryDS  dsOMOP  2.10.4
+99                omopOhdsiTablesDS aggregate function               dsOMOP::omopOhdsiTablesDS  dsOMOP  2.10.4
+100                      omopPingDS aggregate function                      dsOMOP::omopPingDS  dsOMOP  2.10.4
+101               omopPlanExplainDS aggregate function               dsOMOP::omopPlanExplainDS  dsOMOP  2.10.4
+102               omopPlanPreviewDS aggregate function               dsOMOP::omopPlanPreviewDS  dsOMOP  2.10.4
+103                omopPlanStatusDS aggregate function                dsOMOP::omopPlanStatusDS  dsOMOP  2.10.4
+104                 omopQueryExecDS aggregate function                 dsOMOP::omopQueryExecDS  dsOMOP  2.10.4
+105                  omopQueryGetDS aggregate function                  dsOMOP::omopQueryGetDS  dsOMOP  2.10.4
+106 omopQueryLibraryStickyCatalogDS aggregate function dsOMOP::omopQueryLibraryStickyCatalogDS  dsOMOP  2.10.4
+107                 omopQueryListDS aggregate function                 dsOMOP::omopQueryListDS  dsOMOP  2.10.4
+108         omopRelationshipGraphDS aggregate function         dsOMOP::omopRelationshipGraphDS  dsOMOP  2.10.4
+109             omopSafeCutpointsDS aggregate function             dsOMOP::omopSafeCutpointsDS  dsOMOP  2.10.4
+110            omopSearchConceptsDS aggregate function            dsOMOP::omopSearchConceptsDS  dsOMOP  2.10.4
+111              omopStagedRevokeDS aggregate function              dsOMOP::omopStagedRevokeDS  dsOMOP  2.10.4
+112                omopTableStatsDS aggregate function                dsOMOP::omopTableStatsDS  dsOMOP  2.10.4
+113               omopValueCountsDS aggregate function               dsOMOP::omopValueCountsDS  dsOMOP  2.10.4
+114              omopVocabulariesDS aggregate function              dsOMOP::omopVocabulariesDS  dsOMOP  2.10.4
+--- publication check after upgrading to candidate (no publish)
+$declared
+aggregate    assign 
+       59        14 
+
+$published
+aggregate    assign 
+       59        14 
+
+$missing_aggregate
+character(0)
+
+$missing_assign
+character(0)
+
+$wrong_type
+character(0)
+
+$extra
+character(0)
+
+$wrong_function
+character(0)
+
+$versions
+[1] "2.10.4"
+
+$installed_version
+[1] "2.10.5"
+
+$not_exported
+character(0)
+
+$options_declared
+[1] 36
+
+$options_missing
+character(0)
+
+$options_different
+character(0)
+
+SUMMARY [upgrade] after upgrading to candidate (no publish): declared 59 agg + 14 assign; published 59 agg + 14 assign (version 2.10.4; installed 2.10.5); missing 0; wrong type 0; extra 0; wrong function 0; not exported 0; options 36 declared, missing 0, different 0
+== analyst introspection (after the upgrade, before publishing)
+OK    DSI::datashield.pkg_status(conns) (0.1 s)
+--- DSI::datashield.pkg_status(conns)
+$package_status
+            Ethiopia
+dsBase          TRUE
+dsTidyverse     TRUE
+dsOMOP          TRUE
+resourcer       TRUE
+
+$version_status
+            Ethiopia
+dsBase      "6.3.5" 
+dsTidyverse "1.2.1" 
+dsOMOP      "2.10.4"
+resourcer   "1.5.2" 
+
+OK    DSI::datashield.methods(conns, type = "assign") (0 s)
+columns: name, type, class, value, package, version, server; rows: 121
+dsOMOP rows: 14
+--- first dsOMOP assign rows
+                      name   type    class                           value package version   server
+74 omopAnalysisRunAssignDS assign function dsOMOP::omopAnalysisRunAssignDS  dsOMOP  2.10.4 Ethiopia
+75   omopAsFactorColumnsDS assign function   dsOMOP::omopAsFactorColumnsDS  dsOMOP  2.10.4 Ethiopia
+76          omopBindRowsDS assign function          dsOMOP::omopBindRowsDS  dsOMOP  2.10.4 Ethiopia
+77           omopCleanupDS assign function           dsOMOP::omopCleanupDS  dsOMOP  2.10.4 Ethiopia
+OK    DSI::datashield.methods(conns, type = "aggregate") (0 s)
+columns: name, type, class, value, package, version, server; rows: 132
+dsOMOP rows: 59
+--- first dsOMOP aggregate rows
+                         name      type    class                              value package version   server
+56     omopAchillesAnalysesDS aggregate function     dsOMOP::omopAchillesAnalysesDS  dsOMOP  2.10.4 Ethiopia
+57      omopAchillesCatalogDS aggregate function      dsOMOP::omopAchillesCatalogDS  dsOMOP  2.10.4 Ethiopia
+58 omopAchillesDistributionDS aggregate function dsOMOP::omopAchillesDistributionDS  dsOMOP  2.10.4 Ethiopia
+59      omopAchillesResultsDS aggregate function      dsOMOP::omopAchillesResultsDS  dsOMOP  2.10.4 Ethiopia
+OK    DSI::datashield.method_status(conns, type = "assign") (0 s)
+--- method_status (assign), omop rows
+                                           name   type Ethiopia
+omopAnalysisRunAssignDS omopAnalysisRunAssignDS assign     TRUE
+omopAsFactorColumnsDS     omopAsFactorColumnsDS assign     TRUE
+omopBindRowsDS                   omopBindRowsDS assign     TRUE
+omopCleanupDS                     omopCleanupDS assign     TRUE
+omopCohortCombineDS         omopCohortCombineDS assign     TRUE
+omopCohortCreateDS           omopCohortCreateDS assign     TRUE
+omopCohortFromTableDS     omopCohortFromTableDS assign     TRUE
+omopDpPlanExecuteDS         omopDpPlanExecuteDS assign     TRUE
+omopFilterDS                       omopFilterDS assign     TRUE
+omopInitDS                           omopInitDS assign     TRUE
+omopMergeDS                         omopMergeDS assign     TRUE
+omopMutateDS                       omopMutateDS assign     TRUE
+omopPlanExecuteDS             omopPlanExecuteDS assign     TRUE
+omopSelectDS                       omopSelectDS assign     TRUE
+OK    DSI::datashield.profiles(conns) (0 s)
+--- DSI::datashield.profiles(conns)
+$available
+        Ethiopia
+default     TRUE
+
+$current
+         profile
+Ethiopia default
+
+--- ds.omop.client.version() after the upgrade, before publishing
+[1] "2.10.5"
+OK    ds.omop.server.version(conns) after the upgrade, before publishing (0.9 s)
+--- ds.omop.server.version(conns) after the upgrade, before publishing
+    server published running missing ready
+1 Ethiopia    2.10.4  2.10.5         FALSE
+                                                                                                                                                                                       advice
+1 dsOMOP 2.10.5 is installed but the profile publishes the methods of 2.10.4: an administrator publishes dsOMOP's settings again (Administration > DataSHIELD > Packages > dsOMOP > Publish).
+  recipe_language
+1    not conn....
+SUMMARY [upgrade] ds.omop.server.version(conns) after the upgrade, before publishing:     server published running missing ready / 1 Ethiopia    2.10.4  2.10.5         FALSE /                                                                                                                                                                                        advice / 1 dsOMOP 2.10.5 is installed but the profile publishes the methods of 2.10.4: an administrator publishes dsOMOP's settings again (Administration > DataSHIELD > Packages > dsOMOP > Publish). /   recipe_language / 1    not conn....
+RPostgres on Rock: 1.4.10; RPostgreSQL: 0.7.8
+SUMMARY [upgrade] Rock drivers: RPostgres 1.4.10, RPostgreSQL 0.7.8
+== A3: the analyst's script (omop_data.gibleed) right after the upgrade
+OK    ds.omop.connect(resource = "omop_data.gibleed", symbol = "omop", conns = conns) (2.1 s)
+OK    tabs <- ds.omop.tables(symbol = "omop", conns = conns)[[1]] (0.1 s)
+--- tabs[tabs$schema_category == "CDM", c("table_name", "has_person_id")]
+             table_name has_person_id
+1                person          TRUE
+2    observation_period          TRUE
+3      visit_occurrence          TRUE
+4          visit_detail          TRUE
+5  condition_occurrence          TRUE
+6         drug_exposure          TRUE
+7  procedure_occurrence          TRUE
+8       device_exposure          TRUE
+9           measurement          TRUE
+10          observation          TRUE
+11                death          TRUE
+12                 note          TRUE
+13             note_nlp         FALSE
+14             specimen          TRUE
+15    fact_relationship         FALSE
+16             location         FALSE
+17            care_site         FALSE
+18             provider         FALSE
+19    payer_plan_period          TRUE
+20                 cost         FALSE
+21             drug_era          TRUE
+22             dose_era          TRUE
+23        condition_era          TRUE
+24             metadata         FALSE
+25           cdm_source         FALSE
+OK    ds.omop.disconnect(symbol = "omop", conns = conns) (0.4 s)
+SUMMARY [upgrade] A: after upgrading 2.10.4 -> candidate without publishing: OK
+== B1: publish dsOMOP's settings (Opal > DataSHIELD > Packages > dsOMOP > Publish)
+OK    dsadmin.publish_package(o, "dsOMOP") (0.9 s)
+dsOMOP methods published (after publishing): 59 aggregate + 14 assign; versions: 2.10.5; omopInitDS published: TRUE
+--- assign methods after publishing
+                      name   type    class                           value package version
+74 omopAnalysisRunAssignDS assign function dsOMOP::omopAnalysisRunAssignDS  dsOMOP  2.10.5
+75   omopAsFactorColumnsDS assign function   dsOMOP::omopAsFactorColumnsDS  dsOMOP  2.10.5
+76          omopBindRowsDS assign function          dsOMOP::omopBindRowsDS  dsOMOP  2.10.5
+77           omopCleanupDS assign function           dsOMOP::omopCleanupDS  dsOMOP  2.10.5
+78     omopCohortCombineDS assign function     dsOMOP::omopCohortCombineDS  dsOMOP  2.10.5
+79      omopCohortCreateDS assign function      dsOMOP::omopCohortCreateDS  dsOMOP  2.10.5
+80   omopCohortFromTableDS assign function   dsOMOP::omopCohortFromTableDS  dsOMOP  2.10.5
+81     omopDpPlanExecuteDS assign function     dsOMOP::omopDpPlanExecuteDS  dsOMOP  2.10.5
+82            omopFilterDS assign function            dsOMOP::omopFilterDS  dsOMOP  2.10.5
+83              omopInitDS assign function              dsOMOP::omopInitDS  dsOMOP  2.10.5
+84             omopMergeDS assign function             dsOMOP::omopMergeDS  dsOMOP  2.10.5
+85            omopMutateDS assign function            dsOMOP::omopMutateDS  dsOMOP  2.10.5
+86       omopPlanExecuteDS assign function       dsOMOP::omopPlanExecuteDS  dsOMOP  2.10.5
+87            omopSelectDS assign function            dsOMOP::omopSelectDS  dsOMOP  2.10.5
+--- aggregate methods after publishing
+                               name      type    class                                   value package version
+56           omopAchillesAnalysesDS aggregate function          dsOMOP::omopAchillesAnalysesDS  dsOMOP  2.10.5
+57            omopAchillesCatalogDS aggregate function           dsOMOP::omopAchillesCatalogDS  dsOMOP  2.10.5
+58       omopAchillesDistributionDS aggregate function      dsOMOP::omopAchillesDistributionDS  dsOMOP  2.10.5
+59            omopAchillesResultsDS aggregate function           dsOMOP::omopAchillesResultsDS  dsOMOP  2.10.5
+60             omopAchillesStatusDS aggregate function            dsOMOP::omopAchillesStatusDS  dsOMOP  2.10.5
+61                omopAnalysisGetDS aggregate function               dsOMOP::omopAnalysisGetDS  dsOMOP  2.10.5
+62               omopAnalysisListDS aggregate function              dsOMOP::omopAnalysisListDS  dsOMOP  2.10.5
+63                omopAnalysisRunDS aggregate function               dsOMOP::omopAnalysisRunDS  dsOMOP  2.10.5
+64                  omopCdmSourceDS aggregate function                 dsOMOP::omopCdmSourceDS  dsOMOP  2.10.5
+65                 omopCdmVersionDS aggregate function                dsOMOP::omopCdmVersionDS  dsOMOP  2.10.5
+66        omopCohortGetDefinitionDS aggregate function       dsOMOP::omopCohortGetDefinitionDS  dsOMOP  2.10.5
+67                 omopCohortListDS aggregate function                dsOMOP::omopCohortListDS  dsOMOP  2.10.5
+68                omopColumnStatsDS aggregate function               dsOMOP::omopColumnStatsDS  dsOMOP  2.10.5
+69           omopConceptAncestorsDS aggregate function          dsOMOP::omopConceptAncestorsDS  dsOMOP  2.10.5
+70             omopConceptClassesDS aggregate function            dsOMOP::omopConceptClassesDS  dsOMOP  2.10.5
+71           omopConceptDrilldownDS aggregate function          dsOMOP::omopConceptDrilldownDS  dsOMOP  2.10.5
+72          omopConceptPrevalenceDS aggregate function         dsOMOP::omopConceptPrevalenceDS  dsOMOP  2.10.5
+73       omopConceptRelationshipsDS aggregate function      dsOMOP::omopConceptRelationshipsDS  dsOMOP  2.10.5
+74            omopConceptSynonymsDS aggregate function           dsOMOP::omopConceptSynonymsDS  dsOMOP  2.10.5
+75                   omopCrossTabDS aggregate function                  dsOMOP::omopCrossTabDS  dsOMOP  2.10.5
+76                 omopDateCountsDS aggregate function                dsOMOP::omopDateCountsDS  dsOMOP  2.10.5
+77         omopDisclosureSettingsDS aggregate function        dsOMOP::omopDisclosureSettingsDS  dsOMOP  2.10.5
+78             omopDomainCoverageDS aggregate function            dsOMOP::omopDomainCoverageDS  dsOMOP  2.10.5
+79                    omopDomainsDS aggregate function                   dsOMOP::omopDomainsDS  dsOMOP  2.10.5
+80                  omopDpReleaseDS aggregate function                 dsOMOP::omopDpReleaseDS  dsOMOP  2.10.5
+81                   omopDpStatusDS aggregate function                  dsOMOP::omopDpStatusDS  dsOMOP  2.10.5
+82           omopExpandConceptSetDS aggregate function          dsOMOP::omopExpandConceptSetDS  dsOMOP  2.10.5
+83               omopFactorLevelsDS aggregate function              dsOMOP::omopFactorLevelsDS  dsOMOP  2.10.5
+84            omopGetCapabilitiesDS aggregate function           dsOMOP::omopGetCapabilitiesDS  dsOMOP  2.10.5
+85             omopGetDescendantsDS aggregate function            dsOMOP::omopGetDescendantsDS  dsOMOP  2.10.5
+86                omopListColumnsDS aggregate function               dsOMOP::omopListColumnsDS  dsOMOP  2.10.5
+87               omopListConceptsDS aggregate function              dsOMOP::omopListConceptsDS  dsOMOP  2.10.5
+88                 omopListTablesDS aggregate function                dsOMOP::omopListTablesDS  dsOMOP  2.10.5
+89              omopLocateConceptDS aggregate function             dsOMOP::omopLocateConceptDS  dsOMOP  2.10.5
+90             omopLookupConceptsDS aggregate function            dsOMOP::omopLookupConceptsDS  dsOMOP  2.10.5
+91                omopMissingnessDS aggregate function               dsOMOP::omopMissingnessDS  dsOMOP  2.10.5
+92           omopNumericHistogramDS aggregate function          dsOMOP::omopNumericHistogramDS  dsOMOP  2.10.5
+93           omopNumericQuantilesDS aggregate function          dsOMOP::omopNumericQuantilesDS  dsOMOP  2.10.5
+94               omopNumericRangeDS aggregate function              dsOMOP::omopNumericRangeDS  dsOMOP  2.10.5
+95        omopOhdsiResultContractDS aggregate function       dsOMOP::omopOhdsiResultContractDS  dsOMOP  2.10.5
+96               omopOhdsiResultsDS aggregate function              dsOMOP::omopOhdsiResultsDS  dsOMOP  2.10.5
+97                omopOhdsiStatusDS aggregate function               dsOMOP::omopOhdsiStatusDS  dsOMOP  2.10.5
+98               omopOhdsiSummaryDS aggregate function              dsOMOP::omopOhdsiSummaryDS  dsOMOP  2.10.5
+99                omopOhdsiTablesDS aggregate function               dsOMOP::omopOhdsiTablesDS  dsOMOP  2.10.5
+100                      omopPingDS aggregate function                      dsOMOP::omopPingDS  dsOMOP  2.10.5
+101               omopPlanExplainDS aggregate function               dsOMOP::omopPlanExplainDS  dsOMOP  2.10.5
+102               omopPlanPreviewDS aggregate function               dsOMOP::omopPlanPreviewDS  dsOMOP  2.10.5
+103                omopPlanStatusDS aggregate function                dsOMOP::omopPlanStatusDS  dsOMOP  2.10.5
+104                 omopQueryExecDS aggregate function                 dsOMOP::omopQueryExecDS  dsOMOP  2.10.5
+105                  omopQueryGetDS aggregate function                  dsOMOP::omopQueryGetDS  dsOMOP  2.10.5
+106 omopQueryLibraryStickyCatalogDS aggregate function dsOMOP::omopQueryLibraryStickyCatalogDS  dsOMOP  2.10.5
+107                 omopQueryListDS aggregate function                 dsOMOP::omopQueryListDS  dsOMOP  2.10.5
+108         omopRelationshipGraphDS aggregate function         dsOMOP::omopRelationshipGraphDS  dsOMOP  2.10.5
+109             omopSafeCutpointsDS aggregate function             dsOMOP::omopSafeCutpointsDS  dsOMOP  2.10.5
+110            omopSearchConceptsDS aggregate function            dsOMOP::omopSearchConceptsDS  dsOMOP  2.10.5
+111              omopStagedRevokeDS aggregate function              dsOMOP::omopStagedRevokeDS  dsOMOP  2.10.5
+112                omopTableStatsDS aggregate function                dsOMOP::omopTableStatsDS  dsOMOP  2.10.5
+113               omopValueCountsDS aggregate function               dsOMOP::omopValueCountsDS  dsOMOP  2.10.5
+114              omopVocabulariesDS aggregate function              dsOMOP::omopVocabulariesDS  dsOMOP  2.10.5
+--- publication check after publishing
+$declared
+aggregate    assign 
+       59        14 
+
+$published
+aggregate    assign 
+       59        14 
+
+$missing_aggregate
+character(0)
+
+$missing_assign
+character(0)
+
+$wrong_type
+character(0)
+
+$extra
+character(0)
+
+$wrong_function
+character(0)
+
+$versions
+[1] "2.10.5"
+
+$installed_version
+[1] "2.10.5"
+
+$not_exported
+character(0)
+
+$options_declared
+[1] 36
+
+$options_missing
+character(0)
+
+$options_different
+character(0)
+
+SUMMARY [upgrade] after publishing: declared 59 agg + 14 assign; published 59 agg + 14 assign (version 2.10.5; installed 2.10.5); missing 0; wrong type 0; extra 0; wrong function 0; not exported 0; options 36 declared, missing 0, different 0
+== analyst introspection (after publishing)
+OK    DSI::datashield.pkg_status(conns) (0 s)
+--- DSI::datashield.pkg_status(conns)
+$package_status
+            Ethiopia
+dsBase          TRUE
+dsTidyverse     TRUE
+dsOMOP          TRUE
+resourcer       TRUE
+
+$version_status
+            Ethiopia
+dsBase      "6.3.5" 
+dsTidyverse "1.2.1" 
+dsOMOP      "2.10.5"
+resourcer   "1.5.2" 
+
+OK    DSI::datashield.methods(conns, type = "assign") (0 s)
+columns: name, type, class, value, package, version, server; rows: 121
+dsOMOP rows: 14
+--- first dsOMOP assign rows
+                      name   type    class                           value package version   server
+74 omopAnalysisRunAssignDS assign function dsOMOP::omopAnalysisRunAssignDS  dsOMOP  2.10.5 Ethiopia
+75   omopAsFactorColumnsDS assign function   dsOMOP::omopAsFactorColumnsDS  dsOMOP  2.10.5 Ethiopia
+76          omopBindRowsDS assign function          dsOMOP::omopBindRowsDS  dsOMOP  2.10.5 Ethiopia
+77           omopCleanupDS assign function           dsOMOP::omopCleanupDS  dsOMOP  2.10.5 Ethiopia
+OK    DSI::datashield.methods(conns, type = "aggregate") (0 s)
+columns: name, type, class, value, package, version, server; rows: 132
+dsOMOP rows: 59
+--- first dsOMOP aggregate rows
+                         name      type    class                              value package version   server
+56     omopAchillesAnalysesDS aggregate function     dsOMOP::omopAchillesAnalysesDS  dsOMOP  2.10.5 Ethiopia
+57      omopAchillesCatalogDS aggregate function      dsOMOP::omopAchillesCatalogDS  dsOMOP  2.10.5 Ethiopia
+58 omopAchillesDistributionDS aggregate function dsOMOP::omopAchillesDistributionDS  dsOMOP  2.10.5 Ethiopia
+59      omopAchillesResultsDS aggregate function      dsOMOP::omopAchillesResultsDS  dsOMOP  2.10.5 Ethiopia
+OK    DSI::datashield.method_status(conns, type = "assign") (0 s)
+--- method_status (assign), omop rows
+                                           name   type Ethiopia
+omopAnalysisRunAssignDS omopAnalysisRunAssignDS assign     TRUE
+omopAsFactorColumnsDS     omopAsFactorColumnsDS assign     TRUE
+omopBindRowsDS                   omopBindRowsDS assign     TRUE
+omopCleanupDS                     omopCleanupDS assign     TRUE
+omopCohortCombineDS         omopCohortCombineDS assign     TRUE
+omopCohortCreateDS           omopCohortCreateDS assign     TRUE
+omopCohortFromTableDS     omopCohortFromTableDS assign     TRUE
+omopDpPlanExecuteDS         omopDpPlanExecuteDS assign     TRUE
+omopFilterDS                       omopFilterDS assign     TRUE
+omopInitDS                           omopInitDS assign     TRUE
+omopMergeDS                         omopMergeDS assign     TRUE
+omopMutateDS                       omopMutateDS assign     TRUE
+omopPlanExecuteDS             omopPlanExecuteDS assign     TRUE
+omopSelectDS                       omopSelectDS assign     TRUE
+OK    DSI::datashield.profiles(conns) (0 s)
+--- DSI::datashield.profiles(conns)
+$available
+        Ethiopia
+default     TRUE
+
+$current
+         profile
+Ethiopia default
+
+--- ds.omop.client.version() after publishing
+[1] "2.10.5"
+OK    ds.omop.server.version(conns) after publishing (0.7 s)
+--- ds.omop.server.version(conns) after publishing
+    server published running missing ready advice recipe_language
+1 Ethiopia    2.10.5  2.10.5          TRUE           not conn....
+SUMMARY [upgrade] ds.omop.server.version(conns) after publishing:     server published running missing ready advice recipe_language / 1 Ethiopia    2.10.5  2.10.5          TRUE           not conn....
+== B2: the analyst's script on omop_data.gibleed (TLS mode left empty)
+OK    ds.omop.connect(resource = "omop_data.gibleed", symbol = "omop", conns = conns) (1.5 s)
+OK    tabs <- ds.omop.tables(symbol = "omop", conns = conns)[[1]] (0 s)
+--- tabs[tabs$schema_category == "CDM", c("table_name", "has_person_id")]
+             table_name has_person_id
+1                person          TRUE
+2    observation_period          TRUE
+3      visit_occurrence          TRUE
+4          visit_detail          TRUE
+5  condition_occurrence          TRUE
+6         drug_exposure          TRUE
+7  procedure_occurrence          TRUE
+8       device_exposure          TRUE
+9           measurement          TRUE
+10          observation          TRUE
+11                death          TRUE
+12                 note          TRUE
+13             note_nlp         FALSE
+14             specimen          TRUE
+15    fact_relationship         FALSE
+16             location         FALSE
+17            care_site         FALSE
+18             provider         FALSE
+19    payer_plan_period          TRUE
+20                 cost         FALSE
+21             drug_era          TRUE
+22             dose_era          TRUE
+23        condition_era          TRUE
+24             metadata         FALSE
+25           cdm_source         FALSE
+OK    ds.omop.disconnect(symbol = "omop", conns = conns) (0.4 s)
+SUMMARY [upgrade] B: after publishing, gibleed (TLS mode empty): OK
