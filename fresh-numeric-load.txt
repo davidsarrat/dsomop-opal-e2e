@@ -1,0 +1,32 @@
+$dataset
+[1] "Synthea27Nj"
+
+$archive_bytes
+[1] 3351707
+
+$measurements
+$measurements$rows
+[1] 10040
+
+$measurements$numeric
+[1] 9107
+
+$measurements$mapped_unit
+[1] 8403
+
+$measurements$numeric_and_mapped_unit
+[1] 8403
+
+$measurements$numeric_fraction
+[1] 0.9070717
+
+$measurements$mapped_unit_fraction
+[1] 0.8369522
+
+$measurements$both_fraction
+[1] 0.8369522
+
+$measurements$reference_ranges
+[1] 0
+
+
