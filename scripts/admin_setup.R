@@ -50,6 +50,7 @@ v1_url <- function(host, port, db, schema = NULL, vocabulary_schema = NULL) {
 db <- Sys.getenv("CDM_DB", "omop53")
 say("CDM database behind the resources: ", db, " (gibleed_asshipped always uses omop, cdm_version as shipped)")
 resources <- list(
+  numeric_cdm = list(url = v2_url("omopdb", 5432, "omop", cdm_schema = "numeric_cdm"), format = "omop.dbi.db"),
   # What the 2.10.0 form produces when the administrator leaves "TLS mode" empty.
   gibleed = list(url = v2_url("omopdb", 5432, db, cdm_schema = "cdm"), format = "omop.dbi.db"),
   # 2.x without a CDM schema, on a database whose only CDM schema is cdm (not public): discovery must find it.

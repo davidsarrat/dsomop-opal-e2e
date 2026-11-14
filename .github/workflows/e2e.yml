@@ -33,7 +33,7 @@ on:
         description: "CDM database behind the resources: omop (GiBleed as shipped, cdm_version v5.3.1) or omop53"
         default: "omop"
       scenarios:
-        description: "Scenarios after the path (C D E F G)"
+        description: "Scenarios after the path (C D E F G; N numeric CDM requires 2.10.4)"
         default: "C D E F G"
       old_client_ref:
         description: "dsOMOPClient tag of the old client in scenario G (installed into its own library)"
@@ -94,6 +94,8 @@ jobs:
         run: Rscript scripts/install_r.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: OMOP database (PostgreSQL + Eunomia GiBleed)
         run: bash scripts/omopdb.sh 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
+      - name: Numeric CDM (pinned Eunomia Synthea27Nj)
+        run: bash scripts/numeric/load.sh 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Admin setup (analyst, project, resources)
         run: Rscript scripts/admin_setup.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Path ${{ matrix.path }}
@@ -121,6 +123,10 @@ jobs:
         if: always() && contains(inputs.scenarios, 'G')
         timeout-minutes: 20
         run: Rscript scripts/scenario_G_old.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
+      - name: Scenario N (numeric values and units)
+        if: always() && contains(inputs.scenarios, 'N')
+        timeout-minutes: 20
+        run: Rscript scripts/scenario_N.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       # F removes RPostgres from Rock: it runs after G, which uses the standard driver.
       - name: Scenario F (RPostgreSQL fallback)
         if: always() && matrix.path == 'fresh' && contains(inputs.scenarios, 'F')

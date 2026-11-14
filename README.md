@@ -129,3 +129,34 @@ vignettes copied into `yaml/` and `vignettes/` beside it. This static/contract
 validation is **not an Opal pass**. The two-version run, native compiler output,
 actual DSOpal integration, timing, upgrade and downstream dsBase behavior can
 only be certified after the integrated packages are vendored.
+
+## Numeric CDM (scenario N, 2.10.4+)
+
+The second resource, `omop_data.numeric_cdm`, is the pinned Apache-2.0
+[Eunomia Synthea27Nj CDM 5.4](https://github.com/OHDSI/EunomiaDatasets/tree/3d349dcdd79cc346b8e36eb837e49feffe7f7497/datasets/Synthea27Nj).
+Despite its name it contains 28 people, with 10,040 measurements: 9,107 numeric
+values (90.707%) and 8,403 numeric values with mapped units (83.695%). The
+3,351,707-byte archive is SHA-256 checked by `scripts/numeric/load.R`, the same
+loader as `dsOMOP/tests/fixtures/numeric/load.R`. It preserves all original
+rows and types, and loads PostgreSQL schema `numeric_cdm`; the reusable loader
+also writes DuckDB when `NUMERIC_DUCKDB` is not `0`.
+
+The regular database setup now loads both CDMs and registers both resources.
+Select `N` in the e2e workflow's scenarios with matching 2.10.4+ candidates.
+N executes a hemoglobin recipe, verifies `ds.mean` and `ds.quantileMean`
+against independent pinned CSV expectations, and assigns a staged result.
+N exits nonzero on any failed assertion; its verdict is in `*-summary.txt`.
+It runs before F removes RPostgres. `scripts/tests/numeric-installed.R` runs
+that same scenario on DSLite with installed packages and asserts actual
+Parquet staging; this is not evidence of a real Opal pass.
+
+Standalone reuse (DBI, RPostgres, openssl, jsonlite; DuckDB also needs duckdb):
+
+```sh
+PGHOST=omopdb PGDATABASE=omop PGUSER=omop PGPASSWORD=omop \
+  Rscript scripts/numeric/load.R /root/rt/numeric-data
+```
+
+The loader writes `manifest.json` with source revision, checksum, row counts,
+license and numeric/unit coverage. `scripts/numeric/load.sh` configures the
+same loader for this harness's Docker database and archives the manifest.
