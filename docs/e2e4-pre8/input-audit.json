@@ -1,0 +1,2788 @@
+{
+  "harness_tested": "17e5df40f4718bdece091f68d3003c764f061854",
+  "logs": [
+    {
+      "name": "00-COORDINATOR-NOTE-failed.log",
+      "bytes": 1428,
+      "sha256": "1cbf8018e06c1473e16744f8af9e694f866992079b2b29d6c100aa6788a3da89"
+    },
+    {
+      "name": "43472800948-failed.log",
+      "bytes": 599595,
+      "sha256": "064ac8886073c6f792e752bcf2d31f67919217622099e87bbb507cd321ae3019"
+    },
+    {
+      "name": "43472806671-failed.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "43483690265-failed.log",
+      "bytes": 45640,
+      "sha256": "c67918868b4c50566b430773d2e08126edee0442d23effe78c5bb6588ff12746"
+    },
+    {
+      "name": "43483695412-failed.log",
+      "bytes": 1002454,
+      "sha256": "b986e42834ec6883018b8eb469ca3a1b4380cd2d6486d8222eaf77f585e98d41"
+    },
+    {
+      "name": "43493229424-failed.log",
+      "bytes": 77126,
+      "sha256": "55f7397461ccbed28b13e7c5f7bd5dc7d5accfeb7844a20fb79a60813abaac51"
+    },
+    {
+      "name": "43493235081-failed.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "43506711667-failed.log",
+      "bytes": 164339,
+      "sha256": "18c5e7405a50f9862004098bd929b74ca199700dcf584650c4dbe6a47292c974"
+    },
+    {
+      "name": "43506719427-failed.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "43515122503-failed.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "43515127555-failed.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "results": [
+    {
+      "ref": "refs/remotes/res/43506711667-1-opal-5.7.6-fresh-candidate",
+      "commit": "277f73ec560e19f51fb4a6c5d291f2973f4e3352",
+      "verdicts": {
+        "fresh-O-verdicts.csv": {
+          "counts": {
+            "PASS": 7,
+            "FAIL": 5
+          },
+          "rows": [
+            {
+              "id": "O1",
+              "status": "PASS",
+              "seconds": "7.407",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O2",
+              "status": "FAIL",
+              "seconds": "42.25",
+              "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"acceptance1\", plan_override = jsonlite::fromJSON(\"{\\\"version\\\":2,\\\"meta\\\":{\\\"language_version\\\":\\\"2.0\\\",\\\"semantic_version\\\":\\\"2.0.0\\\",\\\"generated_by\\\":\\\"dsOMOPClient\\\",\\\"client_version\\\":\\\"2.10.3\\\"},\\\"events\\\":{\\\"cond_dm\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[201820],\\\"include_descendants\\\":true}},\\\"cond_prediabetes\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[201826],\\\"include_descendants\\\":true}},\\\"cond_htn1\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[320128],\\\"include_descendants\\\":true}},\\\"cond_htn2\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[316866],\\\"include_descendants\\\":true}},\\\"cond_mi\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4329847],\\\"include_descendants\\\":true}},\\\"cond_mi2\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[312327],\\\"include_descendants\\\":true}},\\\"cond_ckd\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[46271022],\\\"include_descendants\\\":true}},\\\"cond_af\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[313217],\\\"include_descendants\\\":true}},\\\"cond_hf\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[316139],\\\"include_descendants\\\":true}},\\\"cond_hld\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[432867],\\\"include_descendants\\\":true}},\\\"cond_obesity\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[433736],\\\"include_descendants\\\":true}},\\\"cond_pregnancy\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4299535],\\\"include_descendants\\\":true}},\\\"cond_stroke\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[381316],\\\"include_descendants\\\":true}},\\\"cond_stroke2\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[372924],\\\"include_descendants\\\":true}},\\\"cond_sepsis\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[132797],\\\"include_descendants\\\":true}},\\\"cond_cirrhosis\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4064161],\\\"include_descendants\\\":true}},\\\"cond_asthma\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[317009],\\\"include_descendants\\\":true}},\\\"cond_copd\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[255573],\\\"include_descendants\\\":true}},\\\"cond_chest_pain\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[77670],\\\"include_descendants\\\":true}},\\\"cond_resp_inf\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[320136],\\\"include_descendants\\\":true}},\\\"cond_prior_bleed\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[192671],\\\"include_descendants\\\":true}},\\\"cond_major_bleed\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4108832],\\\"include_descendants\\\":true}},\\\"cond_malignancy\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4112853],\\\"include_descendants\\\":true}},\\\"cond_chronic_pain\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[436096],\\\"include_descendants\\\":true}},\\\"cond_htn_comp\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[321318],\\\"include_descendants\\\":true}},\\\"cond_covar2\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4000777],\\\"include_descendants\\\":true}},\\\"drug_metformin\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1503297],\\\"include_descendants\\\":true}},\\\"drug_insulin\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1596977],\\\"include_descendants\\\":true}},\\\"drug_statin\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1539403],\\\"include_descendants\\\":true}},\\\"drug_warfarin\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1310149],\\\"include_descendants\\\":true}},\\\"drug_acei\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1308216],\\\"include_descendants\\\":true}},\\\"drug_arb\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1367500],\\\"include_descendants\\\":true}},\\\"drug_beta_blocker\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1346823],\\\"include_descendants\\\":true}},\\\"drug_diuretic\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[974166],\\\"include_descendants\\\":true}},\\\"drug_doac\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[40228152],\\\"include_descendants\\\":true}},\\\"drug_sglt2\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1488000],\\\"include_descendants\\\":true}},\\\"proc_dialysis\\\":{\\\"table\\\":\\\"procedure_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4032243],\\\"include_descendants\\\":true}},\\\"proc_pci\\\":{\\\"table\\\":\\\"procedure_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4283095],\\\"include_descendants\\\":true}},\\\"proc_bariatric\\\":{\\\"table\\\":\\\"procedure_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4322471],\\\"include_descendants\\\":true}},\\\"proc_cath\\\":{\\\"table\\\":\\\"procedure_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4139525],\\\"include_descendants\\\":true}},\\\"hba1c\\\":{\\\"table\\\":\\\"measurement\\\",\\\"concept_set\\\":{\\\"concepts\\\":[3004410],\\\"include_descendants\\\":false},\\\"value\\\":{\\\"column\\\":\\\"value_as_number\\\"},\\\"unit\\\":{\\\"target\\\":8554,\\\"convert\\\":{\\\"8753\\\":{\\\"factor\\\":0.0915,\\\"offset\\\":2.15}},\\\"unknown\\\":\\\"missing\\\",\\\"censored\\\":\\\"keep\\\"}},\\\"glucose\\\":{\\\"table\\\":\\\"measurement\\\",\\\"concept_set\\\":{\\\"concepts\\\":[3004501],\\\"include_descendants\\\":false},\\\"value\\\":{\\\"column\\\":\\\"value_as_number\\\"},\\\"unit\\\":{\\\"target\\\":8840,\\\"convert\\\":{\\\"8753\\\":{\\\"factor\\\":18.0182,\\\"offset\\\":0}},\\\"unknown\\\":\\\"missing\\\",\\\"censored\\\":\\\"keep\\\"}}},\\\"populations\\\":{\\\"c1\\\":{\\\"kind\\\":\\\"index\\\",\\\"index\\\":{\\\"source\\\":{\\\"cohort_definition_id\\\":1},\\\"select\\\":\\\"all\\\",\\\"end\\\":{\\\"strategy\\\":\\\"event_end\\\"}},\\\"coverage\\\":{\\\"policy\\\":\\\"unique\\\",\\\"on_ambiguous\\\":\\\"drop\\\",\\\"on_missing\\\":\\\"drop\\\",\\\"gap\\\":0}}},\\\"variables\\\":{\\\"cond_dm\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_dm\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_prediabetes\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_prediabetes\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_htn1\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_htn1\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_htn2\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_htn2\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_mi\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_mi\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_mi2\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_mi2\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_ckd\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_ckd\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_af\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_af\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_hf\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_hf\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_hld\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_hld\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_obesity\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_obesity\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_pregnancy\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_pregnancy\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_stroke\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_stroke\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_stroke2\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_stroke2\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_sepsis\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_sepsis\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"con"
+            },
+            {
+              "id": "O3",
+              "status": "FAIL",
+              "seconds": "23.615",
+              "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"acceptance2\", plan_override = NULL)' -> Error : Person-bearing outputs require exactly 32 raw bytes of pseudonymization key material.\n"
+            },
+            {
+              "id": "O4",
+              "status": "PASS",
+              "seconds": "92.749",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O5",
+              "status": "FAIL",
+              "seconds": "30.31",
+              "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"staged\", plan_override = NULL)' -> Error in file(con, \"w\") : cannot open the connection\n"
+            },
+            {
+              "id": "O6",
+              "status": "PASS",
+              "seconds": "5.96200000000002",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O7",
+              "status": "FAIL",
+              "seconds": "24.341",
+              "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"matching\", plan_override = NULL)' -> Error : Person-bearing outputs require exactly 32 raw bytes of pseudonymization key material.\n"
+            },
+            {
+              "id": "O8",
+              "status": "PASS",
+              "seconds": "22.306",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O9",
+              "status": "PASS",
+              "seconds": "53.608",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O10",
+              "status": "PASS",
+              "seconds": "0.927999999999997",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O11",
+              "status": "FAIL",
+              "seconds": "13.253",
+              "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"aggregate_policy\", plan_override = NULL)' -> Error in file(con, \"w\") : cannot open the connection\n"
+            },
+            {
+              "id": "O12",
+              "status": "PASS",
+              "seconds": "19.912",
+              "evidence": "all assertions passed"
+            }
+          ]
+        }
+      },
+      "opal-clusters.json.http": "attempt=1 curl_exit=0 http_status=200\n",
+      "opal-version.txt": "5.7.6",
+      "opal-version.txt.http": "attempt=8 curl_exit=0 http_status=200\n",
+      "workflow": {
+        "GITHUB_RUN_ID": "43506711667",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "e5322cbc156e80652ffc2b95d2142953dc97dc37",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "5.7.6",
+        "E2E_PATH": "fresh",
+        "MODE": "candidate",
+        "JOB_STATUS": "failure",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "e5322cbc156e80652ffc2b95d2142953dc97dc37",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "failure",
+            "conclusion": "failure"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    {
+      "ref": "refs/remotes/res/43506711667-1-opal-5.7.6-upgrade-candidate",
+      "commit": "6019528881e2c05a8c4b755c5eb379973d5bf882",
+      "verdicts": {
+        "upgrade-O-verdicts.csv": {
+          "counts": {
+            "PASS": 6,
+            "FAIL": 6
+          },
+          "rows": [
+            {
+              "id": "O1",
+              "status": "PASS",
+              "seconds": "7.137",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O2",
+              "status": "FAIL",
+              "seconds": "43.727",
+              "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"acceptance1\", plan_override = jsonlite::fromJSON(\"{\\\"version\\\":2,\\\"meta\\\":{\\\"language_version\\\":\\\"2.0\\\",\\\"semantic_version\\\":\\\"2.0.0\\\",\\\"generated_by\\\":\\\"dsOMOPClient\\\",\\\"client_version\\\":\\\"2.10.3\\\"},\\\"events\\\":{\\\"cond_dm\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[201820],\\\"include_descendants\\\":true}},\\\"cond_prediabetes\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[201826],\\\"include_descendants\\\":true}},\\\"cond_htn1\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[320128],\\\"include_descendants\\\":true}},\\\"cond_htn2\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[316866],\\\"include_descendants\\\":true}},\\\"cond_mi\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4329847],\\\"include_descendants\\\":true}},\\\"cond_mi2\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[312327],\\\"include_descendants\\\":true}},\\\"cond_ckd\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[46271022],\\\"include_descendants\\\":true}},\\\"cond_af\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[313217],\\\"include_descendants\\\":true}},\\\"cond_hf\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[316139],\\\"include_descendants\\\":true}},\\\"cond_hld\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[432867],\\\"include_descendants\\\":true}},\\\"cond_obesity\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[433736],\\\"include_descendants\\\":true}},\\\"cond_pregnancy\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4299535],\\\"include_descendants\\\":true}},\\\"cond_stroke\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[381316],\\\"include_descendants\\\":true}},\\\"cond_stroke2\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[372924],\\\"include_descendants\\\":true}},\\\"cond_sepsis\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[132797],\\\"include_descendants\\\":true}},\\\"cond_cirrhosis\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4064161],\\\"include_descendants\\\":true}},\\\"cond_asthma\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[317009],\\\"include_descendants\\\":true}},\\\"cond_copd\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[255573],\\\"include_descendants\\\":true}},\\\"cond_chest_pain\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[77670],\\\"include_descendants\\\":true}},\\\"cond_resp_inf\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[320136],\\\"include_descendants\\\":true}},\\\"cond_prior_bleed\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[192671],\\\"include_descendants\\\":true}},\\\"cond_major_bleed\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4108832],\\\"include_descendants\\\":true}},\\\"cond_malignancy\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4112853],\\\"include_descendants\\\":true}},\\\"cond_chronic_pain\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[436096],\\\"include_descendants\\\":true}},\\\"cond_htn_comp\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[321318],\\\"include_descendants\\\":true}},\\\"cond_covar2\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4000777],\\\"include_descendants\\\":true}},\\\"drug_metformin\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1503297],\\\"include_descendants\\\":true}},\\\"drug_insulin\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1596977],\\\"include_descendants\\\":true}},\\\"drug_statin\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1539403],\\\"include_descendants\\\":true}},\\\"drug_warfarin\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1310149],\\\"include_descendants\\\":true}},\\\"drug_acei\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1308216],\\\"include_descendants\\\":true}},\\\"drug_arb\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1367500],\\\"include_descendants\\\":true}},\\\"drug_beta_blocker\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1346823],\\\"include_descendants\\\":true}},\\\"drug_diuretic\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[974166],\\\"include_descendants\\\":true}},\\\"drug_doac\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[40228152],\\\"include_descendants\\\":true}},\\\"drug_sglt2\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1488000],\\\"include_descendants\\\":true}},\\\"proc_dialysis\\\":{\\\"table\\\":\\\"procedure_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4032243],\\\"include_descendants\\\":true}},\\\"proc_pci\\\":{\\\"table\\\":\\\"procedure_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4283095],\\\"include_descendants\\\":true}},\\\"proc_bariatric\\\":{\\\"table\\\":\\\"procedure_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4322471],\\\"include_descendants\\\":true}},\\\"proc_cath\\\":{\\\"table\\\":\\\"procedure_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4139525],\\\"include_descendants\\\":true}},\\\"hba1c\\\":{\\\"table\\\":\\\"measurement\\\",\\\"concept_set\\\":{\\\"concepts\\\":[3004410],\\\"include_descendants\\\":false},\\\"value\\\":{\\\"column\\\":\\\"value_as_number\\\"},\\\"unit\\\":{\\\"target\\\":8554,\\\"convert\\\":{\\\"8753\\\":{\\\"factor\\\":0.0915,\\\"offset\\\":2.15}},\\\"unknown\\\":\\\"missing\\\",\\\"censored\\\":\\\"keep\\\"}},\\\"glucose\\\":{\\\"table\\\":\\\"measurement\\\",\\\"concept_set\\\":{\\\"concepts\\\":[3004501],\\\"include_descendants\\\":false},\\\"value\\\":{\\\"column\\\":\\\"value_as_number\\\"},\\\"unit\\\":{\\\"target\\\":8840,\\\"convert\\\":{\\\"8753\\\":{\\\"factor\\\":18.0182,\\\"offset\\\":0}},\\\"unknown\\\":\\\"missing\\\",\\\"censored\\\":\\\"keep\\\"}}},\\\"populations\\\":{\\\"c1\\\":{\\\"kind\\\":\\\"index\\\",\\\"index\\\":{\\\"source\\\":{\\\"cohort_definition_id\\\":1},\\\"select\\\":\\\"all\\\",\\\"end\\\":{\\\"strategy\\\":\\\"event_end\\\"}},\\\"coverage\\\":{\\\"policy\\\":\\\"unique\\\",\\\"on_ambiguous\\\":\\\"drop\\\",\\\"on_missing\\\":\\\"drop\\\",\\\"gap\\\":0}}},\\\"variables\\\":{\\\"cond_dm\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_dm\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_prediabetes\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_prediabetes\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_htn1\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_htn1\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_htn2\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_htn2\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_mi\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_mi\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_mi2\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_mi2\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_ckd\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_ckd\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_af\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_af\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_hf\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_hf\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_hld\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_hld\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_obesity\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_obesity\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_pregnancy\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_pregnancy\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_stroke\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_stroke\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_stroke2\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_stroke2\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_sepsis\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_sepsis\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"con"
+            },
+            {
+              "id": "O3",
+              "status": "FAIL",
+              "seconds": "23.479",
+              "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"acceptance2\", plan_override = NULL)' -> Error : Person-bearing outputs require exactly 32 raw bytes of pseudonymization key material.\n"
+            },
+            {
+              "id": "O4",
+              "status": "PASS",
+              "seconds": "101.336",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O5",
+              "status": "FAIL",
+              "seconds": "32.323",
+              "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"staged\", plan_override = NULL)' -> Error in file(con, \"w\") : cannot open the connection\n"
+            },
+            {
+              "id": "O6",
+              "status": "PASS",
+              "seconds": "6.51599999999999",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O7",
+              "status": "FAIL",
+              "seconds": "29.729",
+              "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"matching\", plan_override = NULL)' -> Error : Person-bearing outputs require exactly 32 raw bytes of pseudonymization key material.\n"
+            },
+            {
+              "id": "O8",
+              "status": "PASS",
+              "seconds": "24.316",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O9",
+              "status": "PASS",
+              "seconds": "61.035",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O10",
+              "status": "FAIL",
+              "seconds": "0.000999999999976353",
+              "evidence": "upgraded O1-O3 failed"
+            },
+            {
+              "id": "O11",
+              "status": "FAIL",
+              "seconds": "16.545",
+              "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"aggregate_policy\", plan_override = NULL)' -> Error in file(con, \"w\") : cannot open the connection\n"
+            },
+            {
+              "id": "O12",
+              "status": "PASS",
+              "seconds": "23.545",
+              "evidence": "all assertions passed"
+            }
+          ]
+        }
+      },
+      "opal-clusters.json.http": "attempt=1 curl_exit=0 http_status=200\n",
+      "opal-version.txt": "5.7.6",
+      "opal-version.txt.http": "attempt=8 curl_exit=0 http_status=200\n",
+      "workflow": {
+        "GITHUB_RUN_ID": "43506711667",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "e5322cbc156e80652ffc2b95d2142953dc97dc37",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "5.7.6",
+        "E2E_PATH": "upgrade",
+        "MODE": "candidate",
+        "JOB_STATUS": "failure",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "e5322cbc156e80652ffc2b95d2142953dc97dc37",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "failure",
+            "conclusion": "failure"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    {
+      "ref": "refs/remotes/res/43506711667-1-opal-6.1.3-fresh-candidate",
+      "commit": "06dd14df55301d81c5c825d6789c005f91a151bf",
+      "verdicts": {
+        "fresh-O-verdicts.csv": {
+          "counts": {
+            "PASS": 7,
+            "FAIL": 5
+          },
+          "rows": [
+            {
+              "id": "O1",
+              "status": "PASS",
+              "seconds": "8.19",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O2",
+              "status": "FAIL",
+              "seconds": "42.88",
+              "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"acceptance1\", plan_override = jsonlite::fromJSON(\"{\\\"version\\\":2,\\\"meta\\\":{\\\"language_version\\\":\\\"2.0\\\",\\\"semantic_version\\\":\\\"2.0.0\\\",\\\"generated_by\\\":\\\"dsOMOPClient\\\",\\\"client_version\\\":\\\"2.10.3\\\"},\\\"events\\\":{\\\"cond_dm\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[201820],\\\"include_descendants\\\":true}},\\\"cond_prediabetes\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[201826],\\\"include_descendants\\\":true}},\\\"cond_htn1\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[320128],\\\"include_descendants\\\":true}},\\\"cond_htn2\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[316866],\\\"include_descendants\\\":true}},\\\"cond_mi\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4329847],\\\"include_descendants\\\":true}},\\\"cond_mi2\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[312327],\\\"include_descendants\\\":true}},\\\"cond_ckd\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[46271022],\\\"include_descendants\\\":true}},\\\"cond_af\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[313217],\\\"include_descendants\\\":true}},\\\"cond_hf\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[316139],\\\"include_descendants\\\":true}},\\\"cond_hld\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[432867],\\\"include_descendants\\\":true}},\\\"cond_obesity\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[433736],\\\"include_descendants\\\":true}},\\\"cond_pregnancy\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4299535],\\\"include_descendants\\\":true}},\\\"cond_stroke\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[381316],\\\"include_descendants\\\":true}},\\\"cond_stroke2\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[372924],\\\"include_descendants\\\":true}},\\\"cond_sepsis\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[132797],\\\"include_descendants\\\":true}},\\\"cond_cirrhosis\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4064161],\\\"include_descendants\\\":true}},\\\"cond_asthma\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[317009],\\\"include_descendants\\\":true}},\\\"cond_copd\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[255573],\\\"include_descendants\\\":true}},\\\"cond_chest_pain\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[77670],\\\"include_descendants\\\":true}},\\\"cond_resp_inf\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[320136],\\\"include_descendants\\\":true}},\\\"cond_prior_bleed\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[192671],\\\"include_descendants\\\":true}},\\\"cond_major_bleed\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4108832],\\\"include_descendants\\\":true}},\\\"cond_malignancy\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4112853],\\\"include_descendants\\\":true}},\\\"cond_chronic_pain\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[436096],\\\"include_descendants\\\":true}},\\\"cond_htn_comp\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[321318],\\\"include_descendants\\\":true}},\\\"cond_covar2\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4000777],\\\"include_descendants\\\":true}},\\\"drug_metformin\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1503297],\\\"include_descendants\\\":true}},\\\"drug_insulin\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1596977],\\\"include_descendants\\\":true}},\\\"drug_statin\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1539403],\\\"include_descendants\\\":true}},\\\"drug_warfarin\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1310149],\\\"include_descendants\\\":true}},\\\"drug_acei\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1308216],\\\"include_descendants\\\":true}},\\\"drug_arb\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1367500],\\\"include_descendants\\\":true}},\\\"drug_beta_blocker\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1346823],\\\"include_descendants\\\":true}},\\\"drug_diuretic\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[974166],\\\"include_descendants\\\":true}},\\\"drug_doac\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[40228152],\\\"include_descendants\\\":true}},\\\"drug_sglt2\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1488000],\\\"include_descendants\\\":true}},\\\"proc_dialysis\\\":{\\\"table\\\":\\\"procedure_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4032243],\\\"include_descendants\\\":true}},\\\"proc_pci\\\":{\\\"table\\\":\\\"procedure_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4283095],\\\"include_descendants\\\":true}},\\\"proc_bariatric\\\":{\\\"table\\\":\\\"procedure_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4322471],\\\"include_descendants\\\":true}},\\\"proc_cath\\\":{\\\"table\\\":\\\"procedure_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4139525],\\\"include_descendants\\\":true}},\\\"hba1c\\\":{\\\"table\\\":\\\"measurement\\\",\\\"concept_set\\\":{\\\"concepts\\\":[3004410],\\\"include_descendants\\\":false},\\\"value\\\":{\\\"column\\\":\\\"value_as_number\\\"},\\\"unit\\\":{\\\"target\\\":8554,\\\"convert\\\":{\\\"8753\\\":{\\\"factor\\\":0.0915,\\\"offset\\\":2.15}},\\\"unknown\\\":\\\"missing\\\",\\\"censored\\\":\\\"keep\\\"}},\\\"glucose\\\":{\\\"table\\\":\\\"measurement\\\",\\\"concept_set\\\":{\\\"concepts\\\":[3004501],\\\"include_descendants\\\":false},\\\"value\\\":{\\\"column\\\":\\\"value_as_number\\\"},\\\"unit\\\":{\\\"target\\\":8840,\\\"convert\\\":{\\\"8753\\\":{\\\"factor\\\":18.0182,\\\"offset\\\":0}},\\\"unknown\\\":\\\"missing\\\",\\\"censored\\\":\\\"keep\\\"}}},\\\"populations\\\":{\\\"c1\\\":{\\\"kind\\\":\\\"index\\\",\\\"index\\\":{\\\"source\\\":{\\\"cohort_definition_id\\\":1},\\\"select\\\":\\\"all\\\",\\\"end\\\":{\\\"strategy\\\":\\\"event_end\\\"}},\\\"coverage\\\":{\\\"policy\\\":\\\"unique\\\",\\\"on_ambiguous\\\":\\\"drop\\\",\\\"on_missing\\\":\\\"drop\\\",\\\"gap\\\":0}}},\\\"variables\\\":{\\\"cond_dm\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_dm\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_prediabetes\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_prediabetes\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_htn1\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_htn1\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_htn2\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_htn2\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_mi\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_mi\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_mi2\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_mi2\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_ckd\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_ckd\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_af\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_af\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_hf\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_hf\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_hld\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_hld\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_obesity\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_obesity\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_pregnancy\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_pregnancy\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_stroke\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_stroke\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_stroke2\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_stroke2\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_sepsis\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_sepsis\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"con"
+            },
+            {
+              "id": "O3",
+              "status": "FAIL",
+              "seconds": "23.203",
+              "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"acceptance2\", plan_override = NULL)' -> Error : Person-bearing outputs require exactly 32 raw bytes of pseudonymization key material.\n"
+            },
+            {
+              "id": "O4",
+              "status": "PASS",
+              "seconds": "97.725",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O5",
+              "status": "FAIL",
+              "seconds": "31.191",
+              "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"staged\", plan_override = NULL)' -> Error in file(con, \"w\") : cannot open the connection\n"
+            },
+            {
+              "id": "O6",
+              "status": "PASS",
+              "seconds": "6.09299999999999",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O7",
+              "status": "FAIL",
+              "seconds": "25.493",
+              "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"matching\", plan_override = NULL)' -> Error : Person-bearing outputs require exactly 32 raw bytes of pseudonymization key material.\n"
+            },
+            {
+              "id": "O8",
+              "status": "PASS",
+              "seconds": "21.28",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O9",
+              "status": "PASS",
+              "seconds": "54.212",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O10",
+              "status": "PASS",
+              "seconds": "0.708000000000027",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O11",
+              "status": "FAIL",
+              "seconds": "14.574",
+              "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"aggregate_policy\", plan_override = NULL)' -> Error in file(con, \"w\") : cannot open the connection\n"
+            },
+            {
+              "id": "O12",
+              "status": "PASS",
+              "seconds": "21.867",
+              "evidence": "all assertions passed"
+            }
+          ]
+        }
+      },
+      "opal-clusters.json.http": "attempt=1 curl_exit=0 http_status=200\n",
+      "opal-version.txt": "6.1.3",
+      "opal-version.txt.http": "attempt=6 curl_exit=0 http_status=200\n",
+      "workflow": {
+        "GITHUB_RUN_ID": "43506711667",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "e5322cbc156e80652ffc2b95d2142953dc97dc37",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "6.1.3",
+        "E2E_PATH": "fresh",
+        "MODE": "candidate",
+        "JOB_STATUS": "failure",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "e5322cbc156e80652ffc2b95d2142953dc97dc37",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "failure",
+            "conclusion": "failure"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    {
+      "ref": "refs/remotes/res/43506711667-1-opal-6.1.3-upgrade-candidate",
+      "commit": "7f81968ca3121d8817fb9b8c285812ee8fd1610e",
+      "verdicts": {
+        "upgrade-O-verdicts.csv": {
+          "counts": {
+            "PASS": 6,
+            "FAIL": 6
+          },
+          "rows": [
+            {
+              "id": "O1",
+              "status": "PASS",
+              "seconds": "5.061",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O2",
+              "status": "FAIL",
+              "seconds": "36.824",
+              "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"acceptance1\", plan_override = jsonlite::fromJSON(\"{\\\"version\\\":2,\\\"meta\\\":{\\\"language_version\\\":\\\"2.0\\\",\\\"semantic_version\\\":\\\"2.0.0\\\",\\\"generated_by\\\":\\\"dsOMOPClient\\\",\\\"client_version\\\":\\\"2.10.3\\\"},\\\"events\\\":{\\\"cond_dm\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[201820],\\\"include_descendants\\\":true}},\\\"cond_prediabetes\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[201826],\\\"include_descendants\\\":true}},\\\"cond_htn1\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[320128],\\\"include_descendants\\\":true}},\\\"cond_htn2\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[316866],\\\"include_descendants\\\":true}},\\\"cond_mi\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4329847],\\\"include_descendants\\\":true}},\\\"cond_mi2\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[312327],\\\"include_descendants\\\":true}},\\\"cond_ckd\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[46271022],\\\"include_descendants\\\":true}},\\\"cond_af\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[313217],\\\"include_descendants\\\":true}},\\\"cond_hf\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[316139],\\\"include_descendants\\\":true}},\\\"cond_hld\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[432867],\\\"include_descendants\\\":true}},\\\"cond_obesity\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[433736],\\\"include_descendants\\\":true}},\\\"cond_pregnancy\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4299535],\\\"include_descendants\\\":true}},\\\"cond_stroke\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[381316],\\\"include_descendants\\\":true}},\\\"cond_stroke2\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[372924],\\\"include_descendants\\\":true}},\\\"cond_sepsis\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[132797],\\\"include_descendants\\\":true}},\\\"cond_cirrhosis\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4064161],\\\"include_descendants\\\":true}},\\\"cond_asthma\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[317009],\\\"include_descendants\\\":true}},\\\"cond_copd\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[255573],\\\"include_descendants\\\":true}},\\\"cond_chest_pain\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[77670],\\\"include_descendants\\\":true}},\\\"cond_resp_inf\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[320136],\\\"include_descendants\\\":true}},\\\"cond_prior_bleed\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[192671],\\\"include_descendants\\\":true}},\\\"cond_major_bleed\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4108832],\\\"include_descendants\\\":true}},\\\"cond_malignancy\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4112853],\\\"include_descendants\\\":true}},\\\"cond_chronic_pain\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[436096],\\\"include_descendants\\\":true}},\\\"cond_htn_comp\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[321318],\\\"include_descendants\\\":true}},\\\"cond_covar2\\\":{\\\"table\\\":\\\"condition_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4000777],\\\"include_descendants\\\":true}},\\\"drug_metformin\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1503297],\\\"include_descendants\\\":true}},\\\"drug_insulin\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1596977],\\\"include_descendants\\\":true}},\\\"drug_statin\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1539403],\\\"include_descendants\\\":true}},\\\"drug_warfarin\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1310149],\\\"include_descendants\\\":true}},\\\"drug_acei\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1308216],\\\"include_descendants\\\":true}},\\\"drug_arb\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1367500],\\\"include_descendants\\\":true}},\\\"drug_beta_blocker\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1346823],\\\"include_descendants\\\":true}},\\\"drug_diuretic\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[974166],\\\"include_descendants\\\":true}},\\\"drug_doac\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[40228152],\\\"include_descendants\\\":true}},\\\"drug_sglt2\\\":{\\\"table\\\":\\\"drug_exposure\\\",\\\"concept_set\\\":{\\\"concepts\\\":[1488000],\\\"include_descendants\\\":true}},\\\"proc_dialysis\\\":{\\\"table\\\":\\\"procedure_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4032243],\\\"include_descendants\\\":true}},\\\"proc_pci\\\":{\\\"table\\\":\\\"procedure_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4283095],\\\"include_descendants\\\":true}},\\\"proc_bariatric\\\":{\\\"table\\\":\\\"procedure_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4322471],\\\"include_descendants\\\":true}},\\\"proc_cath\\\":{\\\"table\\\":\\\"procedure_occurrence\\\",\\\"concept_set\\\":{\\\"concepts\\\":[4139525],\\\"include_descendants\\\":true}},\\\"hba1c\\\":{\\\"table\\\":\\\"measurement\\\",\\\"concept_set\\\":{\\\"concepts\\\":[3004410],\\\"include_descendants\\\":false},\\\"value\\\":{\\\"column\\\":\\\"value_as_number\\\"},\\\"unit\\\":{\\\"target\\\":8554,\\\"convert\\\":{\\\"8753\\\":{\\\"factor\\\":0.0915,\\\"offset\\\":2.15}},\\\"unknown\\\":\\\"missing\\\",\\\"censored\\\":\\\"keep\\\"}},\\\"glucose\\\":{\\\"table\\\":\\\"measurement\\\",\\\"concept_set\\\":{\\\"concepts\\\":[3004501],\\\"include_descendants\\\":false},\\\"value\\\":{\\\"column\\\":\\\"value_as_number\\\"},\\\"unit\\\":{\\\"target\\\":8840,\\\"convert\\\":{\\\"8753\\\":{\\\"factor\\\":18.0182,\\\"offset\\\":0}},\\\"unknown\\\":\\\"missing\\\",\\\"censored\\\":\\\"keep\\\"}}},\\\"populations\\\":{\\\"c1\\\":{\\\"kind\\\":\\\"index\\\",\\\"index\\\":{\\\"source\\\":{\\\"cohort_definition_id\\\":1},\\\"select\\\":\\\"all\\\",\\\"end\\\":{\\\"strategy\\\":\\\"event_end\\\"}},\\\"coverage\\\":{\\\"policy\\\":\\\"unique\\\",\\\"on_ambiguous\\\":\\\"drop\\\",\\\"on_missing\\\":\\\"drop\\\",\\\"gap\\\":0}}},\\\"variables\\\":{\\\"cond_dm\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_dm\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_prediabetes\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_prediabetes\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_htn1\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_htn1\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_htn2\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_htn2\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_mi\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_mi\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_mi2\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_mi2\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_ckd\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_ckd\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_af\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_af\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_hf\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_hf\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_hld\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_hld\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_obesity\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_obesity\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_pregnancy\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_pregnancy\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_stroke\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_stroke\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_stroke2\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_stroke2\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"cond_sepsis\\\":{\\\"source\\\":{\\\"event\\\":\\\"cond_sepsis\\\"},\\\"reducer\\\":{\\\"fn\\\":\\\"binary\\\",\\\"window\\\":{\\\"start\\\":-365,\\\"end\\\":0,\\\"anchor\\\":\\\"index\\\"}}},\\\"con"
+            },
+            {
+              "id": "O3",
+              "status": "FAIL",
+              "seconds": "21.876",
+              "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"acceptance2\", plan_override = NULL)' -> Error : Person-bearing outputs require exactly 32 raw bytes of pseudonymization key material.\n"
+            },
+            {
+              "id": "O4",
+              "status": "PASS",
+              "seconds": "82.093",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O5",
+              "status": "FAIL",
+              "seconds": "26.885",
+              "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"staged\", plan_override = NULL)' -> Error in file(con, \"w\") : cannot open the connection\n"
+            },
+            {
+              "id": "O6",
+              "status": "PASS",
+              "seconds": "5.68000000000001",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O7",
+              "status": "FAIL",
+              "seconds": "24.373",
+              "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"matching\", plan_override = NULL)' -> Error : Person-bearing outputs require exactly 32 raw bytes of pseudonymization key material.\n"
+            },
+            {
+              "id": "O8",
+              "status": "PASS",
+              "seconds": "20.55",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O9",
+              "status": "PASS",
+              "seconds": "49.489",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O10",
+              "status": "FAIL",
+              "seconds": "0",
+              "evidence": "upgraded O1-O3 failed"
+            },
+            {
+              "id": "O11",
+              "status": "FAIL",
+              "seconds": "12.348",
+              "evidence": "[Client error: (400) Bad Request] Error while evaluating 'source(\"/tmp/o-harness/server.R\"); o_server_check(\"aggregate_policy\", plan_override = NULL)' -> Error in file(con, \"w\") : cannot open the connection\n"
+            },
+            {
+              "id": "O12",
+              "status": "PASS",
+              "seconds": "17.002",
+              "evidence": "all assertions passed"
+            }
+          ]
+        }
+      },
+      "opal-clusters.json.http": "attempt=1 curl_exit=0 http_status=200\n",
+      "opal-version.txt": "6.1.3",
+      "opal-version.txt.http": "attempt=5 curl_exit=0 http_status=200\n",
+      "workflow": {
+        "GITHUB_RUN_ID": "43506711667",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "e5322cbc156e80652ffc2b95d2142953dc97dc37",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "6.1.3",
+        "E2E_PATH": "upgrade",
+        "MODE": "candidate",
+        "JOB_STATUS": "failure",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "e5322cbc156e80652ffc2b95d2142953dc97dc37",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "failure",
+            "conclusion": "failure"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    {
+      "ref": "refs/remotes/res/43515122503-1-opal-5.7.6-fresh-candidate",
+      "commit": "e8978543ed5f9d9dfd3c9b5d87a74381f1aedae4",
+      "verdicts": {
+        "fresh-O-verdicts.csv": {
+          "counts": {
+            "PASS": 12
+          },
+          "rows": [
+            {
+              "id": "O1",
+              "status": "PASS",
+              "seconds": "7.943",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O2",
+              "status": "PASS",
+              "seconds": "52.646",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O3",
+              "status": "PASS",
+              "seconds": "25.092",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O4",
+              "status": "PASS",
+              "seconds": "102.846",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O5",
+              "status": "PASS",
+              "seconds": "35.247",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O6",
+              "status": "PASS",
+              "seconds": "7.352",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O7",
+              "status": "PASS",
+              "seconds": "47.71",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O8",
+              "status": "PASS",
+              "seconds": "24.559",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O9",
+              "status": "PASS",
+              "seconds": "66.78",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O10",
+              "status": "PASS",
+              "seconds": "0.703000000000031",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O11",
+              "status": "PASS",
+              "seconds": "23.705",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O12",
+              "status": "PASS",
+              "seconds": "23.235",
+              "evidence": "all assertions passed"
+            }
+          ]
+        }
+      },
+      "fresh-O6-old-client.txt": "PASS: 2.10.1 client executed a safe v1 plan on 2.10.3\n",
+      "opal-clusters.json.http": "attempt=1 curl_exit=0 http_status=200\n",
+      "opal-version.txt": "5.7.6",
+      "opal-version.txt.http": "attempt=5 curl_exit=0 http_status=200\n",
+      "workflow": {
+        "GITHUB_RUN_ID": "43515122503",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "17e5df40f4718bdece091f68d3003c764f061854",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "5.7.6",
+        "E2E_PATH": "fresh",
+        "MODE": "candidate",
+        "JOB_STATUS": "success",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "17e5df40f4718bdece091f68d3003c764f061854",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    {
+      "ref": "refs/remotes/res/43515122503-1-opal-5.7.6-upgrade-candidate",
+      "commit": "854ac0e1af399b8524fa14ab64ae06b59b938fbe",
+      "verdicts": {
+        "upgrade-O-verdicts.csv": {
+          "counts": {
+            "PASS": 12
+          },
+          "rows": [
+            {
+              "id": "O1",
+              "status": "PASS",
+              "seconds": "5.717",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O2",
+              "status": "PASS",
+              "seconds": "44.171",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O3",
+              "status": "PASS",
+              "seconds": "21.123",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O4",
+              "status": "PASS",
+              "seconds": "84.859",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O5",
+              "status": "PASS",
+              "seconds": "26.746",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O6",
+              "status": "PASS",
+              "seconds": "6.82499999999999",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O7",
+              "status": "PASS",
+              "seconds": "38.446",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O8",
+              "status": "PASS",
+              "seconds": "18.659",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O9",
+              "status": "PASS",
+              "seconds": "49.913",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O10",
+              "status": "PASS",
+              "seconds": "0.000999999999976353",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O11",
+              "status": "PASS",
+              "seconds": "19.111",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O12",
+              "status": "PASS",
+              "seconds": "17.1729999999999",
+              "evidence": "all assertions passed"
+            }
+          ]
+        }
+      },
+      "opal-clusters.json.http": "attempt=1 curl_exit=0 http_status=200\n",
+      "opal-version.txt": "5.7.6",
+      "opal-version.txt.http": "attempt=9 curl_exit=0 http_status=200\n",
+      "upgrade-O6-old-client.txt": "PASS: 2.10.1 client executed a safe v1 plan on 2.10.3\n",
+      "workflow": {
+        "GITHUB_RUN_ID": "43515122503",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "17e5df40f4718bdece091f68d3003c764f061854",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "5.7.6",
+        "E2E_PATH": "upgrade",
+        "MODE": "candidate",
+        "JOB_STATUS": "success",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "17e5df40f4718bdece091f68d3003c764f061854",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    {
+      "ref": "refs/remotes/res/43515122503-1-opal-6.1.3-fresh-candidate",
+      "commit": "8bbe513c0678fbf7d74aa204a7642a23e98c7a23",
+      "verdicts": {
+        "fresh-O-verdicts.csv": {
+          "counts": {
+            "PASS": 12
+          },
+          "rows": [
+            {
+              "id": "O1",
+              "status": "PASS",
+              "seconds": "5.893",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O2",
+              "status": "PASS",
+              "seconds": "43.087",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O3",
+              "status": "PASS",
+              "seconds": "20.626",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O4",
+              "status": "PASS",
+              "seconds": "79.163",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O5",
+              "status": "PASS",
+              "seconds": "26.884",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O6",
+              "status": "PASS",
+              "seconds": "5.32900000000001",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O7",
+              "status": "PASS",
+              "seconds": "36.802",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O8",
+              "status": "PASS",
+              "seconds": "20.066",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O9",
+              "status": "PASS",
+              "seconds": "48.403",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O10",
+              "status": "PASS",
+              "seconds": "0.610000000000014",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O11",
+              "status": "PASS",
+              "seconds": "17.469",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O12",
+              "status": "PASS",
+              "seconds": "16.459",
+              "evidence": "all assertions passed"
+            }
+          ]
+        }
+      },
+      "fresh-O6-old-client.txt": "PASS: 2.10.1 client executed a safe v1 plan on 2.10.3\n",
+      "opal-clusters.json.http": "attempt=1 curl_exit=0 http_status=200\n",
+      "opal-version.txt": "6.1.3",
+      "opal-version.txt.http": "attempt=5 curl_exit=0 http_status=200\n",
+      "workflow": {
+        "GITHUB_RUN_ID": "43515122503",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "17e5df40f4718bdece091f68d3003c764f061854",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "6.1.3",
+        "E2E_PATH": "fresh",
+        "MODE": "candidate",
+        "JOB_STATUS": "success",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "17e5df40f4718bdece091f68d3003c764f061854",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    {
+      "ref": "refs/remotes/res/43515122503-1-opal-6.1.3-upgrade-candidate",
+      "commit": "f6b24cabdd4c170dfc42792b02b3287593870f4c",
+      "verdicts": {
+        "upgrade-O-verdicts.csv": {
+          "counts": {
+            "PASS": 12
+          },
+          "rows": [
+            {
+              "id": "O1",
+              "status": "PASS",
+              "seconds": "4.875",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O2",
+              "status": "PASS",
+              "seconds": "39.83",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O3",
+              "status": "PASS",
+              "seconds": "17.906",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O4",
+              "status": "PASS",
+              "seconds": "76.453",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O5",
+              "status": "PASS",
+              "seconds": "25.421",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O6",
+              "status": "PASS",
+              "seconds": "4.88300000000001",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O7",
+              "status": "PASS",
+              "seconds": "31.776",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O8",
+              "status": "PASS",
+              "seconds": "16.682",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O9",
+              "status": "PASS",
+              "seconds": "41.503",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O10",
+              "status": "PASS",
+              "seconds": "0",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O11",
+              "status": "PASS",
+              "seconds": "16.1",
+              "evidence": "all assertions passed"
+            },
+            {
+              "id": "O12",
+              "status": "PASS",
+              "seconds": "15.273",
+              "evidence": "all assertions passed"
+            }
+          ]
+        }
+      },
+      "opal-clusters.json.http": "attempt=1 curl_exit=0 http_status=200\n",
+      "opal-version.txt": "6.1.3",
+      "opal-version.txt.http": "attempt=5 curl_exit=0 http_status=200\n",
+      "upgrade-O6-old-client.txt": "PASS: 2.10.1 client executed a safe v1 plan on 2.10.3\n",
+      "workflow": {
+        "GITHUB_RUN_ID": "43515122503",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "17e5df40f4718bdece091f68d3003c764f061854",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "6.1.3",
+        "E2E_PATH": "upgrade",
+        "MODE": "candidate",
+        "JOB_STATUS": "success",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "17e5df40f4718bdece091f68d3003c764f061854",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    {
+      "ref": "refs/remotes/res/43515127555-fresh-candidate",
+      "commit": "07746c629a3dae6696eef71267de665288cda3c4",
+      "verdicts": {
+        "fresh-G-old-verdicts.csv": {
+          "counts": {
+            "PASS": 10
+          },
+          "rows": [
+            {
+              "id": "O1",
+              "status": "PASS",
+              "title": "dsOMOPClient 2.10.2 from GitHub, loaded instead of the run's client",
+              "evidence": "loaded 2.10.2"
+            },
+            {
+              "id": "O2",
+              "status": "PASS",
+              "title": "the 2.10.2 client connects and lists the CDM tables",
+              "evidence": "connect warnings: "
+            },
+            {
+              "id": "O3 status",
+              "status": "PASS",
+              "title": "ds.omop.dp.status() answers or refuses plainly",
+              "evidence": "DP status preflight requires a complete federation; no partial result was published. Affected server(s): Ethiopia (Ethiopia: Command 'omopDpStatusDS()' failed on 'Ethiopia': Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : This server runs dsOMOP 2.10.3, whose DP releases are protected components (contract dsomop-protected-release-v1) that dsOMOPClient 2.10.2 and older cannot validate or pool. Upgrade dsOMOPClient to 2.10.3 or later to use ds.omop.dp.status() and ds.omop.dp.release() on this server; with an older client the analysis catalogue keeps returning per-server results, without pooling of protected results. ). || Ethiopia: Command 'omopDpStatusDS()' failed on 'Ethiopia': Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : This server runs dsOMOP 2.10.3, whose DP releases are protected components (contract dsomop-protected-release-v1) that dsOMOPClient 2.10.2 and older cannot validate or pool. Upgrade dsOMOPClient to 2.10.3 or later to use ds.omop.dp.status() and ds.omop.dp.release() on this server; with an older client the analysis catalogue keeps returning per-server results, without pooling of protected results. "
+            },
+            {
+              "id": "O3 typed",
+              "status": "PASS",
+              "title": "a typed release from the 2.10.2 client is refused with a plain message (it cannot validate 2.10.3 payloads)",
+              "evidence": "prepare ok; release refused: DP status preflight requires a complete federation; no partial result was published. Affected server(s): Ethiopia (Ethiopia: Command 'omopDpStatusDS()' failed on 'Ethiopia': Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : This server runs dsOMOP 2.10.3, whose DP releases are protected components (contract dsomop-protected-release-v1) that dsOMOPClient 2.10.2 and older cannot validate or pool. Upgrade dsOMOPClient to 2.10.3 or later to use ds.omop.dp.status() and ds.omop.dp.release() on this server; with an older client the analysis catalogue keeps returning per-server results, without pooling of protected results. ). || Ethiopia: Command 'omopDpStatusDS()' failed on 'Ethiopia': Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : This server runs dsOMOP 2.10.3, whose DP releases are protected components (contract dsomop-protected-release-v1) that dsOMOPClient 2.10.2 and older cannot validate or pool. Upgrade dsOMOPClient to 2.10.3 or later to use ds.omop.dp.status() and ds.omop.dp.release() on this server; with an older client the analysis catalogue keeps returning per-server results, without pooling of protected results. "
+            },
+            {
+              "id": "O4 achilles.3",
+              "status": "PASS",
+              "title": "the old client shows the per-site protected frame without crashing",
+              "evidence": "per-site rows 128; pooled rows 0; messages: Protected release (C2): its values are projected noisy components, not exact sufficient statistics. dsOMOPClient >= 2.10.3 pools the signed components of compatible protected releases.; protection as the old client reads it: List of 1 $ Ethiopia:List of 28 ..$ protection : chr \"fixed_synopsis\" ..$ mode : chr \"auto\" ..$ contract : chr \"dsomop-release-contract-v1\" ..$ release_protocol : chr \"dsomop-protected-release-v1\" ..$ class : chr \"C2\" ..$ guarantee_scope : chr \"fixed_vector_before_exact_support_gate\" ..$ noise_refer..."
+            },
+            {
+              "id": "O4 condition_era.length_stats",
+              "status": "PASS",
+              "title": "the old client shows the per-site protected frame without crashing",
+              "evidence": "per-site rows 66; pooled rows 0; messages: Protected release (C7): its values are projected noisy components, not exact sufficient statistics. dsOMOPClient >= 2.10.3 pools the signed components of compatible protected releases.; protection as the old client reads it: List of 1 $ Ethiopia:List of 29 ..$ protection : chr \"realised_sticky\" ..$ mode : chr \"auto\" ..$ contract : chr \"dsomop-release-contract-v1\" ..$ release_protocol : chr \"dsomop-protected-release-v1\" ..$ class : chr \"C7\" ..$ guarantee_scope : chr \"heuristic_realised_contribution_reuse\" ..$ noise_refer..."
+            },
+            {
+              "id": "O5 record_summary",
+              "status": "PASS",
+              "title": "a protected record summary over two sites is not pooled by the old client; both per-site frames are kept",
+              "evidence": "pooled rows 0; per-site 2; messages: Protected release (C7): its values are projected noisy components, not exact sufficient statistics. dsOMOPClient >= 2.10.3 pools the signed components of compatible protected releases."
+            },
+            {
+              "id": "O5 effect_strict",
+              "status": "PASS",
+              "title": "pooling_policy = \"strict\": the old client does not pool the protected effect; it refuses plainly or keeps per-site frames",
+              "evidence": "pooled rows 0; per-site 2; messages: Protected release (C9): its values are projected noisy components, not exact sufficient statistics. dsOMOPClient >= 2.10.3 pools the signed components of compatible protected releases."
+            },
+            {
+              "id": "O5 effect_pooled_only_ok",
+              "status": "PASS",
+              "title": "pooling_policy = \"pooled_only_ok\": the old client does not pool the protected effect; it refuses plainly or keeps per-site frames",
+              "evidence": "pooled rows 0; per-site 2; messages: Protected release (C9): its values are projected noisy components, not exact sufficient statistics. dsOMOPClient >= 2.10.3 pools the signed components of compatible protected releases."
+            },
+            {
+              "id": "O6",
+              "status": "PASS",
+              "title": "the old client does not pool a protected release over two connections to the same node",
+              "evidence": "pooled rows 0; messages: Protected release (C2): its values are projected noisy components, not exact sufficient statistics. dsOMOPClient >= 2.10.3 pools the signed components of compatible protected releases."
+            }
+          ]
+        },
+        "fresh-G-verdicts.csv": {
+          "counts": {
+            "INFO": 12,
+            "PASS": 88
+          },
+          "rows": [
+            {
+              "id": "G0",
+              "status": "INFO",
+              "title": "versions and the PostgreSQL driver on Rock",
+              "evidence": "dsOMOP 2.10.3, dsOMOPClient 2.10.3, dsBase 6.3.5; RPostgres 1.4.10, RPostgreSQL 0.7.8"
+            },
+            {
+              "id": "G0a",
+              "status": "INFO",
+              "title": "where the noise root lives (Rock's R user, state directory, on a container volume?)",
+              "evidence": "user rock, HOME /var/lib/rock, state /var/lib/rock/.dsomop, owner rock, mode 700, writable TRUE, on a volume: FALSE; files: secrets/dp_noise_root, secrets/dp_noise_root.lock, secrets/pseudonym_root, secrets/pseudonym_root.lock"
+            },
+            {
+              "id": "G0b",
+              "status": "INFO",
+              "title": "custodial dsOMOP options set in the profile before G (the declared defaults aside)",
+              "evidence": "dsomop.allow_absolute_dates, dsomop.allow_sensitive_columns, dsomop.datetime_timezone, dsomop.max_analysis_scope_tables, dsomop.max_feature_specs, dsomop.max_filter_depth, dsomop.max_filter_nodes, dsomop.max_filter_values, dsomop.max_output_columns, dsomop.max_pivot_concepts, dsomop.max_plan_outputs, dsomop.max_temp_tables_per_handle, dsomop.max_temporal_bins, dsomop.nfilter.age_range, dsomop.nfilter.band, dsomop.nfilter.date_range, dsomop.nfilter.dist, dsomop.query_strict"
+            },
+            {
+              "id": "G1a",
+              "status": "PASS",
+              "title": "every declared method and option of the installed dsOMOP is published as dsOMOP::<name> at its version",
+              "evidence": "installed 2.10.3 (target 2.10.3); declared 59 agg + 14 assign, published 59 + 14, published version 2.10.3; missing 0, wrong_type 0, extra 0, wrong_function 0, not_exported 0, options_missing 0, options_different 0"
+            },
+            {
+              "id": "G1c",
+              "status": "PASS",
+              "title": "the analyst sees every dsOMOP method in the profile",
+              "evidence": "all declared methods listed with dsOMOP:: functions"
+            },
+            {
+              "id": "G19a",
+              "status": "PASS",
+              "title": "no dsomop.dp.snapshot_id in the DataSHIELD profile (2.10.3 dropped it from DESCRIPTION)",
+              "evidence": "none"
+            },
+            {
+              "id": "G1d",
+              "status": "INFO",
+              "title": "noise root across the upgrade",
+              "evidence": "not applicable (no old-version DP root recorded on this path)"
+            },
+            {
+              "id": "G4a",
+              "status": "PASS",
+              "title": "two sessions bootstrapping the noise root at once end with one root (one key id, one file, created once)",
+              "evidence": "previous root moved aside; key ids dpk_b7bfca2729cb355cb9af7fdfe2e1ca61684497cd dpk_b7bfca2729cb355cb9af7fdfe2e1ca61684497cd; root files 1 [secrets/dp_noise_root | 32 | 600 | 2026-11-13T22:09:19.117]; root-creation log lines added 1"
+            },
+            {
+              "id": "G4b",
+              "status": "PASS",
+              "title": "identical concurrent questions from two users (analyst, analyst2) get identical answers",
+              "evidence": "10 answers identical (realised_sticky, fixed_synopsis); with labels and signed components: 10/10 identical"
+            },
+            {
+              "id": "G6a achilles.3",
+              "status": "PASS",
+              "title": "pooling a protected catalogue release over two connections to one node is refused with a clear message",
+              "evidence": "Duplicate logical source: servers SiteA and SiteB are connections to the same logical node. Pooling their protected catalogue releases would count that node more than once; use the per-site results."
+            },
+            {
+              "id": "G6b achilles.3",
+              "status": "PASS",
+              "title": "the per-connection results stay available and are identical",
+              "evidence": "per-site answers identical"
+            },
+            {
+              "id": "G6a condition_era.length_stats",
+              "status": "PASS",
+              "title": "pooling a protected catalogue release over two connections to one node is refused with a clear message",
+              "evidence": "Duplicate logical source: servers SiteA and SiteB are connections to the same logical node. Pooling their protected catalogue releases would count that node more than once; use the per-site results."
+            },
+            {
+              "id": "G6b condition_era.length_stats",
+              "status": "PASS",
+              "title": "the per-connection results stay available and are identical",
+              "evidence": "per-site answers identical"
+            },
+            {
+              "id": "G6c",
+              "status": "PASS",
+              "title": "a typed release over two connections to one node is refused with a clear message",
+              "evidence": "Selected servers share a DP noise domain; refusing a duplicate federated release from one logical privacy node."
+            },
+            {
+              "id": "G6d",
+              "status": "INFO",
+              "title": "a typed release with pool = FALSE over two connections to one node",
+              "evidence": "refused: Selected servers share a DP noise domain; refusing a duplicate federated release from one logical privacy node."
+            },
+            {
+              "id": "G2a",
+              "status": "PASS",
+              "title": "the 2.10.3 DP status crosses DSI and the 2.10.3 client accepts it (contract, no quota, no history, automatic generation)",
+              "evidence": "contract protected_release_fixed_basis_or_realised_v1, epsilon 0.1, provider persistent_file, tools_mode auto, generation person_membership_digest"
+            },
+            {
+              "id": "G2b",
+              "status": "PASS",
+              "title": "every reference question (fixed, scoped, typed) answers through DSI",
+              "evidence": "incidence=realised_sticky, mdrr=realised_sticky, achilles_3=fixed_synopsis, age_decade=fixed_synopsis, long_op=fixed_synopsis, condition_era=realised_sticky, loader_count=fixed_synopsis, loader_records=fixed_synopsis, prepared_count=realised_sticky, prepared_hist=realised_sticky"
+            },
+            {
+              "id": "G2c loader_count",
+              "status": "PASS",
+              "title": "a typed protected payload crosses DSI intact and the client validates and pools it",
+              "evidence": "protocol dsomop-protected-release-v1, protection fixed_synopsis, 1 signed components, logical source dsl_ac023a11e8bc8278c6321be8b321564ad1152728, pooled present, warnings: "
+            },
+            {
+              "id": "G2c prepared_hist",
+              "status": "PASS",
+              "title": "a typed protected payload crosses DSI intact and the client validates and pools it",
+              "evidence": "protocol dsomop-protected-release-v1, protection realised_sticky, 11 signed components, logical source dsl_ac023a11e8bc8278c6321be8b321564ad1152728, pooled present, warnings: Heuristic realised-contribution protection (Ethiopia): equivalent questions return the same answer, but this is not a joint differential-privacy guarantee and no pooled epsilon is reported."
+            },
+            {
+              "id": "G2d achilles.3",
+              "status": "PASS",
+              "title": "a protected catalogue release carries its payload and pooling descriptor through DSI; the client pools it",
+              "evidence": "release_pooling protected_components; payload protocol dsomop-protected-release-v1; client ok; pooled 6 rows; protection fixed_synopsis"
+            },
+            {
+              "id": "G2d condition_era.length_stats",
+              "status": "PASS",
+              "title": "a protected catalogue release carries its payload and pooling descriptor through DSI; the client pools it",
+              "evidence": "release_pooling protected_components; payload protocol dsomop-protected-release-v1; client ok; pooled 66 rows; protection realised_sticky"
+            },
+            {
+              "id": "G2d incidence.rate",
+              "status": "PASS",
+              "title": "a protected catalogue release carries its payload and pooling descriptor through DSI; the client pools it",
+              "evidence": "release_pooling protected_components; payload protocol dsomop-protected-release-v1; client ok; pooled 1 rows; protection realised_sticky"
+            },
+            {
+              "id": "G2e sccs",
+              "status": "PASS",
+              "title": "requests that differ only in transport form (strings, numbers, defaults, field order, empty list) get one answer",
+              "evidence": "strings=b1d12e01c5, numbers_reordered=b1d12e01c5, default_window=b1d12e01c5, explicit_defaults=b1d12e01c5"
+            },
+            {
+              "id": "G2e age_decade",
+              "status": "PASS",
+              "title": "requests that differ only in transport form (strings, numbers, defaults, field order, empty list) get one answer",
+              "evidence": "string=6688e99b0c, number=6688e99b0c, integer=6688e99b0c"
+            },
+            {
+              "id": "G2e achilles_3",
+              "status": "PASS",
+              "title": "requests that differ only in transport form (strings, numbers, defaults, field order, empty list) get one answer",
+              "evidence": "empty_list=0ccbe4d993, empty_object=0ccbe4d993"
+            },
+            {
+              "id": "G2e typed_reordered",
+              "status": "PASS",
+              "title": "a typed spec with reordered fields gets the same payload",
+              "evidence": "identical payload"
+            },
+            {
+              "id": "G3c1",
+              "status": "PASS",
+              "title": "answers on a recreated handle equal the first handle's (typed tables sealed under the first)",
+              "evidence": "10 answers identical (realised_sticky, fixed_synopsis); with labels and signed components: 10/10 identical"
+            },
+            {
+              "id": "G3c2",
+              "status": "PASS",
+              "title": "incidence over equivalent cohorts (same definition twice, A union A, A intersect B) equals the reference",
+              "evidence": "A=54ec83be55, B=54ec83be55, A_union_A=54ec83be55, A_intersect_B=54ec83be55; reference 54ec83be55; protection realised_sticky"
+            },
+            {
+              "id": "G3d2",
+              "status": "PASS",
+              "title": "fixed synopses derived after the analyst's own cohorts, tables and plan outputs are unchanged",
+              "evidence": "3 answers identical (fixed_synopsis)"
+            },
+            {
+              "id": "G3d3",
+              "status": "PASS",
+              "title": "generation-like fields injected by the analyst are refused or ignored",
+              "evidence": "typed: refused (Error : DP seeds, allocations, epochs and reroll controls are server-owned. ); catalogue: refused (Error : Analysis 'dsomop:achilles.3': unknown parameter(s): snapshot_id, privacy_epoch, data_generation. )"
+            },
+            {
+              "id": "G3d1",
+              "status": "PASS",
+              "title": "the generation never reaches the analyst (checked on Rock against every 64-hex value received)",
+              "evidence": "generation available on Rock: TRUE; 2 candidate 64-hex values in 45 received objects; released: FALSE"
+            },
+            {
+              "id": "G10 measurement_empty",
+              "status": "PASS",
+              "title": "an all-null numeric population is refused by the final support gate",
+              "evidence": "Error : Disclosive: operation blocked - insufficient individuals to meet disclosure threshold. No further details available. "
+            },
+            {
+              "id": "G10 cox",
+              "status": "PASS",
+              "title": "dsomop:cm.effect_estimate: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "finite; 2 rows; estimate=1.785756 1.785756; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled 2 rows"
+            },
+            {
+              "id": "G10 poisson",
+              "status": "PASS",
+              "title": "dsomop:cm.effect_estimate: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "finite; 2 rows; estimate=1.321267 1.321267; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled 2 rows"
+            },
+            {
+              "id": "G10 sccs",
+              "status": "PASS",
+              "title": "dsomop:sccs.incidence_rate_ratio: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "finite; 1 rows; irr=0.3868513; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled 1 rows"
+            },
+            {
+              "id": "G10 person_time",
+              "status": "PASS",
+              "title": "dsomop:incidence.rate: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "finite; 1 rows; person_days=677327 rate=0.000565458; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled 1 rows"
+            },
+            {
+              "id": "G10 mdrr",
+              "status": "PASS",
+              "title": "dsomop:cm.mdrr: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "finite; 2 rows; mdrr=1.304971 1.304971; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled 2 rows"
+            },
+            {
+              "id": "G10 condition_era",
+              "status": "PASS",
+              "title": "dsomop:condition_era.length_stats: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "finite; 66 rows; n_persons=2403 2383 1939 1937; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled 66 rows"
+            },
+            {
+              "id": "G10 drug_era",
+              "status": "PASS",
+              "title": "dsomop:drug_era.length_stats: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "finite; 50 rows; n_persons=3137 2518 1864 1657; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled 50 rows"
+            },
+            {
+              "id": "G10 observation_period",
+              "status": "PASS",
+              "title": "dsomop:observation_period.length_stats: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "finite; 108 rows; n_persons= 0 115 631 673; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled 108 rows"
+            },
+            {
+              "id": "G10 observation_months",
+              "status": "PASS",
+              "title": "dsomop:observation_period.length_months_stats: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "finite; 108 rows; n_persons= 0 115 631 673; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled 108 rows"
+            },
+            {
+              "id": "G10 measurement_value",
+              "status": "PASS",
+              "title": "dsomop:measurement.value_stats: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "finite; 1 rows; n_persons=191 n_values=854 mean_value=NA; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled 1 rows"
+            },
+            {
+              "id": "G10 drug_quantity",
+              "status": "PASS",
+              "title": "dsomop:drug.quantity_stats: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "finite; 1 rows; n_persons=2371 n_records=9786; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled 1 rows"
+            },
+            {
+              "id": "G17a interaction_cox",
+              "status": "PASS",
+              "title": "interaction Cox gives finite grouped-time Cox estimates where the Poisson interaction does, labelled as Cox",
+              "evidence": "poisson finite: TRUE; cox finite: TRUE; cox label names Cox/exit: TRUE; stable: TRUE; cox estimates 1.393169 1.935504 NA"
+            },
+            {
+              "id": "G17b drug.quantity_stats",
+              "status": "PASS",
+              "title": "unregistered scales carry finite signed H components (synthetic numeric measurements), stable on repeat",
+              "evidence": "owner families RM; H allocations 0.5; histogram cells FALSE; histogram columns ; stable TRUE"
+            },
+            {
+              "id": "G17b measurement.value_stats",
+              "status": "PASS",
+              "title": "unregistered scales carry finite signed H components (synthetic numeric measurements), stable on repeat",
+              "evidence": "owner families RM; H allocations 0.5; histogram cells FALSE; histogram columns ; stable TRUE"
+            },
+            {
+              "id": "G17c recurrent_counts",
+              "status": "PASS",
+              "title": "incidence releases capped recurrent outcome counts next to first-outcome persons, labelled as such",
+              "evidence": "outcomes finite: TRUE; person_outcomes finite: TRUE; label names recurrent capped events: TRUE; outcomes 383"
+            },
+            {
+              "id": "G17d event_time_H",
+              "status": "PASS",
+              "title": "time to event over all (capped recurrent) events is its own estimand, not the first-event one",
+              "evidence": "labels differ: TRUE; answers differ: TRUE; all-events label still says first outcome: FALSE; stable TRUE"
+            },
+            {
+              "id": "G15a mdrr_aliases",
+              "status": "PASS",
+              "title": "cm.mdrr, cm_result and the diagnostics summary release one MDRR",
+              "evidence": "cm.mdrr=1.304970592; ohdsi.cohort_method.cm_result=1.304970592; cm.diagnostics_summary=1.304970592"
+            },
+            {
+              "id": "G15b binary_all_persons",
+              "status": "PASS",
+              "title": "a typed binary rate pooled over one site equals that site's numerator and denominator",
+              "evidence": "site 25.5/2709 = 0.0094130675526; pooled 25.5/2709 = 0.00941306755260244"
+            },
+            {
+              "id": "G15b binary_nonmissing",
+              "status": "PASS",
+              "title": "a typed binary rate pooled over one site equals that site's numerator and denominator",
+              "evidence": "site 25.5/2709 = 0.0094130675526; pooled 25.5/2709 = 0.00941306755260244"
+            },
+            {
+              "id": "G15c weighted_histogram",
+              "status": "PASS",
+              "title": "a weighted numeric histogram pooled over one site equals that site's histogram",
+              "evidence": "site [120, 0, 0, 0, 0]; pooled [120, 0, 0, 0, 0]"
+            },
+            {
+              "id": "G11",
+              "status": "PASS",
+              "title": "after 40 distinct valid questions every question still answers and the first answers are unchanged",
+              "evidence": "40/40 answered; reference catalogue answer unchanged; typed answer unchanged"
+            },
+            {
+              "id": "G3c3",
+              "status": "PASS",
+              "title": "answers in a new analyst session equal the reference session's",
+              "evidence": "10 answers identical (realised_sticky, fixed_synopsis); with labels and signed components: 10/10 identical"
+            },
+            {
+              "id": "G4c",
+              "status": "PASS",
+              "title": "answers of the concurrent two-user sessions (G4) equal the reference session's",
+              "evidence": "10 answers identical (realised_sticky, fixed_synopsis)"
+            },
+            {
+              "id": "G5 symbols",
+              "status": "PASS",
+              "title": "the sealed tables are in the restored session",
+              "evidence": "restored: omop.analysis.faUXKS, G_ages | missing: "
+            },
+            {
+              "id": "G5",
+              "status": "PASS",
+              "title": "typed releases of tables restored from a saved workspace equal the releases before saving",
+              "evidence": "4 answers identical (fixed_synopsis, realised_sticky); with labels and signed components: 4/4 identical"
+            },
+            {
+              "id": "G19b label",
+              "status": "INFO",
+              "title": "the DP status in the open session after the label's input changed",
+              "evidence": "label before cdm_4cd30f5f0e78fdf1ba3925c65326aa5885833213076db0aec69f760ad1b66061, after cdm_4cd30f5f0e78fdf1ba3925c65326aa5885833213076db0aec69f760ad1b66061"
+            },
+            {
+              "id": "G19b",
+              "status": "PASS",
+              "title": "after the snapshot label changes in an open session, every answer and route is unchanged",
+              "evidence": "10 answers identical (realised_sticky, fixed_synopsis); with labels and signed components: 10/10 identical"
+            },
+            {
+              "id": "G19b routes",
+              "status": "PASS",
+              "title": "the protection route of every question is unchanged after the label change",
+              "evidence": "incidence=realised_sticky; mdrr=realised_sticky; achilles_3=fixed_synopsis; age_decade=fixed_synopsis; long_op=fixed_synopsis; condition_era=realised_sticky; loader_count=fixed_synopsis; loader_records=fixed_synopsis; prepared_count=realised_sticky; prepared_hist=realised_sticky"
+            },
+            {
+              "id": "G19b2",
+              "status": "PASS",
+              "title": "a new session after the label change gets the reference answers (the label is not data)",
+              "evidence": "10 answers identical (realised_sticky, fixed_synopsis)"
+            },
+            {
+              "id": "G19c",
+              "status": "PASS",
+              "title": "a v3 sealed table restored after a label change (deprecated option) releases as before; fixed answers unchanged",
+              "evidence": "7 answers identical (fixed_synopsis, realised_sticky); with labels and signed components: 7/7 identical"
+            },
+            {
+              "id": "G19c label",
+              "status": "INFO",
+              "title": "the status label with dsomop.dp.snapshot_id set",
+              "evidence": "snapshot_id cdm_4cd30f5f0e78fdf1ba3925c65326aa5885833213076db0aec69f760ad1b66061"
+            },
+            {
+              "id": "G3a1",
+              "status": "PASS",
+              "title": "the switch alone puts the community tools in DP-only mode",
+              "evidence": "custodial dsOMOP options: dsomop.allow_absolute_dates, dsomop.allow_sensitive_columns, dsomop.datetime_timezone, dsomop.dp.exclusive, dsomop.max_analysis_scope_tables, dsomop.max_feature_specs, dsomop.max_filter_depth, dsomop.max_filter_nodes, dsomop.max_filter_values, dsomop.max_output_columns, dsomop.max_pivot_concepts, dsomop.max_plan_outputs, dsomop.max_temp_tables_per_handle, dsomop.max_temporal_bins, dsomop.nfilter.age_range, dsomop.nfilter.band, dsomop.nfilter.date_range, dsomop.nfilter.dist, dsomop.query_strict; tools_mode dp, exclusive TRUE, ready TRUE, noise provider persistent_file"
+            },
+            {
+              "id": "G3a2",
+              "status": "PASS",
+              "title": "fixed synopses answer in DP-only mode, identical to auto mode",
+              "evidence": "3 answers identical (fixed_synopsis)"
+            },
+            {
+              "id": "G3a3",
+              "status": "PASS",
+              "title": "DP-only answers are all fixed synopses",
+              "evidence": "achilles_3=fixed_synopsis, age_decade=fixed_synopsis, long_op=fixed_synopsis"
+            },
+            {
+              "id": "G3a4",
+              "status": "PASS",
+              "title": "realised questions (scoped or data-enumerated) are refused in DP-only mode with a stable message",
+              "evidence": "incidence: Error : This release has no fixed-synopsis protection: DP-only mode (dsomop.tools.mode = \"dp\" or dsomop.dp.exclusive = TRUE) accepts only unscoped questions over a public basis, keyed on the person-membership generation of the connected database. In auto mode the same question is answered with heuri...; mdrr: Error : This release has no fixed-synopsis protection: DP-only mode (dsomop.tools.mode = \"dp\" or dsomop.dp.exclusive = TRUE) accepts only unscoped questions over a public basis, keyed on the person-membership generation of the connected database. In auto mode the same question is answered with heuri...; condition_era: Error : This release has no fixed-synopsis protection: DP-only mode (dsomop.tools.mode = \"dp\" or dsomop.dp.exclusive = TRUE) accepts only unscoped questions over a public basis, keyed on the person-membership generation of the connected database. In auto mode the same question is answered with heuri..."
+            },
+            {
+              "id": "G3a5",
+              "status": "PASS",
+              "title": "typed counts of a restored pinned loader table release as fixed synopses in DP-only mode, equal to auto mode",
+              "evidence": "loader_count equal fixed_synopsis; loader_records equal fixed_synopsis"
+            },
+            {
+              "id": "G3a6",
+              "status": "PASS",
+              "title": "typed releases of a prepared (realised) table are refused in DP-only mode with the stable message",
+              "evidence": "prepared_count: Error : This typed release has no fixed-synopsis protection: DP-only mode (dsomop.tools.mode = \"dp\" or dsomop.dp.exclusive = TRUE) accepts typed counts, capped record counts and registered-scale bounded means of unscoped pinned loader tables, keyed on the person-membership generation re-read from th...; prepared_hist: Error : This typed release has no fixed-synopsis protection: DP-only mode (dsomop.tools.mode = \"dp\" or dsomop.dp.exclusive = TRUE) accepts typed counts, capped record counts and registered-scale bounded means of unscoped pinned loader tables, keyed on the person-membership generation re-read from th..."
+            },
+            {
+              "id": "G3a7",
+              "status": "PASS",
+              "title": "a fresh DP-only session can create the pinned loader table its typed fixed synopses need, and release its count",
+              "evidence": "count released as fixed_synopsis"
+            },
+            {
+              "id": "G9",
+              "status": "PASS",
+              "title": "with the tools disabled: connect and tables work; typed release, catalogue and DP status are refused by the gate before any argument is read",
+              "evidence": "connect TRUE; tables TRUE; typed release: Error : The OHDSI community tools (Achilles, OHDSI results, the analysis catalog and the query library) are disabled on this server. The data custodian can enable them again with the dsomop.tools.enabled option. ; catalogue: Error : The OHDSI community tools (Achilles, OHDSI results, the analysis catalog and the query library) are disabled on this server. The data custodian can enable them again with the dsomop.tools.enabled option. ; status: Error : The OHDSI community tools (Achilles, OHDSI results, the analysis catalog and the query library) are disabled on this server. The data custodian can enable them again with the dsomop.tools.enabled option. "
+            },
+            {
+              "id": "G21 st0",
+              "status": "PASS",
+              "title": "before any change the warm worker's answers equal the reference session's",
+              "evidence": "5 answers identical (realised_sticky, fixed_synopsis)"
+            },
+            {
+              "id": "G21 st1",
+              "status": "PASS",
+              "title": "an unrelated clinical insert (a procedure row of an existing person) redraws nothing anywhere",
+              "evidence": "15 answers identical (fixed_synopsis, realised_sticky)"
+            },
+            {
+              "id": "G12",
+              "status": "PASS",
+              "title": "after 17 more handles in the session (generation cache pressure), the old handle answers as before and as a new session",
+              "evidence": "2 answers identical (fixed_synopsis)"
+            },
+            {
+              "id": "G21 st2",
+              "status": "PASS",
+              "title": "an in-place edit of that unrelated row redraws nothing anywhere",
+              "evidence": "15 answers identical (fixed_synopsis, realised_sticky)"
+            },
+            {
+              "id": "G21 st3",
+              "status": "PASS",
+              "title": "deleting the unrelated row again restores the original answers everywhere",
+              "evidence": "15 answers identical (fixed_synopsis, realised_sticky)"
+            },
+            {
+              "id": "G21 st4",
+              "status": "PASS",
+              "title": "a person insert redraws every fixed synopsis, identically on the old handle, a new handle and a new session",
+              "evidence": "old handle, new handle and new session agree: TRUE; fixed synopses redrawn (changed/signed components vs before): achilles_3 775/775; age_decade 775/775; long_op 22/22"
+            },
+            {
+              "id": "G21 st5",
+              "status": "PASS",
+              "title": "deleting the inserted person restores the original answers everywhere",
+              "evidence": "15 answers identical (fixed_synopsis, realised_sticky)"
+            },
+            {
+              "id": "G21 st6",
+              "status": "PASS",
+              "title": "deleting an existing person row redraws every fixed synopsis, identically everywhere",
+              "evidence": "old handle, new handle and new session agree: TRUE; fixed synopses redrawn (changed/signed components vs before): achilles_3 775/775; age_decade 775/775; long_op 22/22"
+            },
+            {
+              "id": "G21 st7",
+              "status": "PASS",
+              "title": "restoring that person row restores the original answers everywhere",
+              "evidence": "15 answers identical (fixed_synopsis, realised_sticky)"
+            },
+            {
+              "id": "G21 st8",
+              "status": "PASS",
+              "title": "a balanced replacement (person 17 out, person 4 in: same count and largest id) redraws every fixed synopsis",
+              "evidence": "old handle, new handle and new session agree: TRUE; fixed synopses redrawn (changed/signed components vs before): achilles_3 775/775; age_decade 775/775; long_op 22/22"
+            },
+            {
+              "id": "G21 st9",
+              "status": "PASS",
+              "title": "undoing the replacement restores the original answers everywhere",
+              "evidence": "15 answers identical (fixed_synopsis, realised_sticky)"
+            },
+            {
+              "id": "G21 db",
+              "status": "INFO",
+              "title": "the CDM is back to its state at the start of G",
+              "evidence": "start 2694|5343|37409|65332 now 2694|5343|37409|65332"
+            },
+            {
+              "id": "G20a",
+              "status": "PASS",
+              "title": "a session connecting as another database user (e2e_reader) over the same CDM gets the reference answers",
+              "evidence": "3 answers identical (fixed_synopsis)"
+            },
+            {
+              "id": "G20b",
+              "status": "PASS",
+              "title": "when that user cannot see an unrelated clinical table, the fixed answers are unchanged (one corpus)",
+              "evidence": "3 answers identical (fixed_synopsis)"
+            },
+            {
+              "id": "G20c",
+              "status": "PASS",
+              "title": "a failed read fails only the current request; the same handle then answers as before (no remembered failure)",
+              "evidence": "during the failure: refused: Error : The protected release could not be prepared for this request (its data generation could not be read); no value was released. Retry the request. ; after: same answer (fixed_synopsis); another fixed question after: same answer"
+            },
+            {
+              "id": "G13a",
+              "status": "PASS",
+              "title": "under concurrent atomic loads every answer is one coherent state's (A or B) or a whole-request failure",
+              "evidence": "12 answers: 4 state A, 8 state B, 0 MIXED; 0 failed requests (0 crash-like); toggles=237"
+            },
+            {
+              "id": "G13b",
+              "status": "PASS",
+              "title": "with database connections killed during the loads, answers are still one state's or a whole-request failure",
+              "evidence": "3 answers: 3 state A, 0 state B, 0 MIXED; 5 failed requests (0 crash-like) e.g. Error : The protected release could not be prepared for this request (its data generation could not be read); no value was released. Retry the request. ; toggles=155"
+            },
+            {
+              "id": "G13 after",
+              "status": "PASS",
+              "title": "after the loads stop, a new session gets state A's answer again",
+              "evidence": "checked"
+            },
+            {
+              "id": "G14a strict",
+              "status": "PASS",
+              "title": "strict pooling with one NA site gives no pooled effect, with a plain message",
+              "evidence": "pooled estimate NA; warnings: Pooled protected components: per owner and stratum the signed noisy components of every site were summed and the views derived once. At least one site used heuristic realised-contribution protection; no pooled epsilon is reported. Non-poolable columns were retained as NA: estimate, ci_lo, ci_hi, log..."
+            },
+            {
+              "id": "G14b pooled_only_ok",
+              "status": "PASS",
+              "title": "pooled_only_ok pools the finite site and names the dropped one",
+              "evidence": "pooled estimate 1.32126743596252/1.32126743596252/1.32126743596252/1.32126743596252; warnings: Pooled protected components: per owner and stratum the signed noisy components of every site were summed and the views derived once. At least one site used heuristic realised-contribution protection; no pooled epsilon is reported. Non-poolable columns were retained as NA: estimate, ci_lo, ci_hi, log..."
+            },
+            {
+              "id": "G16a gibleed",
+              "status": "INFO",
+              "title": "first-release latency on GiBleed (2,694 persons)",
+              "evidence": "cold 5.5 s, warm 3.4 s, warm other question 3.4 s, 4 concurrent cold 16.6 s; CDM rows 411102; tables read by the cold release: person:10776, cdm_source:1"
+            },
+            {
+              "id": "G16b big",
+              "status": "PASS",
+              "title": "first-release latency on 1,000,000 synthetic persons: cold <= 60 s, warm <= 15 s, 4 concurrent cold <= 120 s",
+              "evidence": "cold 22.6 s, warm 14.7 s, warm other question 12.6 s, 4 concurrent cold 74.9 s; generation snapshot alone on Rock 1.18600000000015 s; hash acceleration TRUE; CDM rows 7411700; tables read by the cold release: person:2005388, cdm_source:1"
+            },
+            {
+              "id": "G3c4",
+              "status": "PASS",
+              "title": "after a Rock restart every answer equals the reference session's",
+              "evidence": "10 answers identical (realised_sticky, fixed_synopsis); with labels and signed components: 10/10 identical"
+            },
+            {
+              "id": "G3c4 root",
+              "status": "PASS",
+              "title": "the noise root survives the restart (same file, same key id, no new root)",
+              "evidence": "root file before [secrets/dp_noise_root | 32 | 600 | 2026-11-13T22:09:19.117] after [secrets/dp_noise_root | 32 | 600 | 2026-11-13T22:09:19.117]; key id same: TRUE; root-creation lines in the new Rserve.log: 0; tools_mode now auto"
+            },
+            {
+              "id": "G7",
+              "status": "INFO",
+              "title": "combined profile: dsBase methods next to dsOMOP's give exact statistics dsOMOP does not protect",
+              "evidence": "dsBase 6.3.5: 72 aggregate + 90 assign methods published next to dsOMOP's 59 + 14; shared names: none; exact dsBase aggregates enabled: corDS, covDS, densityGridDS, dimDS, glmDS1, glmDS2, glmSLMADS2, glmerSLMADS2, heatmapPlotDS, histogramDS1, histogramDS2, kurtosisDS1, lengthDS, lmerSLMADS2, meanDS, meanSdGpDS, numNaDS, quantileMeanDS, rangeDS, scatterPlotDS, skewnessDS1, table1DDS, table2DDS, tableDS, varDS; nfilter options: default.nfilter.glm=0.33, default.nfilter.kNN=3, default.nfilter.levels.density=0.33, default.nfilter.levels.max=40, default.nfilter.noise=0.25, default.nfilter.string=80, default.nfilter.stringShort=20, default.nfilter.subset=3, default.nfilter.tab=3, dsomop.nfilter.age_range=5, dsomop.nfilter.band=5, dsomop.nfilter.date_range=30, dsomop.nfilter.dist=10, nfilter.glm=0.33, nfilter.levels.density=0.33, nfilter.levels.max=40, nfilter.noise=0.25, nfilter.string=80, nfilter.stringShort=20, nfilter.subset=3, nfilter.tab=3; dsBase meanDS on a dsOMOP table: returned List of 5 $ EstimatedMean : num 67.9 $ Nmissing : int 0 $ Nvalid : int 2694 $ Ntotal : int 2694 $ ValidityMessage: chr \"VALID ANALYSIS\""
+            },
+            {
+              "id": "G8",
+              "status": "PASS",
+              "title": "audit lines reach Rock's log: typed releases released and refused, generic fields only",
+              "evidence": "544 audit lines since G started (omopAnalysisRunAssignDS=19, omopAnalysisRunDS=336, omopCohortCombineDS=2, omopCohortCreateDS=60, omopDpPlanExecuteDS=7, omopDpReleaseDS=82, omopPlanExecuteDS=9, publication=29); omopDpReleaseDS: 78 released, 4 refused; lines with long hex values: 0; generation-failure lines (G20 provokes one): 1 e.g. [dsomop-dp-generation] The data generation of this request could not be read (database or digest failure)."
+            },
+            {
+              "id": "G18",
+              "status": "PASS",
+              "title": "no private fingerprint, map or support in what the analyst received (successes, errors, status) or in the audit log",
+              "evidence": "309 received objects, 21 error texts, 544 audit lines; private-looking fields with values: none; raw vectors: 0; small exact supports in errors: none; long hex in errors: 0; in audit lines: 0"
+            },
+            {
+              "id": "G18 hex",
+              "status": "INFO",
+              "title": "where 64-hex values appear in what the analyst received (public labels expected)",
+              "evidence": "obj1$Ethiopia$domain, obj1$Ethiopia2$domain, obj12$Ethiopia$domain"
+            },
+            {
+              "id": "G3b",
+              "status": "INFO",
+              "title": "generation derivation time on GiBleed (PostgreSQL 16)",
+              "evidence": "on Rock: snapshot 0.00900000000001455 s, whole derivation 0.00699999999994816 s over 1/1 tables present; analyst view, first fixed question of a session vs its repeat: S1: 2.4 s vs 2.4 s; S2: 2.4 s vs 2.4 s; S6: 3.5 s vs 3.5 s"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ref": "refs/remotes/res/43515127555-upgrade-candidate",
+      "commit": "36ae6f8a273c7ae2d433ec3f9a15feea2b787a4a",
+      "verdicts": {
+        "upgrade-G-old-verdicts.csv": {
+          "counts": {
+            "PASS": 10
+          },
+          "rows": [
+            {
+              "id": "O1",
+              "status": "PASS",
+              "title": "dsOMOPClient 2.10.2 from GitHub, loaded instead of the run's client",
+              "evidence": "loaded 2.10.2"
+            },
+            {
+              "id": "O2",
+              "status": "PASS",
+              "title": "the 2.10.2 client connects and lists the CDM tables",
+              "evidence": "connect warnings: "
+            },
+            {
+              "id": "O3 status",
+              "status": "PASS",
+              "title": "ds.omop.dp.status() answers or refuses plainly",
+              "evidence": "DP status preflight requires a complete federation; no partial result was published. Affected server(s): Ethiopia (Ethiopia: Command 'omopDpStatusDS()' failed on 'Ethiopia': Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : This server runs dsOMOP 2.10.3, whose DP releases are protected components (contract dsomop-protected-release-v1) that dsOMOPClient 2.10.2 and older cannot validate or pool. Upgrade dsOMOPClient to 2.10.3 or later to use ds.omop.dp.status() and ds.omop.dp.release() on this server; with an older client the analysis catalogue keeps returning per-server results, without pooling of protected results. ). || Ethiopia: Command 'omopDpStatusDS()' failed on 'Ethiopia': Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : This server runs dsOMOP 2.10.3, whose DP releases are protected components (contract dsomop-protected-release-v1) that dsOMOPClient 2.10.2 and older cannot validate or pool. Upgrade dsOMOPClient to 2.10.3 or later to use ds.omop.dp.status() and ds.omop.dp.release() on this server; with an older client the analysis catalogue keeps returning per-server results, without pooling of protected results. "
+            },
+            {
+              "id": "O3 typed",
+              "status": "PASS",
+              "title": "a typed release from the 2.10.2 client is refused with a plain message (it cannot validate 2.10.3 payloads)",
+              "evidence": "prepare ok; release refused: DP status preflight requires a complete federation; no partial result was published. Affected server(s): Ethiopia (Ethiopia: Command 'omopDpStatusDS()' failed on 'Ethiopia': Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : This server runs dsOMOP 2.10.3, whose DP releases are protected components (contract dsomop-protected-release-v1) that dsOMOPClient 2.10.2 and older cannot validate or pool. Upgrade dsOMOPClient to 2.10.3 or later to use ds.omop.dp.status() and ds.omop.dp.release() on this server; with an older client the analysis catalogue keeps returning per-server results, without pooling of protected results. ). || Ethiopia: Command 'omopDpStatusDS()' failed on 'Ethiopia': Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : This server runs dsOMOP 2.10.3, whose DP releases are protected components (contract dsomop-protected-release-v1) that dsOMOPClient 2.10.2 and older cannot validate or pool. Upgrade dsOMOPClient to 2.10.3 or later to use ds.omop.dp.status() and ds.omop.dp.release() on this server; with an older client the analysis catalogue keeps returning per-server results, without pooling of protected results. "
+            },
+            {
+              "id": "O4 achilles.3",
+              "status": "PASS",
+              "title": "the old client shows the per-site protected frame without crashing",
+              "evidence": "per-site rows 128; pooled rows 0; messages: Protected release (C2): its values are projected noisy components, not exact sufficient statistics. dsOMOPClient >= 2.10.3 pools the signed components of compatible protected releases.; protection as the old client reads it: List of 1 $ Ethiopia:List of 28 ..$ protection : chr \"fixed_synopsis\" ..$ mode : chr \"auto\" ..$ contract : chr \"dsomop-release-contract-v1\" ..$ release_protocol : chr \"dsomop-protected-release-v1\" ..$ class : chr \"C2\" ..$ guarantee_scope : chr \"fixed_vector_before_exact_support_gate\" ..$ noise_refer..."
+            },
+            {
+              "id": "O4 condition_era.length_stats",
+              "status": "PASS",
+              "title": "the old client shows the per-site protected frame without crashing",
+              "evidence": "per-site rows 66; pooled rows 0; messages: Protected release (C7): its values are projected noisy components, not exact sufficient statistics. dsOMOPClient >= 2.10.3 pools the signed components of compatible protected releases.; protection as the old client reads it: List of 1 $ Ethiopia:List of 29 ..$ protection : chr \"realised_sticky\" ..$ mode : chr \"auto\" ..$ contract : chr \"dsomop-release-contract-v1\" ..$ release_protocol : chr \"dsomop-protected-release-v1\" ..$ class : chr \"C7\" ..$ guarantee_scope : chr \"heuristic_realised_contribution_reuse\" ..$ noise_refer..."
+            },
+            {
+              "id": "O5 record_summary",
+              "status": "PASS",
+              "title": "a protected record summary over two sites is not pooled by the old client; both per-site frames are kept",
+              "evidence": "pooled rows 0; per-site 2; messages: Protected release (C7): its values are projected noisy components, not exact sufficient statistics. dsOMOPClient >= 2.10.3 pools the signed components of compatible protected releases."
+            },
+            {
+              "id": "O5 effect_strict",
+              "status": "PASS",
+              "title": "pooling_policy = \"strict\": the old client does not pool the protected effect; it refuses plainly or keeps per-site frames",
+              "evidence": "pooled rows 0; per-site 2; messages: Protected release (C9): its values are projected noisy components, not exact sufficient statistics. dsOMOPClient >= 2.10.3 pools the signed components of compatible protected releases."
+            },
+            {
+              "id": "O5 effect_pooled_only_ok",
+              "status": "PASS",
+              "title": "pooling_policy = \"pooled_only_ok\": the old client does not pool the protected effect; it refuses plainly or keeps per-site frames",
+              "evidence": "pooled rows 0; per-site 2; messages: Protected release (C9): its values are projected noisy components, not exact sufficient statistics. dsOMOPClient >= 2.10.3 pools the signed components of compatible protected releases."
+            },
+            {
+              "id": "O6",
+              "status": "PASS",
+              "title": "the old client does not pool a protected release over two connections to the same node",
+              "evidence": "pooled rows 0; messages: Protected release (C2): its values are projected noisy components, not exact sufficient statistics. dsOMOPClient >= 2.10.3 pools the signed components of compatible protected releases."
+            }
+          ]
+        },
+        "upgrade-G-verdicts.csv": {
+          "counts": {
+            "INFO": 15,
+            "PASS": 90
+          },
+          "rows": [
+            {
+              "id": "G0",
+              "status": "INFO",
+              "title": "versions and the PostgreSQL driver on Rock",
+              "evidence": "dsOMOP 2.10.3, dsOMOPClient 2.10.3, dsBase 6.3.5; RPostgres 1.4.10, RPostgreSQL 0.7.8"
+            },
+            {
+              "id": "G0a",
+              "status": "INFO",
+              "title": "where the noise root lives (Rock's R user, state directory, on a container volume?)",
+              "evidence": "user rock, HOME /var/lib/rock, state /var/lib/rock/.dsomop, owner rock, mode 700, writable TRUE, on a volume: FALSE; files: secrets/dp_noise_root, secrets/dp_noise_root.lock, secrets/pseudonym_root, secrets/pseudonym_root.lock"
+            },
+            {
+              "id": "G0b",
+              "status": "INFO",
+              "title": "custodial dsOMOP options set in the profile before G (the declared defaults aside)",
+              "evidence": "dsomop.allow_absolute_dates, dsomop.allow_sensitive_columns, dsomop.datetime_timezone, dsomop.max_analysis_scope_tables, dsomop.max_feature_specs, dsomop.max_filter_depth, dsomop.max_filter_nodes, dsomop.max_filter_values, dsomop.max_output_columns, dsomop.max_pivot_concepts, dsomop.max_plan_outputs, dsomop.max_temp_tables_per_handle, dsomop.max_temporal_bins, dsomop.nfilter.age_range, dsomop.nfilter.band, dsomop.nfilter.date_range, dsomop.nfilter.dist, dsomop.query_strict"
+            },
+            {
+              "id": "G1a",
+              "status": "PASS",
+              "title": "every declared method and option of the installed dsOMOP is published as dsOMOP::<name> at its version",
+              "evidence": "installed 2.10.3 (target 2.10.3); declared 59 agg + 14 assign, published 59 + 14, published version 2.10.3; missing 0, wrong_type 0, extra 0, wrong_function 0, not_exported 0, options_missing 0, options_different 0"
+            },
+            {
+              "id": "G1c",
+              "status": "PASS",
+              "title": "the analyst sees every dsOMOP method in the profile",
+              "evidence": "all declared methods listed with dsOMOP:: functions"
+            },
+            {
+              "id": "G19a",
+              "status": "INFO",
+              "title": "no dsomop.dp.snapshot_id in the DataSHIELD profile (2.10.3 dropped it from DESCRIPTION)",
+              "evidence": "present: default.dsomop.dp.snapshot_id = (an empty stale default; G19b-c show whether it matters)"
+            },
+            {
+              "id": "G1d",
+              "status": "PASS",
+              "title": "the 2.10.3 server uses the noise root the old version created (same key id, same file, created once)",
+              "evidence": "old 2.10.2 key dpk_59beff33f70fc0395f645b25dbb9543304da0574; now key dpk_59beff33f70fc0395f645b25dbb9543304da0574; root file before [secrets/dp_noise_root | 32 | 600 | 2026-11-13T22:03:07.059] now [secrets/dp_noise_root | 32 | 600 | 2026-11-13T22:03:07.059]; root-creation lines in Rserve.log: 1"
+            },
+            {
+              "id": "G4a",
+              "status": "PASS",
+              "title": "two sessions bootstrapping the noise root at once end with one root (one key id, one file, created once)",
+              "evidence": "previous root moved aside; key ids dpk_a8f5decf936504504bc1edd1d54e14cc69abe1ba dpk_a8f5decf936504504bc1edd1d54e14cc69abe1ba; root files 1 [secrets/dp_noise_root | 32 | 600 | 2026-11-13T22:04:51.433]; root-creation log lines added 1"
+            },
+            {
+              "id": "G4b",
+              "status": "PASS",
+              "title": "identical concurrent questions from two users (analyst, analyst2) get identical answers",
+              "evidence": "10 answers identical (realised_sticky, fixed_synopsis); with labels and signed components: 10/10 identical"
+            },
+            {
+              "id": "G6a achilles.3",
+              "status": "PASS",
+              "title": "pooling a protected catalogue release over two connections to one node is refused with a clear message",
+              "evidence": "Duplicate logical source: servers SiteA and SiteB are connections to the same logical node. Pooling their protected catalogue releases would count that node more than once; use the per-site results."
+            },
+            {
+              "id": "G6b achilles.3",
+              "status": "PASS",
+              "title": "the per-connection results stay available and are identical",
+              "evidence": "per-site answers identical"
+            },
+            {
+              "id": "G6a condition_era.length_stats",
+              "status": "PASS",
+              "title": "pooling a protected catalogue release over two connections to one node is refused with a clear message",
+              "evidence": "Duplicate logical source: servers SiteA and SiteB are connections to the same logical node. Pooling their protected catalogue releases would count that node more than once; use the per-site results."
+            },
+            {
+              "id": "G6b condition_era.length_stats",
+              "status": "PASS",
+              "title": "the per-connection results stay available and are identical",
+              "evidence": "per-site answers identical"
+            },
+            {
+              "id": "G6c",
+              "status": "PASS",
+              "title": "a typed release over two connections to one node is refused with a clear message",
+              "evidence": "Selected servers share a DP noise domain; refusing a duplicate federated release from one logical privacy node."
+            },
+            {
+              "id": "G6d",
+              "status": "INFO",
+              "title": "a typed release with pool = FALSE over two connections to one node",
+              "evidence": "refused: Selected servers share a DP noise domain; refusing a duplicate federated release from one logical privacy node."
+            },
+            {
+              "id": "G2a",
+              "status": "PASS",
+              "title": "the 2.10.3 DP status crosses DSI and the 2.10.3 client accepts it (contract, no quota, no history, automatic generation)",
+              "evidence": "contract protected_release_fixed_basis_or_realised_v1, epsilon 0.1, provider persistent_file, tools_mode auto, generation person_membership_digest"
+            },
+            {
+              "id": "G2b",
+              "status": "PASS",
+              "title": "every reference question (fixed, scoped, typed) answers through DSI",
+              "evidence": "incidence=realised_sticky, mdrr=realised_sticky, achilles_3=fixed_synopsis, age_decade=fixed_synopsis, long_op=fixed_synopsis, condition_era=realised_sticky, loader_count=fixed_synopsis, loader_records=fixed_synopsis, prepared_count=realised_sticky, prepared_hist=realised_sticky"
+            },
+            {
+              "id": "G2c loader_count",
+              "status": "PASS",
+              "title": "a typed protected payload crosses DSI intact and the client validates and pools it",
+              "evidence": "protocol dsomop-protected-release-v1, protection fixed_synopsis, 1 signed components, logical source dsl_2bfe60e19965763e26d88424316a99914a89f539, pooled present, warnings: "
+            },
+            {
+              "id": "G2c prepared_hist",
+              "status": "PASS",
+              "title": "a typed protected payload crosses DSI intact and the client validates and pools it",
+              "evidence": "protocol dsomop-protected-release-v1, protection realised_sticky, 11 signed components, logical source dsl_2bfe60e19965763e26d88424316a99914a89f539, pooled present, warnings: Heuristic realised-contribution protection (Ethiopia): equivalent questions return the same answer, but this is not a joint differential-privacy guarantee and no pooled epsilon is reported."
+            },
+            {
+              "id": "G2d achilles.3",
+              "status": "PASS",
+              "title": "a protected catalogue release carries its payload and pooling descriptor through DSI; the client pools it",
+              "evidence": "release_pooling protected_components; payload protocol dsomop-protected-release-v1; client ok; pooled 6 rows; protection fixed_synopsis"
+            },
+            {
+              "id": "G2d condition_era.length_stats",
+              "status": "PASS",
+              "title": "a protected catalogue release carries its payload and pooling descriptor through DSI; the client pools it",
+              "evidence": "release_pooling protected_components; payload protocol dsomop-protected-release-v1; client ok; pooled 66 rows; protection realised_sticky"
+            },
+            {
+              "id": "G2d incidence.rate",
+              "status": "PASS",
+              "title": "a protected catalogue release carries its payload and pooling descriptor through DSI; the client pools it",
+              "evidence": "release_pooling protected_components; payload protocol dsomop-protected-release-v1; client ok; pooled 1 rows; protection realised_sticky"
+            },
+            {
+              "id": "G2e sccs",
+              "status": "PASS",
+              "title": "requests that differ only in transport form (strings, numbers, defaults, field order, empty list) get one answer",
+              "evidence": "strings=6484271732, numbers_reordered=6484271732, default_window=6484271732, explicit_defaults=6484271732"
+            },
+            {
+              "id": "G2e age_decade",
+              "status": "PASS",
+              "title": "requests that differ only in transport form (strings, numbers, defaults, field order, empty list) get one answer",
+              "evidence": "string=42017c2aa3, number=42017c2aa3, integer=42017c2aa3"
+            },
+            {
+              "id": "G2e achilles_3",
+              "status": "PASS",
+              "title": "requests that differ only in transport form (strings, numbers, defaults, field order, empty list) get one answer",
+              "evidence": "empty_list=fccc9394a0, empty_object=fccc9394a0"
+            },
+            {
+              "id": "G2e typed_reordered",
+              "status": "PASS",
+              "title": "a typed spec with reordered fields gets the same payload",
+              "evidence": "identical payload"
+            },
+            {
+              "id": "G3c1",
+              "status": "PASS",
+              "title": "answers on a recreated handle equal the first handle's (typed tables sealed under the first)",
+              "evidence": "10 answers identical (realised_sticky, fixed_synopsis); with labels and signed components: 10/10 identical"
+            },
+            {
+              "id": "G3c2",
+              "status": "PASS",
+              "title": "incidence over equivalent cohorts (same definition twice, A union A, A intersect B) equals the reference",
+              "evidence": "A=80a07d4519, B=80a07d4519, A_union_A=80a07d4519, A_intersect_B=80a07d4519; reference 80a07d4519; protection realised_sticky"
+            },
+            {
+              "id": "G3d2",
+              "status": "PASS",
+              "title": "fixed synopses derived after the analyst's own cohorts, tables and plan outputs are unchanged",
+              "evidence": "3 answers identical (fixed_synopsis)"
+            },
+            {
+              "id": "G3d3",
+              "status": "PASS",
+              "title": "generation-like fields injected by the analyst are refused or ignored",
+              "evidence": "typed: refused (Error : DP seeds, allocations, epochs and reroll controls are server-owned. ); catalogue: refused (Error : Analysis 'dsomop:achilles.3': unknown parameter(s): snapshot_id, privacy_epoch, data_generation. )"
+            },
+            {
+              "id": "G3d1",
+              "status": "PASS",
+              "title": "the generation never reaches the analyst (checked on Rock against every 64-hex value received)",
+              "evidence": "generation available on Rock: TRUE; 2 candidate 64-hex values in 45 received objects; released: FALSE"
+            },
+            {
+              "id": "G10 measurement_empty",
+              "status": "PASS",
+              "title": "an all-null numeric population is refused by the final support gate",
+              "evidence": "Error : Disclosive: operation blocked - insufficient individuals to meet disclosure threshold. No further details available. "
+            },
+            {
+              "id": "G10 cox",
+              "status": "PASS",
+              "title": "dsomop:cm.effect_estimate: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "finite; 2 rows; estimate=1.573018 1.573018; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled 2 rows"
+            },
+            {
+              "id": "G10 poisson",
+              "status": "PASS",
+              "title": "dsomop:cm.effect_estimate: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "finite; 2 rows; estimate=1.226684 1.226684; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled 2 rows"
+            },
+            {
+              "id": "G10 sccs",
+              "status": "PASS",
+              "title": "dsomop:sccs.incidence_rate_ratio: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "unavailable with a reason; 1 rows; irr=NA; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled NULL"
+            },
+            {
+              "id": "G10 person_time",
+              "status": "PASS",
+              "title": "dsomop:incidence.rate: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "finite; 1 rows; person_days=463322 rate=0.0007025352; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled 1 rows"
+            },
+            {
+              "id": "G10 mdrr",
+              "status": "PASS",
+              "title": "dsomop:cm.mdrr: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "finite; 2 rows; mdrr=1.30729 1.30729; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled 2 rows"
+            },
+            {
+              "id": "G10 condition_era",
+              "status": "PASS",
+              "title": "dsomop:condition_era.length_stats: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "finite; 66 rows; n_persons=2035 1996 1929 1737; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled 66 rows"
+            },
+            {
+              "id": "G10 drug_era",
+              "status": "PASS",
+              "title": "dsomop:drug_era.length_stats: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "finite; 50 rows; n_persons=3975 3181 2413 2351; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled 50 rows"
+            },
+            {
+              "id": "G10 observation_period",
+              "status": "PASS",
+              "title": "dsomop:observation_period.length_stats: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "finite; 108 rows; n_persons=224 0 40 0; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled 108 rows"
+            },
+            {
+              "id": "G10 observation_months",
+              "status": "PASS",
+              "title": "dsomop:observation_period.length_months_stats: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "finite; 108 rows; n_persons=224 0 40 0; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled 108 rows"
+            },
+            {
+              "id": "G10 measurement_value",
+              "status": "PASS",
+              "title": "dsomop:measurement.value_stats: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "finite; 1 rows; n_persons=1023 n_values=1023 mean_value=NA; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled 1 rows"
+            },
+            {
+              "id": "G10 drug_quantity",
+              "status": "PASS",
+              "title": "dsomop:drug.quantity_stats: a finite protected result or a stable unavailable row, labelled as asked",
+              "evidence": "finite; 1 rows; n_persons=1925 n_records=10227; stable on repeat: TRUE; label matches: TRUE; protection realised_sticky; pooled 1 rows"
+            },
+            {
+              "id": "G17a interaction_cox",
+              "status": "PASS",
+              "title": "interaction Cox gives finite grouped-time Cox estimates where the Poisson interaction does, labelled as Cox",
+              "evidence": "poisson finite: TRUE; cox finite: TRUE; cox label names Cox/exit: TRUE; stable: TRUE; cox estimates NA 1.240885 NA"
+            },
+            {
+              "id": "G17b drug.quantity_stats",
+              "status": "PASS",
+              "title": "unregistered scales carry finite signed H components (synthetic numeric measurements), stable on repeat",
+              "evidence": "owner families RM; H allocations 0.5; histogram cells FALSE; histogram columns ; stable TRUE"
+            },
+            {
+              "id": "G17b measurement.value_stats",
+              "status": "PASS",
+              "title": "unregistered scales carry finite signed H components (synthetic numeric measurements), stable on repeat",
+              "evidence": "owner families RM; H allocations 0.5; histogram cells FALSE; histogram columns ; stable TRUE"
+            },
+            {
+              "id": "G17c recurrent_counts",
+              "status": "PASS",
+              "title": "incidence releases capped recurrent outcome counts next to first-outcome persons, labelled as such",
+              "evidence": "outcomes finite: TRUE; person_outcomes finite: TRUE; label names recurrent capped events: TRUE; outcomes 379"
+            },
+            {
+              "id": "G17d event_time_H",
+              "status": "PASS",
+              "title": "time to event over all (capped recurrent) events is its own estimand, not the first-event one",
+              "evidence": "labels differ: TRUE; answers differ: TRUE; all-events label still says first outcome: FALSE; stable TRUE"
+            },
+            {
+              "id": "G15a mdrr_aliases",
+              "status": "PASS",
+              "title": "cm.mdrr, cm_result and the diagnostics summary release one MDRR",
+              "evidence": "cm.mdrr=1.307290125; ohdsi.cohort_method.cm_result=1.307290125; cm.diagnostics_summary=1.307290125"
+            },
+            {
+              "id": "G15b binary_all_persons",
+              "status": "PASS",
+              "title": "a typed binary rate pooled over one site equals that site's numerator and denominator",
+              "evidence": "site 29/2761 = 0.0105034407823; pooled 29/2761 = 0.0105034407823252"
+            },
+            {
+              "id": "G15b binary_nonmissing",
+              "status": "PASS",
+              "title": "a typed binary rate pooled over one site equals that site's numerator and denominator",
+              "evidence": "site 29/2761 = 0.0105034407823; pooled 29/2761 = 0.0105034407823252"
+            },
+            {
+              "id": "G15c weighted_histogram",
+              "status": "PASS",
+              "title": "a weighted numeric histogram pooled over one site equals that site's histogram",
+              "evidence": "site [0, 0, 0, 0, 0]; pooled [0, 0, 0, 0, 0]"
+            },
+            {
+              "id": "G11",
+              "status": "PASS",
+              "title": "after 40 distinct valid questions every question still answers and the first answers are unchanged",
+              "evidence": "40/40 answered; reference catalogue answer unchanged; typed answer unchanged"
+            },
+            {
+              "id": "G3c3",
+              "status": "PASS",
+              "title": "answers in a new analyst session equal the reference session's",
+              "evidence": "10 answers identical (realised_sticky, fixed_synopsis); with labels and signed components: 10/10 identical"
+            },
+            {
+              "id": "G4c",
+              "status": "PASS",
+              "title": "answers of the concurrent two-user sessions (G4) equal the reference session's",
+              "evidence": "10 answers identical (realised_sticky, fixed_synopsis)"
+            },
+            {
+              "id": "G5 symbols",
+              "status": "PASS",
+              "title": "the sealed tables are in the restored session",
+              "evidence": "restored: omop.analysis.br53Tu, G_ages | missing: "
+            },
+            {
+              "id": "G5",
+              "status": "PASS",
+              "title": "typed releases of tables restored from a saved workspace equal the releases before saving",
+              "evidence": "4 answers identical (fixed_synopsis, realised_sticky); with labels and signed components: 4/4 identical"
+            },
+            {
+              "id": "G19b label",
+              "status": "INFO",
+              "title": "the DP status in the open session after the label's input changed",
+              "evidence": "label before cdm_4cd30f5f0e78fdf1ba3925c65326aa5885833213076db0aec69f760ad1b66061, after cdm_4cd30f5f0e78fdf1ba3925c65326aa5885833213076db0aec69f760ad1b66061"
+            },
+            {
+              "id": "G19b",
+              "status": "PASS",
+              "title": "after the snapshot label changes in an open session, every answer and route is unchanged",
+              "evidence": "10 answers identical (realised_sticky, fixed_synopsis); with labels and signed components: 10/10 identical"
+            },
+            {
+              "id": "G19b routes",
+              "status": "PASS",
+              "title": "the protection route of every question is unchanged after the label change",
+              "evidence": "incidence=realised_sticky; mdrr=realised_sticky; achilles_3=fixed_synopsis; age_decade=fixed_synopsis; long_op=fixed_synopsis; condition_era=realised_sticky; loader_count=fixed_synopsis; loader_records=fixed_synopsis; prepared_count=realised_sticky; prepared_hist=realised_sticky"
+            },
+            {
+              "id": "G19b2",
+              "status": "PASS",
+              "title": "a new session after the label change gets the reference answers (the label is not data)",
+              "evidence": "10 answers identical (realised_sticky, fixed_synopsis)"
+            },
+            {
+              "id": "G19c",
+              "status": "PASS",
+              "title": "a v3 sealed table restored after a label change (deprecated option) releases as before; fixed answers unchanged",
+              "evidence": "7 answers identical (fixed_synopsis, realised_sticky); with labels and signed components: 7/7 identical"
+            },
+            {
+              "id": "G19c label",
+              "status": "INFO",
+              "title": "the status label with dsomop.dp.snapshot_id set",
+              "evidence": "snapshot_id cdm_4cd30f5f0e78fdf1ba3925c65326aa5885833213076db0aec69f760ad1b66061"
+            },
+            {
+              "id": "G3a1",
+              "status": "PASS",
+              "title": "the switch alone puts the community tools in DP-only mode",
+              "evidence": "custodial dsOMOP options: dsomop.allow_absolute_dates, dsomop.allow_sensitive_columns, dsomop.datetime_timezone, dsomop.dp.exclusive, dsomop.max_analysis_scope_tables, dsomop.max_feature_specs, dsomop.max_filter_depth, dsomop.max_filter_nodes, dsomop.max_filter_values, dsomop.max_output_columns, dsomop.max_pivot_concepts, dsomop.max_plan_outputs, dsomop.max_temp_tables_per_handle, dsomop.max_temporal_bins, dsomop.nfilter.age_range, dsomop.nfilter.band, dsomop.nfilter.date_range, dsomop.nfilter.dist, dsomop.query_strict; tools_mode dp, exclusive TRUE, ready TRUE, noise provider persistent_file"
+            },
+            {
+              "id": "G3a2",
+              "status": "PASS",
+              "title": "fixed synopses answer in DP-only mode, identical to auto mode",
+              "evidence": "3 answers identical (fixed_synopsis)"
+            },
+            {
+              "id": "G3a3",
+              "status": "PASS",
+              "title": "DP-only answers are all fixed synopses",
+              "evidence": "achilles_3=fixed_synopsis, age_decade=fixed_synopsis, long_op=fixed_synopsis"
+            },
+            {
+              "id": "G3a4",
+              "status": "PASS",
+              "title": "realised questions (scoped or data-enumerated) are refused in DP-only mode with a stable message",
+              "evidence": "incidence: Error : This release has no fixed-synopsis protection: DP-only mode (dsomop.tools.mode = \"dp\" or dsomop.dp.exclusive = TRUE) accepts only unscoped questions over a public basis, keyed on the person-membership generation of the connected database. In auto mode the same question is answered with heuri...; mdrr: Error : This release has no fixed-synopsis protection: DP-only mode (dsomop.tools.mode = \"dp\" or dsomop.dp.exclusive = TRUE) accepts only unscoped questions over a public basis, keyed on the person-membership generation of the connected database. In auto mode the same question is answered with heuri...; condition_era: Error : This release has no fixed-synopsis protection: DP-only mode (dsomop.tools.mode = \"dp\" or dsomop.dp.exclusive = TRUE) accepts only unscoped questions over a public basis, keyed on the person-membership generation of the connected database. In auto mode the same question is answered with heuri..."
+            },
+            {
+              "id": "G3a5",
+              "status": "PASS",
+              "title": "typed counts of a restored pinned loader table release as fixed synopses in DP-only mode, equal to auto mode",
+              "evidence": "loader_count equal fixed_synopsis; loader_records equal fixed_synopsis"
+            },
+            {
+              "id": "G3a6",
+              "status": "PASS",
+              "title": "typed releases of a prepared (realised) table are refused in DP-only mode with the stable message",
+              "evidence": "prepared_count: Error : This typed release has no fixed-synopsis protection: DP-only mode (dsomop.tools.mode = \"dp\" or dsomop.dp.exclusive = TRUE) accepts typed counts, capped record counts and registered-scale bounded means of unscoped pinned loader tables, keyed on the person-membership generation re-read from th...; prepared_hist: Error : This typed release has no fixed-synopsis protection: DP-only mode (dsomop.tools.mode = \"dp\" or dsomop.dp.exclusive = TRUE) accepts typed counts, capped record counts and registered-scale bounded means of unscoped pinned loader tables, keyed on the person-membership generation re-read from th..."
+            },
+            {
+              "id": "G3a7",
+              "status": "PASS",
+              "title": "a fresh DP-only session can create the pinned loader table its typed fixed synopses need, and release its count",
+              "evidence": "count released as fixed_synopsis"
+            },
+            {
+              "id": "G9",
+              "status": "PASS",
+              "title": "with the tools disabled: connect and tables work; typed release, catalogue and DP status are refused by the gate before any argument is read",
+              "evidence": "connect TRUE; tables TRUE; typed release: Error : The OHDSI community tools (Achilles, OHDSI results, the analysis catalog and the query library) are disabled on this server. The data custodian can enable them again with the dsomop.tools.enabled option. ; catalogue: Error : The OHDSI community tools (Achilles, OHDSI results, the analysis catalog and the query library) are disabled on this server. The data custodian can enable them again with the dsomop.tools.enabled option. ; status: Error : The OHDSI community tools (Achilles, OHDSI results, the analysis catalog and the query library) are disabled on this server. The data custodian can enable them again with the dsomop.tools.enabled option. "
+            },
+            {
+              "id": "G21 st0",
+              "status": "PASS",
+              "title": "before any change the warm worker's answers equal the reference session's",
+              "evidence": "5 answers identical (realised_sticky, fixed_synopsis)"
+            },
+            {
+              "id": "G21 st1",
+              "status": "PASS",
+              "title": "an unrelated clinical insert (a procedure row of an existing person) redraws nothing anywhere",
+              "evidence": "15 answers identical (fixed_synopsis, realised_sticky)"
+            },
+            {
+              "id": "G12",
+              "status": "PASS",
+              "title": "after 17 more handles in the session (generation cache pressure), the old handle answers as before and as a new session",
+              "evidence": "2 answers identical (fixed_synopsis)"
+            },
+            {
+              "id": "G21 st2",
+              "status": "PASS",
+              "title": "an in-place edit of that unrelated row redraws nothing anywhere",
+              "evidence": "15 answers identical (fixed_synopsis, realised_sticky)"
+            },
+            {
+              "id": "G21 st3",
+              "status": "PASS",
+              "title": "deleting the unrelated row again restores the original answers everywhere",
+              "evidence": "15 answers identical (fixed_synopsis, realised_sticky)"
+            },
+            {
+              "id": "G21 st4",
+              "status": "PASS",
+              "title": "a person insert redraws every fixed synopsis, identically on the old handle, a new handle and a new session",
+              "evidence": "old handle, new handle and new session agree: TRUE; fixed synopses redrawn (changed/signed components vs before): achilles_3 775/775; age_decade 775/775; long_op 22/22"
+            },
+            {
+              "id": "G21 st5",
+              "status": "PASS",
+              "title": "deleting the inserted person restores the original answers everywhere",
+              "evidence": "15 answers identical (fixed_synopsis, realised_sticky)"
+            },
+            {
+              "id": "G21 st6",
+              "status": "PASS",
+              "title": "deleting an existing person row redraws every fixed synopsis, identically everywhere",
+              "evidence": "old handle, new handle and new session agree: TRUE; fixed synopses redrawn (changed/signed components vs before): achilles_3 775/775; age_decade 775/775; long_op 22/22"
+            },
+            {
+              "id": "G21 st7",
+              "status": "PASS",
+              "title": "restoring that person row restores the original answers everywhere",
+              "evidence": "15 answers identical (fixed_synopsis, realised_sticky)"
+            },
+            {
+              "id": "G21 st8",
+              "status": "PASS",
+              "title": "a balanced replacement (person 17 out, person 4 in: same count and largest id) redraws every fixed synopsis",
+              "evidence": "old handle, new handle and new session agree: TRUE; fixed synopses redrawn (changed/signed components vs before): achilles_3 775/775; age_decade 775/775; long_op 22/22"
+            },
+            {
+              "id": "G21 st9",
+              "status": "PASS",
+              "title": "undoing the replacement restores the original answers everywhere",
+              "evidence": "15 answers identical (fixed_synopsis, realised_sticky)"
+            },
+            {
+              "id": "G21 db",
+              "status": "INFO",
+              "title": "the CDM is back to its state at the start of G",
+              "evidence": "start 2694|5343|37409|65332 now 2694|5343|37409|65332"
+            },
+            {
+              "id": "G20a",
+              "status": "PASS",
+              "title": "a session connecting as another database user (e2e_reader) over the same CDM gets the reference answers",
+              "evidence": "3 answers identical (fixed_synopsis)"
+            },
+            {
+              "id": "G20b",
+              "status": "PASS",
+              "title": "when that user cannot see an unrelated clinical table, the fixed answers are unchanged (one corpus)",
+              "evidence": "3 answers identical (fixed_synopsis)"
+            },
+            {
+              "id": "G20c",
+              "status": "PASS",
+              "title": "a failed read fails only the current request; the same handle then answers as before (no remembered failure)",
+              "evidence": "during the failure: refused: Error : The protected release could not be prepared for this request (its data generation could not be read); no value was released. Retry the request. ; after: same answer (fixed_synopsis); another fixed question after: same answer"
+            },
+            {
+              "id": "G13a",
+              "status": "PASS",
+              "title": "under concurrent atomic loads every answer is one coherent state's (A or B) or a whole-request failure",
+              "evidence": "18 answers: 5 state A, 13 state B, 0 MIXED; 0 failed requests (0 crash-like); toggles=285"
+            },
+            {
+              "id": "G13b",
+              "status": "PASS",
+              "title": "with database connections killed during the loads, answers are still one state's or a whole-request failure",
+              "evidence": "0 answers: 0 state A, 0 state B, 0 MIXED; 6 failed requests (0 crash-like) e.g. Error : The protected release could not be prepared for this request (its data generation could not be read); no value was released. Retry the request. ; toggles=192"
+            },
+            {
+              "id": "G13 after",
+              "status": "PASS",
+              "title": "after the loads stop, a new session gets state A's answer again",
+              "evidence": "checked"
+            },
+            {
+              "id": "G14a strict",
+              "status": "PASS",
+              "title": "strict pooling with one NA site gives no pooled effect, with a plain message",
+              "evidence": "pooled estimate NA; warnings: Pooled protected components: per owner and stratum the signed noisy components of every site were summed and the views derived once. At least one site used heuristic realised-contribution protection; no pooled epsilon is reported. Non-poolable columns were retained as NA: estimate, ci_lo, ci_hi, log..."
+            },
+            {
+              "id": "G14b pooled_only_ok",
+              "status": "PASS",
+              "title": "pooled_only_ok pools the finite site and names the dropped one",
+              "evidence": "pooled estimate 1.22668388248898/1.22668388248898/1.22668388248898/1.22668388248898; warnings: Pooled protected components: per owner and stratum the signed noisy components of every site were summed and the views derived once. At least one site used heuristic realised-contribution protection; no pooled epsilon is reported. Non-poolable columns were retained as NA: estimate, ci_lo, ci_hi, log..."
+            },
+            {
+              "id": "G16a gibleed",
+              "status": "INFO",
+              "title": "first-release latency on GiBleed (2,694 persons)",
+              "evidence": "cold 3.2 s, warm 2.3 s, warm other question 2.2 s, 4 concurrent cold 9.4 s; CDM rows 411103; tables read by the cold release: person:10776, cdm_source:1"
+            },
+            {
+              "id": "G16b big",
+              "status": "INFO",
+              "title": "first-release latency on a large synthetic CDM",
+              "evidence": "not run (no omopbig database: BIG_PERSONS = 0 or upgrade path)"
+            },
+            {
+              "id": "G3c4",
+              "status": "PASS",
+              "title": "after a Rock restart every answer equals the reference session's",
+              "evidence": "10 answers identical (realised_sticky, fixed_synopsis); with labels and signed components: 10/10 identical"
+            },
+            {
+              "id": "G3c4 root",
+              "status": "PASS",
+              "title": "the noise root survives the restart (same file, same key id, no new root)",
+              "evidence": "root file before [secrets/dp_noise_root | 32 | 600 | 2026-11-13T22:04:51.433] after [secrets/dp_noise_root | 32 | 600 | 2026-11-13T22:04:51.433]; key id same: TRUE; root-creation lines in the new Rserve.log: 0; tools_mode now auto"
+            },
+            {
+              "id": "G7",
+              "status": "INFO",
+              "title": "combined profile: dsBase methods next to dsOMOP's give exact statistics dsOMOP does not protect",
+              "evidence": "dsBase 6.3.5: 72 aggregate + 90 assign methods published next to dsOMOP's 59 + 14; shared names: none; exact dsBase aggregates enabled: corDS, covDS, densityGridDS, dimDS, glmDS1, glmDS2, glmSLMADS2, glmerSLMADS2, heatmapPlotDS, histogramDS1, histogramDS2, kurtosisDS1, lengthDS, lmerSLMADS2, meanDS, meanSdGpDS, numNaDS, quantileMeanDS, rangeDS, scatterPlotDS, skewnessDS1, table1DDS, table2DDS, tableDS, varDS; nfilter options: default.nfilter.glm=0.33, default.nfilter.kNN=3, default.nfilter.levels.density=0.33, default.nfilter.levels.max=40, default.nfilter.noise=0.25, default.nfilter.string=80, default.nfilter.stringShort=20, default.nfilter.subset=3, default.nfilter.tab=3, dsomop.nfilter.age_range=5, dsomop.nfilter.band=5, dsomop.nfilter.date_range=30, dsomop.nfilter.dist=10, nfilter.glm=0.33, nfilter.levels.density=0.33, nfilter.levels.max=40, nfilter.noise=0.25, nfilter.string=80, nfilter.stringShort=20, nfilter.subset=3, nfilter.tab=3; dsBase meanDS on a dsOMOP table: returned List of 5 $ EstimatedMean : num 67.9 $ Nmissing : int 0 $ Nvalid : int 2694 $ Ntotal : int 2694 $ ValidityMessage: chr \"VALID ANALYSIS\""
+            },
+            {
+              "id": "G8",
+              "status": "PASS",
+              "title": "audit lines reach Rock's log: typed releases released and refused, generic fields only",
+              "evidence": "538 audit lines since G started (omopAnalysisRunAssignDS=19, omopAnalysisRunDS=332, omopCohortCombineDS=2, omopCohortCreateDS=59, omopDpPlanExecuteDS=7, omopDpReleaseDS=82, omopPlanExecuteDS=9, publication=28); omopDpReleaseDS: 78 released, 4 refused; lines with long hex values: 0; generation-failure lines (G20 provokes one): 1 e.g. [dsomop-dp-generation] The data generation of this request could not be read (database or digest failure)."
+            },
+            {
+              "id": "G18",
+              "status": "PASS",
+              "title": "no private fingerprint, map or support in what the analyst received (successes, errors, status) or in the audit log",
+              "evidence": "306 received objects, 22 error texts, 538 audit lines; private-looking fields with values: none; raw vectors: 0; small exact supports in errors: none; long hex in errors: 0; in audit lines: 0"
+            },
+            {
+              "id": "G18 hex",
+              "status": "INFO",
+              "title": "where 64-hex values appear in what the analyst received (public labels expected)",
+              "evidence": "obj1$Ethiopia$domain, obj1$Ethiopia2$domain, obj12$Ethiopia$domain"
+            },
+            {
+              "id": "G3b",
+              "status": "INFO",
+              "title": "generation derivation time on GiBleed (PostgreSQL 16)",
+              "evidence": "on Rock: snapshot 0.00600000000002865 s, whole derivation 0.00499999999999545 s over 1/1 tables present; analyst view, first fixed question of a session vs its repeat: S1: 2.3 s vs 2.3 s; S2: 2.3 s vs 2.3 s; S6: 2.2 s vs 2.2 s"
+            },
+            {
+              "id": "V V1",
+              "status": "PASS",
+              "title": "connecting the 2.10.3 client to an old server warns explicitly that the server lacks the 2.10.3 fixes",
+              "evidence": "server 2.10.2; connect warnings: Server 'Ethiopia' runs dsOMOP 2.10.2, older than 2.10.3: its OHDSI community-tool results (analysis catalogue, Achilles and OHDSI readers, DP releases) lack the dsOMOP 2.10.3 security fixes, and this dsOMOPClient cannot repair them. They are reported under that server's own legacy contract; upgrade ...; server.version: server published running missing ready 1 Ethiopia 2.10.2 2.10.2 omopPlanStatusDS, omopStagedRevokeDS, omopMutateDS FALSE advice 1 dsOMOP 2.10.2 is installed and published but predates the publication protocol (omopPlanStatusDS, omopStagedRevokeDS): v1 plans run only through the legacy call and lang..."
+            },
+            {
+              "id": "V V2",
+              "status": "PASS",
+              "title": "a typed release on the old server: a per-site legacy result with an explicit upgrade warning (or a plain refusal naming the upgrade), never 2.10.3 claims",
+              "evidence": "release returned; warnings: dsOMOP on Ethiopia predates the publication protocol (Ethiopia lacks omopPlanStatusDS, omopStagedRevokeDS): this v1 plan runs as the legacy call on every site, as dsOMOPClient 2.10.2 sent it. Cross-site rollback and the publication guarantees of section 7.3 (publication status, on_small_site) do not...; contract fixed_per_release_seed_data_versioned_v1; claims 2.10.3 protection: FALSE"
+            },
+            {
+              "id": "V V3",
+              "status": "PASS",
+              "title": "a catalogue release from the old server: per-site frames, an explicit upgrade warning, its own (old) protection labels",
+              "evidence": "labels standard; warnings: Server 'Ethiopia' runs dsOMOP 2.10.2, older than 2.10.3: its OHDSI community-tool results (analysis catalogue, Achilles and OHDSI readers, DP releases) lack the dsOMOP 2.10.3 security fixes, and this dsOMOPClient cannot repair them. They are reported under that server's own legacy contract; upgrade ..."
+            },
+            {
+              "id": "V V4",
+              "status": "INFO",
+              "title": "NA pooling policies on the old server",
+              "evidence": "pattern not produced (finite per site: Ethiopia TRUE, Small TRUE); strict pooled NA/NA, pooled_only_ok pooled NA/NA"
+            },
+            {
+              "id": "V V5",
+              "status": "INFO",
+              "title": "a mixed federation of a 2.10.2 and a 2.10.3 server",
+              "evidence": "not executable here: one Opal/Rock per run"
+            }
+          ]
+        },
+        "upgrade-V-verdicts.csv": {
+          "counts": {
+            "PASS": 3,
+            "INFO": 2
+          },
+          "rows": [
+            {
+              "id": "V1",
+              "status": "PASS",
+              "title": "connecting the 2.10.3 client to an old server warns explicitly that the server lacks the 2.10.3 fixes",
+              "evidence": "server 2.10.2; connect warnings: Server 'Ethiopia' runs dsOMOP 2.10.2, older than 2.10.3: its OHDSI community-tool results (analysis catalogue, Achilles and OHDSI readers, DP releases) lack the dsOMOP 2.10.3 security fixes, and this dsOMOPClient cannot repair them. They are reported under that server's own legacy contract; upgrade ...; server.version: server published running missing ready 1 Ethiopia 2.10.2 2.10.2 omopPlanStatusDS, omopStagedRevokeDS, omopMutateDS FALSE advice 1 dsOMOP 2.10.2 is installed and published but predates the publication protocol (omopPlanStatusDS, omopStagedRevokeDS): v1 plans run only through the legacy call and lang..."
+            },
+            {
+              "id": "V2",
+              "status": "PASS",
+              "title": "a typed release on the old server: a per-site legacy result with an explicit upgrade warning (or a plain refusal naming the upgrade), never 2.10.3 claims",
+              "evidence": "release returned; warnings: dsOMOP on Ethiopia predates the publication protocol (Ethiopia lacks omopPlanStatusDS, omopStagedRevokeDS): this v1 plan runs as the legacy call on every site, as dsOMOPClient 2.10.2 sent it. Cross-site rollback and the publication guarantees of section 7.3 (publication status, on_small_site) do not...; contract fixed_per_release_seed_data_versioned_v1; claims 2.10.3 protection: FALSE"
+            },
+            {
+              "id": "V3",
+              "status": "PASS",
+              "title": "a catalogue release from the old server: per-site frames, an explicit upgrade warning, its own (old) protection labels",
+              "evidence": "labels standard; warnings: Server 'Ethiopia' runs dsOMOP 2.10.2, older than 2.10.3: its OHDSI community-tool results (analysis catalogue, Achilles and OHDSI readers, DP releases) lack the dsOMOP 2.10.3 security fixes, and this dsOMOPClient cannot repair them. They are reported under that server's own legacy contract; upgrade ..."
+            },
+            {
+              "id": "V4",
+              "status": "INFO",
+              "title": "NA pooling policies on the old server",
+              "evidence": "pattern not produced (finite per site: Ethiopia TRUE, Small TRUE); strict pooled NA/NA, pooled_only_ok pooled NA/NA"
+            },
+            {
+              "id": "V5",
+              "status": "INFO",
+              "title": "a mixed federation of a 2.10.2 and a 2.10.3 server",
+              "evidence": "not executable here: one Opal/Rock per run"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

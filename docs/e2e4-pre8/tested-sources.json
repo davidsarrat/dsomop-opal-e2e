@@ -1,0 +1,22 @@
+{
+  ".github/workflows/opal-contract.yml": "fbd616a9227c69a3920c47eab6e492ca95a21544f51e21f7ee69dcb2f6bdb8d9",
+  "compose/opal-matrix.yml": "a1911d52c1ab65a9b9c95b11d5799847315b9284c4a6b27b67e0644128eb50f7",
+  "scripts/o/check_candidate.py": "3834c381b9eec4a624da07fa79f911e0fb6da3c4d5c8d03d1cfeb8e8ab87f969",
+  "scripts/o/fixtures.R": "67055e70127e7afaf7ee4e33f6aa4a9d7f68109a44cdc529b230bf4017eeaf57",
+  "scripts/o/install.R": "1faf5adea28c1234403e4013255709391fc30d06d819fa13e64ab94ab0cdaa37",
+  "scripts/o/matching-seed-20261112.json": "6d47e73846113e9161ce3179688c5f4e9afac43eb8cae4902830a85c26af13dd",
+  "scripts/o/matching_oracle.R": "cb72e27c9c1b1ebb5aeaea977548e25d1b57a88c6f12098b360abe17183b61e8",
+  "scripts/o/old_client.R": "eec1220c1ea7d29717c0a33a1a841a227075fb655d13ef37d1073cdde67e035e",
+  "scripts/o/performance.R": "4ffaf01946760b4f73b195ad13bbbadb32e50de35d9b5cf274aae88ee2f7f3ab",
+  "scripts/o/publish-results.sh": "6aa86ab61d9153d44fbeca9d592ea1f8df569a397cd5ee40df47f94712dc0a4f",
+  "scripts/o/readiness.py": "9a6b7fb55506a8289a53748c576b09019250b8190faaa65559e5fe977d2e837d",
+  "scripts/o/results.py": "bb6ec1e82cd675d6472415e66c17bc8686a89b121d0307a91a73d37fe3c55f74",
+  "scripts/o/run.R": "651836c4d9714ebe5cce3d85dc37bcd44493274948c6da7c9f2f943975727778",
+  "scripts/o/server.R": "d48a34fc8c8b30902a08e9eb330654c722f65ead475f2ef12f8b3d49ae6ffa69",
+  "scripts/o/setup.R": "0461248a4603e306a34cb759555650e0b99160ae9ac951d6a07ecea8db5b86f2",
+  "scripts/o/stack.sh": "8ae4446baf24810453412888dfc5b86e05e0cf1d5fb995241a3d08112a0a2dfd",
+  "scripts/o/validate.R": "891a3deb082331969fe76d2a3a6750bd06ec200cd95d98ada2f3ea0f5df873f1",
+  "scripts/tests/o-candidate.py": "c1f4487ca4cd618fa8332fffa5ce67f886eb15cc82a8a3fa113a632de354e4c8",
+  "scripts/tests/o-results.py": "d134ebb477379ec68c27e02fba94b598e397e1556004099ce8d443d4d07348d3",
+  "scripts/tests/o-stack.py": "062f2083f2a70579c96d1ae5112e56303851f1199ef136b8586d86c0dd6fd58f"
+}

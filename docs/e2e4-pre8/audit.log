@@ -1,0 +1,6 @@
+PASS: four complete 12/12 contract verdicts and four independent old-client checks
+PASS: four earlier failed jobs preserved results branches
+PASS: companion e2e verdict files contain no FAIL rows (INFO is not PASS)
+PASS: current harness and targeted test sources match tested commit 17e5df40f4718bdece091f68d3003c764f061854
+dsOMOP 27383ead6a17145d57cb84e02eb1addc8fe55537 tracked differences: 11 noncomment R differences: [] namespace equal: True
+dsOMOPClient b099df5d5ee9f053b1b3cb9c73dd084f140e1a7b tracked differences: 919 noncomment R differences: [] namespace equal: True
