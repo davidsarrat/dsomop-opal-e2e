@@ -26,4 +26,7 @@ tryCatch({
             identical(frame$mean_hgb, memory$mean_hgb), identical(frame$index_hgb, memory$index_hgb),
             identical(frame$date, memory$date))
   cat("NUMERIC HARNESS PASS\n")
-}, finally = {DSI::datashield.logout(conns); unlink(base, recursive = TRUE)})
+}, finally = {
+  try(dsOMOPClient::ds.omop.disconnect("numeric", conns = conns), silent = TRUE)
+  DSI::datashield.logout(conns); unlink(base, recursive = TRUE)
+})

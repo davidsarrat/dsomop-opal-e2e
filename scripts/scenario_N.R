@@ -7,7 +7,10 @@ result <- capture("N numeric hemoglobin values, units, dates and staged assignme
   if (identical(rock_pkg_version("dsBase"), "not installed")) dsadmin.install_package(o, "dsBase")
   opal.logout(o)
   conns <- analyst_login()
-  tryCatch(run_numeric_scenario(conns), finally = DSI::datashield.logout(conns))
+  tryCatch(run_numeric_scenario(conns), finally = {
+    try(dsOMOPClient::ds.omop.disconnect("numeric", conns = conns), silent = TRUE)
+    DSI::datashield.logout(conns)
+  })
 })
 summary_line("[", E2E_PATH, "] N: ", if (result$ok) "PASS" else paste("FAIL", result$error))
 if (!result$ok) { ds_errors(); quit(save = "no", status = 1L) }

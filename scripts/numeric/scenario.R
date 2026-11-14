@@ -2,7 +2,8 @@
 # Only aggregate results leave the analyst's session.
 run_numeric_scenario <- function(conns, resource = "omop_data.numeric_cdm") {
   dsOMOPClient::ds.omop.connect(resource = resource, symbol = "numeric", conns = conns)
-  on.exit(dsOMOPClient::ds.omop.disconnect("numeric", conns = conns), add = TRUE)
+  # The caller owns disconnect/logout so administrator tests can inspect
+  # staged files before normal handle cleanup revokes them.
   lab <- dsOMOPClient::omop_event("measurement", 3000963L, name = "lab")
   recipe <- dsOMOPClient::omop_recipe(events = list(lab),
     populations = dsOMOPClient::omop_population("p", index = dsOMOPClient::omop_index("lab")),
