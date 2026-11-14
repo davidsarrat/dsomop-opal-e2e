@@ -1,0 +1,1 @@
+PASS: 2.10.1 client executed a safe v1 plan on 2.10.5
