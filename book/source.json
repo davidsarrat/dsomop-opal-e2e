@@ -1,7 +1,7 @@
 {
   "repository": "dsOMOPClient",
   "branch": "docs/book",
-  "commit": "709d2592456ff6a997859013972cbc0bfe318a48",
+  "commit": "af2896ffe4f31c1ad6045c919539f859aaf6d31f",
   "files": {
     "book-compose.sh": "7bde52c6283863f89aead3940ed9fd1702b47a8bf1efe5c502d0dba3f484d8e5",
     "book-rock.yml": "62b2e6be2a0457a82804c4d1bc5abb69d125d3da408ae23b3734285db3aa9a69",
