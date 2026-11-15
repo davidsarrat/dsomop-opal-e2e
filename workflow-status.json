@@ -1,0 +1,73 @@
+{
+  "GITHUB_RUN_ID": "43661271157",
+  "GITHUB_RUN_ATTEMPT": "1",
+  "GITHUB_SHA": "d77a14bb6fea9487b533abacec52e27860f1fffd",
+  "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+  "OPAL_VERSION": "6.1.3",
+  "E2E_PATH": "upgrade",
+  "MODE": "candidate",
+  "JOB_STATUS": "success",
+  "steps": {
+    "checkout": {
+      "outputs": {
+        "commit": "d77a14bb6fea9487b533abacec52e27860f1fffd",
+        "ref": "refs/heads/main"
+      },
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "candidate": {
+      "outputs": {},
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "stack": {
+      "outputs": {},
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "setup_r": {
+      "outputs": {
+        "installed-r-version": "4.6.2"
+      },
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "dependencies": {
+      "outputs": {},
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "resources": {
+      "outputs": {},
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "fixtures": {
+      "outputs": {},
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "install": {
+      "outputs": {},
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "probes": {
+      "outputs": {},
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "scenarios": {
+      "outputs": {},
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "old_client": {
+      "outputs": {},
+      "outcome": "success",
+      "conclusion": "success"
+    }
+  },
+  "captured_at": "before results publication and stack removal"
+}

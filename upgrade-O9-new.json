@@ -1,0 +1,9 @@
+{
+  "phase": "candidate",
+  "seconds": {
+    "baseline": 0.952,
+    "panel": 3.7
+  },
+  "max_memory_rows": {},
+  "version": "2.10.5"
+}
