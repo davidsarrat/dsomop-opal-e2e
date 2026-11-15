@@ -159,22 +159,27 @@ section("G19a", "no snapshot_id configured anywhere (expected: none in the profi
 section("G1d", "upgrade: the old version's noise root survives the upgrade and the publish", function() {
   f <- out_file("dp-root-before-upgrade.txt")
   if (!file.exists(f)) {
-    verdict("G1d", "INFO", "noise root across the upgrade", "not applicable (no old-version DP root recorded on this path)")
+    old_ref <- Sys.getenv("OLD_REF", "0")
+    expected <- identical(E2E_PATH, "upgrade") && grepl("^2\\.[0-9]+\\.[0-9]+$", old_ref) &&
+      utils::compareVersion(old_ref, "2.6.0") >= 0
+    verdict("G1d", if (expected) "FAIL" else "INFO", "noise root across the upgrade",
+            if (expected) "harness baseline missing: A1b did not record the old-version DP root" else
+              "not applicable (no old-version DP root recorded on this path)")
     return(invisible())
   }
   before <- readLines(f)
   key0 <- sub("^noise_key_id=", "", grep("^noise_key_id=", before, value = TRUE))
   file0 <- sub("^file=", "", grep("secrets/dp_noise_root \\|", before, value = TRUE))
-  file1 <- root_line(state_files())
   s <- open_session("G1d")
   on.exit(close_session(s))
   stv <- capture_ds("G1d: omopDpStatusDS()", raw_status(s))
   key1 <- if (stv$ok) stv$value[[1]]$noise_key_id %||% NA else NA
+  file1 <- root_line(state_files())
   created <- sum(grepl(ROOT_CREATED_RE, rock_log()))
   same_file <- length(file0) == 1L && length(file1) == 1L && identical(file0, file1)
   ok <- isTRUE(stv$ok) && identical(key0, key1) && same_file && created == 1L
   verdict("G1d", if (ok) "PASS" else "FAIL",
-          "the 2.10.3 server uses the noise root the old version created (same key id, same file, created once)",
+          "the upgraded server uses the noise root the old version created (same key id, same file, created once)",
           sprintf("old %s key %s; now key %s; root file before [%s] now [%s]; root-creation lines in Rserve.log: %d",
                   sub("^version=", "", before[1]), key0, key1, paste(file0, collapse = " "), paste(file1, collapse = " "), created))
 })

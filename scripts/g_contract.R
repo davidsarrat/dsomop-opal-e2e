@@ -1,5 +1,22 @@
 # Pure harness contract helpers; tests run without an Opal service or R packages.
-g_status_call <- function() call("omopDpStatusDS", "dsomop-protected-release-v1")
+g_status_call <- function(server_version = "2.10.3") {
+  if (utils::compareVersion(server_version, "2.10.3") < 0) return(call("omopDpStatusDS"))
+  call("omopDpStatusDS", "dsomop-protected-release-v1")
+}
+
+# A failed bootstrap must never become an upgrade baseline with an NA key.
+# Keep only public identity and file metadata; never read the root's contents.
+g_root_baseline <- function(version, status, files) {
+  key <- if (isTRUE(status$ok) && is.list(status$value) && length(status$value) == 1L &&
+             is.list(status$value[[1L]])) status$value[[1L]]$noise_key_id else NULL
+  if (!is.character(key) || length(key) != 1L || is.na(key) ||
+      !nzchar(trimws(key)) || identical(key, "NA"))
+    stop("A1b harness baseline failed: DP status did not return a noise key id.")
+  root <- grep("^secrets/dp_noise_root \\|", files, value = TRUE)
+  if (inherits(files, "rock_error") || length(root) != 1L)
+    stop("A1b harness baseline failed: expected exactly one persistent DP noise root file.")
+  c(paste0("version=", version), paste0("noise_key_id=", key), paste0("file=", files))
+}
 g_pooled_effect <- function(r) {
   if (!isTRUE(r$ok) || !is.data.frame(r$value$pooled)) return(NA_real_)
   cols <- intersect(c("estimate_fixed", "estimate_random"), names(r$value$pooled))

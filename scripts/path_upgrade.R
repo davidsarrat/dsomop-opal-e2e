@@ -2,6 +2,7 @@
 # Opal install call. Opal only auto-publishes packages that were not installed before, so the profile keeps the
 # old methods until someone publishes the package again (scenario A); scenario B publishes and retries.
 source("scripts/common.R")
+source("scripts/g_contract.R")
 start_log("path")
 o <- admin()
 old <- Sys.getenv("OLD_REF", "6a22d259db95a3bfd264d029b653587f935e32db")
@@ -15,21 +16,21 @@ old_version <- rock_pkg_version("dsOMOP")
 
 # A1b: a 2.x server with the DP service creates its noise root at the first DP call. The upgrade must keep using it
 # (scenario G compares the root's public key id and the state files after the upgrade and the publish).
-if (grepl("^2\\.", old_version) && utils::compareVersion(old_version, "2.6.0") >= 0) {
+if (grepl("^2\\.", old_version) && utils::compareVersion(old_version, "2.6.0") >= 0) local({
   say("== A1b: the analyst's first DP call under dsOMOP ", old_version, " creates the noise root")
   c0 <- analyst_login()
+  on.exit(DSI::datashield.logout(c0))
   k <- capture("ds.omop.connect", dsOMOPClient::ds.omop.connect(resource = res, symbol = "omop", conns = c0))
-  st <- if (k$ok) capture("DSI::datashield.aggregate(omopDpStatusDS())", DSI::datashield.aggregate(c0, quote(omopDpStatusDS()))) else k
-  key <- if (st$ok && is.list(st$value[[1]])) as.character(st$value[[1]]$noise_key_id %||% NA) else NA_character_
+  st <- if (k$ok) capture("pre-upgrade DP status", DSI::datashield.aggregate(c0, g_status_call(old_version))) else k
+  if (!st$ok) ds_errors()
   if (k$ok) capture("ds.omop.disconnect", dsOMOPClient::ds.omop.disconnect(symbol = "omop", conns = c0))
-  DSI::datashield.logout(c0)
   files <- rock_eval('local({ s <- file.path(Sys.getenv("HOME"), ".dsomop"); f <- list.files(s, recursive = TRUE, all.files = TRUE); i <- file.info(file.path(s, f)); paste(f, i$size, format(i$mode), format(i$mtime, "%Y-%m-%dT%H:%M:%OS3"), sep = " | ") })')
-  writeLines(c(paste0("version=", old_version), paste0("noise_key_id=", key), paste0("file=", files)),
-             out_file("dp-root-before-upgrade.txt"))
+  baseline <- g_root_baseline(old_version, st, files)
+  writeLines(baseline, out_file("dp-root-before-upgrade.txt"))
   show("state files under the old version", files)
   summary_line("[upgrade] A1b: DP status under dsOMOP ", old_version, ": ",
-               if (st$ok) paste0("noise root key id ", key) else paste0("FAIL: ", st$error))
-}
+               baseline[[2L]])
+})
 # A1c: the new client against the real old server, before the upgrade (scenario G adds these V verdicts).
 if (grepl("^2\\.", old_version) && utils::compareVersion(old_version, "2.10.3") < 0 &&
     grepl("G", Sys.getenv("SCENARIOS", "G"))) {
