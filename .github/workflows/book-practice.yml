@@ -12,12 +12,13 @@ jobs:
         shell: bash
     env:
       OUT: ${{ github.workspace }}/out/book-practice
-      BOOK_RAW_TRANSCRIPT: ${{ runner.temp }}/book-practice-raw.txt
     steps:
       - uses: actions/checkout@v7.0.1
         id: checkout
       - name: Initialize transcript and check Docker host
         id: host
+        env:
+          BOOK_RAW_TRANSCRIPT: ${{ runner.temp }}/book-practice-raw.txt
         run: |
           mkdir -p "$OUT"
           python3 -c 'import sys; sys.path.insert(0, "scripts/book-practice"); from run import HEADER; print(HEADER)' > "$BOOK_RAW_TRANSCRIPT"
@@ -38,11 +39,14 @@ jobs:
       - name: Run book prerequisites, then the verbatim optional walkthrough
         id: walkthrough
         timeout-minutes: 130
+        env:
+          BOOK_RAW_TRANSCRIPT: ${{ runner.temp }}/book-practice-raw.txt
         run: bash scripts/book-practice.sh >> "$BOOK_RAW_TRANSCRIPT" 2>&1
       - name: Full transcript, outcome and Docker logs (including failures)
         id: evidence
         if: always()
         env:
+          BOOK_RAW_TRANSCRIPT: ${{ runner.temp }}/book-practice-raw.txt
           JOB_STATUS: ${{ job.status }}
           STEPS_JSON: ${{ toJSON(steps) }}
         run: python3 scripts/book-practice/results.py

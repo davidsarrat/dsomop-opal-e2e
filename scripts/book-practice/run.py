@@ -78,7 +78,7 @@ def configure(work):
     }
     # Rscript reads this at startup, implementing the documented restart of R.
     environ = work / ".Renviron"
-    with environ.open("x", opener=lambda p, f: os.open(p, f, 0o600)) as stream:
+    with open(environ, "x", opener=lambda p, f: os.open(p, f, 0o600)) as stream:
         stream.write("".join(f'{key}={json.dumps(value)}\n' for key, value in credentials.items()))
     print('Configured book_driver <- "Opal", http://localhost:8080, practice, default, bookreader.', flush=True)
     print("Wrote private book-work/.Renviron; subsequent Rscript processes load it.", flush=True)
@@ -150,6 +150,11 @@ def main():
         print(f"Configuration failed: {error}", flush=True)
         failed.append("configuration")
     run_r("admin.R")
+    environ = work / ".Renviron"
+    if environ.exists():
+        environ.write_text("".join(line + "\n" for line in environ.read_text().splitlines()
+                                  if not line.startswith("BOOK_OPAL_ADMIN_PASSWORD=")))
+        print("\nRemoved administrator credentials before the fresh analyst R session.", flush=True)
     run_r("analyst.R")
     print("\n===== Walkthrough result =====", flush=True)
     print("FAIL: " + ", ".join(failed) if failed else "PASS: all walkthrough commands and R chunks completed", flush=True)
