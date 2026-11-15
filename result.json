@@ -1,0 +1,33 @@
+{
+  "run_id": "43672619522",
+  "attempt": "1",
+  "commit": "680bd39e4b6cc8f884edf5886fc61f830acd6188",
+  "job_status_before_collection": "failure",
+  "steps": {
+    "checkout": {
+      "outputs": {
+        "commit": "680bd39e4b6cc8f884edf5886fc61f830acd6188",
+        "ref": "refs/heads/main"
+      },
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "host": {
+      "outputs": {},
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "setup_r": {
+      "outputs": {
+        "installed-r-version": "4.6.2"
+      },
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "walkthrough": {
+      "outputs": {},
+      "outcome": "failure",
+      "conclusion": "failure"
+    }
+  }
+}
