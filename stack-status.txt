@@ -1,0 +1,6 @@
+NAME          IMAGE                     COMMAND                  SERVICE   CREATED         STATUS         PORTS
+e2e-mongo-1   mongo:7.0.16              "docker-entrypoint.s…"   mongo     4 minutes ago   Up 4 minutes   27017/tcp
+e2e-opal      obiba/opal:5.7.6          "/bin/bash /docker-e…"   opal      4 minutes ago   Up 4 minutes   8443/tcp, 127.0.0.1:8880->8080/tcp
+e2e-rock      obiba/rock:2.3.0-R4.6.1   "/docker-entrypoint.…"   rock      4 minutes ago   Up 4 minutes   8085/tcp
+
+[collector exit=0]

@@ -1,0 +1,312 @@
+Preparing default conf in /srv ...
+Preparing default plugins in /srv ...
+Disabling default Agate setting as AGATE_HOST is not defined...
+Setting Rock R server connection...
+Setting password...
+Starting Opal before first run script...
+Waiting for Opal to be ready...
+JAVA=java
+JAVA_OPTS=-Xms1G -Xmx2G -XX:+UseG1GC
+OPAL_HOME=/srv
+OPAL_DIST=/usr/share/opal
+Archive:  /srv/plugins/opal-datasource-redcap-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-redcap-2.0.0/
+   creating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/jackson-dataformat-xml-2.17.2.jar  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/stax2-api-4.2.2.jar  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/README.md  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/opal-datasource-redcap-2.0.0.jar  
+Archive:  /srv/plugins/opal-datasource-readr-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-readr-2.0.0/
+   creating: /srv/plugins/opal-datasource-readr-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/export.json  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/README.md  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/lib/opal-datasource-readr-2.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/import.json  
+Archive:  /srv/plugins/opal-datasource-readxl-2.0.1-dist.zip
+   creating: /srv/plugins/opal-datasource-readxl-2.0.1/
+   creating: /srv/plugins/opal-datasource-readxl-2.0.1/lib/
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/import.json  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/lib/opal-datasource-readxl-2.0.1.jar  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/export.json  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/README.md  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/site.properties  
+Archive:  /srv/plugins/opal-datasource-spss-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-spss-2.0.0/
+   creating: /srv/plugins/opal-datasource-spss-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/lib/magma-datasource-spss-1.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/lib/spssreader-1.2.2.jar  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/README.md  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/lib/opal-datasource-spss-2.0.0.jar  
+Archive:  /srv/plugins/opal-datasource-limesurvey-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-limesurvey-2.0.0/
+   creating: /srv/plugins/opal-datasource-limesurvey-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/lib/opal-datasource-limesurvey-2.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/README.md  
+Archive:  /srv/plugins/opal-analysis-validate-2.0.0-dist.zip
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/lib/
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/report.Rmd  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/form.json  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/report.Rmd  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/routine.R  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/form.json  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/report.Rmd  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/routine.R  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/form.json  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/README.md  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/lib/opal-analysis-validate-2.0.0.jar  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/routine.R  
+Archive:  /srv/plugins/opal-datasource-googlesheets4-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/
+   creating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/lib/opal-datasource-googlesheets4-2.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/README.md  
+Listening for transport dt_socket at address: 8000
+Upgrading Opal...
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+Upgrade successful.
+Listening for transport dt_socket at address: 8000
+ __    __    __      ____  _____        _      
+ \ \   \ \   \ \    / __ \|  __ \ /\   | |     
+  \ \   \ \   \ \  | |  | | |__) /  \  | |     
+   > >   > >   > > | |  | |  ___/ /\ \ | |     
+  / /   / /   / /  | |__| | |  / ____ \| |____ 
+ /_/   /_/   /_/    \____/|_| /_/    \_\______|
+                                               
+                                               
+Starting Opal...
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+WARNING: A restricted method in java.lang.foreign.Linker has been called
+WARNING: java.lang.foreign.Linker::downcallHandle has been called by the unnamed module
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for this module
+
+2026-11-15 00:09:23,716 ERROR org.obiba.shiro.web.filter.AuthenticationFilter - Exception 
+com.orientechnologies.orient.core.storage.ORecordDuplicatedException: Cannot index record #19:0: found duplicated key 'OCompositeKey{keys=[opal, /files/home/administrator, administrator, USER, FILES_SHARE]}' in index 'SubjectAcl.domain.node.principal.type.permission' previously assigned to the record #18:1	DB name="opal-config" INDEX=SubjectAcl.domain.node.principal.type.permission RID=#18:1
+	at com.orientechnologies.orient.core.index.engine.UniqueIndexEngineValidator.validate(UniqueIndexEngineValidator.java:33)
+	at com.orientechnologies.orient.core.index.engine.UniqueIndexEngineValidator.validate(UniqueIndexEngineValidator.java:9)
+	at com.orientechnologies.orient.core.storage.index.sbtree.singlevalue.v3.CellBTreeSingleValueV3.lambda$update$1(CellBTreeSingleValueV3.java:278)
+	at com.orientechnologies.orient.core.storage.impl.local.paginated.atomicoperations.OAtomicOperationsManager.calculateInsideComponentOperation(OAtomicOperationsManager.java:221)
+	at com.orientechnologies.orient.core.storage.impl.local.paginated.atomicoperations.OAtomicOperationsManager.calculateInsideComponentOperation(OAtomicOperationsManager.java:213)
+	at com.orientechnologies.orient.core.storage.impl.local.paginated.base.ODurableComponent.calculateInsideComponentOperation(ODurableComponent.java:96)
+	at com.orientechnologies.orient.core.storage.index.sbtree.singlevalue.v3.CellBTreeSingleValueV3.update(CellBTreeSingleValueV3.java:226)
+	at com.orientechnologies.orient.core.storage.index.sbtree.singlevalue.v3.CellBTreeSingleValueV3.validatedPut(CellBTreeSingleValueV3.java:218)
+	at com.orientechnologies.orient.core.index.engine.v1.OCellBTreeSingleValueIndexEngine.validatedPut(OCellBTreeSingleValueIndexEngine.java:207)
+	at com.orientechnologies.orient.core.storage.impl.local.OAbstractPaginatedStorage.doValidatedPutIndexValue(OAbstractPaginatedStorage.java:3410)
+	at com.orientechnologies.orient.core.storage.impl.local.OAbstractPaginatedStorage.validatedPutIndexValue(OAbstractPaginatedStorage.java:3379)
+	at com.orientechnologies.orient.core.index.OIndexUnique.doPut(OIndexUnique.java:52)
+	at com.orientechnologies.orient.core.storage.impl.local.OAbstractPaginatedStorage.applyTxChanges(OAbstractPaginatedStorage.java:2584)
+	at com.orientechnologies.orient.core.storage.impl.local.OAbstractPaginatedStorage.commitIndexes(OAbstractPaginatedStorage.java:2569)
+	at com.orientechnologies.orient.core.storage.impl.local.OAbstractPaginatedStorage.commit(OAbstractPaginatedStorage.java:2493)
+	at com.orientechnologies.orient.core.storage.impl.local.OAbstractPaginatedStorage.commit(OAbstractPaginatedStorage.java:2309)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentEmbedded.internalCommit(ODatabaseDocumentEmbedded.java:1958)
+	at com.orientechnologies.orient.core.tx.OTransactionOptimistic.doCommit(OTransactionOptimistic.java:651)
+	at com.orientechnologies.orient.core.tx.OTransactionOptimistic.commit(OTransactionOptimistic.java:116)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentAbstract.commit(ODatabaseDocumentAbstract.java:1599)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentAbstract.commit(ODatabaseDocumentAbstract.java:1569)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx.commit(ODatabaseDocumentTx.java:715)
+	at org.obiba.opal.core.service.OrientDbServiceImpl.save(OrientDbServiceImpl.java:131)
+	at org.obiba.opal.core.service.OrientDbServiceImpl.save(OrientDbServiceImpl.java:112)
+	at org.obiba.opal.core.service.security.SubjectAclServiceImpl.addSubjectPermission(SubjectAclServiceImpl.java:186)
+	at org.obiba.opal.core.service.SubjectProfileServiceImpl.ensureFolderPermissions(SubjectProfileServiceImpl.java:270)
+	at org.obiba.opal.core.service.SubjectProfileServiceImpl.ensureProfile(SubjectProfileServiceImpl.java:99)
+	at org.obiba.opal.web.security.AuthenticationExecutorImpl.ensureProfile(AuthenticationExecutorImpl.java:107)
+	at org.obiba.shiro.web.filter.AbstractAuthenticationExecutor.login(AbstractAuthenticationExecutor.java:88)
+	at org.obiba.shiro.web.filter.AuthenticationFilter.authenticateBasicHeader(AuthenticationFilter.java:300)
+	at org.obiba.shiro.web.filter.AuthenticationFilter.authenticateBasicHeader(AuthenticationFilter.java:274)
+	at org.obiba.shiro.web.filter.AuthenticationFilter.authenticateAndBind(AuthenticationFilter.java:209)
+	at org.obiba.shiro.web.filter.AuthenticationFilter.doFilterInternal(AuthenticationFilter.java:173)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:355)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:272)
+	at org.eclipse.jetty.ee10.servlet.FilterHolder.doFilter(FilterHolder.java:205)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1601)
+	at org.obiba.opal.server.httpd.OpalVersionFilter.doFilterInternal(OpalVersionFilter.java:39)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.eclipse.jetty.ee10.servlet.FilterHolder.doFilter(FilterHolder.java:205)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1601)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$MappedServlet.handle(ServletHandler.java:1556)
+	at org.eclipse.jetty.ee10.servlet.ServletChannel.dispatch(ServletChannel.java:871)
+	at org.eclipse.jetty.ee10.servlet.ServletChannel.handle(ServletChannel.java:449)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler.handle(ServletHandler.java:469)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:546)
+	at org.eclipse.jetty.ee10.servlet.SessionHandler.handle(SessionHandler.java:719)
+	at org.eclipse.jetty.server.handler.ContextHandler.handle(ContextHandler.java:1253)
+	at org.eclipse.jetty.server.handler.PathMappingsHandler.handle(PathMappingsHandler.java:146)
+	at org.eclipse.jetty.server.handler.gzip.GzipHandler.handle(GzipHandler.java:621)
+	at org.eclipse.jetty.server.Server.handle(Server.java:197)
+	at org.eclipse.jetty.server.internal.HttpChannelState$HandlerInvoker.run(HttpChannelState.java:804)
+	at org.eclipse.jetty.server.internal.HttpConnection.onFillable(HttpConnection.java:420)
+	at org.eclipse.jetty.server.internal.HttpConnection$FillableCallback.succeeded(HttpConnection.java:1790)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:105)
+	at org.eclipse.jetty.io.SelectableChannelEndPoint$1.run(SelectableChannelEndPoint.java:54)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:1009)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.doRunJob(QueuedThreadPool.java:1240)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.run(QueuedThreadPool.java:1194)
+	at java.base/java.lang.Thread.run(Unknown Source)
+First run setup...
+Initializing Opal IDs database with MongoDB...
+Opal Server successfully started.
+Opal is attached to this console. Press ctrl-c to stop.
+Enter content:
+
+Initializing Opal data database with MongoDB...
+Enter content:
+
+First run complete. Stopping background Opal...
+Opal Server shutting down...
+2026-11-15 00:09:28,704 ERROR org.obiba.shiro.web.filter.AuthenticationFilter - Exception 
+java.lang.IllegalStateException: Session manager is not available or has been destroyed
+	at org.apache.shiro.mgt.SessionsSecurityManager.start(SessionsSecurityManager.java:153)
+	at org.apache.shiro.subject.support.DelegatingSubject.getSession(DelegatingSubject.java:342)
+	at org.apache.shiro.subject.support.DelegatingSubject.getSession(DelegatingSubject.java:318)
+	at org.apache.shiro.mgt.DefaultSubjectDAO.mergePrincipals(DefaultSubjectDAO.java:207)
+	at org.apache.shiro.mgt.DefaultSubjectDAO.saveToSession(DefaultSubjectDAO.java:165)
+	at org.apache.shiro.mgt.DefaultSubjectDAO.save(DefaultSubjectDAO.java:146)
+	at org.apache.shiro.mgt.DefaultSecurityManager.save(DefaultSecurityManager.java:416)
+	at org.apache.shiro.mgt.DefaultSecurityManager.createSubject(DefaultSecurityManager.java:382)
+	at org.apache.shiro.mgt.DefaultSecurityManager.createSubject(DefaultSecurityManager.java:193)
+	at org.apache.shiro.mgt.DefaultSecurityManager.login(DefaultSecurityManager.java:295)
+	at org.apache.shiro.subject.support.DelegatingSubject.login(DelegatingSubject.java:262)
+	at org.obiba.shiro.web.filter.AbstractAuthenticationExecutor.login(AbstractAuthenticationExecutor.java:82)
+	at org.obiba.shiro.web.filter.AuthenticationFilter.authenticateBasicHeader(AuthenticationFilter.java:300)
+	at org.obiba.shiro.web.filter.AuthenticationFilter.authenticateBasicHeader(AuthenticationFilter.java:274)
+	at org.obiba.shiro.web.filter.AuthenticationFilter.authenticateAndBind(AuthenticationFilter.java:209)
+	at org.obiba.shiro.web.filter.AuthenticationFilter.doFilterInternal(AuthenticationFilter.java:173)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:355)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:272)
+	at org.eclipse.jetty.ee10.servlet.FilterHolder.doFilter(FilterHolder.java:205)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1601)
+	at org.obiba.opal.server.httpd.OpalVersionFilter.doFilterInternal(OpalVersionFilter.java:39)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.eclipse.jetty.ee10.servlet.FilterHolder.doFilter(FilterHolder.java:205)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1601)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$MappedServlet.handle(ServletHandler.java:1556)
+	at org.eclipse.jetty.ee10.servlet.ServletChannel.dispatch(ServletChannel.java:871)
+	at org.eclipse.jetty.ee10.servlet.ServletChannel.handle(ServletChannel.java:449)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler.handle(ServletHandler.java:469)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:546)
+	at org.eclipse.jetty.ee10.servlet.SessionHandler.handle(SessionHandler.java:719)
+	at org.eclipse.jetty.server.handler.ContextHandler.handle(ContextHandler.java:1253)
+	at org.eclipse.jetty.server.handler.PathMappingsHandler.handle(PathMappingsHandler.java:146)
+	at org.eclipse.jetty.server.handler.gzip.GzipHandler.handle(GzipHandler.java:621)
+	at org.eclipse.jetty.server.Server.handle(Server.java:197)
+	at org.eclipse.jetty.server.internal.HttpChannelState$HandlerInvoker.run(HttpChannelState.java:804)
+	at org.eclipse.jetty.server.internal.HttpConnection.onFillable(HttpConnection.java:420)
+	at org.eclipse.jetty.server.internal.HttpConnection$FillableCallback.succeeded(HttpConnection.java:1790)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:105)
+	at org.eclipse.jetty.io.SelectableChannelEndPoint$1.run(SelectableChannelEndPoint.java:54)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:1009)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.doRunJob(QueuedThreadPool.java:1240)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.run(QueuedThreadPool.java:1194)
+	at java.base/java.lang.Thread.run(Unknown Source)
+2026-11-15 00:09:28,857 ERROR org.obiba.opal.r.rock.RockService - Error when reading R server resource providers
+java.lang.IllegalStateException: Pool factory is closed
+	at com.orientechnologies.orient.core.db.OPartitionedDatabasePoolFactory.checkForClose(OPartitionedDatabasePoolFactory.java:147)
+	at com.orientechnologies.orient.core.db.OPartitionedDatabasePoolFactory.get(OPartitionedDatabasePoolFactory.java:107)
+	at org.obiba.opal.core.service.LocalOrientDbServerFactory.getDocumentTx(LocalOrientDbServerFactory.java:148)
+	at org.obiba.opal.core.service.OrientDbServiceImpl.findUnique(OrientDbServiceImpl.java:153)
+	at org.obiba.opal.core.service.AppsServiceImpl.getAppsConfig(AppsServiceImpl.java:166)
+	at org.obiba.opal.core.service.AppsServiceImpl.getRockAppConfig(AppsServiceImpl.java:192)
+	at org.obiba.opal.r.rock.RockService.getUserCredentials(RockService.java:447)
+	at org.obiba.opal.r.rock.RockService.newRServerSession(RockService.java:341)
+	at org.obiba.opal.r.service.RServerService.newRServerSession(RServerService.java:65)
+	at org.obiba.opal.r.service.RServerService.newRServerSession(RServerService.java:52)
+	at org.obiba.opal.r.rock.RockService.execute(RockService.java:363)
+	at org.obiba.opal.r.rock.RockService.getResourceProviders(RockService.java:226)
+	at org.obiba.opal.r.cluster.RServerCluster.getResourceProviders(RServerCluster.java:222)
+	at org.obiba.opal.r.service.RResourceProvidersService.loadResourceProviders(RResourceProvidersService.java:194)
+	at org.obiba.opal.r.service.RResourceProvidersService.onRServiceInitialized(RResourceProvidersService.java:144)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at com.google.common.eventbus.Subscriber.invokeSubscriberMethod(Subscriber.java:84)
+	at com.google.common.eventbus.Subscriber$SynchronizedSubscriber.invokeSubscriberMethod(Subscriber.java:141)
+	at com.google.common.eventbus.Subscriber.lambda$dispatchEvent$0(Subscriber.java:70)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.eventbus.Subscriber.dispatchEvent(Subscriber.java:67)
+	at com.google.common.eventbus.Dispatcher$PerThreadQueuedDispatcher.dispatch(Dispatcher.java:112)
+	at com.google.common.eventbus.EventBus.post(EventBus.java:262)
+	at org.obiba.opal.core.service.AppsServiceImpl.registerApp(AppsServiceImpl.java:76)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.discoverHost(RockServerDiscoveryService.java:102)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.discoverOrCheckHost(RockServerDiscoveryService.java:67)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.scanHosts(RockServerDiscoveryService.java:53)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:128)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$1(ScheduledMethodRunnable.java:122)
+	at io.micrometer.observation.Observation.observe(Observation.java:569)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:122)
+	at org.springframework.scheduling.config.Task$OutcomeTrackingRunnable.run(Task.java:88)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(Unknown Source)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Unknown Source)
+Starting Opal...
+JAVA=java
+JAVA_OPTS=-Xms1G -Xmx2G -XX:+UseG1GC
+OPAL_HOME=/srv
+OPAL_DIST=/usr/share/opal
+Listening for transport dt_socket at address: 8000
+Upgrading Opal...
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+Upgrade successful.
+Listening for transport dt_socket at address: 8000
+ __    __    __      ____  _____        _      
+ \ \   \ \   \ \    / __ \|  __ \ /\   | |     
+  \ \   \ \   \ \  | |  | | |__) /  \  | |     
+   > >   > >   > > | |  | |  ___/ /\ \ | |     
+  / /   / /   / /  | |__| | |  / ____ \| |____ 
+ /_/   /_/   /_/    \____/|_| /_/    \_\______|
+                                               
+                                               
+Starting Opal...
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+WARNING: A restricted method in java.lang.foreign.Linker has been called
+WARNING: java.lang.foreign.Linker::downcallHandle has been called by the unnamed module
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for this module
+
+Opal Server successfully started.
+Opal is attached to this console. Press ctrl-c to stop.
+2026-11-15 00:13:23,979 ERROR org.obiba.opal.r.rock.RockService - Error when installing a package
+org.springframework.web.client.HttpClientErrorException$BadRequest: 400 Bad Request on POST request for "http://rock:8085/rserver/packages": "{"status":"400","key":"REvaluationRuntimeException","args":[],"message":"Error : Failed to install 'unknown package' from GitHub:\n  HTTP error 403.\n  API rate limit exceeded for 52.159.137.34. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\n\n  Rate limit remaining: 0/60\n  Rate limit reset at: 2026-11-15 00:54:44 UTC\n\n  To increase your GitHub API rate limit\n  - Use `usethis::create_github_token()` to create a Personal Access Token.\n  - Use `gitcreds::gitcreds_set()` to add the token.\n"}"
+	at org.springframework.web.client.HttpClientErrorException.create(HttpClientErrorException.java:106)
+	at org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:144)
+	at org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:119)
+	at org.springframework.web.client.RestTemplate.handleResponse(RestTemplate.java:807)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:756)
+	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:697)
+	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:571)
+	at org.obiba.opal.r.rock.RockService.installPackage(RockService.java:396)
+	at org.obiba.opal.r.rock.RockService.installGitHubPackage(RockService.java:296)
+	at org.obiba.opal.r.cluster.RServerCluster.lambda$installGitHubPackage$14(RServerCluster.java:293)
+	at java.base/java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Unknown Source)
+
+[collector exit=0]
