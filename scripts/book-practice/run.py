@@ -48,7 +48,7 @@ def extract(destination):
     install = blocks(chapter.split("## Get the book helpers", 1)[0], "r")[0]
     for package, variable in [("dsOMOP", "BOOK_SERVER_ARCHIVE"),
                               ("dsOMOPClient", "BOOK_CLIENT_ARCHIVE")]:
-        old = f'remotes::install_github("isglobal-brge/{package}@2.10.5", upgrade = "never", auth_token = "")'
+        old = f'remotes::install_github("isglobal-brge/{package}@2.10.5", upgrade = "never", auth_token = NULL)'
         assert install.count(old) == 1
         install = install.replace(old, f'remotes::install_local(Sys.getenv("{variable}"), upgrade = "never")')
     loader = blocks(chapter.split("## Load two public synthetic datasets", 1)[1]
