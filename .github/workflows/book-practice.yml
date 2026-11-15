@@ -1,0 +1,71 @@
+name: book-practice
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  book-practice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    defaults:
+      run:
+        shell: bash
+    env:
+      OUT: ${{ github.workspace }}/out/book-practice
+      BOOK_RAW_TRANSCRIPT: ${{ runner.temp }}/book-practice-raw.txt
+    steps:
+      - uses: actions/checkout@v7.0.1
+        id: checkout
+      - name: Initialize transcript and check Docker host
+        id: host
+        run: |
+          mkdir -p "$OUT"
+          python3 -c 'import sys; sys.path.insert(0, "scripts/book-practice"); from run import HEADER; print(HEADER)' > "$BOOK_RAW_TRANSCRIPT"
+          {
+            echo '===== Host prerequisites: df -h; docker version; docker compose version ====='
+            df -h
+            docker version
+            docker compose version
+            echo '===== Install uv (same bootstrap as scripts/stack.sh) ====='
+            curl -LsSf https://astral.sh/uv/install.sh | sh
+          } >> "$BOOK_RAW_TRANSCRIPT" 2>&1
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - uses: r-lib/actions/setup-r@v2
+        id: setup_r
+        with:
+          r-version: release
+          use-public-rspm: true
+      - name: Run book prerequisites, then the verbatim optional walkthrough
+        id: walkthrough
+        timeout-minutes: 130
+        run: bash scripts/book-practice.sh >> "$BOOK_RAW_TRANSCRIPT" 2>&1
+      - name: Full transcript, outcome and Docker logs (including failures)
+        id: evidence
+        if: always()
+        env:
+          JOB_STATUS: ${{ job.status }}
+          STEPS_JSON: ${{ toJSON(steps) }}
+        run: python3 scripts/book-practice/results.py
+      - name: Commit results to the per-run branch, including failed walkthroughs
+        if: always()
+        timeout-minutes: 5
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+        run: bash scripts/book-practice/publish-results.sh
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.evidence.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 4
+        with:
+          name: book-practice-${{ github.run_id }}
+          path: |
+            out/book-practice/transcript.txt
+            out/book-practice/result.json
+      - name: Remove disposable book stack
+        if: always()
+        run: |
+          if [[ -f "$HOME/book-work/tools/book/book-compose.sh" && -d "$HOME/practice-data" ]]; then
+            bash "$HOME/book-work/tools/book/book-compose.sh" down -v
+          elif [[ -f "$HOME/.easy-opal/instances/book/docker-compose.yml" ]]; then
+            docker compose --project-name book -f "$HOME/.easy-opal/instances/book/docker-compose.yml" down -v
+          fi
