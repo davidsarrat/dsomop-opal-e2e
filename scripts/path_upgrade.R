@@ -1,4 +1,4 @@
-# UPGRADE path (APHRC's server): dsOMOP <old_ref> installed and published first, then upgraded through the same
+# UPGRADE path (APHRC's server): dsOMOP <old_ref> installed and published first, then upgraded through an
 # Opal install call. Opal only auto-publishes packages that were not installed before, so the profile keeps the
 # old methods until someone publishes the package again (scenario A); scenario B publishes and retries.
 source("scripts/common.R")
@@ -9,10 +9,15 @@ old <- Sys.getenv("OLD_REF", "6a22d259db95a3bfd264d029b653587f935e32db")
 target <- server_target()
 res <- if (identical(MODE, "candidate")) "omop_data.gibleed" else "omop_data.gibleed_tls_disable"
 
-say("== A1: install dsOMOP ", old, " (a new package: Opal publishes it)")
+say("== A1: install and publish the historical dsOMOP ", old, " baseline")
 install_server(o, old)
-show_dsomop_methods(o, paste("after installing", old))
 old_version <- rock_pkg_version("dsOMOP")
+if (length(old_version) != 1L || is.na(old_version) || !grepl("^[0-9]+[.][0-9]+[.][0-9]+$", old_version))
+  stop("A1 harness setup failed: the historical dsOMOP server is not installed; refusing to upgrade.")
+# Source installation can succeed even when Opal's manager did not publish it.
+# This is the old-server fixture; the candidate's publication is still tested below.
+dsadmin.publish_package(o, "dsOMOP")
+show_dsomop_methods(o, paste("after installing and publishing", old))
 
 # A1b: a 2.x server with the DP service creates its noise root at the first DP call. The upgrade must keep using it
 # (scenario G compares the root's public key id and the state files after the upgrade and the publish).

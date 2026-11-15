@@ -1,3 +1,5 @@
+source("scripts/install_historical.R")
+
 # Shared helpers: logins (administrator through opalr, the analyst through DSI/DSOpal), logging and captures.
 suppressPackageStartupMessages({
   library(opalr)
@@ -196,8 +198,7 @@ install_server <- function(o, ref) {
           !identical(as.integer(installed$status), 0L)) stop("Rock candidate installation failed; see the captured install log")
     }
   } else {
-    r <- capture(sprintf("dsadmin.install_github_package(o, \"dsOMOP\", username = \"isglobal-brge\", ref = \"%s\")", ref),
-                 dsadmin.install_github_package(o, "dsOMOP", username = "isglobal-brge", ref = ref))
+    r <- install_historical_server(o, ref)
   }
   if (identical(ref, "candidate")) assert_candidate_server()
   say("dsOMOP installed on Rock: ", rock_pkg_version("dsOMOP"))

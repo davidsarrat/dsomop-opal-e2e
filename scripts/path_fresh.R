@@ -1,5 +1,5 @@
 # FRESH path: a clean Opal; the administrator installs dsOMOP the way the Opal UI does it (DataSHIELD > Packages >
-# Install > GitHub isglobal-brge/dsOMOP @ ref, or the candidate source); a new package is auto-published.
+# Install > Local source archive at the requested GitHub ref, or the candidate source).
 source("scripts/common.R")
 start_log("path")
 o <- admin()
