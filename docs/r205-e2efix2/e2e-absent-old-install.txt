@@ -1,0 +1,11 @@
+== A1: install dsOMOP 2.10.4 (a new package: Opal publishes it)
+OK    dsadmin.install_github_package(o, "dsOMOP", username = "isglobal-brge", ref = "2.10.4") (1.8 s)
+dsOMOP installed on Rock: not installed
+dsOMOP methods published (after installing 2.10.4): 0 aggregate + 0 assign; versions: ; omopInitDS published: FALSE
+--- assign methods after installing 2.10.4
+[1] name    type    class   value   package version
+<0 rows> (or 0-length row.names)
+--- aggregate methods after installing 2.10.4
+[1] name    type    class   value   package version
+<0 rows> (or 0-length row.names)
+== A2: upgrade to candidate through the same Opal install call

@@ -1,0 +1,6 @@
+PARSE PASS: scripts/install_historical.R
+PARSE PASS: scripts/common.R
+PARSE PASS: scripts/path_upgrade.R
+PARSE PASS: scripts/path_fresh.R
+PARSE PASS: scripts/tests/historical-install.R
+PARSE PASS: scripts/tests/historical-installed.R

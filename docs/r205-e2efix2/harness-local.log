@@ -1,0 +1,10 @@
+Historical source, verified installation and A1/A1b regressions passed
+Upgrade noise-root handshake, baseline and G1d regressions passed
+Harness contract regressions passed
+Administrator resolver ordering regression passed
+Signed-component redraw and measurement-request regressions passed
+Exact-archive and missing-dependency install regressions passed
+Scenario D positive fixture selection regressions passed
+Partial client errors cannot pass the method audit
+Old-server preparation regression passed
+Candidate version and changed R syntax passed

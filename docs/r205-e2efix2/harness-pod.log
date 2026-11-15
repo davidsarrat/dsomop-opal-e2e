@@ -1,0 +1,14 @@
+Historical source, verified installation and A1/A1b regressions passed
+Upgrade noise-root handshake, baseline and G1d regressions passed
+Harness contract regressions passed
+Administrator resolver ordering regression passed
+Signed-component redraw and measurement-request regressions passed
+Exact-archive and missing-dependency install regressions passed
+Scenario D positive fixture selection regressions passed
+Partial client errors cannot pass the method audit
+Old-server preparation regression passed
+Candidate version and changed R syntax passed
+Downloaded 2.10.1 archive bytes 1208563 MD5 94df41d22f8fcc971a6a80b7335c4e62
+PASS: historical 2.10.1 installed in the disposable library; archive removed
+Downloaded 2.10.4 archive bytes 4832551 MD5 74caedb16828fd0b40265eca2f37a80d
+PASS: historical 2.10.4 installed in the disposable library; archive removed

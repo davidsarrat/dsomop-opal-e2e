@@ -1,0 +1,16 @@
+OK    dsadmin.install_github_package(o, "dsOMOP", username = "isglobal-brge", ref = "2.10.1") (3.6 s)
+dsOMOP installed on Rock: not installed
+
+Last workflow step lines:
+10 gibleed_v1_schemaonly                          postgresql://omopdb:5432/omop//dsomop::/schema:cdm omop.cdm.db
+11      gibleed_v1_vocab postgresql://omopdb:5432/omop//dsomop::/schema:cdm2/vocabulary_schema:vocab omop.cdm.db
+12           numeric_cdm               omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=numeric_cdm omop.dbi.db
+Warning message:
+Connecting through non-secure http
+OK    dsadmin.install_github_package(o, "dsOMOP", username = "isglobal-brge", ref = "2.10.1") (3.6 s)
+dsOMOP installed on Rock: not installed
+Error: identical(rock_pkg_version("dsOMOP"), "2.10.1") is not TRUE
+In addition: Warning messages:
+1: Connecting through non-secure http
+2: Connecting through non-secure http
+Execution halted

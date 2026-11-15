@@ -1,0 +1,1155 @@
+{
+  "harness_start": "7eb1461f1a0c7bd057731c45b02351ed59b4355e",
+  "harness_fix": "e0d7dd8c342ede845b026e0dd815ac6e3bf4f228",
+  "branches": [
+    {
+      "ref": "res/43656622522-1-opal-5.7.6-fresh-candidate",
+      "commit": "008f98d200d0f8f4ff5fe5c140bf0b1987d77137",
+      "verdict_files": {
+        "fresh-O-verdicts.csv": {
+          "PASS": 12
+        }
+      },
+      "files": {
+        "fresh-O-install.txt": {
+          "bytes": 14615,
+          "sha256": "efc6fadf7c61fd3dd99c997233f30fdfb215824bd12ee16d7b9b45f875273925"
+        },
+        "fresh-O-runtime.json": {
+          "bytes": 309,
+          "sha256": "c9e4caf6debdb40106f09125d3626f454e3269fd2fc332c8b2c5dd7c9e10f14f"
+        },
+        "fresh-O-scenarios.txt": {
+          "bytes": 9878,
+          "sha256": "92b3daa26fbc71a558e0b7f04081072bcab079ba7c83ef91ab63bebf2d328a18"
+        },
+        "fresh-O-setup.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "fresh-O-verdicts.csv": {
+          "bytes": 574,
+          "sha256": "8a5e7a42f78758bd8ec52db386c96550c9cfd7c2a7b73e23d694445d76ac6b59"
+        },
+        "fresh-O1-capabilities.json": {
+          "bytes": 12842,
+          "sha256": "60a225af80fcda2c8ef7826c8f30acc81b161d2698d48cd393626ea59ff6377c"
+        },
+        "fresh-O6-old-client.txt": {
+          "bytes": 54,
+          "sha256": "71537d1f22fbde2fc852896eecd10ca38130e93efe56a1d1077d8bfcc225edfc"
+        },
+        "fresh-O9-native-10k-seconds.json": {
+          "bytes": 14,
+          "sha256": "7f521bd87538758b7b078cae5762ae191b441671a3511ffc57764cc2aa561ed2"
+        },
+        "fresh-O9-new.json": {
+          "bytes": 136,
+          "sha256": "85bd0020e9c2c72a5988e1d8a91d9098770d23c690ede2589ea6ef0029d072f2"
+        },
+        "fresh-admin-setup.txt": {
+          "bytes": 6587,
+          "sha256": "e35539d916b3e4c840b8ec28331161115c7ab8a32989eaf8dc81b956d731608e"
+        },
+        "fresh-birth-plan.json": {
+          "bytes": 736,
+          "sha256": "2cbd750fe4d87a28812692e175f056a4ec4084ea7b8faaeb490599e35d5cc0ec"
+        },
+        "fresh-dp-plan.json": {
+          "bytes": 638,
+          "sha256": "21cd4fbab8da781456d30d8e0c6b7dec87105bf70520cbd0e135c530c8d4c46f"
+        },
+        "fresh-omopdb-load.txt": {
+          "bytes": 4507,
+          "sha256": "2d2718bb05ec3c80b23965b71d3d0cce1f53c5c7cee5f95e5773aa7f6a927fb1"
+        },
+        "fresh-steps.log": {
+          "bytes": 105982,
+          "sha256": "6976eff7ceaf46a3e19d65921f60b26665ee5f5a362aeac17280b01a256eb067"
+        },
+        "fresh-summary.txt": {
+          "bytes": 473,
+          "sha256": "ba6d5cf424238260712f38e40d457a05288a7e92f7d38e4b80f96e0d7b3b3553"
+        },
+        "image-digests.jsonl": {
+          "bytes": 174,
+          "sha256": "926fc65c6f3fac14b748671d9a332a4c9caf1d205751ff36f3b2fc7b73a5fb33"
+        },
+        "opal-clusters.json": {
+          "bytes": 357,
+          "sha256": "cb0a97cde9025285e532538985fe48936859df15b5551e9c16cd8666faacb8a1"
+        },
+        "opal-clusters.json.http": {
+          "bytes": 38,
+          "sha256": "f3019dc205f297e2307de7dfa8a30342b75b2a647965dfa219fbeedaecb7c144"
+        },
+        "opal-clusters.json.last": {
+          "bytes": 357,
+          "sha256": "cb0a97cde9025285e532538985fe48936859df15b5551e9c16cd8666faacb8a1"
+        },
+        "opal-version.txt": {
+          "bytes": 5,
+          "sha256": "ec405a47bd4299385bc3bd0e67b4572b88c9664f818f19031f1fb3dea4cad3ee"
+        },
+        "opal-version.txt.http": {
+          "bytes": 38,
+          "sha256": "f3019dc205f297e2307de7dfa8a30342b75b2a647965dfa219fbeedaecb7c144"
+        },
+        "opal-version.txt.last": {
+          "bytes": 5,
+          "sha256": "ec405a47bd4299385bc3bd0e67b4572b88c9664f818f19031f1fb3dea4cad3ee"
+        },
+        "opal.log": {
+          "bytes": 54655,
+          "sha256": "3184ba2d5f656839fb4676257a33775370a0e37c96d69b9f90b8f7c1bad23036"
+        },
+        "rock.log": {
+          "bytes": 1215,
+          "sha256": "649b98c8c1a16abfa161494c6ff3af1bedf79fff35ac4aced99112d133fa0475"
+        },
+        "stack-status.txt": {
+          "bytes": 510,
+          "sha256": "2c76ad195cd60917071168b43165b4e92df4d8570e3cd7e2adb47ac98a34e280"
+        },
+        "workflow-status.json": {
+          "bytes": 1656,
+          "sha256": "38857466e1c43ad035b69a51052581cd992c63585d8786dd6efe176b23bf0ed4"
+        }
+      },
+      "workflow_status": {
+        "GITHUB_RUN_ID": "43656622522",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "7eb1461f1a0c7bd057731c45b02351ed59b4355e",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "5.7.6",
+        "E2E_PATH": "fresh",
+        "MODE": "candidate",
+        "JOB_STATUS": "success",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "7eb1461f1a0c7bd057731c45b02351ed59b4355e",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    {
+      "ref": "res/43656622522-1-opal-5.7.6-upgrade-candidate",
+      "commit": "0f06f27517f0bea594ed76f07be54c2821a8b4c5",
+      "verdict_files": {},
+      "files": {
+        "image-digests.jsonl": {
+          "bytes": 174,
+          "sha256": "926fc65c6f3fac14b748671d9a332a4c9caf1d205751ff36f3b2fc7b73a5fb33"
+        },
+        "opal-clusters.json": {
+          "bytes": 357,
+          "sha256": "966b728da7a51dd6135db3c5939902fa06965bfa991538e0dd5f75d6d78f2acc"
+        },
+        "opal-clusters.json.http": {
+          "bytes": 38,
+          "sha256": "7a57ce8ed262ab85c1828190ee13ae96f76b6ca8476f9d437d727dc9e7a7d319"
+        },
+        "opal-clusters.json.last": {
+          "bytes": 357,
+          "sha256": "966b728da7a51dd6135db3c5939902fa06965bfa991538e0dd5f75d6d78f2acc"
+        },
+        "opal-version.txt": {
+          "bytes": 5,
+          "sha256": "ec405a47bd4299385bc3bd0e67b4572b88c9664f818f19031f1fb3dea4cad3ee"
+        },
+        "opal-version.txt.http": {
+          "bytes": 38,
+          "sha256": "95204a49bcf5c5edac406290c13d54e4ae3d9978ead526b24f8da486c2e2b0f2"
+        },
+        "opal-version.txt.last": {
+          "bytes": 5,
+          "sha256": "ec405a47bd4299385bc3bd0e67b4572b88c9664f818f19031f1fb3dea4cad3ee"
+        },
+        "opal.log": {
+          "bytes": 25305,
+          "sha256": "96e04ec94acbf4f198ba8a189baba33b920d3afd7ecec5c26ab88f03c18c675d"
+        },
+        "rock.log": {
+          "bytes": 1215,
+          "sha256": "649b98c8c1a16abfa161494c6ff3af1bedf79fff35ac4aced99112d133fa0475"
+        },
+        "stack-status.txt": {
+          "bytes": 510,
+          "sha256": "d5116a93ca2595886efcbaf8262b364cc976df3fdcd8625ba1689dad9752c916"
+        },
+        "upgrade-O-install.txt": {
+          "bytes": 142,
+          "sha256": "dc2f3dbadfce3bc9fcdac477afdb043eea36ad2d2e1cea516594acead0198e26"
+        },
+        "upgrade-admin-setup.txt": {
+          "bytes": 6599,
+          "sha256": "b8d710da3feed603e584142f3bfb88532697e41be15155e83dd8a8641a8952bd"
+        },
+        "upgrade-omopdb-load.txt": {
+          "bytes": 4507,
+          "sha256": "2d2718bb05ec3c80b23965b71d3d0cce1f53c5c7cee5f95e5773aa7f6a927fb1"
+        },
+        "upgrade-steps.log": {
+          "bytes": 90430,
+          "sha256": "2703d91cc559cf57124194dc70e212af88727f2c0bbc3dee24570eb6c0fec7f3"
+        },
+        "upgrade-summary.txt": {
+          "bytes": 113,
+          "sha256": "818e4d5cae8ed23dc470f73bb38b86045a225a02c51d33762e290d175db28b49"
+        },
+        "workflow-status.json": {
+          "bytes": 1658,
+          "sha256": "0138f871e0d2fd8a5e56519d0a1e514274f8e94919b3391b1d8044fd6fdd9155"
+        }
+      },
+      "workflow_status": {
+        "GITHUB_RUN_ID": "43656622522",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "7eb1461f1a0c7bd057731c45b02351ed59b4355e",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "5.7.6",
+        "E2E_PATH": "upgrade",
+        "MODE": "candidate",
+        "JOB_STATUS": "failure",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "7eb1461f1a0c7bd057731c45b02351ed59b4355e",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "failure",
+            "conclusion": "failure"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "skipped",
+            "conclusion": "skipped"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    {
+      "ref": "res/43656622522-1-opal-6.1.3-fresh-candidate",
+      "commit": "8eae99075d5922ce04754f642d4dd54a21c3e886",
+      "verdict_files": {
+        "fresh-O-verdicts.csv": {
+          "PASS": 12
+        }
+      },
+      "files": {
+        "fresh-O-install.txt": {
+          "bytes": 14619,
+          "sha256": "c1c3ba6e4d01b2f0169c07d4397de43cbcb10c5162b44431326ac555a592feba"
+        },
+        "fresh-O-runtime.json": {
+          "bytes": 309,
+          "sha256": "c9e4caf6debdb40106f09125d3626f454e3269fd2fc332c8b2c5dd7c9e10f14f"
+        },
+        "fresh-O-scenarios.txt": {
+          "bytes": 9878,
+          "sha256": "d98fe3f963db79b8544cd0f9d69dd36381b6cb4a93c41375450ab31aa1e440aa"
+        },
+        "fresh-O-setup.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "fresh-O-verdicts.csv": {
+          "bytes": 575,
+          "sha256": "8735cfe10ab79f7995783922af3a5a07bc1507f7079fad86eb2ba2d9c2914c72"
+        },
+        "fresh-O1-capabilities.json": {
+          "bytes": 12842,
+          "sha256": "425e2e3e2bc54da8782c5c97e6c9b8aa0fa9ad0fa0b6e52b7287d7558ca94092"
+        },
+        "fresh-O6-old-client.txt": {
+          "bytes": 54,
+          "sha256": "71537d1f22fbde2fc852896eecd10ca38130e93efe56a1d1077d8bfcc225edfc"
+        },
+        "fresh-O9-native-10k-seconds.json": {
+          "bytes": 15,
+          "sha256": "2f0ef1cdee0ca4d92c198d1492142945208b8ee533a9c0b18681a1c63559dfc9"
+        },
+        "fresh-O9-new.json": {
+          "bytes": 137,
+          "sha256": "8ce5d90793cc00e8fc1bfb530f9cf0856d039bc8d9d52b2058da33464404f5a1"
+        },
+        "fresh-admin-setup.txt": {
+          "bytes": 6603,
+          "sha256": "4bae113d369b3c7e5fd9712ef2a41e7320de42cd2983423bf50d7091c7219464"
+        },
+        "fresh-birth-plan.json": {
+          "bytes": 736,
+          "sha256": "2cbd750fe4d87a28812692e175f056a4ec4084ea7b8faaeb490599e35d5cc0ec"
+        },
+        "fresh-dp-plan.json": {
+          "bytes": 638,
+          "sha256": "21cd4fbab8da781456d30d8e0c6b7dec87105bf70520cbd0e135c530c8d4c46f"
+        },
+        "fresh-omopdb-load.txt": {
+          "bytes": 4507,
+          "sha256": "2d2718bb05ec3c80b23965b71d3d0cce1f53c5c7cee5f95e5773aa7f6a927fb1"
+        },
+        "fresh-steps.log": {
+          "bytes": 130007,
+          "sha256": "e2cde2f397c69ce453ab7df397d871a19eacc8f00bdd8ee0629395d305b426ff"
+        },
+        "fresh-summary.txt": {
+          "bytes": 473,
+          "sha256": "62e0f1ee0dab2829f614f0856a4af66862dfd08853774e12a82748f5d45ec59f"
+        },
+        "image-digests.jsonl": {
+          "bytes": 174,
+          "sha256": "ed9202ee6f8f66d67aae7e447a8cebd05ed43c527a48a338cb5506873ed5e455"
+        },
+        "opal-clusters.json": {
+          "bytes": 357,
+          "sha256": "20df295562a9d9eff5596020b7ec94b73fbd223689dddef6628f1c58001e7604"
+        },
+        "opal-clusters.json.http": {
+          "bytes": 38,
+          "sha256": "9ba2ae2509c688e4be124b2d8dcfff385da90457959eaa655ff0bc8a9dd7e5a6"
+        },
+        "opal-clusters.json.last": {
+          "bytes": 357,
+          "sha256": "20df295562a9d9eff5596020b7ec94b73fbd223689dddef6628f1c58001e7604"
+        },
+        "opal-version.txt": {
+          "bytes": 5,
+          "sha256": "d895ae33eff0ba0cc5ec016eb863bf1bcb573c89f3f89176e5f277facf34d8ac"
+        },
+        "opal-version.txt.http": {
+          "bytes": 39,
+          "sha256": "8cb3e5f1be768e693d1d9eeacad6f24eaebe709ecc615296340f1c368e0ac431"
+        },
+        "opal-version.txt.last": {
+          "bytes": 5,
+          "sha256": "d895ae33eff0ba0cc5ec016eb863bf1bcb573c89f3f89176e5f277facf34d8ac"
+        },
+        "opal.log": {
+          "bytes": 77850,
+          "sha256": "6d4c1695bf9f72a0f76d0116ab55ceec50d086cc5b6269545490f41c0dd897b7"
+        },
+        "rock.log": {
+          "bytes": 1215,
+          "sha256": "649b98c8c1a16abfa161494c6ff3af1bedf79fff35ac4aced99112d133fa0475"
+        },
+        "stack-status.txt": {
+          "bytes": 518,
+          "sha256": "605ecacc1e09084e25c630bdc84c1fd55dac9d565f59a06ace59fde2f6502fc8"
+        },
+        "workflow-status.json": {
+          "bytes": 1656,
+          "sha256": "94b1d4fcf7ba20a8c1f5168d5821ffc6261a8b25642f1494d006cbc148b4c546"
+        }
+      },
+      "workflow_status": {
+        "GITHUB_RUN_ID": "43656622522",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "7eb1461f1a0c7bd057731c45b02351ed59b4355e",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "6.1.3",
+        "E2E_PATH": "fresh",
+        "MODE": "candidate",
+        "JOB_STATUS": "success",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "7eb1461f1a0c7bd057731c45b02351ed59b4355e",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    {
+      "ref": "res/43656622522-1-opal-6.1.3-upgrade-candidate",
+      "commit": "378c8b992d17fb128d412a5a4c5c4f250a26551a",
+      "verdict_files": {
+        "upgrade-O-verdicts.csv": {
+          "PASS": 12
+        }
+      },
+      "files": {
+        "image-digests.jsonl": {
+          "bytes": 174,
+          "sha256": "ed9202ee6f8f66d67aae7e447a8cebd05ed43c527a48a338cb5506873ed5e455"
+        },
+        "opal-clusters.json": {
+          "bytes": 357,
+          "sha256": "f2e47c548fb8feea6dc3cb0e3f852611df732859e71c10afa864d9547747a327"
+        },
+        "opal-clusters.json.http": {
+          "bytes": 38,
+          "sha256": "7a57ce8ed262ab85c1828190ee13ae96f76b6ca8476f9d437d727dc9e7a7d319"
+        },
+        "opal-clusters.json.last": {
+          "bytes": 357,
+          "sha256": "f2e47c548fb8feea6dc3cb0e3f852611df732859e71c10afa864d9547747a327"
+        },
+        "opal-version.txt": {
+          "bytes": 5,
+          "sha256": "d895ae33eff0ba0cc5ec016eb863bf1bcb573c89f3f89176e5f277facf34d8ac"
+        },
+        "opal-version.txt.http": {
+          "bytes": 38,
+          "sha256": "f0833af8bc7023265ef53238a5fbbf609f15f0deac0f1d251e06fe69f181b644"
+        },
+        "opal-version.txt.last": {
+          "bytes": 5,
+          "sha256": "d895ae33eff0ba0cc5ec016eb863bf1bcb573c89f3f89176e5f277facf34d8ac"
+        },
+        "opal.log": {
+          "bytes": 64188,
+          "sha256": "22671286850aefa4b19ca2be9f368db5a77ca114f93157562534bcf86acfb00f"
+        },
+        "rock.log": {
+          "bytes": 1215,
+          "sha256": "649b98c8c1a16abfa161494c6ff3af1bedf79fff35ac4aced99112d133fa0475"
+        },
+        "stack-status.txt": {
+          "bytes": 518,
+          "sha256": "d712f1cd75de126dddf595dcacbcfe8ca41cd1397f235cb4d74ce72baa97fa99"
+        },
+        "upgrade-O-install.txt": {
+          "bytes": 1414,
+          "sha256": "1518c6edf7daef5e09600e62df05be22f4991a77ea3b79bcabaa8fa320325f20"
+        },
+        "upgrade-O-runtime.json": {
+          "bytes": 309,
+          "sha256": "c9e4caf6debdb40106f09125d3626f454e3269fd2fc332c8b2c5dd7c9e10f14f"
+        },
+        "upgrade-O-scenarios.txt": {
+          "bytes": 9878,
+          "sha256": "af1bc4088eb2d347cbd5b3eb56764eff79b0a2a86be2598163e52ea31b2493ac"
+        },
+        "upgrade-O-setup.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "upgrade-O-verdicts.csv": {
+          "bytes": 573,
+          "sha256": "96821cfefe4be92312c24dd7a4ca1f524839e54065a57ed4cdc3ce5ddc1dc1b9"
+        },
+        "upgrade-O1-capabilities.json": {
+          "bytes": 12842,
+          "sha256": "efa9e550fcb357f62497d0293ca281f7e09a5b5b1233e4ef8f829c2996b59a08"
+        },
+        "upgrade-O6-old-client.txt": {
+          "bytes": 54,
+          "sha256": "71537d1f22fbde2fc852896eecd10ca38130e93efe56a1d1077d8bfcc225edfc"
+        },
+        "upgrade-O9-native-10k-seconds.json": {
+          "bytes": 15,
+          "sha256": "be74c81c4d4b84a74ca97790c7f5118925de369a9132ad64db342757eda5ff83"
+        },
+        "upgrade-O9-new.json": {
+          "bytes": 137,
+          "sha256": "680d5fc1f77587c08ad053c3bb1b6c5f3c850819096a5977e1fd23c555a56493"
+        },
+        "upgrade-O9-old.json": {
+          "bytes": 104,
+          "sha256": "fd079c6f2419a2605592819a6fee1094524dc432c3ad7b5c1125ea02e02cd1dd"
+        },
+        "upgrade-admin-setup.txt": {
+          "bytes": 6603,
+          "sha256": "df893f994a2b75e17c2ada2e5a54136853735e0d073dc2158fbc7885d3772a01"
+        },
+        "upgrade-birth-plan.json": {
+          "bytes": 736,
+          "sha256": "2cbd750fe4d87a28812692e175f056a4ec4084ea7b8faaeb490599e35d5cc0ec"
+        },
+        "upgrade-dp-plan.json": {
+          "bytes": 638,
+          "sha256": "21cd4fbab8da781456d30d8e0c6b7dec87105bf70520cbd0e135c530c8d4c46f"
+        },
+        "upgrade-omopdb-load.txt": {
+          "bytes": 4507,
+          "sha256": "2d2718bb05ec3c80b23965b71d3d0cce1f53c5c7cee5f95e5773aa7f6a927fb1"
+        },
+        "upgrade-steps.log": {
+          "bytes": 120848,
+          "sha256": "75b7d6b04ce8a8559b96ff235d295faa3ce13848a5e6a1e74076929af8e0e33c"
+        },
+        "upgrade-summary.txt": {
+          "bytes": 477,
+          "sha256": "f5d6f38c7c95eb4d25c593e8296c64f9b402fa2cd53511b642b8591f8a15f6b8"
+        },
+        "workflow-status.json": {
+          "bytes": 1658,
+          "sha256": "483e91b64c388f90be752c56de2da450b0db55c0ee1048ebc7b534f256cfa2b3"
+        }
+      },
+      "workflow_status": {
+        "GITHUB_RUN_ID": "43656622522",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "7eb1461f1a0c7bd057731c45b02351ed59b4355e",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "6.1.3",
+        "E2E_PATH": "upgrade",
+        "MODE": "candidate",
+        "JOB_STATUS": "success",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "7eb1461f1a0c7bd057731c45b02351ed59b4355e",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    {
+      "ref": "res/43656622522-2-opal-5.7.6-upgrade-candidate",
+      "commit": "7a41d179384b1b13c5d1223571d3136783be2dd6",
+      "verdict_files": {
+        "upgrade-O-verdicts.csv": {
+          "PASS": 12
+        }
+      },
+      "files": {
+        "image-digests.jsonl": {
+          "bytes": 174,
+          "sha256": "926fc65c6f3fac14b748671d9a332a4c9caf1d205751ff36f3b2fc7b73a5fb33"
+        },
+        "opal-clusters.json": {
+          "bytes": 357,
+          "sha256": "6559945d896fdaf4a1b7fe43ef9f652d841aaeadc744e3e244a939c8edcc5e86"
+        },
+        "opal-clusters.json.http": {
+          "bytes": 38,
+          "sha256": "7a57ce8ed262ab85c1828190ee13ae96f76b6ca8476f9d437d727dc9e7a7d319"
+        },
+        "opal-clusters.json.last": {
+          "bytes": 357,
+          "sha256": "6559945d896fdaf4a1b7fe43ef9f652d841aaeadc744e3e244a939c8edcc5e86"
+        },
+        "opal-version.txt": {
+          "bytes": 5,
+          "sha256": "ec405a47bd4299385bc3bd0e67b4572b88c9664f818f19031f1fb3dea4cad3ee"
+        },
+        "opal-version.txt.http": {
+          "bytes": 38,
+          "sha256": "95204a49bcf5c5edac406290c13d54e4ae3d9978ead526b24f8da486c2e2b0f2"
+        },
+        "opal-version.txt.last": {
+          "bytes": 5,
+          "sha256": "ec405a47bd4299385bc3bd0e67b4572b88c9664f818f19031f1fb3dea4cad3ee"
+        },
+        "opal.log": {
+          "bytes": 67629,
+          "sha256": "575486324a3ff8e0ba6553640be4df80ea364228d85fa56ad3f533b2a04acc18"
+        },
+        "rock.log": {
+          "bytes": 1215,
+          "sha256": "649b98c8c1a16abfa161494c6ff3af1bedf79fff35ac4aced99112d133fa0475"
+        },
+        "stack-status.txt": {
+          "bytes": 518,
+          "sha256": "341777f891aa489be14e876a35860ed1086f0fefe960499151c27d02ebb2646a"
+        },
+        "upgrade-O-install.txt": {
+          "bytes": 1414,
+          "sha256": "8cb6e53c625bdd8712379ab769529f9826e25cba4f7ede216e7ea02df73e9adc"
+        },
+        "upgrade-O-runtime.json": {
+          "bytes": 309,
+          "sha256": "c9e4caf6debdb40106f09125d3626f454e3269fd2fc332c8b2c5dd7c9e10f14f"
+        },
+        "upgrade-O-scenarios.txt": {
+          "bytes": 9876,
+          "sha256": "3d4af899acf64825e031f6097a4aba1c0a0242d5416f465a3c85b6481837f22d"
+        },
+        "upgrade-O-setup.txt": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "upgrade-O-verdicts.csv": {
+          "bytes": 576,
+          "sha256": "d44b35fb3d94cdf6197f435e04d9b6b5612e1e4c0208fd9d92911b04c8abc282"
+        },
+        "upgrade-O1-capabilities.json": {
+          "bytes": 12842,
+          "sha256": "d06d37d6b3177394afcacb443efffceb3606d7bcbd9d7aa7acc9f18e2f9782da"
+        },
+        "upgrade-O6-old-client.txt": {
+          "bytes": 54,
+          "sha256": "71537d1f22fbde2fc852896eecd10ca38130e93efe56a1d1077d8bfcc225edfc"
+        },
+        "upgrade-O9-native-10k-seconds.json": {
+          "bytes": 15,
+          "sha256": "506edffb63ce1c51dd5dc994c72f461682f24fa4e935e015ecf001f7dc15e674"
+        },
+        "upgrade-O9-new.json": {
+          "bytes": 137,
+          "sha256": "f7dbbc1e4565d10d6341ea4b72702198a59c2f68ed297c16c995ce01d01888b3"
+        },
+        "upgrade-O9-old.json": {
+          "bytes": 104,
+          "sha256": "06b9fcdc6a9a5074413fab77579a56319865257386c1543f66afe5355495347d"
+        },
+        "upgrade-admin-setup.txt": {
+          "bytes": 6601,
+          "sha256": "83e03dddcd71aa2f342a503ef1f76865af4409dc1969f134f3bf2ac7de989d2e"
+        },
+        "upgrade-birth-plan.json": {
+          "bytes": 736,
+          "sha256": "2cbd750fe4d87a28812692e175f056a4ec4084ea7b8faaeb490599e35d5cc0ec"
+        },
+        "upgrade-dp-plan.json": {
+          "bytes": 638,
+          "sha256": "21cd4fbab8da781456d30d8e0c6b7dec87105bf70520cbd0e135c530c8d4c46f"
+        },
+        "upgrade-omopdb-load.txt": {
+          "bytes": 4507,
+          "sha256": "2d2718bb05ec3c80b23965b71d3d0cce1f53c5c7cee5f95e5773aa7f6a927fb1"
+        },
+        "upgrade-steps.log": {
+          "bytes": 127838,
+          "sha256": "f24d8df45fc87f965f5226ea008f84df322a99e6e441f247c50810666c0b88db"
+        },
+        "upgrade-summary.txt": {
+          "bytes": 477,
+          "sha256": "6e28c3f0b1933ffc79fb86012dace067f208d03c5c56f9e2c41602c0ccd7ace8"
+        },
+        "workflow-status.json": {
+          "bytes": 1658,
+          "sha256": "40b260d3719af22d0bd652fa5e2953cf44bba58fed3ed18d4ca40294f0f5b6dc"
+        }
+      },
+      "workflow_status": {
+        "GITHUB_RUN_ID": "43656622522",
+        "GITHUB_RUN_ATTEMPT": "2",
+        "GITHUB_SHA": "7eb1461f1a0c7bd057731c45b02351ed59b4355e",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "5.7.6",
+        "E2E_PATH": "upgrade",
+        "MODE": "candidate",
+        "JOB_STATUS": "success",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "7eb1461f1a0c7bd057731c45b02351ed59b4355e",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    {
+      "ref": "res/43656625337-fresh-candidate",
+      "commit": "808257f9f5bae70ffd5f6e9cc0eca570553599a5",
+      "verdict_files": {
+        "fresh-G-old-verdicts.csv": {
+          "PASS": 10
+        },
+        "fresh-G-verdicts.csv": {
+          "INFO": 12,
+          "PASS": 88
+        }
+      },
+      "files": {
+        "fresh-G-audit-lines.txt": {
+          "bytes": 115575,
+          "sha256": "c4388bcbea18cfc1196c9a6e48acb42321d5a5d53da24e767a87c5b22c6f179c"
+        },
+        "fresh-G-old-verdicts.csv": {
+          "bytes": 5583,
+          "sha256": "527815917f2f579dac88e112f3d868e8b916d3baa218e16b53c2257d3b6445ff"
+        },
+        "fresh-G-verdicts.csv": {
+          "bytes": 27338,
+          "sha256": "7560c0fe9d572b594f0a914ff9e6f68da28f415b682d29a631bc79d5e73ca2d6"
+        },
+        "fresh-G16-plans-big.txt": {
+          "bytes": 1674,
+          "sha256": "e27ee42fcda38084525eb6baa9d3347685c8cc6c878759223bc7c15bb3bc1f34"
+        },
+        "fresh-G16-plans-gibleed.txt": {
+          "bytes": 989,
+          "sha256": "e904d05fa75348bed5fe1f428c65f698f02c338b37bcf9177c6e83b864314b67"
+        },
+        "fresh-admin-setup.txt": {
+          "bytes": 6603,
+          "sha256": "3ec03619de13d104dc83dd98683240923cdc0142189d3ae2738eeaefde39120f"
+        },
+        "fresh-datashield-log.txt": {
+          "bytes": 160713,
+          "sha256": "ee03e213c93d2837ca1f5a5aa781da1046bb42253a1ec17447c1462908193cc4"
+        },
+        "fresh-method-audit-calls.csv": {
+          "bytes": 6179,
+          "sha256": "9fb57a29c1fac55e44bfb86b1354e0b47db8a0a9815ff59e4657fb00de6af6d0"
+        },
+        "fresh-method-audit.csv": {
+          "bytes": 5718,
+          "sha256": "c1cda46ce3efb91007badaeca887d80031fb988aedced715ed87f121d7d2c98f"
+        },
+        "fresh-numeric-load.txt": {
+          "bytes": 394,
+          "sha256": "ac7a27b129d463140f75c4810baf3da55e2dcd18f355537e977900b5207d814d"
+        },
+        "fresh-numeric-manifest.json": {
+          "bytes": 1639,
+          "sha256": "84a3d8847071b1cdfe08fb0c774a06c733dd5fccb503e5324ec175d3e8039d34"
+        },
+        "fresh-omopbig.txt": {
+          "bytes": 389,
+          "sha256": "2d828794619d0d36b3193fc88aa623b435514787c8764dcc84341e62a2445e45"
+        },
+        "fresh-omopdb-load.txt": {
+          "bytes": 4507,
+          "sha256": "2d2718bb05ec3c80b23965b71d3d0cce1f53c5c7cee5f95e5773aa7f6a927fb1"
+        },
+        "fresh-opal-srv-logs.tgz": {
+          "bytes": 422985,
+          "sha256": "d6414b4bd0a0305872c9db5f272a8b635010bf53dbc7f11328abb9558ab49a3e"
+        },
+        "fresh-opal.log": {
+          "bytes": 186536,
+          "sha256": "a3b3894c5ae17161454eb2d3c6d7e8c4b977b005c1d86d682338c5855cab1c25"
+        },
+        "fresh-path.txt": {
+          "bytes": 26701,
+          "sha256": "5c44ecdb3d1a8dc6603e3db7c1888700c8f42d4531e8932dcef33367a12d61d8"
+        },
+        "fresh-rock-Rserve-after-restart.log": {
+          "bytes": 208156,
+          "sha256": "9fc0545c617715017d5f428e5689ea1e31d92fa6f1cb7974af3107ab5d899bf8"
+        },
+        "fresh-rock-Rserve-before-restart.log": {
+          "bytes": 200724,
+          "sha256": "a928003cace79a123ade3e59be9b26262beb7d5dea294dd4768127f9ed44d97f"
+        },
+        "fresh-rock-packages-initial.txt": {
+          "bytes": 614,
+          "sha256": "45cad4d374443a617aa012d9bdf6896e8a957de4c16b5718bf7300e6268e46ca"
+        },
+        "fresh-rock-srv-logs.tgz": {
+          "bytes": 17693,
+          "sha256": "1247568a1a1f7c84c26545c04718f93d37231d087ffd690f3a44b3d00dfc5fe3"
+        },
+        "fresh-rock.log": {
+          "bytes": 1456,
+          "sha256": "ea82e67a5bfaa60bdc61b0a087925d6c538abe079dcd401f0ebb7307219ce9a7"
+        },
+        "fresh-scenario-C.txt": {
+          "bytes": 5545,
+          "sha256": "27942d73c003871ca0b7aed009ec61dfb0d23d2ec47b904c0a3cd546e443ba38"
+        },
+        "fresh-scenario-D.txt": {
+          "bytes": 15973,
+          "sha256": "179aa49631084da9a614c3bb282e4bac813875105961d0dac2223b6f7ff14b78"
+        },
+        "fresh-scenario-E.txt": {
+          "bytes": 51245,
+          "sha256": "787e452e75be46418ab5045c4244f4d7f3092e223b212946a11b45eb5a0304f3"
+        },
+        "fresh-scenario-F.txt": {
+          "bytes": 5561,
+          "sha256": "f9e9e95b050c45b9815ad537ae72fc1d1fffd95a66800e634e16a7c7ae48fe00"
+        },
+        "fresh-scenario-G-old.txt": {
+          "bytes": 10165,
+          "sha256": "ce467fffcd4e38036cd2d14813c3400cbc2dc9c72b6507f1ac32afe6edb02b30"
+        },
+        "fresh-scenario-G.txt": {
+          "bytes": 352115,
+          "sha256": "b122833c40e1913732be0ec75ca1e428c27c05b404b6c1deb6a4900bf1a322a1"
+        },
+        "fresh-steps.log": {
+          "bytes": 574302,
+          "sha256": "613a289796e900077e301767fb5ee7af2767f9d1438c3acf853df2f6a85f73a3"
+        },
+        "fresh-summary.txt": {
+          "bytes": 38647,
+          "sha256": "75a33f1b39fddfcd5da710016e62251cb7ae581b5b37f810c7684c2adf687723"
+        }
+      }
+    },
+    {
+      "ref": "res/43656625337-upgrade-candidate",
+      "commit": "93ade8fb78abc6e88fddd7b2cbe3d81eaf976f31",
+      "verdict_files": {
+        "upgrade-G-old-verdicts.csv": {
+          "PASS": 10
+        },
+        "upgrade-G-verdicts.csv": {
+          "INFO": 12,
+          "PASS": 87,
+          "FAIL": 1
+        }
+      },
+      "files": {
+        "upgrade-G-audit-lines.txt": {
+          "bytes": 115747,
+          "sha256": "94a694877a5ac7c7b83503767b441de18eb1b8fc1d1e05783a4d58e673b1ceca"
+        },
+        "upgrade-G-old-verdicts.csv": {
+          "bytes": 5583,
+          "sha256": "527815917f2f579dac88e112f3d868e8b916d3baa218e16b53c2257d3b6445ff"
+        },
+        "upgrade-G-verdicts.csv": {
+          "bytes": 27112,
+          "sha256": "1c5caa0020d162d0ff70ee62310157a8c3bc566988f9553012505e80b303f031"
+        },
+        "upgrade-G16-plans-gibleed.txt": {
+          "bytes": 989,
+          "sha256": "0bac0077c26cca0798790827818ab3559c3a85fa7fb926732567de8ddc5cf3eb"
+        },
+        "upgrade-admin-setup.txt": {
+          "bytes": 6597,
+          "sha256": "ef362af98e7854c793b370277315351bd22e214653d3f29d26287cf3385b749c"
+        },
+        "upgrade-numeric-load.txt": {
+          "bytes": 394,
+          "sha256": "ac7a27b129d463140f75c4810baf3da55e2dcd18f355537e977900b5207d814d"
+        },
+        "upgrade-numeric-manifest.json": {
+          "bytes": 1639,
+          "sha256": "84a3d8847071b1cdfe08fb0c774a06c733dd5fccb503e5324ec175d3e8039d34"
+        },
+        "upgrade-omopdb-load.txt": {
+          "bytes": 4507,
+          "sha256": "2d2718bb05ec3c80b23965b71d3d0cce1f53c5c7cee5f95e5773aa7f6a927fb1"
+        },
+        "upgrade-opal-srv-logs.tgz": {
+          "bytes": 344897,
+          "sha256": "9988b4234dcc25ffc8749e8ab00cb27fc1635619ea17062ff01fa24a905dfccc"
+        },
+        "upgrade-opal.log": {
+          "bytes": 135680,
+          "sha256": "d5c82beba155fa16632eedbca0c9244130257ba4163eba651d882d162e5be63e"
+        },
+        "upgrade-path.txt": {
+          "bytes": 37111,
+          "sha256": "c3a7f5402dc0c9abf873f747500f42767f7ac6d40cb7eef8cf4cb9fcb460b66d"
+        },
+        "upgrade-rock-Rserve-after-restart.log": {
+          "bytes": 177502,
+          "sha256": "cd8dcf2be792d44b582567241f450b33f87e7b75ab8a62a5cd98756b442c918f"
+        },
+        "upgrade-rock-Rserve-before-restart.log": {
+          "bytes": 170070,
+          "sha256": "26b805d0551e7780035c7ef04f8cf65cd8889d8c9a05e9b162dc966591a81237"
+        },
+        "upgrade-rock-packages-initial.txt": {
+          "bytes": 614,
+          "sha256": "45cad4d374443a617aa012d9bdf6896e8a957de4c16b5718bf7300e6268e46ca"
+        },
+        "upgrade-rock-srv-logs.tgz": {
+          "bytes": 14777,
+          "sha256": "3fc3602623e46dea9faf62b94aa9e32b679e49baffc2e48a54b7daf5574c2340"
+        },
+        "upgrade-rock.log": {
+          "bytes": 1456,
+          "sha256": "ea82e67a5bfaa60bdc61b0a087925d6c538abe079dcd401f0ebb7307219ce9a7"
+        },
+        "upgrade-scenario-C.txt": {
+          "bytes": 5551,
+          "sha256": "bf2d25bf6fd4a5b62d7a711ad206c325fd59ec379ea92dd2dc9c7902956d3c87"
+        },
+        "upgrade-scenario-G-old.txt": {
+          "bytes": 10181,
+          "sha256": "d6c251eef117d69e8854f73b2f627b787d9a5334c147ea3a76339af2fbf65125"
+        },
+        "upgrade-scenario-G.txt": {
+          "bytes": 350466,
+          "sha256": "e848e0cd2dbe7741bfdaed31e53e1b3ede303789dfc3615057d3bdba4feae25a"
+        },
+        "upgrade-steps.log": {
+          "bytes": 547657,
+          "sha256": "9d4f8d91fd4fe213dd60a81d721c97a15a935f4f2b397260fdd25ff3302a5175"
+        },
+        "upgrade-summary.txt": {
+          "bytes": 38930,
+          "sha256": "0c2a53a1f40ac56a2f93cfe727063a8ebe1bf1078407bffd8869961699c7b0ba"
+        }
+      }
+    }
+  ],
+  "failed_logs": [
+    {
+      "path": "/workspace/dsomop/design/astra-dev/contract-logs/43656622522-failed.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/workspace/dsomop/design/astra-dev/contract-logs/43656625337-failed.log",
+      "bytes": 1020032,
+      "sha256": "5cc2b380f54475ea0984c9e794473147eed3a39a361c85cf24c7bdda11f55cb2"
+    }
+  ],
+  "dsOMOP": "259d65c5cb6739233efc549c4a58a74dc7c113d3",
+  "dsOMOPClient": "10baaef6711fdc7ef3f2d5865e1fc449757d8ca6"
+}

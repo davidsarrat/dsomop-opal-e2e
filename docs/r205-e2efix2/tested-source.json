@@ -1,0 +1,14 @@
+{
+  "harness_tested_tree_commit": "3d0af1c6988f2ab75919f55f40dcb5ec4406778c",
+  "note": "Pod run used e0d7dd8 plus the then-untracked historical-installed.R, now committed unchanged in 3d0af1c.",
+  "files": {
+    "scripts/install_historical.R": "f3d069cc2b778a4038cb6e1171b3440d8a82d6e1886aedc95690fb86b1fccd99",
+    "scripts/common.R": "c5d077ca25e583d8025f701e65e7c6a3e105838dd622d1ecfc550fa3791568ce",
+    "scripts/path_upgrade.R": "8468dfd7c7045aa62fb7f0a0af8804cf2f6001f772086865e00f38b54d94ca1d",
+    "scripts/path_fresh.R": "06b55b3af0f21ff48a37f0c5f74f4d391afe5fa567fddabe833236eb030d0f61",
+    "scripts/tests/historical-install.R": "060a3dd5053901a52c9683db5999c280abefa5540f5105279246689f3cd2fcc4",
+    "scripts/tests/historical-installed.R": "b486c66f3574ced3c9d74d43a16b9920ab2deccc518e00f9ad127658ce2bfb94",
+    "scripts/tests/g-contract.R": "93f89c39acaf57e4532b4c3cf2c0128ec4a9d47229e128fd1e1e11e328cd389c",
+    "scripts/tests/g-upgrade-root.R": "5e9121ae0b58aa16451a6773135cd1dda791411bd21404d7aba4c101b688e1a7"
+  }
+}

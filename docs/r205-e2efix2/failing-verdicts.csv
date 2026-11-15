@@ -1,0 +1,2 @@
+ref,file,classification,id,status,title,evidence
+res/43656625337-upgrade-candidate,upgrade-G-verdicts.csv,harness,G1d,FAIL,noise root across the upgrade,harness baseline missing: A1b did not record the old-version DP root
