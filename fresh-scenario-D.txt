@@ -1,0 +1,170 @@
+dsOMOP 2.10.5 declares 59 aggregate + 14 assign methods; client 2.10.5; resource omop_data.gibleed
+OK    ds.omop.connect (2.3 s)
+OK    ds.omop.status (0.1 s)
+OK    ds.omop.disclosure.settings (0.1 s)
+OK    ds.omop.tables (0 s)
+OK    ds.omop.columns (0.1 s)
+OK    ds.omop.joins (0.1 s)
+OK    ds.omop.snapshot (0.2 s)
+OK    ds.omop.table.stats (0.1 s)
+OK    ds.omop.column.stats (0.1 s)
+OK    ds.omop.domain.coverage (0.2 s)
+OK    ds.omop.missingness (0.1 s)
+OK    ds.omop.value.counts (0.1 s)
+OK    ds.omop.crosstab (0.2 s)
+OK    ds.omop.concept.search (0.1 s)
+OK    ds.omop.concept.lookup (0.1 s)
+OK    ds.omop.concept.descendants (0.1 s)
+OK    ds.omop.concept.expand (0.1 s)
+OK    ds.omop.concept.ancestors (0.1 s)
+OK    ds.omop.concept.synonyms (0 s)
+OK    ds.omop.concept.relationships (0 s)
+OK    ds.omop.concept.list (0.1 s)
+OK    ds.omop.vocab.vocabularies (0.1 s)
+OK    ds.omop.vocab.domains (0.1 s)
+OK    ds.omop.vocab.classes (0.1 s)
+OK    ds.omop.cdm.source (0.1 s)
+OK    ds.omop.cdm.version (0 s)
+OK    ds.omop.concept.prevalence (0.2 s)
+OK    ds.omop.value.histogram (0.1 s)
+OK    ds.omop.value.histogram (pooled) (0.1 s)
+OK    ds.omop.value.quantiles (0.1 s)
+OK    ds.omop.date.counts (0.2 s)
+OK    ds.omop.concept.drilldown (0.4 s)
+OK    ds.omop.concept.locate (0.3 s)
+OK    ds.omop.safe.cutpoints (0.1 s)
+OK    ds.omop.achilles.status (0.1 s)
+OK    ds.omop.achilles.analyses (0.1 s)
+OK    ds.omop.achilles.results (0 s)
+OK    ds.omop.achilles.distribution (0.1 s)
+OK    ds.omop.achilles.catalog (0 s)
+OK    ds.omop.ohdsi.status (0.3 s)
+OK    ds.omop.ohdsi.tables (0.3 s)
+OK    ds.omop.ohdsi.results (0.1 s)
+ERROR ds.omop.ohdsi.results (pooled) (0.1 s): Cannot verify physical OHDSI result contract for 'achilles_results' on every server; unavailable: Ethiopia.
+--- DSI::datashield.errors()
+$Ethiopia
+[1] "Command 'omopOhdsiResultContractDS(\"dsO.IYQh5i\", \"achilles_results\", NULL)' failed on 'Ethiopia': Error while evaluating 'dsOMOP::omopOhdsiResultContractDS(\"dsO.IYQh5i\", \"achilles_results\", NULL)' -> Error : Table 'achilles_results' is not a registered OHDSI result table. Only allowlisted OHDSI result tables may be queried.\n"
+
+OK    ds.omop.ohdsi.summary (0.3 s)
+OK    ds.omop.cohort.list (0.1 s)
+OK    ds.omop.cohort.definition (absent fixture; expected refusal) (0.1 s)
+--- DSI::datashield.errors()
+$Ethiopia
+[1] "Command 'omopCohortGetDefinitionDS(\"dsO.IYQh5i\", 1L)' failed on 'Ethiopia': Error while evaluating 'dsOMOP::omopCohortGetDefinitionDS(\"dsO.IYQh5i\", 1L)' -> Error : Cohort definition 1 not found.\n"
+
+OK    ds.omop.cohort.create (condition) (0.2 s)
+OK    ds.omop.cohort.create (drug) (0.2 s)
+OK    ds.omop.cohort.combine (0.2 s)
+OK    ds.omop.plan.preview (0.6 s)
+OK    ds.omop.plan.validate (0.2 s)
+OK    ds.omop.plan.execute (1.2 s)
+OK    ds.omop.cohort.from_table (0.3 s)
+OK    ds.omop.merge (0.1 s)
+OK    ds.omop.filter (gender == 8532) (0.2 s)
+OK    ds.omop.select (0.1 s)
+OK    ds.omop.bind_rows (0.2 s)
+OK    probe: baseline with year_of_birth, block_sensitive = TRUE (0.9 s)
+SUMMARY [fresh] D probe: server-side table with exact year_of_birth (block_sensitive = TRUE): allowed
+OK    probe: baseline with year_of_birth, block_sensitive = FALSE (0.8 s)
+SUMMARY [fresh] D probe: server-side table with exact year_of_birth (block_sensitive = FALSE): allowed
+OK    ds.omop.analysis.list (2.4 s)
+analysis catalog: 229 entries; columns name, domain, adapter, mode, unit, description, params, cdm_version, accepts_cohort, accepts_tables, requires_cohort, has_plot
+--- catalog modes
+
+aggregate    assign 
+      223         6 
+OK    ds.omop.analysis.get (0.1 s)
+OK    ds.omop.analysis.run (aggregate) (2.4 s)
+assign-mode entries: 6 (first: dsomop:condition_occurrence.load, dsomop:death.load, dsomop:drug_exposure.load, dsomop:measurement.load, dsomop:observation.load)
+OK    ds.omop.analysis.run (assign) dsomop:condition_occurrence.load (2.6 s)
+OK    ds.omop.dp.status (0.1 s)
+OK    ds.omop.dp.prepare (2.9 s)
+OK    ds.omop.dp.release (0.2 s)
+OK    ds.omop.querylibrary.sticky.release (0.8 s)
+OK    DSI::datashield.aggregate(omopQueryListDS) (0.3 s)
+first query id: care_site.place_of_service_summary
+OK    DSI::datashield.aggregate(omopQueryGetDS) (0.3 s)
+OK    DSI::datashield.aggregate(omopQueryExecDS) (0.1 s)
+OK    ds.omop.disconnect (0.7 s)
+--- method audit
+                            method      type        status server_calls_in_opal_log                                                           client
+1                 omopPlanStatusDS aggregate NOT-EXERCISED                        8                                                                 
+2               omopStagedRevokeDS aggregate NOT-EXERCISED                        0                                                                 
+3                       omopPingDS aggregate          PASS                       18                                 ds.omop.connect | ds.omop.status
+4            omopGetCapabilitiesDS aggregate          PASS                       16                               ds.omop.connect | ds.omop.snapshot
+5         omopDisclosureSettingsDS aggregate          PASS                        2                 ds.omop.disclosure.settings | ds.omop.dp.release
+6                 omopListTablesDS aggregate          PASS                       14                                                   ds.omop.tables
+7                omopListColumnsDS aggregate          PASS                        2                                                  ds.omop.columns
+8          omopRelationshipGraphDS aggregate          PASS                        4                                 ds.omop.joins | ds.omop.snapshot
+9                 omopTableStatsDS aggregate          PASS                        2                                              ds.omop.table.stats
+10               omopColumnStatsDS aggregate          PASS                        2                                             ds.omop.column.stats
+11            omopDomainCoverageDS aggregate          PASS                        2                                          ds.omop.domain.coverage
+12               omopMissingnessDS aggregate          PASS                        2                                              ds.omop.missingness
+13               omopValueCountsDS aggregate          PASS                        2                                             ds.omop.value.counts
+14            omopSearchConceptsDS aggregate          PASS                        2                                           ds.omop.concept.search
+15            omopLookupConceptsDS aggregate          PASS                        2                                           ds.omop.concept.lookup
+16            omopGetDescendantsDS aggregate          PASS                        2                                      ds.omop.concept.descendants
+17          omopExpandConceptSetDS aggregate          PASS                        2                                           ds.omop.concept.expand
+18          omopConceptAncestorsDS aggregate          PASS                        2                                        ds.omop.concept.ancestors
+19           omopConceptSynonymsDS aggregate          PASS                        2                                         ds.omop.concept.synonyms
+20      omopConceptRelationshipsDS aggregate          PASS                        2                                    ds.omop.concept.relationships
+21              omopListConceptsDS aggregate          PASS                        2                                             ds.omop.concept.list
+22              omopVocabulariesDS aggregate          PASS                        2                                       ds.omop.vocab.vocabularies
+23                   omopDomainsDS aggregate          PASS                        2                                            ds.omop.vocab.domains
+24            omopConceptClassesDS aggregate          PASS                        2                                            ds.omop.vocab.classes
+25                 omopCdmSourceDS aggregate          PASS                        2                                               ds.omop.cdm.source
+26                omopCdmVersionDS aggregate          PASS                        2                                              ds.omop.cdm.version
+27               omopPlanPreviewDS aggregate          PASS                        4                     ds.omop.plan.preview | ds.omop.plan.validate
+28               omopPlanExplainDS aggregate NOT-EXERCISED                        0                                                                 
+29                omopCohortListDS aggregate          PASS                        2                                              ds.omop.cohort.list
+30       omopCohortGetDefinitionDS aggregate       REFUSED                        2     ds.omop.cohort.definition (absent fixture; expected refusal)
+31         omopConceptPrevalenceDS aggregate          PASS                        2                                       ds.omop.concept.prevalence
+32                  omopCrossTabDS aggregate          PASS                        2                                                 ds.omop.crosstab
+33              omopNumericRangeDS aggregate          PASS                        2       ds.omop.value.histogram | ds.omop.value.histogram (pooled)
+34          omopNumericHistogramDS aggregate          PASS                        2       ds.omop.value.histogram | ds.omop.value.histogram (pooled)
+35          omopNumericQuantilesDS aggregate          PASS                        2                                          ds.omop.value.quantiles
+36                omopDateCountsDS aggregate          PASS                        2                                              ds.omop.date.counts
+37          omopConceptDrilldownDS aggregate          PASS                        2                                        ds.omop.concept.drilldown
+38             omopLocateConceptDS aggregate          PASS                        2                                           ds.omop.concept.locate
+39             omopSafeCutpointsDS aggregate          PASS                        2                                           ds.omop.safe.cutpoints
+40            omopAchillesStatusDS aggregate          PASS                        2                                          ds.omop.achilles.status
+41          omopAchillesAnalysesDS aggregate          PASS                        2                                        ds.omop.achilles.analyses
+42           omopAchillesResultsDS aggregate          PASS                        2                                         ds.omop.achilles.results
+43      omopAchillesDistributionDS aggregate          PASS                        2                                    ds.omop.achilles.distribution
+44           omopAchillesCatalogDS aggregate          PASS                        2                                         ds.omop.achilles.catalog
+45               omopOhdsiStatusDS aggregate          PASS                        2                                             ds.omop.ohdsi.status
+46               omopOhdsiTablesDS aggregate          PASS                        2                                             ds.omop.ohdsi.tables
+47              omopOhdsiResultsDS aggregate          PASS                        2           ds.omop.ohdsi.results | ds.omop.ohdsi.results (pooled)
+48       omopOhdsiResultContractDS aggregate          PASS                        2           ds.omop.ohdsi.results | ds.omop.ohdsi.results (pooled)
+49              omopOhdsiSummaryDS aggregate          PASS                        2                                            ds.omop.ohdsi.summary
+50                 omopQueryListDS aggregate          PASS                        2                       DSI::datashield.aggregate(omopQueryListDS)
+51                  omopQueryGetDS aggregate          PASS                        2                        DSI::datashield.aggregate(omopQueryGetDS)
+52                 omopQueryExecDS aggregate          PASS                        2                       DSI::datashield.aggregate(omopQueryExecDS)
+53              omopAnalysisListDS aggregate          PASS                        2                                            ds.omop.analysis.list
+54               omopAnalysisGetDS aggregate          PASS                        6                                             ds.omop.analysis.get
+55               omopAnalysisRunDS aggregate          PASS                        2                                 ds.omop.analysis.run (aggregate)
+56 omopQueryLibraryStickyCatalogDS aggregate          PASS                        2                              ds.omop.querylibrary.sticky.release
+57                  omopDpStatusDS aggregate          PASS                        6                                                ds.omop.dp.status
+58                 omopDpReleaseDS aggregate          PASS                        4         ds.omop.dp.release | ds.omop.querylibrary.sticky.release
+59              omopFactorLevelsDS aggregate          PASS                       10                                             ds.omop.plan.execute
+60                      omopInitDS    assign          PASS                       14                                                  ds.omop.connect
+61               omopPlanExecuteDS    assign          PASS                        6                                             ds.omop.plan.execute
+62              omopCohortCreateDS    assign          PASS                        4 ds.omop.cohort.create (condition) | ds.omop.cohort.create (drug)
+63             omopCohortCombineDS    assign          PASS                        2                                           ds.omop.cohort.combine
+64           omopCohortFromTableDS    assign          PASS                        2                                        ds.omop.cohort.from_table
+65                   omopCleanupDS    assign          PASS                       14                                               ds.omop.disconnect
+66           omopAsFactorColumnsDS    assign          PASS                        8                                             ds.omop.plan.execute
+67                     omopMergeDS    assign          PASS                        2                                                    ds.omop.merge
+68                    omopFilterDS    assign          PASS                        2                                  ds.omop.filter (gender == 8532)
+69                    omopSelectDS    assign          PASS                        2                                                   ds.omop.select
+70                  omopBindRowsDS    assign          PASS                        2                                                ds.omop.bind_rows
+71                    omopMutateDS    assign NOT-EXERCISED                        0                                                                 
+72         omopAnalysisRunAssignDS    assign          PASS                        2   ds.omop.analysis.run (assign) dsomop:condition_occurrence.load
+73             omopDpPlanExecuteDS    assign          PASS                        2                                               ds.omop.dp.prepare
+SUMMARY [fresh] D: 73 methods: PASS 68, REFUSED 1 (to review), FAIL 0, NOT-EXERCISED 4; ran per Opal log: 70; PASS but absent from Opal log: 
+SUMMARY    NOT-EXERCISED omopPlanStatusDS []: 
+SUMMARY    NOT-EXERCISED omopStagedRevokeDS []: 
+SUMMARY    NOT-EXERCISED omopPlanExplainDS []: 
+SUMMARY    REFUSED omopCohortGetDefinitionDS [ds.omop.cohort.definition (absent fixture; expected refusal)]: Command 'omopCohortGetDefinitionDS("dsO.IYQh5i", 1L)' failed on 'Ethiopia': Error while evaluating 'dsOMOP::omopCohortGetDefinitionDS("dsO.IYQh5i", 1L)' -> Error : Cohort definition 1 not found. 
+SUMMARY    NOT-EXERCISED omopMutateDS []: 
