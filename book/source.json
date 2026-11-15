@@ -1,7 +1,7 @@
 {
   "repository": "dsOMOPClient",
   "branch": "docs/book",
-  "commit": "2a3a0eee528572864fb1a16ae281126a82a59b1e",
+  "commit": "a528558c3099fb8f76a44ebea2effb4c9c6fa64d",
   "files": {
     "book-compose.sh": "7bde52c6283863f89aead3940ed9fd1702b47a8bf1efe5c502d0dba3f484d8e5",
     "book-rock.yml": "62b2e6be2a0457a82804c4d1bc5abb69d125d3da408ae23b3734285db3aa9a69",
@@ -9,8 +9,8 @@
     "load-numeric.R": "0195fe28ed3e82eda9453f0c4b201c6d3dba17b4b7d25ea5da0981e36f891cd0",
     "connection.R": "f4c7c0a51e9a67d73a631db7c798a6be22844843ba87a5c7f7179004f5b728f5",
     "practice.R": "717da0a00d2f29836e8c4cee6d29f59f611b4677de178f78ef1041402cb6166d",
-    "opal-admin.R": "ee6271923421643db293c02590e8864fc1db59a6def62e16792414e5fa294de9",
-    "check-opal.R": "d11da2f555b79ce95a13381d98ac714e169bfce6933615c31fe21dbee325917f",
-    "book-00-start.Rmd": "85864efe1b0994b4f6fa1ed029ad2af823c5575658d6a259fa8d27966597122b"
+    "opal-admin.R": "ef0218f72dca88339a612c839f61d4c6fe54e75859b2187b66618e74ce66113b",
+    "check-opal.R": "a5468f481566f5077bd1df7742c9da912d66c6144e6aa4be7fc1e6d9b71a81be",
+    "book-00-start.Rmd": "bead40426baa6c218bd115e416a5bee1822106cfdeb85f456d622dd851958880"
   }
 }
