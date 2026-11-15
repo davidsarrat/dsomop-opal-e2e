@@ -1,0 +1,4 @@
+version=2.10.4
+noise_key_id=NA
+file=secrets/pseudonym_root | 32 | 600 | 2026-11-14T23:31:32.439
+file=secrets/pseudonym_root.lock | 0 | 600 | 2026-11-14T23:31:32.406

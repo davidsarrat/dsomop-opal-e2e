@@ -1,0 +1,15 @@
+Upgrade noise-root handshake, baseline and G1d regressions passed
+Harness contract regressions passed
+Administrator resolver ordering regression passed
+Signed-component redraw and measurement-request regressions passed
+Exact-archive and missing-dependency install regressions passed
+Scenario D positive fixture selection regressions passed
+Partial client errors cannot pass the method audit
+Old-server preparation regression passed
+Error in read.dcf(file.path("pkgs", pkg, "DESCRIPTION")) : 
+  cannot open the connection
+Calls: local ... candidate_version -> vapply -> FUN -> unname -> read.dcf
+In addition: Warning message:
+In read.dcf(file.path("pkgs", pkg, "DESCRIPTION")) :
+  cannot open compressed file 'pkgs/dsOMOPClient/DESCRIPTION', probable reason 'No such file or directory'
+Execution halted

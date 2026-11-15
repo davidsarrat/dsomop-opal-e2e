@@ -1,0 +1,383 @@
+{
+  "harness_start": "75bd19c9e4106359a5a35af5659bbda1f669ffb4",
+  "harness_fix": "f261cd624600a6c6e6e9d832c6acc367f1bf4a16",
+  "branches": [
+    {
+      "ref": "res/43653026266-1-opal-5.7.6-fresh-candidate",
+      "commit": "fb53febad70468b3c37586e1ad423c09a066aec3",
+      "verdict_files": {
+        "fresh-O-verdicts.csv": {
+          "PASS": 12
+        }
+      },
+      "workflow_status": {
+        "GITHUB_RUN_ID": "43653026266",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "75bd19c9e4106359a5a35af5659bbda1f669ffb4",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "5.7.6",
+        "E2E_PATH": "fresh",
+        "MODE": "candidate",
+        "JOB_STATUS": "success",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "75bd19c9e4106359a5a35af5659bbda1f669ffb4",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    {
+      "ref": "res/43653026266-1-opal-5.7.6-upgrade-candidate",
+      "commit": "895ce336d18c3fbe94420ab3a6eab81496cac6d2",
+      "verdict_files": {
+        "upgrade-O-verdicts.csv": {
+          "PASS": 12
+        }
+      },
+      "workflow_status": {
+        "GITHUB_RUN_ID": "43653026266",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "75bd19c9e4106359a5a35af5659bbda1f669ffb4",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "5.7.6",
+        "E2E_PATH": "upgrade",
+        "MODE": "candidate",
+        "JOB_STATUS": "success",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "75bd19c9e4106359a5a35af5659bbda1f669ffb4",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    {
+      "ref": "res/43653026266-1-opal-6.1.3-fresh-candidate",
+      "commit": "28260c1f773d895c0fcb597ceb39bbcb1e9f3886",
+      "verdict_files": {
+        "fresh-O-verdicts.csv": {
+          "PASS": 12
+        }
+      },
+      "workflow_status": {
+        "GITHUB_RUN_ID": "43653026266",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "75bd19c9e4106359a5a35af5659bbda1f669ffb4",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "6.1.3",
+        "E2E_PATH": "fresh",
+        "MODE": "candidate",
+        "JOB_STATUS": "success",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "75bd19c9e4106359a5a35af5659bbda1f669ffb4",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    {
+      "ref": "res/43653026266-1-opal-6.1.3-upgrade-candidate",
+      "commit": "a0327bdb688778f71514aaa6bf7936cefd715bce",
+      "verdict_files": {
+        "upgrade-O-verdicts.csv": {
+          "PASS": 12
+        }
+      },
+      "workflow_status": {
+        "GITHUB_RUN_ID": "43653026266",
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_SHA": "75bd19c9e4106359a5a35af5659bbda1f669ffb4",
+        "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+        "OPAL_VERSION": "6.1.3",
+        "E2E_PATH": "upgrade",
+        "MODE": "candidate",
+        "JOB_STATUS": "success",
+        "steps": {
+          "checkout": {
+            "outputs": {
+              "commit": "75bd19c9e4106359a5a35af5659bbda1f669ffb4",
+              "ref": "refs/heads/main"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "candidate": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "stack": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "setup_r": {
+            "outputs": {
+              "installed-r-version": "4.6.2"
+            },
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "dependencies": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "resources": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "fixtures": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "install": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "probes": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "scenarios": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          },
+          "old_client": {
+            "outputs": {},
+            "outcome": "success",
+            "conclusion": "success"
+          }
+        },
+        "captured_at": "before results publication and stack removal"
+      }
+    },
+    {
+      "ref": "res/43653028705-fresh-candidate",
+      "commit": "bbfc89165da420cf9e0aa09ae2f875c7af584805",
+      "verdict_files": {
+        "fresh-G-old-verdicts.csv": {
+          "PASS": 10
+        },
+        "fresh-G-verdicts.csv": {
+          "INFO": 12,
+          "PASS": 88
+        }
+      }
+    },
+    {
+      "ref": "res/43653028705-upgrade-candidate",
+      "commit": "a7e4805db6387cd0eecc31c57ea52abb16765dee",
+      "verdict_files": {
+        "upgrade-G-old-verdicts.csv": {
+          "PASS": 10
+        },
+        "upgrade-G-verdicts.csv": {
+          "INFO": 12,
+          "PASS": 87,
+          "FAIL": 1
+        }
+      }
+    }
+  ],
+  "products": {
+    "dsOMOP": {
+      "commit": "259d65c5cb6739233efc549c4a58a74dc7c113d3",
+      "branch": "feat/2.10.5"
+    },
+    "dsOMOPClient": {
+      "commit": "10baaef6711fdc7ef3f2d5865e1fc449757d8ca6",
+      "branch": "feat/2.10.5"
+    }
+  },
+  "failed_logs": [
+    {
+      "path": "/workspace/dsomop/design/astra-dev/contract-logs/43653026266-failed.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/workspace/dsomop/design/astra-dev/contract-logs/43653028705-failed.log",
+      "bytes": 1023104,
+      "sha256": "aad3068ad40debcb0c33a87f5cf6e86127c712acb7f6668876256b199919d98b"
+    }
+  ]
+}

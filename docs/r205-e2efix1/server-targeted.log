@@ -1,0 +1,12 @@
+Starting 2 test processes.
+state-secrets: ............................................S.......................................
+> test-privacy-typed-views.R: [typed-views] weighted numeric fixture (truth 500, 0, 1500): 398.7, 0, 1396.3; protected total 1795
+> test-privacy-typed-views.R: [typed-views] dsOMOPClient 2.10.2 -> this server: DP status preflight requires a complete federation; no partial result was published. Affected server(s): newserver (newserver: This server runs dsOMOP 2.10.5, whose DP releases are protected components (contract dsomop-protected-release-v1) that dsOMOPClient 2.10.2 and older cannot validate or pool. Upgrade dsOMOPClient to 2.10.3 or later to use ds.omop.dp.status() and ds.omop.dp.release() on this server; with an older client the analysis catalogue keeps returning per-server results, without pooling of protected results.).
+privacy-typed-views: ..............................................................................................................................................
+
+══ Skipped ═════════════════════════════════════════════════════════════════════
+1. macOS state aliases remain valid after canonicalization ('test-state-secrets.R:253:3') - Reason: identical(Sys.info()[["sysname"]], "Darwin") is not TRUE
+
+══ DONE ════════════════════════════════════════════════════════════════════════
+
+RESULT failed: 0 errors: 0 skipped: 1 passed: 225 
