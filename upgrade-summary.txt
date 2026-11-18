@@ -1,0 +1,1 @@
+[upgrade] Opal 5.7.6: allowRPackageManagement on a fresh Opal = FALSE; after the administrator enables it = TRUE

@@ -1,0 +1,73 @@
+{
+  "GITHUB_RUN_ID": "44387336560",
+  "GITHUB_RUN_ATTEMPT": "1",
+  "GITHUB_SHA": "833da040632ab124cda174ab692ad665f0d15ba2",
+  "GITHUB_REPOSITORY": "davidsarrat/dsomop-opal-e2e",
+  "OPAL_VERSION": "5.7.6",
+  "E2E_PATH": "upgrade",
+  "MODE": "candidate",
+  "JOB_STATUS": "failure",
+  "steps": {
+    "checkout": {
+      "outputs": {
+        "commit": "833da040632ab124cda174ab692ad665f0d15ba2",
+        "ref": "refs/heads/main"
+      },
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "candidate": {
+      "outputs": {},
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "stack": {
+      "outputs": {},
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "setup_r": {
+      "outputs": {
+        "installed-r-version": "4.6.2"
+      },
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "dependencies": {
+      "outputs": {},
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "resources": {
+      "outputs": {},
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "fixtures": {
+      "outputs": {},
+      "outcome": "success",
+      "conclusion": "success"
+    },
+    "install": {
+      "outputs": {},
+      "outcome": "failure",
+      "conclusion": "failure"
+    },
+    "probes": {
+      "outputs": {},
+      "outcome": "skipped",
+      "conclusion": "skipped"
+    },
+    "scenarios": {
+      "outputs": {},
+      "outcome": "skipped",
+      "conclusion": "skipped"
+    },
+    "old_client": {
+      "outputs": {},
+      "outcome": "skipped",
+      "conclusion": "skipped"
+    }
+  },
+  "captured_at": "before results publication and stack removal"
+}
