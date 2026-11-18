@@ -1,0 +1,59 @@
+OK    remotes::install_github("isglobal-brge/dsOMOPClient", ref = "2.10.2", lib = <own library>) (15 s)
+dsOMOPClient loaded from /home/runner/work/_temp/dsomopclient-2.10.2/dsOMOPClient: 2.10.2; server dsOMOP 2.10.6
+
+======== O1: the old client is the released one
+SUMMARY [upgrade] G-old O1 PASS: dsOMOPClient 2.10.2 from GitHub, loaded instead of the run's client | loaded 2.10.2
+-------- O1 done in 0 s
+
+======== O2: connect and explore (the core)
+  [message] Logging into the collaborating servers
+OK    old client: login (Ethiopia as analyst) (0.1 s)
+OK    old client: ds.omop.connect("omop_data.gibleed", symbol = "omopG1") (3.4 s)
+OK    old client: ds.omop.tables (0 s)
+SUMMARY [upgrade] G-old O2 PASS: the 2.10.2 client connects and lists the CDM tables | connect warnings: 
+-------- O2 done in 3.6 s
+
+======== O3: DP status and typed releases: refused plainly (old clients cannot use typed releases)
+ERROR old client: ds.omop.dp.status() (0.1 s): DP status preflight requires a complete federation; no partial result was published. Affected server(s): Ethiopia (Ethiopia: Command 'omopDpStatusDS()' failed on 'Ethiopia': Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : This server runs dsOMOP 2.10.6, whose DP releases are protected components (contract dsomop-protected-release-v1) that dsOMOPClient 2.10.2 and older cannot validate or pool. Upgrade dsOMOPClient to 2.10.3 or later to use ds.omop.dp.status() and ds.omop.dp.release() on this server; with an older client the analysis catalogue keeps returning per-server results, without pooling of protected results.
+).
+  [datashield.errors] Command 'omopDpStatusDS()' failed on 'Ethiopia': Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : This server runs dsOMOP 2.10.6, whose DP releases are protected components (contract dsomop-protected-release-v1) that dsOMOPClient 2.10.2 and older cannot validate or pool. Upgrade dsOMOPClient to 2.10.3 or later to use ds.omop.dp.status() and ds.omop.dp.release() on this server; with an older client the analysis catalogue keeps returning per-server results, without pooling of protected results. 
+SUMMARY [upgrade] G-old O3 status PASS: ds.omop.dp.status() answers or refuses plainly | DP status preflight requires a complete federation; no partial result was published. Affected server(s): Ethiopia (Ethiopia: Command 'omopDpStatusDS()' failed on 'Ethiopia': Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : This server runs dsOMOP 2.10.6, whose DP releases are protected components (contract dsomop-protected-release-v1) that dsOMOPClient 2.10.2 and older cannot validate or pool. Upgrade dsOMOPClient to 2.10.3 or later to use ds.omop.dp.status() and ds.omop.dp.release() on this server; with an older client the analysis catalogue keeps returning per-server results, without pooling of protected results. ). || Ethiopia: Command 'omopDpStatusDS()' failed on 'Ethiopia': Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : This server runs dsOMOP 2.10.6, whose DP releases are protected components (contract dsomop-protected-release-v1) that dsOMOPClient 2.10.2 ...
+OK    old client: ds.omop.dp.prepare(ages) (3.5 s)
+ERROR old client: ds.omop.dp.release(O_ages, count) (0 s): DP status preflight requires a complete federation; no partial result was published. Affected server(s): Ethiopia (Ethiopia: Command 'omopDpStatusDS()' failed on 'Ethiopia': Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : This server runs dsOMOP 2.10.6, whose DP releases are protected components (contract dsomop-protected-release-v1) that dsOMOPClient 2.10.2 and older cannot validate or pool. Upgrade dsOMOPClient to 2.10.3 or later to use ds.omop.dp.status() and ds.omop.dp.release() on this server; with an older client the analysis catalogue keeps returning per-server results, without pooling of protected results.
+).
+  [datashield.errors] Command 'omopDpStatusDS()' failed on 'Ethiopia': Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : This server runs dsOMOP 2.10.6, whose DP releases are protected components (contract dsomop-protected-release-v1) that dsOMOPClient 2.10.2 and older cannot validate or pool. Upgrade dsOMOPClient to 2.10.3 or later to use ds.omop.dp.status() and ds.omop.dp.release() on this server; with an older client the analysis catalogue keeps returning per-server results, without pooling of protected results. 
+SUMMARY [upgrade] G-old O3 typed PASS: a typed release from the 2.10.2 client is refused with a plain message (it cannot validate 2.10.3 payloads) | prepare ok; release refused: DP status preflight requires a complete federation; no partial result was published. Affected server(s): Ethiopia (Ethiopia: Command 'omopDpStatusDS()' failed on 'Ethiopia': Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : This server runs dsOMOP 2.10.6, whose DP releases are protected components (contract dsomop-protected-release-v1) that dsOMOPClient 2.10.2 and older cannot validate or pool. Upgrade dsOMOPClient to 2.10.3 or later to use ds.omop.dp.status() and ds.omop.dp.release() on this server; with an older client the analysis catalogue keeps returning per-server results, without pooling of protected results. ). || Ethiopia: Command 'omopDpStatusDS()' failed on 'Ethiopia': Error while evaluating 'dsOMOP::omopDpStatusDS()' -> Error : This server runs dsOMOP 2.10.6, whose DP releases are protected components (contract dsomop-protected-release-...
+-------- O3 done in 3.6 s
+
+======== O4: a protected catalogue release on one site: per-site result, no misleading pooled protection
+OK    old client: ds.omop.analysis.run("dsomop:achilles.3") (3.9 s)
+SUMMARY [upgrade] G-old O4 achilles.3 PASS: the old client shows the per-site protected frame without crashing | per-site rows 128; pooled rows 0; messages: Protected release (C2): its values are projected noisy components, not exact sufficient statistics. dsOMOPClient >= 2.10.3 pools the signed components of compatible protected releases.; protection as the old client reads it: List of 1 $ Ethiopia:List of 28 ..$ protection : chr "fixed_synopsis" ..$ mode : chr "auto" ..$ contract : chr "dsomop-release-contract-v1" ..$ release_protocol : chr "dsomop-protected-release-v1" ..$ class : chr "C2" ..$ guarantee_scope : chr "fixed_vector_before_exact_support_gate" ..$ noise_refer...
+OK    old client: ds.omop.analysis.run("dsomop:condition_era.length_stats") (2.3 s)
+SUMMARY [upgrade] G-old O4 condition_era.length_stats PASS: the old client shows the per-site protected frame without crashing | per-site rows 66; pooled rows 0; messages: Protected release (C7): its values are projected noisy components, not exact sufficient statistics. dsOMOPClient >= 2.10.3 pools the signed components of compatible protected releases.; protection as the old client reads it: List of 1 $ Ethiopia:List of 29 ..$ protection : chr "realised_sticky" ..$ mode : chr "auto" ..$ contract : chr "dsomop-release-contract-v1" ..$ release_protocol : chr "dsomop-protected-release-v1" ..$ class : chr "C7" ..$ guarantee_scope : chr "heuristic_realised_contribution_reuse" ..$ noise_refer...
+-------- O4 done in 6.3 s
+
+======== O5: two independent sites and both NA pooling policies: protected entries are not pooled by the old client
+  [message] Logging into the collaborating servers
+OK    old client two sites: login (Ethiopia+Small as analyst+analyst) (0.1 s)
+OK    old client two sites: ds.omop.connect(c(Ethiopia = "omop_data.gibleed", Small = "omop_data.gibleed_small" ), symbol = "omopG2") (3.6 s)
+OK    old client two sites: cohort T (drug 1118084, cohort_id 601) (0.2 s)
+OK    old client two sites: cohort C (drug 1124300, cohort_id 602) (0.2 s)
+OK    old client: condition_era.length_stats over two sites (7.4 s)
+SUMMARY [upgrade] G-old O5 record_summary PASS: a protected record summary over two sites is not pooled by the old client; both per-site frames are kept | pooled rows 0; per-site 2; messages: Protected release (C7): its values are projected noisy components, not exact sufficient statistics. dsOMOPClient >= 2.10.3 pools the signed components of compatible protected releases.
+OK    old client: cm.effect_estimate (poisson) over two sites, strict (0.8 s)
+SUMMARY [upgrade] G-old O5 effect_strict PASS: pooling_policy = "strict": the old client does not pool the protected effect; it refuses plainly or keeps per-site frames | pooled rows 0; per-site 2; messages: Protected release (C9): its values are projected noisy components, not exact sufficient statistics. dsOMOPClient >= 2.10.3 pools the signed components of compatible protected releases.
+OK    old client: cm.effect_estimate (poisson) over two sites, pooled_only_ok (0.8 s)
+SUMMARY [upgrade] G-old O5 effect_pooled_only_ok PASS: pooling_policy = "pooled_only_ok": the old client does not pool the protected effect; it refuses plainly or keeps per-site frames | pooled rows 0; per-site 2; messages: Protected release (C9): its values are projected noisy components, not exact sufficient statistics. dsOMOPClient >= 2.10.3 pools the signed components of compatible protected releases.
+OK    old client two sites: ds.omop.disconnect("omopG2") (0.9 s)
+-------- O5 done in 14.2 s
+
+======== O6: two connections to one node: no double-counted pooled result
+  [message] Logging into the collaborating servers
+OK    old client duplicate connections: login (SiteA+SiteB as analyst+analyst) (0.2 s)
+OK    old client duplicate connections: ds.omop.connect("omop_data.gibleed", symbol = "omopG3") (3.4 s)
+OK    old client: achilles.3 over two connections to one node (11 s)
+SUMMARY [upgrade] G-old O6 PASS: the old client does not pool a protected release over two connections to the same node | pooled rows 0; messages: Protected release (C2): its values are projected noisy components, not exact sufficient statistics. dsOMOPClient >= 2.10.3 pools the signed components of compatible protected releases.
+OK    old client duplicate connections: ds.omop.disconnect("omopG3") (0.9 s)
+-------- O6 done in 15.5 s
+OK    old client: ds.omop.disconnect("omopG1") (0.6 s)
+SUMMARY [upgrade] G-old (dsOMOPClient 2.10.2 against dsOMOP 2.10.6): 10 checks: PASS 10, FAIL 0, INFO 0, ERROR 0
