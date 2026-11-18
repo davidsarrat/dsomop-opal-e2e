@@ -1,0 +1,6 @@
+version=2.10.5
+noise_key_id=dpk_a34582dba6bbe598c98e907e6e187a3ed7e26af0
+file=secrets/dp_noise_root | 32 | 600 | 2026-11-18T21:46:21.820
+file=secrets/dp_noise_root.lock | 0 | 600 | 2026-11-18T21:46:21.816
+file=secrets/pseudonym_root | 32 | 600 | 2026-11-18T21:46:20.772
+file=secrets/pseudonym_root.lock | 0 | 600 | 2026-11-18T21:46:20.766
