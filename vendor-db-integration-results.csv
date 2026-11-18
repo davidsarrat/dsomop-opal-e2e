@@ -1,0 +1,15 @@
+"file","context","test","nb","failed","skipped","error","warning","passed","real"
+"test-vendor-db-integration-intervals.R","vendor-db-integration-intervals","WS-5 eras, stockpiles, coverage and anchors execute on the configured vendor servers",46,0,FALSE,FALSE,0,46,12.515
+"test-vendor-db-integration-intervals.R","vendor-db-integration-intervals","MySQL 8.4: a stockpile with min_days > 0 reads its session table once per statement (A-20 (l))",25,0,FALSE,FALSE,0,25,4.283
+"test-vendor-db-integration-ir-coverage.R","vendor-db-integration-ir-coverage","legacy index coverage drops ambiguous candidates on PostgreSQL",5,0,FALSE,FALSE,0,5,0.485000000000003
+"test-vendor-db-integration-ir-coverage.R","vendor-db-integration-ir-coverage","legacy index coverage drops ambiguous candidates on MySQL",5,0,FALSE,FALSE,0,5,0.725000000000001
+"test-vendor-db-integration-ir-coverage.R","vendor-db-integration-ir-coverage","legacy index coverage drops ambiguous candidates on MariaDB",5,0,FALSE,FALSE,0,5,0.228999999999999
+"test-vendor-db-integration-sql-expr.R","vendor-db-integration-sql-expr","typed SQL helpers execute on live PostgreSQL",91,0,FALSE,FALSE,0,91,0.406000000000002
+"test-vendor-db-integration-sql-expr.R","vendor-db-integration-sql-expr","typed SQL helpers execute on live MySQL",91,0,FALSE,FALSE,0,91,0.434000000000001
+"test-vendor-db-integration-sql-expr.R","vendor-db-integration-sql-expr","typed SQL helpers execute on live MariaDB",91,0,FALSE,FALSE,0,91,0.294999999999998
+"test-vendor-db-integration.R","vendor-db-integration","PostgreSQL executes the separated OMOP namespace contract",79,0,FALSE,FALSE,0,79,3.492
+"test-vendor-db-integration.R","vendor-db-integration","MySQL executes the separated OMOP database contract",76,0,FALSE,FALSE,0,76,2.559
+"test-vendor-db-integration.R","vendor-db-integration","MariaDB executes the separated OMOP database contract",76,0,FALSE,FALSE,0,76,1.085
+"test-vendor-db-integration.R","vendor-db-integration","PostgreSQL executes every live Achilles catalogue entry",162,0,FALSE,FALSE,0,162,2.954
+"test-vendor-db-integration.R","vendor-db-integration","MySQL executes every live Achilles catalogue entry",162,0,FALSE,FALSE,0,162,4.29300000000001
+"test-vendor-db-integration.R","vendor-db-integration","MariaDB executes every live Achilles catalogue entry",162,0,FALSE,FALSE,0,162,3.617
