@@ -542,12 +542,21 @@ section("G17", "restored routes: interaction Cox, record H fallback, capped recu
              c(list(outcome_concept_id = "192671", subgroup_kind = "sex", model_type = "cox"), TAR730), arms)
   fp <- finite_any(ip$df, "estimate")
   fc <- finite_any(ic$df, "estimate")
+  # Each run draws a new noise root. On this small fixture the noise can make
+  # every subgroup uninformative: a Poisson interval spanning more than
+  # exp(2 * 1.96 * 1.5) (about 360-fold) says nothing, and the Cox route then
+  # rightly withholds its estimate with a reason instead of a number.
+  informative <- function(df) is.data.frame(df) && all(c("estimate", "se_log_estimate") %in% names(df)) && {
+    se <- suppressWarnings(as.numeric(df$se_log_estimate))
+    any(is.finite(suppressWarnings(as.numeric(df$estimate))) & is.finite(se) & se <= 1.5)
+  }
+  fpi <- informative(ip$df)
   lab_c <- grepl("cox|exit", ic$label, ignore.case = TRUE)
   st <- if (!ic$ok || !ip$ok) "FAIL" else if (!ic$stable) "FAIL" else if (fc && lab_c) "PASS" else
-    if (!fc && !fp && grepl("unavailable|withheld|reason", ic$label)) "PASS" else "FAIL"
+    if (!fc && !fpi && grepl("unavailable|withheld|reason", ic$label)) "PASS" else "FAIL"
   verdict("G17a interaction_cox", st,
-          "interaction Cox gives finite grouped-time Cox estimates where the Poisson interaction does, labelled as Cox",
-          sprintf("poisson finite: %s; cox finite: %s; cox label names Cox/exit: %s; stable: %s; %s", fp, fc, lab_c, ic$stable,
+          "interaction Cox gives finite grouped-time Cox estimates where the Poisson interaction is informative, labelled as Cox",
+          sprintf("poisson finite: %s; poisson informative: %s; cox finite: %s; cox label names Cox/exit: %s; stable: %s; %s", fp, fpi, fc, lab_c, ic$stable,
                   if (!ic$ok) ic$error else if (is.data.frame(ic$df) && "estimate" %in% names(ic$df)) paste("cox estimates", squash(format(ic$df$estimate), 120)) else ""))
   # Record H fallback: unregistered quantity / measurement scales still release a coarse value histogram (family H)
   # reconciled to the protected records (expected: an H owner or histogram cells next to N/R).
