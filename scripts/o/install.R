@@ -22,7 +22,12 @@ if (E2E_PATH == "upgrade") {
                         outputs = omop_output("legacy", type = "wide"),
                         options = list(translate_concepts = FALSE))
   r <- capture("O6 numeric v1 / old server", recipe_execute(legacy, out = c(legacy = "O_legacy"), conns = c0))
-  stopifnot(r$ok)
+  # Since 2.10.6 every published output needs servers that present concept IDs
+  # as shared categories: an older server is refused before anything is sent.
+  if (package_version(candidate_version()) >= "2.10.6") {
+    stopifnot(!r$ok, grepl("output.concept_labels|Upgrade the server", r$error),
+              identical(before, DSI::datashield.symbols(c0)))
+  } else stopifnot(r$ok)
   ds.omop.disconnect(conns = c0)
   DSI::datashield.logout(c0)
   # Baseline timings are produced by the actual old server, before replacement.
