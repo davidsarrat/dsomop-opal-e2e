@@ -126,7 +126,10 @@ if (con$ok) {
   for (bs in c(TRUE, FALSE)) {
     probe <- ds.omop.plan.baseline(ds.omop.plan.cohort(ds.omop.plan(), spec = list(type = "condition", concept_set = c(192671))),
                                    columns = c("gender_concept_id", "year_of_birth"), derived = c("age_at_index"))
-    probe <- ds.omop.plan.options(probe, block_sensitive = bs, translate_concepts = FALSE, factor_concepts = FALSE)
+    # dsOMOPClient 2.10.6 keeps concept IDs as categories and rejects factor_concepts = FALSE.
+    probe <- if (utils::packageVersion("dsOMOPClient") >= "2.10.6")
+      ds.omop.plan.options(probe, block_sensitive = bs, translate_concepts = FALSE)
+    else ds.omop.plan.options(probe, block_sensitive = bs, translate_concepts = FALSE, factor_concepts = FALSE)
     pr <- capture(paste0("probe: baseline with year_of_birth, block_sensitive = ", bs),
                   ds.omop.plan.execute(probe, out = c(baseline = paste0("PROBE", as.integer(bs))), symbol = S, conns = conns))
     summary_line("[", E2E_PATH, "] D probe: server-side table with exact year_of_birth (block_sensitive = ", bs, "): ",
