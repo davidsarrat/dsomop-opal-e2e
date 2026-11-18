@@ -1,11 +1,10 @@
 # Events, reducers and analysis outputs
 
-These 2.10.4 examples use the integrated recipe-language-2
-implementation. They are not evaluated during documentation builds
-because they need live DataSHIELD connections and study-specific
-vocabulary inputs. Patient tables are assigned beside the data; use
-reviewed DataSHIELD methods to analyse them. The previous chapter
-explains populations and index dates.
+These 2.10.5 examples use the integrated recipe API implementation. They
+are not evaluated during documentation builds because they need live
+DataSHIELD connections and study-specific vocabulary inputs. Patient
+tables are assigned beside the data; use reviewed DataSHIELD methods to
+analyse them. The previous chapter explains populations and index dates.
 
 ## Choose rows, then columns
 
@@ -95,12 +94,14 @@ education_text <- omop_variable(name = "education_text", table = "observation",
 # recipe_to_plan() refuses a recipe that releases this class-1 source.
 ```
 
-`value_as_string` and `cause_source_value` are free source text (class
-1). Selecting a categorical type or renaming the column does not make
-them safe. Use coded `value_as_concept_id` and `cause_concept_id` for
-the portable recipe. An administrator’s existing sensitive-column
-override is not permission to use text predicates or to alias protected
-source columns through mutation.
+`value_as_string` holds a source string; `cause_source_value` retains
+the original source cause code, such as an ICD-10 code. Both are
+protected source fields (class 1), even when a source code is structured
+rather than narrative text. Selecting a categorical type or renaming the
+column does not make them safe. Use coded `value_as_concept_id` and
+`cause_concept_id` for the portable recipe. An administrator’s existing
+sensitive-column override is not permission to use text predicates or to
+alias protected source columns through mutation.
 
 ## Declare labels and keep complete categories
 
@@ -178,11 +179,9 @@ weeks are available in `omop_date_spec()`.
 `omop_age_at()` counts completed anniversaries at its own reference
 date; February 29 birthdays use March 1 in non-leap years. Incomplete
 birth dates return NA unless an explicit imputation is chosen. `unit =
-"annual_years"` requests calendar-year age instead. Legacy `omop_age()`
-remains annual age, and omitted native specifications preserve legacy
-first/last-date offsets. An explicit `omop_date_spec()` on a
-first/last-date reducer selects native Date presentation. Do not overlap
-a native specification with legacy `date_handling`.
+"annual_years"` requests calendar-year age instead. `omop_age()` also
+returns annual age. Use an explicit `omop_date_spec()` on a
+first/last-date reducer to select Date presentation.
 
 For a reproducible future-date policy, use `omop_date_spec(future =
 "na", as_of = "2026-01-01")`. The policy applies after row selection: a
@@ -243,9 +242,9 @@ columns and zero/NA rules; an unavailable source is NA. Multi-concept
 source columns retain concept identity. Carry-forward is per source and
 concept, evaluated at period start.
 
-Survival windows and censoring are explicit. Native v2 adds no implicit
-cohort-end cap; request `index_end` when intended. A named TAR yields
-its own inventory entry, such as `D_tte.itt`. Each independently
+Survival windows and censoring are explicit. The recipe API adds no
+implicit cohort-end cap; request `index_end` when intended. A named TAR
+yields its own inventory entry, such as `D_tte.itt`. Each independently
 accessible patient component must pass distinct-person support; a
 passing roster does not permit a small event component to escape.
 Reference companions are released only with their passing family.
@@ -285,3 +284,58 @@ including `c(0, 18, 19, 65)`, without per-band suppression. Aggregate
 endpoints retain their existing admission, banding and suppression
 rules; a permitted assigned column does not grant an unrestricted
 aggregate release.
+
+## Numeric presentation and recorded-day reduction in 2.10.5
+
+`omop_number_spec()` declares units, transforms, rounding and
+representation. `omop_number_expr()` composes checked private
+arithmetic; `omop_number_input()` chooses canonical or presented inputs
+explicitly. Signed64 selectors retain exact decimal transport, including
+the signed minimum and empty results. Arithmetic refuses inexact
+conversion to binary64. Keep raw/count identity representation when
+exact conversion is unavailable; do not repair a refusal by coercing
+IDs.
+
+Ordinary reducers weight records. To weight recorded concept-days
+equally, select events first and reduce within each day before applying
+the outer reducer:
+
+``` r
+measurement_rows <- omop_number_rows(
+  omop_event("measurement", concepts = 3004410), value = "value_as_number")
+daily_mean <- omop_number_daily(measurement_rows,
+  reducer = omop_reduce("mean"), within_day = "mean", missing = "skip")
+```
+
+Choose concept IDs and normalize source units for the study. Within-day
+choices are `mean`, `max` and canonical-event `first`; missingness is
+`skip` or `propagate`, separately from the outer reducer. No absent days
+are filled, and multiple concepts remain separate concept-day
+observations. A server must advertise `number.daily` before this
+declaration can execute.
+
+The versioned `omop_formula_bmi()`, `omop_formula_map()`,
+`omop_formula_ratio()` and `omop_formula_egfr_ckdepi2021()` constructors
+expand into typed private operations. Declare coordinates and
+conversions explicitly. For eGFR, provide an explicit sex mapping and
+completed calendar age at the selected creatinine event; put source-unit
+normalization on the shared event used by both inputs. Invalid values
+produce typed NA; structural unit, anchor and version errors refuse.
+Independently selected measurements do not imply contemporaneity.
+
+## Typed categories and codebooks in 2.10.5
+
+`omop_category_rows()` and `omop_category_column()` select typed
+categorical sources; `omop_category_spec()` declares public
+presentation. `omop_category_indicators()` uses stable category keys,
+and `omop_category_reduce()` supplies typed input context for indicator
+`any`/`all` reductions. Ordinary `omop_reduce("any")` or
+`omop_reduce("all")` still needs an explicit predicate.
+
+Inspect `recipe_codebook(recipe)` before execution and
+`recipe_codebook(result)` afterward. The shared presentation contract
+preserves column order, numeric/date/ category copies, membership
+provenance and lossless character row keys. Execution resolves source
+availability and concrete storage types, so those fields need not equal
+unresolved prospective metadata. Keep the published codebook with the
+study and treat row keys as opaque strings.

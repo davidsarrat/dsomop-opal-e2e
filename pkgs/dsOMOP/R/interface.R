@@ -709,6 +709,9 @@ omopInitDS <- function(resource_symbol,
 #' @param commit_policy Character; \code{"server"} applies the server's strict
 #'   mode, while \code{"all_or_none"} refuses the whole execution if any
 #'   final component fails support. This policy cannot relax disclosure gates.
+#' @param concept_protocol \code{1} when the client reconciles every published
+#'   concept factor across servers (dsOMOPClient 2.10.6 or later). Untranslated
+#'   legacy plans and concept-bearing catalog assignments require it.
 #' @return A server-authenticated publication status. Outputs are assigned into
 #'   the caller's environment; the client reads the bounded inventory with
 #'   \code{\link{omopPlanStatusDS}} before deleting its execution-status symbol.
@@ -722,19 +725,42 @@ omopInitDS <- function(resource_symbol,
 omopPlanExecuteDS <- function(omop_symbol, plan, out,
                                output_mode = "memory",
                                scope = NULL, combine = "union", ...,
-                               commit_policy = "server") {
+                               commit_policy = "server", concept_protocol = NULL) {
   target_env <- parent.frame()
   handle <- .getHandle(omop_symbol)
+  .conceptPlanProtocol(.ds_arg(plan), concept_protocol)
   .dsomopWithReadSnapshot(handle,
     .omopPlanExecuteDS(omop_symbol, plan, out, output_mode, scope, combine, ...,
-                       target_env = target_env, commit_policy = commit_policy))
+                       target_env = target_env, commit_policy = commit_policy,
+                       concept_protocol = concept_protocol))
+}
+
+# dsOMOPClient 2.10.6 and later send concept_protocol = 1: they reconcile every
+# published concept factor across servers. Older clients do not reconcile
+# untranslated legacy plans or catalog assignments, which would leave local
+# level sets that differ between sites (ds.glm sums site matrices by position).
+.conceptPlanProtocol <- function(plan, concept_protocol) {
+  v2_plan <- is.list(plan) && (identical(plan[["version"]], 2L) || identical(plan[["version"]], 2))
+  if (!v2_plan && is.list(plan) && isFALSE(unlist(plan[["options"]][["translate_concepts"]]))) {
+    .conceptRequireProtocol(concept_protocol)
+  }
+  invisible(TRUE)
+}
+
+.conceptRequireProtocol <- function(concept_protocol) {
+  if (!identical(as.character(unlist(.ds_arg(concept_protocol))), "1")) {
+    stop("Concept factors from this request need dsOMOPClient 2.10.6 or later, which reconciles ",
+         "their levels across servers; update the client.", call. = FALSE)
+  }
+  invisible(TRUE)
 }
 
 #' Execute a plan with a server-only publication/sealing context
 #' @keywords internal
 .omopPlanExecuteDS <- function(omop_symbol, plan, out, output_mode = "memory",
                                scope = NULL, combine = "union", ...,
-                               target_env, commit_policy = "server", seal_factory = NULL) {
+                               target_env, commit_policy = "server", seal_factory = NULL,
+                               concept_protocol = NULL) {
   handle <- .getHandle(omop_symbol)
   plan <- .ds_arg(plan)
   out <- .ds_arg(out)
@@ -2852,6 +2878,9 @@ omopAnalysisRunDS <- function(omop_symbol, name, params = list(),
 #' @param ... Additional scalar cohort references and resolved workspace tables,
 #'   independently and contiguously named \code{scope_cohort_1}, ... and
 #'   \code{scope_table_1}, ... without gaps.
+#' @param concept_protocol \code{1} when the client reconciles every published
+#'   concept factor across servers (dsOMOPClient 2.10.6 or later). Untranslated
+#'   legacy plans and concept-bearing catalog assignments require it.
 #' @return The server-side assignment result (data stays on the server)
 #' @examples
 #' \dontrun{
@@ -2860,7 +2889,7 @@ omopAnalysisRunDS <- function(omop_symbol, name, params = list(),
 #' @export
 omopAnalysisRunAssignDS <- function(omop_symbol, name, params = list(),
                                     scope = NULL, combine = "union",
-                                    date_handling = NULL, ...) {
+                                    date_handling = NULL, ..., concept_protocol = NULL) {
   # Assignment prepares private server-side inputs; only final statistics
   # select a standard or protected release route. Keep the tools-off gate.
   .dsomopRequireCommunityTool(dp_routes = TRUE)
@@ -2878,32 +2907,31 @@ omopAnalysisRunAssignDS <- function(omop_symbol, name, params = list(),
                      scope_present = !is.null(scope),
                      scope_table_count = .omopAnalysisScopeTableCount(scope),
                      combine = combine))
-  .omopAnalysisRun(handle, name, params, scope = scope, combine = combine,
-                   assign = TRUE, assign_date_handling = date_handling)
+  result <- .omopAnalysisRun(handle, name, params, scope = scope, combine = combine,
+                             assign = TRUE, assign_date_handling = date_handling)
+  if (length(attr(result, "omop_concepts"))) .conceptRequireProtocol(concept_protocol)
+  result
 }
 
 # --- Concept-factor harmonization (cross-server coordination) ---
 
-.omopConceptLevelAssessment <- function(df, col, person_col) {
-  keep <- !is.na(df[[col]]) & !is.na(df[[person_col]])
-  vals <- as.character(df[[col]][keep])
-  persons <- df[[person_col]][keep]
-  levels_col <- unique(vals)
-  n_levels <- length(levels_col)
-  if (n_levels == 0L) {
-    return(list(levels = character(0), safe = FALSE))
-  }
-  support <- vapply(levels_col, function(level) {
-    length(unique(persons[vals == level]))
-  }, integer(1))
-  safe <- all(support >= .omopDisclosureSettings()$nfilter_tab) && tryCatch(
-    {
-      .assertSafeLevels(n_levels, length(unique(persons)))
-      TRUE
-    },
-    error = function(e) FALSE
-  )
-  list(levels = levels_col, safe = isTRUE(safe))
+# Match dsBase 6.3.5 asFactorDS1 exactly for discovery: k distinct observed,
+# non-declared levels against the cap and density times the full column length,
+# including missing rows. Extra per-level support protects nothing: ds.asFactor
+# already releases these levels, and declared 0/1 concept flags reveal exact
+# counts through their mean. A looser rule would create a disclosure gap.
+.omopConceptDiscovery <- function(levels, n, declared = character()) {
+  levels <- unique(as.character(levels[!is.na(levels)]))
+  observed <- setdiff(levels, as.character(unlist(declared, use.names = FALSE)))
+  settings <- .omopDisclosureSettings()
+  rules <- character()
+  if (length(observed) > settings$nfilter_levels_max) rules <- c(rules, "nfilter.levels.max")
+  if (length(observed) > settings$nfilter_levels_density * n) rules <- c(rules, "nfilter.levels.density")
+  list(levels = observed, safe = !length(rules), rules = rules)
+}
+
+.omopConceptLevelAssessment <- function(df, col, person_col = NULL) {
+  .omopConceptDiscovery(.conceptIdText(df[[col]]), nrow(df))
 }
 
 #' Report disclosure-safe concept identities for federation reconciliation
@@ -2912,7 +2940,7 @@ omopAnalysisRunAssignDS <- function(omop_symbol, name, params = list(),
 #' This existing aggregate transport reports only policy-permitted ID/name/
 #' vocabulary-version candidates and public declared levels, including
 #' generated-column identities on numeric-only outputs. Observed IDs pass
-#' per-person support, cardinality and density checks before any metadata is
+#' the DataSHIELD factor-level cardinality and row-density checks before metadata is
 #' returned. No rows, counts or person keys are disclosed. Staged descriptors
 #' use their manifest-bound presentation contract. The client resolves labels
 #' by ID and broadcasts a complete contract through omopAsFactorColumnsDS.
@@ -2923,8 +2951,8 @@ omopAnalysisRunAssignDS <- function(omop_symbol, name, params = list(),
 #' @return A named list with \code{levels} (named list mapping
 #'   each safe concept-id column to its character levels), \code{unsafe}
 #'   (character vector of concept-id columns that failed the disclosure gate),
-#'   and \code{nfilter_levels_max} (the server's level cap, so the client can
-#'   reconcile heterogeneous caps). A-27 reports also carry the concept
+#'   \code{unsafe_rules} (rule names by refused column, without counts), and
+#'   \code{nfilter_levels_max} (server policy metadata). A-27 reports also carry the concept
 #'   protocol, permitted ID/name/version candidates, generated/reference naming
 #'   identities, stable keys and evidence binding.
 #' @seealso \code{\link{omopAsFactorColumnsDS}}, \code{\link{.assertSafeLevels}}
@@ -2934,11 +2962,11 @@ omopFactorLevelsDS <- function(df) {
   if (is.data.frame(df) && (!is.null(attr(df, "omop_concepts")) ||
       !is.null(attr(df, "omop_generated_columns")) || !is.null(attr(df,"omop_numbers")) || !is.null(attr(df,"omop_codebook_schema")))) return(.conceptLevelReport(df))
   cap <- .omopDisclosureSettings()$nfilter_levels_max
-  empty <- list(levels = list(), unsafe = character(0), nfilter_levels_max = cap)
+  empty <- list(levels = list(), unsafe = character(0), unsafe_rules = list(), nfilter_levels_max = cap)
   if (!is.data.frame(df) || !.is_omop.table(df)) {
     return(empty)
   }
-  cols <- grep("_concept_id$", names(df), value = TRUE)
+  cols <- grep("(^|_)concept_id$", names(df), value = TRUE)
   # Columns whose _concept_id suffix was renamed away are tagged at extraction
   # time (omopPlanExecuteDS) so harmonization still recognises them.
   tagged <- attr(df, "omop_concept_cols")
@@ -2949,29 +2977,22 @@ omopFactorLevelsDS <- function(df) {
   # (defense in depth; a pseudonymous key has one level per person and would
   # also exceed nfilter.levels.max).
   cols <- setdiff(cols, .PERSON_KEY_COLS())
-  keys <- intersect(.PERSON_KEY_COLS(), names(df))
-  if (length(keys) == 0L) {
-    return(list(levels = list(), unsafe = cols,
-                nfilter_levels_max = cap))
-  }
-  person_col <- if ("person_id" %in% keys) "person_id" else keys[[1]]
   if (length(cols) == 0L) {
     return(empty)
   }
   safe <- list()
   unsafe <- character(0)
+  unsafe_rules <- list()
   for (col in cols) {
-    assessment <- .omopConceptLevelAssessment(df, col, person_col)
-    if (length(assessment$levels) == 0L) {
-      next
-    }
+    assessment <- .omopConceptLevelAssessment(df, col)
     if (isTRUE(assessment$safe)) {
       safe[[col]] <- assessment$levels
     } else {
       unsafe <- c(unsafe, col)
+      unsafe_rules[[col]] <- assessment$rules
     }
   }
-  list(levels = safe, unsafe = unsafe, nfilter_levels_max = cap)
+  list(levels = safe, unsafe = unsafe, unsafe_rules = unsafe_rules, nfilter_levels_max = cap)
 }
 
 #' Apply a complete shared concept presentation contract
@@ -2980,7 +3001,8 @@ omopFactorLevelsDS <- function(df) {
 #' union at every retained site. Absent local categories are unused levels;
 #' only explicit user recodes may merge identities. Generated names are
 #' validated against the complete component schema. Incomplete coverage,
-#' unsafe levels and invalid names fail and trigger federation rollback.
+#' invalid names and integrity failures trigger federation rollback. Level-count
+#' rules apply only during discovery, never to assignment of the shared domain.
 #' Vocabulary evidence is rechecked before assignment. Verified protected
 #' lineage is preserved only through this checked identity-preserving route.
 #' Staged files are rewritten privately and their existing manifest updated.
@@ -3021,18 +3043,15 @@ omopAsFactorColumnsDS <- function(df, spec, table_column = NULL) {
   if (!is.null(table_column)) {
     stop("Table analysis requires a complete concept presentation protocol.", call. = FALSE)
   }
-  if (!is.list(spec) || length(spec) == 0L) {
-    return(df)
-  }
+  if (!is.list(spec)) stop("A complete shared concept contract is required.", call. = FALSE)
   spec_names <- names(spec)
-  if (is.null(spec_names) || anyNA(spec_names) || any(!nzchar(spec_names)) ||
+  if ((length(spec) && is.null(spec_names)) || anyNA(spec_names) || any(!nzchar(spec_names)) ||
       anyDuplicated(spec_names)) {
     stop("omopAsFactorColumnsDS: spec must map unique column names to levels.",
          call. = FALSE)
   }
   source <- df
-  cap <- .omopDisclosureSettings()$nfilter_levels_max
-  allowed_cols <- grep("_concept_id$", names(df), value = TRUE)
+  allowed_cols <- grep("(^|_)concept_id$", names(df), value = TRUE)
   allowed_cols <- union(
     allowed_cols,
     intersect(as.character(attr(df, "omop_concept_cols") %||% character(0)),
@@ -3056,43 +3075,32 @@ omopAsFactorColumnsDS <- function(df, spec, table_column = NULL) {
     }
     levels_col <- as.character(unlist(spec[[col]], use.names = FALSE))
     levels_col <- levels_col[!is.na(levels_col) & nzchar(levels_col)]
-    if (length(levels_col) == 0L) {
-      next
-    }
-    if (length(levels_col) > cap) {
-      stop(
-        "omopAsFactorColumnsDS: requested levels for '", col,
-        "' exceed nfilter.levels.max (", cap, ").",
-        call. = FALSE
-      )
-    }
     if (anyDuplicated(levels_col)) {
       stop("omopAsFactorColumnsDS: levels must be unique.", call. = FALSE)
     }
     contracts[[col]] <- levels_col
   }
-  if (length(contracts) == 0L) {
-    return(source)
+  # The site's own verdict on its observed values comes first. A coverage
+  # answer is given only for columns whose observed levels this site could
+  # release anyway, so success or failure cannot probe which values occur.
+  for (col in allowed_cols) {
+    verdict <- .omopConceptDiscovery(.conceptIdText(source[[col]]), nrow(source))
+    if (!isTRUE(verdict$safe)) {
+      stop("Concept factor assignment refused by this site's factor-level rule (",
+           paste(verdict$rules, collapse = " / "), ").", call. = FALSE)
+    }
   }
-  keys <- intersect(.PERSON_KEY_COLS(), names(source))
-  if (length(keys) == 0L) {
-    return(source)
-  }
-  person_col <- if ("person_id" %in% keys) "person_id" else keys[[1L]]
-  contract_safe <- vapply(names(contracts), function(col) {
-    assessment <- .omopConceptLevelAssessment(source, col, person_col)
-    all(is.na(source[[col]])) ||
-      (isTRUE(assessment$safe) &&
-       all(assessment$levels %in% contracts[[col]]))
-  }, logical(1L))
-  if (!all(contract_safe)) {
-    return(source)
+  if (!setequal(names(contracts), allowed_cols) ||
+      !all(vapply(allowed_cols, function(col) {
+        all(.conceptIdText(source[[col]][!is.na(source[[col]])]) %in% contracts[[col]])
+      }, logical(1L)))) {
+    stop("Incomplete shared concept coverage; concept IDs are always categories since 2.10.6.", call. = FALSE)
   }
 
   applied_levels <- list()
   for (col in names(contracts)) {
     levels_col <- contracts[[col]]
-    recoded <- factor(as.character(source[[col]]), levels = levels_col)
+    recoded <- .conceptFactor(.conceptIdText(source[[col]]), levels = levels_col)
     if (!identical(recoded, df[[col]])) {
       df[[col]] <- recoded
       applied_levels[[col]] <- levels_col

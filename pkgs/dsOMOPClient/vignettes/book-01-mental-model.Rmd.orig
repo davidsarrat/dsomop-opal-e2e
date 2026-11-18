@@ -1,0 +1,133 @@
+---
+title: "1. What DataSHIELD and OMOP mean"
+author: "David Sarrat González"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{1. What DataSHIELD and OMOP mean}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="learn-box">
+**What you will learn**
+
+Distinguish a database, a private server object and a released summary.
+</div>
+
+**You need:** the client packages and the Opal login from
+[Getting started](book-00-start.html). This chapter uses `omop.gibleed`.
+
+## Start this chapter
+
+```{r book-local-server, include = FALSE}
+# Outputs come from a local DataSHIELD server holding the same resources as the Opal in the text.
+library(dsOMOPClient)
+source("tools/book/display.R")
+source("tools/book/connection.R")
+```
+
+```{r chapter-setup, eval = FALSE}
+library(dsOMOPClient)
+conns <- ds.omop.login("https://localhost:8443", user = "administrator",
+  password = "password", resource = "omop.gibleed", server = "site")$conns
+```
+
+```{r chapter-setup-local-2, include = FALSE}
+conns <- book_connect("gibleed")$conns
+```
+
+## A shared table structure
+
+OMOP is a common data model (CDM): a shared set of tables and column meanings.
+`person` describes people; `visit_occurrence` describes visits; `observation`
+holds other observations, which can include questionnaire answers. A *concept*
+is a coded meaning, such as a diagnosis. Its vocabulary supplies a name.
+
+```{r tables, table.row.names = FALSE}
+tables <- ds.omop.tables(conns = conns)$site
+tables[tables$table_name %in% c("person", "visit_occurrence",
+  "condition_occurrence", "drug_exposure", "measurement", "observation", "death"),
+  c("table_name", "has_person_id")]
+```
+
+These seven clinical tables have a person field that links records to people.
+The table names describe structure; they do not show anyone's records or prove
+that a table contains data.
+
+## Private objects have names
+
+DataSHIELD sends approved operations to the server. An *assignment* creates a
+private object there; an *aggregate* returns a checked summary. Connecting has
+already assigned the database handle under the name `omop`:
+
+```{r private-handle}
+DSI::datashield.symbols(conns)
+```
+
+`omop` is a name in the server session. Seeing that name does not download the
+object behind it. Later, a recipe will create a private analysis table such as
+`D_people`, whose name can appear in this same list.
+
+## Send a question to the data
+
+```{r safe-size}
+ds.omop.table.stats("person", conns = conns)
+```
+
+`2690` is the lower end of a five-person band: 2690–2694 people. This endpoint
+rounds down to a multiple of five by default; it has not told you the exact count.
+For the person table, each row is one person, so the two bands agree.
+
+<div class="book-flow" role="img" aria-label="Requests go to the server; private rows stay there; checked summaries return.">
+<div><strong>You</strong>Choose events, variables and outputs.</div><span aria-hidden="true">→</span>
+<div><strong>Server</strong>Compute with private records and check releases.</div><span aria-hidden="true">→</span>
+<div><strong>You see</strong>Names of private objects and checked summaries.</div>
+</div>
+
+Person keys, dates and answers stay on the server. Replacing a person identifier
+with a pseudonym does not make the rows available to download. Your workflow is
+to define an analysis table there, then ask for summaries of it.
+
+## Exercise 1: rows or people?
+
+Request the visit count and the number of people with visits. Can one person
+contribute more than one visit?
+
+<details><summary>Solution</summary>
+
+```{r visit-exercise}
+ds.omop.table.stats("visit_occurrence", conns = conns)
+```
+
+There are 1,035–1,039 visit rows from 890–894 people. Even allowing for banding,
+there are more visits than people: some people have repeated visits. These are
+summaries, not a list of who attended.
+
+</details>
+
+## Exercise 2: a refusal is not a zero
+
+Ask for statistics of the death table. Does an unavailable result establish
+that nobody died?
+
+<details><summary>Solution</summary>
+
+<!-- expected-refusal:start -->
+```{r death-exercise}
+ds.omop.table.stats("death", conns = conns)
+```
+<!-- expected-refusal:end -->
+
+The empty response contains no released statistics: there are too few supporting people.
+GiBleed's public source has an empty death table, but the analyst response alone
+cannot distinguish an empty table from a small withheld count. Do not replace
+a refusal with zero.
+
+</details>
+
+## Recap
+
+OMOP supplies familiar table meanings. DataSHIELD keeps rows at the server;
+you receive names, metadata and checked summaries.
+
+**Next:** [2. Resources, connections and symbols](book-02-connect.html).

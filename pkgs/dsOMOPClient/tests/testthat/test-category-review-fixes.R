@@ -77,15 +77,19 @@ test_that("R2 date and category defaults, overrides and resets describe public d
   expect_true(all(books$prospective$completeness=="unresolved"))
 })
 
-test_that("R2 native untranslated concepts have no factor contract", {
+test_that("R2 native untranslated concepts have shared factor contracts", {
   ctx <- .clf_setup(); .numeric_lexer()
   r <- omop_recipe(variables=list(gender=omop_variable(name="gender",table="person",column="gender_concept_id")),options=list(translate_concepts=FALSE))
   books <- .category_review_books(r,ctx,"Untranslated")
   i <- match("gender",books$prospective$name); j <- match("gender",books$published$name)
   expect_false(is.na(i)); expect_false(is.na(j))
-  expect_identical(books$prospective$r_type[i],"integer")
+  expect_identical(books$prospective$r_type[i],"factor")
   expect_identical(books$prospective$r_type[i],books$published$r_type[j])
-  for (field in c("levels","ordered","reference","contrasts")) expect_null(books$prospective[[field]][[i]])
+  expect_null(books$prospective$levels[[i]])
+  expect_false(books$prospective$ordered[[i]])
+  expect_true(is.na(books$prospective$reference[[i]]))
+  expect_identical(books$prospective$contrasts[[i]]$kind, "treatment")
+  expect_identical(unlist(books$published$levels[[j]]$labels), "8507")
 })
 
 test_that("R3 hierarchy defaults are inactive for flags and numeric/date categories", {

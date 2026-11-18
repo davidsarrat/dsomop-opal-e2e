@@ -14,6 +14,73 @@
 .mfix_flag <- list(var = "flag", op = "==", value = 1)
 .mfix_options <- list(nfilter.subset = 3, default.dsomop.dp.enabled = FALSE)
 
+test_that("concept selectors retain shared unused levels through assignment", {
+  withr::local_options(.mfix_options)
+  first <- .conceptFactor(c("2", NA, "2", "2", NA), c("2", "10", "20"))
+  second <- .conceptFactor(rep("10", 5), c("2", "10", "20"))
+  x <- .mfix_frame(first = first, second = second, flag = c(1L, 0L, 1L, 0L, NA))
+  expressions <- list(
+    .mfix_col("first"),
+    list(coalesce = list(.mfix_col("first"), .mfix_col("second"))),
+    list(ifelse = list(test = .mfix_flag, yes = .mfix_col("first"), no = .mfix_col("second"))),
+    list(ifelse = list(test = .mfix_flag, yes = .mfix_col("first"), no = .mfix_lit(NULL, "text"))))
+  for (expr in expressions) {
+    out <- .mfix_mut(x, expr)
+    expect_true(is.factor(out$answer))
+    expect_identical(levels(out$answer), c("2", "10", "20"))
+  }
+  # Written fallbacks are public even at sites where the branch is never used.
+  literal_selectors <- list(
+    list(coalesce = list(.mfix_col("first"), .mfix_lit("3"))),
+    list(ifelse = list(test = .mfix_flag, yes = .mfix_col("first"), no = .mfix_lit("3"))),
+    list(case_when = list(cases = list(list(when = .mfix_flag, then = .mfix_col("first"))),
+                          `else` = .mfix_lit("3"))))
+  for (expr in literal_selectors) {
+    for (flag in list(x$flag, rep(1L, 5))) {
+      local <- x
+      local$flag <- flag
+      out <- .mfix_mut(local, expr)
+      expect_true(is.factor(out$answer))
+      expect_identical(levels(out$answer), c("2", "3", "10", "20"))
+    }
+  }
+  expect_identical(as.character(.mfix_mut(x, literal_selectors[[1L]])$answer),
+                   c("2", "3", "2", "2", "3"))
+  selected <- omopSelectDS(x, "first")
+  filtered <- omopFilterDS(x, "first", "==", "2")
+  merged <- omopMergeDS(x, x)
+  bound <- omopBindRowsDS(x, x)
+  for (value in list(selected$first, filtered$first, merged$first.x, merged$first.y, bound$first)) {
+    expect_true(is.factor(value))
+    expect_identical(levels(value), c("2", "10", "20"))
+  }
+})
+
+test_that("row verbs refuse retained raw concept columns until the source is republished", {
+  withr::local_options(.mfix_options)
+  raw <- .mfix_frame(cause_concept_id = c(2L, 10L, 2L, 10L, 2L))
+  expect_error(omopSelectDS(raw, "cause_concept_id"), "always categories since 2.10.6.*republish")
+  expect_error(.mfix_mut(raw, .mfix_col("cause_concept_id")), "always categories since 2.10.6.*republish")
+  tagged <- raw
+  names(tagged)[names(tagged) == "cause_concept_id"] <- "cause"
+  attr(tagged, "omop_concept_cols") <- "cause"
+  expect_error(omopFilterDS(tagged, "cause", "==", 2L), "always categories since 2.10.6.*republish")
+  expect_error(omopMergeDS(raw, raw), "always categories since 2.10.6.*republish")
+  expect_error(omopBindRowsDS(tagged, tagged), "always categories since 2.10.6.*republish")
+})
+
+test_that("row verbs retain numeric reducer aliases ending in concept_id", {
+  withr::local_options(.mfix_options)
+  counts <- .mfix_frame(count_concept_id = 1:5)
+  expect_identical(omopSelectDS(counts, "count_concept_id")$count_concept_id, 1:5)
+  expect_identical(.mfix_mut(counts, .mfix_col("count_concept_id"))$answer, 1:5)
+  merged <- omopMergeDS(counts, counts)
+  # The merge orders rows by key; the counts stay integers, never factors.
+  expect_type(merged$count_concept_id.x, "integer")
+  expect_setequal(merged$count_concept_id.x, 1:5)
+  expect_identical(merged$count_concept_id.x, merged$count_concept_id.y)
+})
+
 test_that("integer branches and coalesce use one lossless prototype in every order", {
   withr::local_options(.mfix_options)
   big <- bit64::as.integer64(c("9007199254740993", "200", NA, "9223372036854775807", "-9007199254740993"))

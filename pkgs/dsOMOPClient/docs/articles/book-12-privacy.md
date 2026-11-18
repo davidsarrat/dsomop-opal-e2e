@@ -1,0 +1,257 @@
+# 12\. What stays private
+
+**What you will learn**
+
+Distinguish a private assignment from an aggregate release, understand
+distinct-person support, and recognise refused identifiers and free
+text.
+
+**You need:** the client packages and the Opal login from [Getting
+started](https://isglobal-brge.github.io/dsOMOPClient/articles/book-00-start.md).
+This chapter uses `omop.questionnaire`, the synthetic questionnaire
+study described there.
+
+## Start this chapter
+
+Log in first:
+
+``` r
+library(dsOMOPClient)
+conns <- ds.omop.login("https://localhost:8443", user = "administrator",
+  password = "password", resource = "omop.questionnaire", server = "site")$conns
+```
+
+The connection is ready; `conns` identifies the server used by the
+analysis calls.
+
+## Know which side holds each object
+
+| On your computer                                | On each server                                  |
+| ----------------------------------------------- | ----------------------------------------------- |
+| Recipe definitions, concept sets and parameters | Database records and credentials                |
+| Public table/column/vocabulary metadata         | Pseudonymous person and episode rows            |
+| Output symbol names                             | Exact permitted dates, ages and derived columns |
+| Disclosure-checked aggregates                   | Intermediate populations and joins              |
+
+A *symbol* is the name of a server object. Seeing the name does not give
+you its contents. Pseudonymisation replaces person IDs for protected
+processing; it does not make a patient-level table suitable for
+download.
+
+``` r
+private <- omop_recipe(variables = list(age = omop_age_at("2024-06-01"), sex = omop_sex()),
+  outputs = omop_output("people", format = "wide", grain = "person"))
+recipe_execute(private, out = c(people = "D_private"), conns = conns)
+```
+
+The reply names `D_private`, the server table holding age and sex. Exact
+completed age stays beside the source data; the table is available for
+approved analysis calls in your DataSHIELD session.
+
+**You**Choose events, variables and outputs.
+
+→
+
+**Server**Compute with private records and apply release checks.
+
+→
+
+**You see**Symbol names, schemas and checked summaries.
+
+## Request an aggregate
+
+``` r
+dsBaseClient::ds.summary("D_private$age", datasources = conns)
+```
+
+    #> $site
+    #> $site$class
+    #> [1] "integer"
+    #>
+    #> $site$length
+    #> [1] 48
+    #>
+    #> $site$`quantiles & mean`
+    #>   5%  10%  25%  50%  75%  90%  95% Mean
+    #>   34   34   34   43   49   49   49   42
+
+``` r
+dsBaseClient::ds.numNA("D_private$age", datasources = conns)
+```
+
+    #> $site
+    #> [1] 12
+
+The mean completed age on 2024-06-01 is 42 years across 36 valid values;
+12 people with year-only births have missing completed age. The roster
+includes all people; a fixed-date age calculation does not establish
+survival to that date. An approved aggregate method checks its own
+disclosure rules. A successfully assigned table does not guarantee every
+later summary or model will be releasable.
+
+**Note**
+
+A private assignment is not a row download. Every later aggregate uses
+the disclosure rules of its own method.
+
+## The final release rule
+
+Each final patient component needs enough **distinct persons** for the
+server’s `nfilter.subset`. Many events from one person still contribute
+only one person to this check. Our server sets `nfilter.subset = 5`,
+stricter than the dsBase default of 3. Each data owner chooses the
+server policy.
+
+| Rule             | What it checks                                    | Value on this server |
+| ---------------- | ------------------------------------------------- | -------------------: |
+| `nfilter.subset` | Distinct people in a final assigned patient table |                    5 |
+| `nfilter.tab`    | Nonzero cells in a dsBase frequency table         |                    3 |
+
+These checks apply at different steps. A table with enough people to
+assign can still produce frequency cells too small to release.
+
+Intermediate calculations may contain small populations privately. The
+gate is at final publication; a joined result’s private inputs do not
+need separate published symbols. A standalone filter produces a final
+object and is gated. Here we intentionally request a subset with no
+qualifying rows:
+
+``` r
+ds.omop.filter("D_private", expr = omop_where(age > 200L),
+  newobj = "D_too_small", conns = conns)
+```
+
+    #> Error:
+    #> ! OMOP filter failed and was rolled back: site: Disclosive: operation blocked - insufficient individuals to meet disclosure threshold. No further details available.; There are some DataSHIELD errors, list them with datashield.errors().
+
+The refusal reports the policy boundary without providing the small
+private count. The previous `D_private` object remains available. Empty
+and undersized results share this protection; do not interpret the
+diagnostic as a patient count.
+
+## Why identifiers and source text are refused
+
+*Class 1* includes direct identifiers, source identifiers and free text
+that may contain identifiers. Renaming a source field does not make it
+safe. Both output values and predicates are checked, so a count cannot
+be used to probe a forbidden text column. The following intentionally
+invalid definition demonstrates that check:
+
+Fever question is **900002**, found in
+[chapter 4](https://isglobal-brge.github.io/dsOMOPClient/articles/book-04-vocabulary.md).
+
+``` r
+blocked <- omop_recipe(variables = list(answer = omop_variable(
+  event = omop_event("observation", concepts = 900002L, value = "value_as_string"),
+  reducer = omop_reduce("first_value"))),
+  outputs = omop_output("people", format = "wide", grain = "person"))
+recipe_to_plan(blocked)
+```
+
+    #> Error:
+    #> ! Disclosive: the plan requests blocked (class-1) column(s) that the server can never release or filter on: value_as_string (event 'obs_900002' value).
+
+This definition is refused before execution. Use the reviewed coded
+answer `value_as_concept_id` and translated categories when it answers
+the question, as in
+[chapter 10](https://isglobal-brge.github.io/dsOMOPClient/articles/book-10-harmonise.md).
+Free text is not needed for that analysis.
+
+## Why dates and ages can remain private columns
+
+*Class 2* means a quasi-identifier: a value that may help identify
+someone when combined with other facts. Exact dates, birth components
+and ages are permitted in private server tables. Their aggregates and
+any category labels still face the applicable release controls.
+
+``` r
+date_recipe <- omop_recipe(variables = list(visit_date = omop_date("first_visit")),
+  outputs = omop_output("people", format = "wide", grain = "person"))
+recipe_execute(date_recipe, out = c(people = "D_private_date"), conns = conns)
+dsBaseClient::ds.colnames("D_private_date", datasources = conns)
+```
+
+    #> $site
+    #> [1] "person_id"  "visit_date"
+
+The schema shows `person_id` and `visit_date`; it does not reveal the
+dates. Turning an exact date into a factor publishes category labels as
+metadata, which needs its own support checks. A fine custom date pattern
+can therefore be refused even when a private Date column is permitted.
+Coarsen to the scientifically appropriate month/quarter/year and request
+an approved aggregate; do not encode a disallowed field into another
+name or type.
+
+## Protected keys cannot become analyst variables
+
+``` r
+ds.omop.mutate("D_private", copied = person_id,
+  newobj = "D_key_copy", conns = conns)
+```
+
+    #> Error:
+    #> ! OMOP mutate failed and was rolled back: site: validation_error: omopMutateDS: column 'person_id' is a protected identifier and cannot be used in an expression; There are some DataSHIELD errors, list them with datashield.errors().
+
+The server needs keys to align rows and joins; an analyst mutation
+cannot copy, rewrite or filter them. Use the declared population and
+join operations instead.
+
+## What the disclosure checks mean
+
+*Class 3* covers ordinary analytic values, such as coded categories and
+numeric measurements, rather than identifiers. It does not mean “safe to
+download”: these values still remain private and their aggregates face
+release checks. The analyses in this book use DataSHIELD disclosure
+controls and add no noise. Some OHDSI analysis routes add noise fixed
+for each request, so repeating the same request returns the same answer.
+
+## Exercise 1: a nonempty subset can also be too small
+
+Keep female participants whose completed age is 43 on the declared date.
+The public questionnaire description places four people in this group.
+Predict whether the server can assign that final subset.
+
+Solution
+
+``` r
+ds.omop.filter("D_private", expr = omop_where(age == 43 & sex == "F"),
+  newobj = "D_small_group", conns = conns)
+```
+
+    #> Error:
+    #> ! OMOP filter failed and was rolled back: site: Disclosive: operation blocked - insufficient individuals to meet disclosure threshold. No further details available.; There are some DataSHIELD errors, list them with datashield.errors().
+
+The four-person group is below `nfilter.subset = 5`, so it is refused
+just as the empty group was. The message does not disclose the small
+count; here the count was known from the public teaching data. In a real
+study, retain a scientifically justified larger population or report
+that the intended analysis cannot be released.
+
+## Exercise 2: did a refused copy create a table?
+
+After the protected-key refusal, list the server objects. Is
+`D_key_copy` present?
+
+Solution
+
+``` r
+DSI::datashield.symbols(conns)
+```
+
+    #> $site
+    #> [1] "D_private"      "D_private_date" "omop"
+
+`D_private` and `D_private_date` still exist, but `D_key_copy`,
+`D_too_small` and `D_small_group` are absent. A refused request did not
+create a usable table. A schema or object name is metadata, not access
+to its patient rows.
+
+## Recap
+
+A recipe creates private objects and returns their names. Final patient
+outputs need distinct-person support; aggregates and category metadata
+have further checks. Class-1 fields and protected-key expressions are
+refused.
+
+**Next:** [13. Visit dates, one idea at a
+time](https://isglobal-brge.github.io/dsOMOPClient/articles/book-13-visits.md).

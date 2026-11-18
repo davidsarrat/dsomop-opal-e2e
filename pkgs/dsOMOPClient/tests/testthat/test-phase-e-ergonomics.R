@@ -32,7 +32,8 @@
 # Register a fake session (with res_symbol + conns) so .get_session resolves.
 .ergo_with_session <- function(symbol = "omop",
                                extra = list()) {
-  base <- list(res_symbol = "dsO_res", conns = list(srv = "FAKE"))
+  base <- list(res_symbol = "dsO_res", conns = list(srv = "FAKE"),
+               capabilities = list(srv = .caps()), server_versions = .current_versions("srv"))
   assign(symbol, modifyList(base, extra),
          envir = dsOMOPClient:::.dsomop_client_env)
   withr::defer_parent(
@@ -78,7 +79,12 @@
       if (is.function(success)) success("srv")
       invisible(NULL)
     },
-    datashield.aggregate = function(conns, expr, ...) list(srv = publication),
+    datashield.aggregate = function(conns, expr, success = NULL, ...) {
+      report <- if (identical(as.character(expr[[1L]]), "omopFactorLevelsDS"))
+        list(levels = list(), unsafe = character(), nfilter_levels_max = 40) else publication
+      if (is.function(success)) success("srv", report)
+      list(srv = report)
+    },
     datashield.rm = function(conns, symbol, ...) {
       symbols <<- setdiff(symbols, symbol)
       invisible(NULL)
@@ -195,7 +201,7 @@ test_that("execute with out=NULL sends the auto-derived mapping and returns it",
   .ergo_with_session()
   p <- ds.omop.plan()
   p <- ds.omop.plan.baseline(p, name = "baseline", derived = character())
-  p <- ds.omop.plan.options(p, factor_concepts = FALSE, translate_concepts = FALSE)  # skip harmonization
+  p <- ds.omop.plan.options(p, factor_concepts = TRUE, translate_concepts = FALSE)  # untranslated factor labels
 
   res <- .ergo_capture(function() ds.omop.plan.execute(p))
   expect_equal(res$ret, c(baseline = "D_baseline"))
@@ -214,7 +220,7 @@ test_that("execute with out=NULL sends the auto-derived mapping and returns it",
 test_that("execute B64-encodes a multi-output mapping over the transport", {
   .ergo_with_session()
   p <- .ergo_plan_two()
-  p <- ds.omop.plan.options(p, factor_concepts = FALSE, translate_concepts = FALSE)
+  p <- ds.omop.plan.options(p, factor_concepts = TRUE, translate_concepts = FALSE)
 
   res <- .ergo_capture(function() ds.omop.plan.execute(p))
   expect_equal(res$ret, c(demo = "D_demo", conds = "D_conds"))
@@ -229,7 +235,7 @@ test_that("execute with bare out='D' binds the sole output", {
   .ergo_with_session()
   p <- ds.omop.plan()
   p <- ds.omop.plan.baseline(p, name = "baseline", derived = character())
-  p <- ds.omop.plan.options(p, factor_concepts = FALSE, translate_concepts = FALSE)
+  p <- ds.omop.plan.options(p, factor_concepts = TRUE, translate_concepts = FALSE)
 
   res <- .ergo_capture(function() ds.omop.plan.execute(p, out = "D"))
   expect_equal(res$ret, c(baseline = "D"))
@@ -238,7 +244,7 @@ test_that("execute with bare out='D' binds the sole output", {
 test_that("execute with bare out='D' on a multi-output plan errors before any assign", {
   .ergo_with_session()
   p <- .ergo_plan_two()
-  p <- ds.omop.plan.options(p, factor_concepts = FALSE, translate_concepts = FALSE)
+  p <- ds.omop.plan.options(p, factor_concepts = TRUE, translate_concepts = FALSE)
 
   res <- NULL
   expect_error(
@@ -298,6 +304,8 @@ test_that("execute keeps unrelated objects and cleans a partial fresh output", {
   conns <- list(a = "A", b = "B")
   assign(symbol, list(
     res_symbol = "dsO_res", conns = conns,
+    capabilities = lapply(conns, function(x) .caps()),
+    server_versions = .current_versions(names(conns)),
     outputs = "D.model", last_output = "D.model"
   ),
          envir = dsOMOPClient:::.dsomop_client_env)
@@ -341,7 +349,7 @@ test_that("execute keeps unrelated objects and cleans a partial fresh output", {
     ds.omop.plan(), "events", "condition_occurrence",
     concept_set = 201820L
   )
-  p <- ds.omop.plan.options(p, factor_concepts = FALSE,
+  p <- ds.omop.plan.options(p, factor_concepts = TRUE,
                             translate_concepts = FALSE)
   expect_error(
     ds.omop.plan.execute(p, out = c(events = "D"), symbol = symbol),
@@ -364,7 +372,7 @@ test_that("execute uses fresh server names when requested destinations are occup
   )
   p <- ds.omop.plan.events(ds.omop.plan(), "events", "condition_occurrence",
                            concept_set = 201820L)
-  p <- ds.omop.plan.options(p, factor_concepts = FALSE, translate_concepts = FALSE)
+  p <- ds.omop.plan.options(p, factor_concepts = TRUE, translate_concepts = FALSE)
   result <- ds.omop.plan.execute(p, out = c(events = "D"))
   expect_identical(result$a$events$data$symbol, "D.1")
   expect_setequal(state$symbols$a, c("D", "other_session", "D.1"))
@@ -373,7 +381,9 @@ test_that("execute uses fresh server names when requested destinations are occup
 test_that("execute rejects a missing composite component after server success", {
   symbol <- "atomic_components"
   conns <- list(a = "A", b = "B")
-  assign(symbol, list(res_symbol = "dsO_res", conns = conns),
+  assign(symbol, list(res_symbol = "dsO_res", conns = conns,
+         capabilities = setNames(lapply(conns, function(x) .caps()), names(conns)),
+         server_versions = .current_versions(names(conns))),
          envir = dsOMOPClient:::.dsomop_client_env)
   on.exit(rm(list = symbol, envir = dsOMOPClient:::.dsomop_client_env),
           add = TRUE)
@@ -415,7 +425,7 @@ test_that("execute rejects a missing composite component after server success", 
     ds.omop.plan(), "events", "condition_occurrence",
     concept_set = 201820L, representation = list(format = "sparse")
   )
-  p <- ds.omop.plan.options(p, factor_concepts = FALSE,
+  p <- ds.omop.plan.options(p, factor_concepts = TRUE,
                             translate_concepts = FALSE)
   expect_error(
     ds.omop.plan.execute(p, out = c(events = "D"), symbol = symbol),
@@ -428,7 +438,9 @@ test_that("execute rejects a missing composite component after server success", 
 test_that("multi-server execute strictly harmonizes an unbound plan", {
   symbol <- "automatic_schema_harmonization"
   conns <- list(a = "A", b = "B")
-  assign(symbol, list(res_symbol = "dsO_res", conns = conns),
+  assign(symbol, list(res_symbol = "dsO_res", conns = conns,
+         capabilities = setNames(lapply(conns, function(x) .caps()), names(conns)),
+         server_versions = .current_versions(names(conns))),
          envir = dsOMOPClient:::.dsomop_client_env)
   on.exit(rm(list = symbol, envir = dsOMOPClient:::.dsomop_client_env),
           add = TRUE)
@@ -445,9 +457,12 @@ test_that("multi-server execute strictly harmonizes an unbound plan", {
     .package = "dsOMOPClient"
   )
   testthat::local_mocked_bindings(
-    datashield.aggregate = function(conns, expr, ...) {
-      stats::setNames(rep(list(.publication_status(c(events = "D"))), length(conns)),
-                      names(conns))
+    datashield.aggregate = function(conns, expr, success = NULL, ...) {
+      report <- if (identical(as.character(expr[[1L]]), "omopFactorLevelsDS"))
+        list(levels = list(), unsafe = character(), nfilter_levels_max = 40) else
+        .publication_status(c(events = "D"))
+      for (site in names(conns)) if (is.function(success)) success(site, report)
+      stats::setNames(rep(list(report), length(conns)), names(conns))
     },
     datashield.symbols = function(conns, ...) state[names(conns)],
     datashield.rm = function(conns, target, ...) {
@@ -468,7 +483,7 @@ test_that("multi-server execute strictly harmonizes an unbound plan", {
     ds.omop.plan(), "events", "condition_occurrence",
     concept_set = 201820L
   )
-  p <- ds.omop.plan.options(p, factor_concepts = FALSE,
+  p <- ds.omop.plan.options(p, factor_concepts = TRUE,
                             translate_concepts = FALSE)
   expect_identical(
     ds.omop.plan.execute(p, out = c(events = "D"), symbol = symbol),
@@ -545,7 +560,7 @@ test_that("execute records last_output so a later manipulate verb defaults to it
   .ergo_with_session()
   p <- ds.omop.plan()
   p <- ds.omop.plan.baseline(p, name = "baseline", derived = character())
-  p <- ds.omop.plan.options(p, factor_concepts = FALSE, translate_concepts = FALSE)
+  p <- ds.omop.plan.options(p, factor_concepts = TRUE, translate_concepts = FALSE)
 
   res <- .ergo_capture(function() {
     ds.omop.plan.execute(p)                       # records D_baseline

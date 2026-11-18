@@ -558,12 +558,14 @@
                           use.names = FALSE))
   events <- sort(events, method = "radix")
   pairs <- list()
+  declared <- character()
   for (e in events) {
     ev <- ir[["events"]][[e]]
     if (is.null(ev[["table"]])) next
     concept <- .compileConceptSet(ctx, ev[["concept_set"]])
     if (!identical(concept$state, "set")) next
     ids <- sort(unique(as.integer(concept$ids)))
+    declared <- union(declared, as.character(ids))
     if (length(ids)) pairs[[length(pairs) + 1L]] <- data.frame(source = e, concept_id = ids,
                                                                stringsAsFactors = FALSE)
   }
@@ -586,6 +588,9 @@
                   vocabulary_id = .fragmentColumn("text", TRUE, "measure"),
                   concept_class_id = .fragmentColumn("text", TRUE, "measure"),
                   source = .fragmentColumn("text", FALSE, "measure"))
+  # Concept sets resolve on the public vocabulary tables only, so the whole
+  # resolved set is declared: no level of this dictionary comes from patient rows.
+  attr(columns$concept_id, "concept_declared") <- declared
   part <- .outputComponent(inputs, name, name, frame, columns, NULL, grain = "none")
   .outputCompiled(name, list(part))
 }
@@ -1553,11 +1558,15 @@
 }
 
 .outputCovariateRefColumns <- function() {
-  list(covariate_id = .fragmentColumn("integer", FALSE, "measure"),
+  columns <- list(covariate_id = .fragmentColumn("integer", FALSE, "measure"),
        source = .fragmentColumn("text", FALSE, "measure"),
        concept_id = .fragmentColumn("integer", TRUE, "concept"),
        concept_name = .fragmentColumn("text", TRUE, "measure"),
        analysis = .fragmentColumn("text", FALSE, "measure"))
+  # These identities name the covariate columns already admitted by the output
+  # registry; they do not discover an additional domain of column values.
+  attr(columns$concept_id, "concept_reference_admitted") <- TRUE
+  columns
 }
 
 # The rows of one output source for every roster row, inside the given
@@ -2243,9 +2252,11 @@
   all_rows <- list()
   others <- character(0)
   unavailable <- FALSE
+  declared_concepts <- character(0)
   for (i in seq_along(srcs)) {
     path <- paste0("/outputs/", name, "/sources/", i - 1L)
     src <- .reduceSource(ctx, srcs[[i]])
+    declared_concepts <- union(declared_concepts, .eventDeclaredConcepts(src))
     if (!src$available) { unavailable <- TRUE; next }
     cols <- names(src$fragment$columns)
     extra <- list()
@@ -2441,6 +2452,9 @@
   frame <- handled$frame
   columns <- handled$columns
   .outputCheckNames(setdiff(names(columns), c("row_id", "cohort_row_id", "person_id")), name, grain)
+  if (length(declared_concepts) && "concept_id" %in% names(columns)) {
+    attr(columns$concept_id, "concept_declared") <- declared_concepts
+  }
   status <- if (unavailable) "unavailable" else "ok"
   part <- .outputComponent(inputs, name, name, frame, columns, cons,
                            grain = if (per_event) "person" else "episode", status = status)

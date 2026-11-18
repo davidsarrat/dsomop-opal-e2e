@@ -859,7 +859,7 @@ ds.omop.plan.survival <- function(plan,
 #'
 #' Scans other outputs in the plan for concept IDs and produces a lookup
 #' table with concept names, domains, vocabulary IDs, and which outputs
-#' reference each concept. Useful for translating numeric concept IDs in
+#' reference each concept. Useful for labelling concept ID factors in
 #' other output tables into human-readable labels.
 #'
 #' @param plan An \code{omop_plan} object.
@@ -1417,18 +1417,14 @@ ds.omop.plan.temporal_covariates <- function(plan,
 #' preserved for omitted arguments.
 #'
 #' @param plan An \code{omop_plan} object.
-#' @param translate_concepts Logical; if \code{TRUE}, concept ID columns
-#'   are automatically translated to human-readable concept names in
-#'   output tables.
+#' @param translate_concepts Logical; chooses concept factor labels:
+#'   vocabulary names when \code{TRUE}, decimal ID strings when \code{FALSE}.
+#'   Concept columns always have shared factor levels across retained servers.
 #' @param block_sensitive Logical; if \code{TRUE}, sensitive columns
 #'   (e.g. exact dates, free-text notes) are excluded from outputs.
-#' @param factor_concepts Logical; if \code{TRUE} (default), after a
-#'   memory-mode execution every \code{_concept_id} column is converted
-#'   into a factor whose levels are harmonized across all connected
-#'   servers, so pooled \code{ds.glm}/\code{ds.glmSLMA}/\code{ds.table}
-#'   see an identical level coding. Columns whose distinct values exceed
-#'   the server disclosure cap are left raw. Set \code{FALSE} to keep the
-#'   raw integer ids (or translated character names) unchanged.
+#' @param factor_concepts Logical; \code{TRUE} remains accepted. Since 2.10.6,
+#'   concept IDs are always categories and \code{FALSE} is rejected. Discovery
+#'   uses DataSHIELD's factor-level rule; a refusal prevents publication.
 #' @return The modified \code{omop_plan} with updated options.
 #' @examples
 #' \dontrun{
@@ -1445,6 +1441,8 @@ ds.omop.plan.options <- function(plan,
                                  translate_concepts = NULL,
                                  block_sensitive = NULL,
                                  factor_concepts = NULL) {
+  if (isFALSE(factor_concepts))
+    stop("factor_concepts = FALSE is no longer supported: concept IDs are always categories since 2.10.6.", call. = FALSE)
   if (!is.null(translate_concepts)) {
     plan$options$translate_concepts <- translate_concepts
   }
@@ -1776,9 +1774,10 @@ ds.omop.plan.preview <- function(plan, symbol = "omop",
 #' When \code{output_mode = "staged"}, outputs are written to server-local
 #' Parquet files (CSV fallback when Arrow is unavailable) and
 #' assigned as \code{FlowerDatasetDescriptor} objects instead of final
-#' data.frames. Long event and interval outputs preserve numeric OMOP concept
-#' IDs and stream in bounded chunks to Parquet row groups in one file; labels
-#' can be supplied as a separate concept-reference output. Outputs that still
+#' data.frames. Long event and interval outputs stream in bounded chunks to
+#' Parquet row groups in one file. Concept columns use shared factor levels
+#' with vocabulary labels or decimal ID labels, according to
+#' \code{translate_concepts}. Outputs that still
 #' require an R-side reshape or
 #' derivation are materialized before staging. Descriptors are
 #' server paths readable under the server OS identity; other service accounts
@@ -1897,8 +1896,9 @@ ds.omop.plan.execute <- function(plan, out = NULL,
   # wire encoding differ.
   v2 <- .v2_is_plan_v2(plan)
   .conceptValidatePlan(plan, wire = v2)
-  # Translation is one contract for memory, staged and protected executions.
-  harmonize_factors <- v2 || !isFALSE(plan$options$translate_concepts) || .categoryNeedsPresentation(plan) || .numberHas(plan)
+  # Every assigned concept column needs one shared factor coding, including
+  # untranslated, staged and protected outputs.
+  harmonize_factors <- TRUE
   session <- .get_session(symbol)
   session$concept_presentation <- NULL
   assign(symbol, session, envir = .dsomop_client_env)
@@ -1911,17 +1911,10 @@ ds.omop.plan.execute <- function(plan, out = NULL,
     }, logical(1))
     if (!all(capable)) stop("Imported definitions require vocabulary.ohdsi_import_validity; upgrade the paired server before execution.", call. = FALSE)
   }
-  # B1: which protocol every participating site supports, before anything is
-  # assigned. The publication protocol needs it on every site; otherwise a v2
-  # plan is refused and a v1 plan runs as the 2.10.2 legacy call everywhere.
-  harmonizes <- isTRUE(harmonize_factors) &&
-    (v2 || isTRUE(plan$options$factor_concepts %||% TRUE) || .categoryNeedsPresentation(plan)) &&
-    !(v2 && !is.null(plan$publish) && length(plan$publish) == 0L)
-  if (harmonizes && !v2) {
-    language <- .v2_server_language(session, names(conns))
-    missing <- names(conns)[!vapply(language, function(x) "output.concept_labels" %in% x$operations, logical(1))]
-    if (length(missing)) stop("Concept presentation requires output.concept_labels on: ", paste(missing, collapse = ", "), call. = FALSE)
-  }
+  # Check complete concept identity support before any assignment, then
+  # negotiate the publication transport with every participating site.
+  harmonizes <- !(v2 && !is.null(plan$publish) && length(plan$publish) == 0L)
+  if (harmonizes) .conceptAssertSupport(session, names(conns))
   route <- .plan_protocol_route(conns, server_method, harmonizes)
   if (!route$protocol) {
     if (v2) {
@@ -2036,7 +2029,9 @@ ds.omop.plan.execute <- function(plan, out = NULL,
     if (length(out)) .ds_encode(as.list(out)) else .ds_encode(stats::setNames(list(), character(0))),
     output_mode, commit_policy = if (on_small_site == "skip") {
       "all_or_none"
-    } else "server")
+    } else "server",
+    # This client reconciles every published concept factor (2.10.6).
+    concept_protocol = 1)
   if (!is.null(scope_args)) {
     # Splice the closed named scope arguments. Cohorts remain literal `scope`;
     # tables are bare `scope_table_<n>` symbols, never nested list()/c() calls.
@@ -2096,16 +2091,20 @@ ds.omop.plan.execute <- function(plan, out = NULL,
     if (any(codes != "insufficient_support") ||
         (on_small_site == "error" && any(refused)) ||
         (on_small_site == "skip" && any(partial))) {
+      hint <- if (any(grepl("(concept_level_rule)", rejected, fixed = TRUE))) {
+        paste0(" Concept-derived columns fail a server's factor-level rule ",
+               "(nfilter.levels.max / nfilter.levels.density): declare the concepts with ",
+               "a concept set, group them, or ask that server's administrator to raise the limits.")
+      } else ""
       stop("Plan publication refused: ", paste(rejected, collapse = "; "),
-           ".", call. = FALSE)
+           ".", hint, call. = FALSE)
     }
     inventories <- lapply(statuses, function(x) {
       if (x$status == "refused") NULL else x$published
     })
     .plan_verify_publication(conns, inventories)
     presentation <- list()
-    if (isTRUE(harmonize_factors) &&
-        (v2 || isTRUE(plan$options$factor_concepts %||% TRUE) || .categoryNeedsPresentation(plan))) {
+    if (harmonizes) {
       presentation <- .harmonizePublicationFactors(inventories, conns)
     }
     if (any(partial)) {
@@ -2729,8 +2728,11 @@ ds.omop.plan.execute <- function(plan, out = NULL,
     if (.retry && length(assign_errors) && all(grepl("Concept presentation evidence changed", assign_errors, fixed = TRUE))) {
       return(.harmonizeOneSymbol(sym, conns, .retry = FALSE))
     }
+    detail <- if (length(assign_errors)) paste(paste(names(assign_errors),
+      vapply(assign_errors, .ds_error_core, ""), sep = ": "), collapse = "; ") else
+      if (!is.null(assign_condition)) conditionMessage(assign_condition) else ""
     stop("Concept-factor recoding failed or was incomplete on: ",
-         paste(failed, collapse = ", "), ".", call. = FALSE)
+         paste(failed, collapse = ", "), ". ", detail, call. = FALSE)
   }
   lines<-attr(spec,"concept_explain") %||% character()
   if(!is.null(spec$schema))attr(lines,"codebook")<-list(schema=spec$schema,categories=spec$columns)
@@ -2741,12 +2743,10 @@ ds.omop.plan.execute <- function(plan, out = NULL,
 #'
 #' Pure reduction at the heart of the coordination layer: given each server's
 #' \code{omopFactorLevelsDS} report, it computes, per concept-id column, the
-#' union of safe levels in one deterministic order. A column flagged unsafe on
-#' \emph{any} server is dropped entirely (left raw everywhere), and a union
-#' exceeding the smallest reported server cap is dropped (no server would
-#' accept it). Numeric-looking ids sort numerically so the shared coding is
-#' intuitive; other labels use a locale-independent radix sort so every client
-#' derives the identical ordering.
+#' union of admitted levels in one deterministic order. A column flagged unsafe
+#' on any server refuses publication. Shared assignment has no level-count cap;
+#' discovery was already checked at each site. Numeric-looking IDs sort
+#' numerically; other labels use a locale-independent radix sort.
 #'
 #' Kept side-effect-free (no DSI calls) so the union semantics are unit
 #' testable in isolation.
@@ -2774,40 +2774,22 @@ ds.omop.plan.execute <- function(plan, out = NULL,
   if (length(all_cols) == 0L) {
     return(list())
   }
-  caps <- vapply(per_server,
-                 function(r) as.numeric(r$nfilter_levels_max %||% NA_real_),
-                 numeric(1))
-  cap <- suppressWarnings(min(caps, na.rm = TRUE))
-  if (!is.finite(cap)) {
-    cap <- 40
-  }
+  .conceptRefuseUnsafe(per_server)
+  if (any(!vapply(per_server, function(report) setequal(names(report$levels), all_cols), logical(1))))
+    stop("Incompatible concept-column schemas across retained sites.", call. = FALSE)
   spec <- list()
   for (col in all_cols) {
-    # If any server deemed this column disclosive, leave it raw everywhere.
-    flagged_unsafe <- any(vapply(
-      per_server,
-      function(r) col %in% as.character(r$unsafe), logical(1)
-    ))
-    if (flagged_unsafe) {
-      next
-    }
     lv <- unique(unlist(
       lapply(per_server, function(r) as.character(r$levels[[col]])),
       use.names = FALSE
     ))
     lv <- lv[!is.na(lv) & nzchar(lv)]
-    if (length(lv) == 0L) {
-      next
-    }
     # Deterministic ordering: numeric-looking ids sort numerically so the
     # shared coding is intuitive; otherwise a locale-independent radix sort.
     if (all(grepl("^-?[0-9]+$", lv))) {
       lv <- lv[order(as.numeric(lv))]
     } else {
       lv <- sort(lv, method = "radix")
-    }
-    if (length(lv) > cap) {
-      next
     }
     spec[[col]] <- lv
   }

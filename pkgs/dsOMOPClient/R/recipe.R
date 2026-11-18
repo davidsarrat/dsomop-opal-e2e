@@ -5076,13 +5076,13 @@ recipe_to_plan <- function(recipe, version = 2L) {
 #' \code{\link{ds.omop.plan.options}}.
 #'
 #' @param recipe An \code{omop_recipe} object.
-#' @param translate_concepts Logical; if \code{TRUE}, concept ID columns are
-#'   translated to human-readable concept names in output tables.
+#' @param translate_concepts Logical; chooses concept factor labels:
+#'   vocabulary names when \code{TRUE}, decimal ID strings when \code{FALSE}.
+#'   Concept columns always have shared factor levels across retained servers.
 #' @param block_sensitive Logical; if \code{TRUE}, sensitive columns
 #'   (e.g. exact dates, free-text notes) are excluded from outputs.
-#' @param factor_concepts Logical; if \code{TRUE}, after a memory-mode
-#'   execution every \code{_concept_id} column is converted to a factor whose
-#'   levels are harmonized across all connected servers.
+#' @param factor_concepts Logical; \code{TRUE} remains accepted. Since 2.10.6,
+#'   concept IDs are always categories and \code{FALSE} is rejected.
 #' @return The modified \code{omop_recipe} with updated options.
 #' @seealso \code{\link{omop_recipe}}, \code{\link{recipe_to_plan}},
 #'   \code{\link{ds.omop.plan.options}}
@@ -5091,6 +5091,8 @@ recipe_set_options <- function(recipe,
                                translate_concepts = NULL,
                                block_sensitive = NULL,
                                factor_concepts = NULL) {
+  if (isFALSE(factor_concepts))
+    stop("factor_concepts = FALSE is no longer supported: concept IDs are always categories since 2.10.6.", call. = FALSE)
   if (!inherits(recipe, "omop_recipe"))
     stop("recipe must be an omop_recipe object", call. = FALSE)
   if (is.null(recipe$options)) recipe$options <- list()
@@ -7848,6 +7850,12 @@ recipe_preview_schema <- function(recipe) {
 
   make_row <- function(output, column, source, v = NULL,
                        type = NULL, format = NULL, r_type = NULL) {
+    source_column <- if (is.null(v)) column else v$column %||% v$value_source %||% ""
+    value_format <- format %||% v$format %||% "raw"
+    if (length(source_column) == 1L && !is.na(source_column) &&
+        grepl("(^conceptId$|(^|_)concept_id$)", source_column) &&
+        value_format %in% c("raw", "first_value", "last_value", "nth_value", "closest_value", "mode"))
+      r_type <- "factor"
     data.frame(
       output = output,
       column = column,
@@ -8008,7 +8016,7 @@ recipe_preview_schema <- function(recipe) {
     } else if (out$type == "intervals") {
       column_types <- c(
         row_id = "integer", cohort_row_id = "integer", subject_id = "integer",
-        interval_type = "character", concept_id = "integer",
+        interval_type = "character", concept_id = "factor",
         start_days_from_index = "integer", end_days_from_index = "integer"
       )
       for (column in names(column_types)) {
@@ -8028,7 +8036,7 @@ recipe_preview_schema <- function(recipe) {
           covariateValue = "numeric"),
         covariateRef = c(
           covariateId = "numeric", covariateName = "character",
-          analysisId = "integer", conceptId = "integer"),
+          analysisId = "integer", conceptId = "factor"),
         timeRef = c(
           timeId = "integer", startDay = "integer", endDay = "integer"),
         personRef = c(rowId = "integer", person_id = "character")
@@ -8286,8 +8294,8 @@ recipe_validate <- function(recipe, symbol = "omop", conns = NULL) {
 #'     fixed ISO \code{derived$reference_date} or \code{derived$unit}.}
 #'   \item{age_no_index (WARNING)}{\code{format = "age"} with index reference
 #'     but the base population has neither a cohort nor a date filter.}
-#'   \item{highcard_factor (WARNING)}{a raw \code{_concept_id} column with
-#'     \code{factor_concepts = TRUE}, or a categorical format on a
+#'   \item{highcard_factor (WARNING)}{a raw \code{_concept_id} column,
+#'     or a categorical format on a
 #'     high-cardinality domain.}
 #'   \item{window_inverted (WARNING)}{a variable \code{time_window} with
 #'     \code{start > end}.}
@@ -8400,8 +8408,6 @@ recipe_lint <- function(recipe) {
     }
   }
 
-  factor_concepts <- isTRUE((recipe$options %||% list())$factor_concepts)
-
   # Per-variable checks.
   for (vnm in names(vars)) {
     v <- vars[[vnm]]
@@ -8467,20 +8473,19 @@ recipe_lint <- function(recipe) {
           paste0("variables$", vnm))
     }
 
-    # WARNING highcard_factor: raw _concept_id column with factor_concepts=TRUE,
-    # or a categorical format on a high-cardinality domain.
+    # All concept columns use DataSHIELD's observed factor-level release rule.
     raw_concept_col <- !is.null(v$column) && grepl("_concept_id$", v$column)
-    if (raw_concept_col && factor_concepts) {
+    if (raw_concept_col) {
       add("WARNING", "highcard_factor",
           paste0("Variable '", vnm, "' is a raw _concept_id column with ",
-                 "factor_concepts=TRUE (>40 levels / 0.33 density risk)."),
+                 "observed levels subject to nfilter.levels.max and nfilter.levels.density."),
           paste0("variables$", vnm))
     } else if (identical(v$type, "categorical") &&
                (v$table %||% "") %in% .lint_highcard_tables) {
       add("WARNING", "highcard_factor",
           paste0("Variable '", vnm, "' is a categorical format on ",
                  "high-cardinality domain '", v$table,
-                 "' (>40 levels / 0.33 density risk)."),
+                 "'; observed levels are subject to nfilter.levels.max and nfilter.levels.density."),
           paste0("variables$", vnm))
     }
 

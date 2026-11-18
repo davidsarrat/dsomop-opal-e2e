@@ -1,11 +1,23 @@
 # Populations, index dates and study recipes
 
-This chapter follows the 2.10.4 recipe-language-2 contract. Examples are
-not evaluated during documentation builds because they need
-authenticated connections and study-specific concept definitions. Use
-matching client and server packages and check the server’s advertised
-operations before execution. A recipe describes work beside the
-database; patient rows stay on the DataSHIELD server.
+## Imported populations in 2.10.5
+
+Import OHDSI definitions to attach the executable `ohdsi-import-1`
+vocabulary validity policy. A matching capable server checks included
+and excluded public concepts; unsupported clauses refuse with structural
+diagnostics from `recipe_circe_check()`. `recipe_circe_support()`
+describes the directional subset. An explicit coverage declaration
+overrides the imported coverage default. Edits retain source provenance
+and mark the population as a derivative; they do not establish
+equivalence with the original phenotype. Keep half-open numeric ranges
+and authenticated safe-bin filters in native recipes.
+
+This chapter follows the 2.10.5 recipe API contract. Examples are not
+evaluated during documentation builds because they need authenticated
+connections and study-specific concept definitions. Use matching client
+and server packages and check the server’s advertised operations before
+execution. A recipe describes work beside the database; patient rows
+stay on the DataSHIELD server.
 
 ## Start with a study question
 
@@ -142,7 +154,7 @@ inputs, not a way to retrieve rows.
 ## Inspect, execute and retain the inventory
 
 ``` r
-ds.omop.server.version(conns)
+ds.omop.server.version(conns)[c("server", "published", "running", "ready")]
 recipe_lint(recipe)
 recipe_validate(recipe, conns = conns)
 recipe_explain(recipe, conns = conns)

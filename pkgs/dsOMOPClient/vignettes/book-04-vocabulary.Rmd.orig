@@ -1,0 +1,456 @@
+---
+title: "4. Finding the concept IDs you need"
+author: "David Sarrat González"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{4. Finding the concept IDs you need}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="learn-box">
+**What you will learn**
+
+Search for a meaning, inspect its hierarchy and clinical use, then save a concept set.
+</div>
+
+**You need:** the client packages and the Opal login from
+[Getting started](book-00-start.html). This chapter starts with `omop.gibleed`;
+later sections switch to the questionnaire resources and `omop.synthea`.
+
+## Start this chapter
+
+```{r book-local-server, include = FALSE}
+# Outputs come from a local DataSHIELD server holding the same resources as the Opal in the text.
+library(dsOMOPClient)
+source("tools/book/display.R")
+source("tools/book/connection.R")
+```
+
+```{r chapter-setup, eval = FALSE}
+library(dsOMOPClient)
+conns <- ds.omop.login("https://localhost:8443", user = "administrator",
+  password = "password", resource = "omop.gibleed", server = "site")$conns
+```
+
+```{r chapter-setup-local-2, include = FALSE}
+conns <- book_connect("gibleed")$conns
+```
+
+## Search a name, then narrow the meaning
+
+A concept is a public vocabulary meaning with a stable numeric ID. Its **domain**
+is the kind of fact, such as Condition or Measurement; its **vocabulary** is the
+coding system. Standard concepts (`S`) are preferred OMOP targets. Classification
+concepts (`C`) group meanings; non-standard source codes may map to standard ones.
+
+```{r search}
+hits <- ds.omop.concept.search("Asthma", conns = conns)$pooled
+hits[c("concept_id", "concept_name", "domain_id", "vocabulary_id")]
+```
+
+The word matches Asthma, Childhood asthma and Asthma screening, a procedure. Keep the ID beside the name:
+a familiar word alone does not specify which meaning you intend.
+
+```{r filtered-search}
+conditions <- ds.omop.concept.search("Asthma", domain = "Condition",
+  vocabulary = "SNOMED", standard_only = TRUE, valid = TRUE, conns = conns)$pooled
+conditions[c("concept_id", "concept_name", "standard_concept", "concept_class_id")]
+asthma_id <- conditions$concept_id[conditions$concept_name == "Asthma"]
+```
+
+Asthma is **317009** and Childhood asthma is **4051466**. Both are standard
+SNOMED clinical findings in the Condition domain. The filters state the intended
+kind of code; they have not yet selected any people.
+
+## Read a concept and its mappings
+
+Look up the chosen ID to confirm its identity:
+
+```{r inspect}
+asthma_info <- ds.omop.concept.lookup(asthma_id, conns = conns)$pooled
+asthma_info
+```
+
+The lookup confirms that 317009 means Asthma. For vocabulary validity dates,
+use the richer search metadata:
+
+```{r validity, table.row.names = FALSE}
+conditions[conditions$concept_id == asthma_id,
+  c("concept_id", "concept_name", "valid_start_date", "valid_end_date", "invalid_reason")]
+```
+
+The validity interval is about the vocabulary entry, not patients' diagnosis
+dates. A missing `invalid_reason` means the entry has not been marked invalid.
+
+A **Maps to** relationship connects a source code to its standard target. Find
+gastrointestinal haemorrhage to see a real mapping in this vocabulary:
+
+```{r bleeding-search}
+bleeding <- ds.omop.concept.search("Gastrointestinal hemorrhage", domain = "Condition",
+  conns = conns)$pooled
+bleeding[c("concept_id", "concept_name", "vocabulary_id", "standard_concept")]
+bleeding_id <- bleeding$concept_id[bleeding$concept_name == "Gastrointestinal hemorrhage"]
+```
+
+The standard SNOMED concept is **192671**. Inspect the mapping edges touching it:
+
+```{r maps-to}
+mappings <- ds.omop.concept.relationships(bleeding_id,
+  relationship_id = "Maps to", conns = conns)$pooled
+mappings[c("concept_id", "related_concept_id", "related_concept_name",
+  "relationship_id", "direction")]
+```
+
+`reverse` means the related concept **35208414** is the source of the mapping
+into the requested target **192671**. Inspect that source code explicitly:
+
+```{r mapping-source}
+source_code <- ds.omop.concept.search(NULL, concept_id = 35208414L,
+  standard_only = FALSE, conns = conns)$pooled
+source_code[c("concept_id", "concept_name", "vocabulary_id",
+  "concept_code", "standard_concept")]
+```
+
+The source is ICD10CM **K92.2**, Gastrointestinal hemorrhage, unspecified; its
+standard status is missing. It maps to the standard SNOMED target. A mapping
+translates a code; adding descendants instead broadens a clinical definition.
+
+## Walk down and up the hierarchy
+
+Descendants are more specific meanings; ancestors are broader meanings. Inspect
+them before including a whole branch in your study.
+
+```{r descendants}
+desc <- ds.omop.concept.descendants(asthma_id, include_self = FALSE, conns = conns)$pooled
+desc[c("concept_id", "concept_name")]
+child_id <- desc$concept_id[desc$concept_name == "Childhood asthma"]
+```
+
+Childhood asthma (4051466) is a descendant of Asthma (317009). A set that includes
+descendants will include both meanings unless you exclude one.
+
+```{r ancestors}
+parents <- ds.omop.concept.ancestors(child_id, conns = conns)$pooled
+parents[parents$direction == "ancestor",
+  c("concept_id", "concept_name", "direction")]
+```
+
+The `ancestor` row leads back to Asthma. This API can return both directions;
+selecting `direction == "ancestor"` is what makes this an upward walk.
+
+## Check that the concept occurs here
+
+A catalogue entry does not establish clinical use. Despite its name,
+`concept.prevalence()` returns protected **person counts** by default. A
+prevalence estimate would also need a defined population, period and denominator.
+
+```{r occurrence-counts, table.row.names = FALSE}
+use <- ds.omop.concept.prevalence("condition_occurrence", metric = "persons",
+  top_n = 20, scope = "pooled", conns = conns)$pooled
+use[use$concept_id %in% c(asthma_id, child_id, bleeding_id),
+  c("concept_id", "concept_name", "n_persons")]
+```
+
+Only gastrointestinal haemorrhage appears in these top 20 results, with a band
+of 475–479 people. Neither asthma concept made this top list. Their absence is
+not evidence of zero use; the targeted locator below answers that question.
+
+Locate both IDs to check which tables and columns actually use them:
+
+```{r locate, table.row.names = FALSE}
+locations <- ds.omop.concept.locate(c(asthma_id, child_id), scope = "pooled", conns = conns)$pooled
+locations$concept_name <- conditions$concept_name[match(locations$concept_id, conditions$concept_id)]
+locations[locations$table_name == "condition_occurrence",
+  c("concept_id", "concept_name", "table_name", "n_records", "n_persons")]
+```
+
+The record bands begin at 5 for Asthma and 95 for Childhood asthma: 5–9 and
+95–99 records respectively. Looking only for the seed would miss most records
+in this branch. Counts are rounded down to multiples of five, so do not treat
+these as exact counts or calculate a precise percentage from them.
+
+## Save the definition, including exclusions
+
+A concept set records your selection rule, including whether descendants belong.
+It is a local definition, not a list of patients.
+
+```{r concept-set}
+asthma <- omop_concept_set(asthma_id, descendants = TRUE)
+concept_file <- "book-concepts.rds"
+saveRDS(list(asthma = asthma), concept_file)
+asthma
+```
+
+The printed definition includes the seed and requests its descendants.
+`book-concepts.rds` now stores that definition for reuse. Setting
+`descendants = FALSE` would select only the seed.
+
+**Exercise 1.** Keep Asthma's children but exclude the seed itself. Save the
+set and read it back. Does the saved definition preserve the exclusion?
+
+<details><summary>Solution</summary>
+
+```{r excluded-set}
+children_only <- omop_concept_set(asthma_id, descendants = TRUE,
+  exclude = omop_concept_set(asthma_id, descendants = FALSE))
+saved_sets <- readRDS(concept_file)
+saved_sets$children_only <- children_only
+saveRDS(saved_sets, concept_file)
+saved_sets <- readRDS(concept_file)
+saved_sets$children_only
+```
+
+The reloaded definition still requests descendants and excludes 317009 itself.
+An excluded set could also include descendants if you wanted to remove an
+entire branch. This file contains definitions, not patient data.
+
+</details>
+
+## Find inpatient and outpatient visits
+
+Use `visit_concept_id` for the setting; `visit_type_concept_id` describes the
+record's provenance. Discover the settings before using their IDs:
+
+```{r visits}
+visit_hits <- ds.omop.concept.search("Visit", domain = "Visit", conns = conns)$pooled
+visit_catalogue <- visit_hits[visit_hits$concept_name %in%
+  c("Inpatient Visit", "Outpatient Visit"), ]
+visit_catalogue[c("concept_id", "concept_name", "standard_concept")]
+visit_ids <- setNames(visit_catalogue$concept_id, visit_catalogue$concept_name)
+visit_sets <- lapply(visit_ids, omop_concept_set)
+```
+
+Inpatient Visit is **9201** and Outpatient Visit is **9202**. Both exist in the
+vocabulary. Check their clinical use separately:
+
+```{r visit-use}
+visit_use <- ds.omop.concept.locate(unname(visit_ids), scope = "pooled", conns = conns)$pooled
+visit_use$concept_name <- names(visit_ids)[match(visit_use$concept_id, visit_ids)]
+visit_use[c("concept_id", "concept_name", "n_records", "n_persons")]
+```
+
+Only Inpatient Visit is returned: its bands begin at 1,035 records and 890 people.
+The public GiBleed data record only inpatient visits; Outpatient Visit is unused.
+In an unfamiliar private dataset, an absent locator row could also be withheld.
+
+## Find the questionnaire questions, answers and causes
+
+Switch to the separate synthetic dataset described in
+[chapter 0](book-00-start.html#the-resources-on-the-server). Its local question and
+answer codes are teaching examples, not codes to copy into a clinical study.
+
+```{r questionnaire-catalogue, eval = FALSE}
+ds.omop.disconnect(conns = conns)
+ds.omop.connect(resource = "omop.questionnaire", conns = conns)
+```
+
+```{r questionnaire-catalogue-local-19, include = FALSE}
+conns <- book_switch("questionnaire")$conns
+```
+
+```{r questionnaire-catalogue-20}
+questionnaire <- ds.omop.concept.search(NULL, standard_only = FALSE,
+  limit = 100, conns = conns)$pooled
+questionnaire[c("concept_id", "concept_name", "domain_id")]
+question_ids <- setNames(questionnaire$concept_id, questionnaire$concept_name)
+education_set <- omop_concept_set(unname(question_ids["Education question"]))
+cause_sets <- lapply(question_ids[c("Myocardial infarction", "Pneumonia")], omop_concept_set)
+```
+
+Education question **900001** selects observations; Secondary **900101** and
+University **900102** are its coded answers. Fever question **900002** uses Yes
+**900301** and No **900302**. The death causes are Myocardial infarction **900201**
+and Pneumonia **900202**. Visits use the Visit domain. Study medicine **950001**
+supports drug-history lessons; weight **950002**, with kilogram **9529**, supports
+numeric exercises. The default local question and cause codes have no external
+mapping or hierarchy.
+
+```{r questionnaire-presence}
+question_presence <- ds.omop.concept.prevalence("observation", scope = "pooled", conns = conns)$pooled
+question_presence[c("concept_id", "concept_name", "n_persons")]
+```
+
+The person bands for education and fever both begin at 20, meaning 20–24 people.
+The public dataset has 24 respondents to each question. Later categorical tables
+can release those exact counts when their cells pass the table's checks.
+
+```{r cause-presence, table.row.names = FALSE}
+cause_use <- ds.omop.concept.locate(unname(question_ids[c("Myocardial infarction", "Pneumonia")]),
+  scope = "pooled", conns = conns)$pooled
+cause_use$concept_name <- names(question_ids)[match(cause_use$concept_id, question_ids)]
+cause_use[c("concept_id", "concept_name", "table_name", "n_records", "n_persons")]
+```
+
+The cause bands begin at 20 for infarction and 10 for pneumonia: 20–24 and 10–14
+people. They contain the dataset's exact totals of 24 and 12. The different
+representations are not conflicting counts.
+
+**Exercise 2.** ATC classes are classification concepts. Can a standard-only
+search miss them even when they are present? Use the optional teaching catalogue.
+
+<details><summary>Solution</summary>
+
+```{r atc-default, eval = FALSE}
+ds.omop.disconnect(conns = conns)
+ds.omop.connect(resource = "omop.questionnaire_vocab", conns = conns)
+```
+
+```{r atc-default-local-24, include = FALSE}
+conns <- book_switch("questionnaire", categories = TRUE)$conns
+```
+
+```{r atc-default-25}
+atc_default <- ds.omop.concept.search(NULL, vocabulary = "ATC", conns = conns)$pooled
+atc_default
+```
+
+`NULL` means the search returned no matching concepts: the default asks for
+standard concepts (`S`).
+Request classification concepts (`C`) instead:
+
+```{r atc-classification}
+atc <- ds.omop.concept.search(NULL, vocabulary = "ATC", standard = "C", conns = conns)$pooled
+atc[c("concept_id", "concept_name", "standard_concept")]
+```
+
+Two classes appear: **960001** and **960002**. These are explicitly invented
+teaching classes, used in the drug-utilisation lesson. The lesson here is the
+search filter: a missing standard-only hit does not prove a class is absent.
+
+</details>
+
+## Find haemoglobin, glucose and their units in Synthea
+
+Switch to the numeric resource. The vocabulary spells haemoglobin “Hemoglobin”.
+Select a precise test and specimen, rather than every name containing the word.
+
+```{r numeric-catalogue, eval = FALSE}
+ds.omop.disconnect(conns = conns)
+ds.omop.connect(resource = "omop.synthea", conns = conns)
+```
+
+```{r numeric-catalogue-local-28, include = FALSE}
+conns <- book_switch("numeric")$conns
+```
+
+```{r numeric-catalogue-29}
+lab_hits <- ds.omop.concept.search("Hemoglobin", domain = "Measurement", conns = conns)$pooled
+lab_hits[c("concept_id", "concept_name", "standard_concept")]
+hb_id <- lab_hits$concept_id[lab_hits$concept_name == "Hemoglobin [Mass/volume] in Blood"]
+```
+
+Choose **3000963**, Hemoglobin [Mass/volume] in Blood. A panel and a haemoglobin
+fraction are different measurements even though their names share the word.
+
+```{r glucose-catalogue}
+glucose_hits <- ds.omop.concept.search("Glucose", domain = "Measurement", conns = conns)$pooled
+glucose_hits[c("concept_id", "concept_name", "standard_concept")]
+glucose_id <- glucose_hits$concept_id[glucose_hits$concept_name == "Glucose [Mass/volume] in Blood"]
+lab_sets <- list(haemoglobin = omop_concept_set(hb_id), glucose = omop_concept_set(glucose_id))
+```
+
+Blood glucose is **3000483**. Serum or Plasma glucose and urine glucose are
+separate concepts; do not combine all search hits without deciding which
+specimens and concentration measures answer your question.
+
+```{r lab-units}
+units <- ds.omop.value.counts("measurement", "unit_concept_id", concept_id = hb_id,
+  scope = "pooled", conns = conns)$pooled
+names(units)[names(units) == "value"] <- "unit_concept_id"
+units[c("unit_concept_id", "concept_name", "n")]
+```
+
+Haemoglobin uses **8713**, gram per deciliter (g/dL), for 105–109 recorded values.
+The count describes recorded unit use; a unit's mere presence in the vocabulary would not establish this.
+
+### When a unit count is withheld
+
+For Serum or Plasma glucose, the requested unit count lacks enough support.
+Keep the server's explanation instead of treating an unavailable result as zero:
+
+<!-- expected-refusal:start -->
+```{r glucose-unit-refusal}
+serum_glucose_id <- glucose_hits$concept_id[glucose_hits$concept_name ==
+  "Glucose [Mass/volume] in Serum or Plasma"]
+serum_glucose_units <- ds.omop.value.counts("measurement", "unit_concept_id",
+  concept_id = serum_glucose_id, scope = "pooled", conns = conns)
+serum_glucose_units$meta$warnings
+```
+<!-- expected-refusal:end -->
+
+The aggregate is unavailable; this does not establish that the concept has no
+records. Use the separately selected Blood glucose for the next exercise.
+
+**Exercise 3.** Check Blood glucose's unit and add the lab and questionnaire
+sets to `book-concepts.rds` without discarding the saved asthma exclusions.
+
+<details><summary>Solution</summary>
+
+```{r glucose-units}
+glucose_units <- ds.omop.value.counts("measurement", "unit_concept_id",
+  concept_id = glucose_id, scope = "pooled", conns = conns)$pooled
+names(glucose_units)[names(glucose_units) == "value"] <- "unit_concept_id"
+glucose_units[c("unit_concept_id", "concept_name", "n")]
+saved_sets <- readRDS(concept_file)
+saved_sets$sets <- lab_sets
+saved_sets$visit_sets <- visit_sets
+saved_sets$education <- education_set
+saved_sets$causes <- cause_sets
+saved_sets$questionnaire_catalogue <- questionnaire
+saved_sets$glucose_catalogue <- glucose_hits
+saveRDS(saved_sets, concept_file)
+```
+
+Blood glucose uses **8840**, milligram per deciliter (mg/dL), for 225–229 records.
+Reading the file before adding entries preserves `asthma` and `children_only`. To reuse education
+in your own later session, read `readRDS("book-concepts.rds")$education`.
+The following chapters name the IDs from this catalogue so they can also run
+independently in a fresh session.
+
+</details>
+
+## Find measured BMI and its recorded unit
+
+Measured BMI is a recorded value, distinct from calculating it from height and weight.
+
+```{r bmi-discovery}
+bmi_hits <- ds.omop.concept.search("Body mass index", domain = "Measurement",
+  vocabulary = "LOINC", conns = conns)$pooled
+bmi_hits[c("concept_id", "concept_name", "standard_concept")]
+bmi_id <- bmi_hits$concept_id[bmi_hits$concept_name == "Body mass index (BMI) [Ratio]"]
+```
+
+Choose the standard LOINC measurement **3038553**, Body mass index (BMI) [Ratio].
+The repeated-measures chapter uses this definition.
+
+```{r bmi-use}
+bmi_use <- ds.omop.concept.locate(bmi_id, scope = "pooled", conns = conns)$pooled
+bmi_use$concept_name <- bmi_hits$concept_name[match(bmi_use$concept_id, bmi_hits$concept_id)]
+bmi_use[c("concept_id", "concept_name", "n_records", "n_persons")]
+```
+
+The bands begin at 435 records and 25 people, showing repeated measurements.
+Check the recorded unit before summarising those values:
+
+```{r bmi-unit}
+bmi_units <- ds.omop.value.counts("measurement", "unit_concept_id",
+  concept_id = bmi_id, scope = "pooled", conns = conns)$pooled
+names(bmi_units)[names(bmi_units) == "value"] <- "unit_concept_id"
+bmi_units[c("unit_concept_id", "concept_name", "n")]
+saved_sets <- readRDS(concept_file)
+saved_sets$measured_bmi <- omop_concept_set(bmi_id)
+saved_sets$bmi_units <- bmi_units
+saveRDS(saved_sets, concept_file)
+```
+
+BMI uses **9531**, kilogram per square meter. Its record band also begins at 435.
+The saved set and unit record preserve both parts of the measurement definition.
+
+## Recap
+
+Search, inspect meanings and mappings, check the hierarchy and clinical use,
+then save the definition. Keep IDs alongside names during discovery; analysis
+tables can then present the selected concepts as named categories.
+
+**Next:** [5. A first recipe](book-05-recipe.html).

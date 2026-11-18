@@ -8,6 +8,19 @@
   out
 }
 
+# OMOP IDs use decimal identity text even when a database returns doubles and
+# R would otherwise choose scientific notation. Character/factor labels and
+# integer64 values keep their exact text without a lossy numeric conversion.
+.conceptIdText <- function(x) {
+  if (inherits(x, "integer64") || is.factor(x) || is.character(x)) return(as.character(x))
+  out <- as.character(x)
+  if (is.numeric(x)) {
+    whole <- !is.na(x) & is.finite(x) & x == trunc(x)
+    out[whole] <- sprintf("%.0f", x[whole])
+  }
+  out
+}
+
 #' @export
 `[.dsomop_concept_factor` <- function(x, ..., drop = FALSE) {
   NextMethod("[", drop = FALSE)
@@ -50,7 +63,7 @@
     versions <- setNames(as.character(v$vocabulary_version), as.character(v$vocabulary_id))
   }
   for (i in seq_len(nrow(info))) {
-    id <- as.character(info$concept_id[[i]])
+    id <- .conceptIdText(info$concept_id[[i]])
     name <- as.character(info$concept_name[[i]])
     if (is.na(name) || !nzchar(trimws(name))) next
     vocab <- if ("vocabulary_id" %in% names(info)) as.character(info$vocabulary_id[[i]]) else ""
@@ -59,6 +72,13 @@
                       origin = "vocabulary", label = name)
   }
   out
+}
+
+# Translation selects labels only. Identity and the factor release contract do
+# not depend on whether a vocabulary name is requested.
+.conceptIdRecords <- function(ids) {
+  setNames(lapply(ids, function(id) list(id = id, name = NULL,
+    vocabulary = NULL, version = NULL, origin = "fallback", label = id)), ids)
 }
 
 .conceptPresent <- function(ctx, frame, columns) {
@@ -88,11 +108,7 @@
     }
   }
   frame <- .numberCapture(frame, columns)
-  if (!.reduceTranslate(ctx)) {
-    frame<-.categoryPresent(ctx,frame,columns)
-    if(.categoryNative(ctx$ir)||length(.categoryCapabilities(ctx$ir)))attr(frame,"omop_codebook_schema")<-.categoryReleaseSchema(ctx,frame,columns)
-    return(frame)
-  }
+  translate <- .reduceTranslate(ctx)
   contracts <- attr(frame, "omop_concepts") %||% list()
   for (col in intersect(names(columns), names(frame))) {
     if (!.conceptColumn(columns[[col]])) next
@@ -101,18 +117,21 @@
     recipe_map <- .conceptMap(ctx$ir$options$labels, "options.labels", wire = TRUE)
     variable_map <- .conceptMap(variable$labels, paste0("variables.", owner, ".labels"), wire = TRUE)
     map <- .conceptMapOverlay(recipe_map, variable_map)
-    ids <- as.character(frame[[col]])
-    all_ids <- unique(c(ids[!is.na(ids)], names(map)))
-    records <- .conceptVocabulary(ctx$handle, all_ids)
-    for (id in names(map)) {
+    ids <- .conceptIdText(frame[[col]])
+    declared <- union(names(map), attr(columns[[col]], "concept_declared"))
+    all_ids <- unique(c(ids[!is.na(ids)], declared))
+    records <- if (translate) .conceptVocabulary(ctx$handle, all_ids) else .conceptIdRecords(all_ids)
+    for (id in if (translate) names(map) else character()) {
       records[[id]]$origin <- if (id %in% names(variable_map)) "variable" else "recipe"
       records[[id]]$label <- unname(map[[id]])
     }
     resolved <- .conceptResolve(unname(records))
     values <- resolved$labels[match(ids, resolved$ids)]
     frame[[col]] <- .conceptFactor(values, levels = resolved$levels)
-    contracts[[col]] <- list(ids = ids, records = records, declared = names(map),
-                              owner = owner, resolved = resolved)
+    contracts[[col]] <- list(ids = ids, records = records,
+                              declared = declared,
+                              reference_admitted = isTRUE(attr(columns[[col]], "concept_reference_admitted")),
+                              translate = translate, owner = owner, resolved = resolved)
     if (col == "conceptId" && "covariateId" %in% names(frame)) {
       contracts[[col]]$reference_keys <- setNames(ids, as.character(frame$covariateId))
       contracts[[col]]$resolved$naming_ids <- unique(ids[!is.na(ids)])
@@ -121,17 +140,22 @@
   if (length(contracts)) {
     attr(frame, "omop_concepts") <- contracts
     attr(frame, "omop_concept_cols") <- names(contracts)
-    if ("concept_id" %in% names(contracts) && "concept_name" %in% names(frame)) {
+    if (translate && "concept_id" %in% names(contracts) && "concept_name" %in% names(frame)) {
       frame$concept_name <- as.character(frame$concept_id)
     }
   }
   frame <- .categoryPresent(ctx, frame, columns)
   contracts <- attr(frame,"omop_concepts") %||% contracts
-  frame <- .conceptReferenceNames(frame, contracts)
+  if (translate) frame <- .conceptReferenceNames(frame, contracts)
   generated <- list()
   for (key in intersect(names(columns), names(frame))) {
     g <- attr(columns[[key]], "concept_name")
     if (is.null(g)) next
+    # A generated column name says that its concept occurs. A column this site
+    # does not admit is refused here, at publication, translated or not: it is
+    # never assigned, so no client has to revoke it.
+    if (!isTRUE(g$declared) && !isTRUE(g$permitted)) .conceptLevelReject()
+    if (!translate) next
     owner <- g$owner
     variable <- if (length(owner)) ctx$ir$variables[[owner]] else NULL
     maps <- .conceptMapOverlay(
@@ -154,40 +178,63 @@
   frame
 }
 
-.conceptAssess <- function(df, col, contract) {
-  ids <- contract$ids
-  if (length(ids) != nrow(df)) stop("Incomplete concept identity metadata.", call. = FALSE)
-  observed <- unique(ids[!is.na(ids)])
-  if(!is.null(contract$upstream_safe))return(list(levels=union(observed,contract$upstream_admitted),safe=isTRUE(contract$upstream_safe)))
-  if (((contract$kind %||% "") %in% c("date","number") || identical(contract$kind,"category") && contract$category$producer$kind %in% c("date","number","flag")) && all(observed %in% contract$declared)) return(list(levels = contract$declared, safe = TRUE))
-  if (isTRUE(attr(df, "omop_concept_reference"))) {
-    support <- attr(df, "omop_reference_support")
-    if (is.null(support)) return(list(levels = observed, safe = TRUE))
-    settings <- .omopDisclosureSettings()
-    safe <- all(observed %in% names(support$counts)) && all(support$counts[observed] >= settings$nfilter_tab) &&
-      tryCatch({ .assertSafeLevels(length(observed), support$total); TRUE }, error = function(e) FALSE)
-    return(list(levels = observed, safe = safe))
+.conceptAssessIds <- function(contract, observed, n, reference_support = NULL, discover = TRUE) {
+  observed <- unique(as.character(observed[!is.na(observed)]))
+  # These references name generated columns whose identities were admitted by
+  # their existing name policy. They do not discover an additional value domain.
+  if (isTRUE(contract$reference_admitted)) return(list(levels = observed, safe = TRUE, rules = character()))
+  if (!is.null(reference_support)) {
+    safe <- all(observed %in% names(reference_support$counts))
+    # Naming the concepts behind generated covariates is a level release: the
+    # DataSHIELD level rule applies, without a per-concept person minimum.
+    if (discover) safe <- safe && tryCatch({ .assertSafeLevels(length(observed), reference_support$total); TRUE },
+      error = function(e) FALSE)
+    return(list(levels = observed, safe = safe,
+                rules = if(safe)character() else "generated-column admission"))
   }
-  keys <- intersect(.PERSON_KEY_COLS(), names(df))
-  if (!length(observed)) return(list(levels = character(), safe = TRUE))
-  if (!length(keys)) return(list(levels = observed, safe = FALSE))
-  probe <- df
-  probe[[col]] <- ids
-  .omopConceptLevelAssessment(probe, col, keys[[1L]])
+  # A category contract can carry locally loaded hierarchy metadata in addition
+  # to row values. Those identities are observed too, unless explicitly public.
+  discovered <- as.character(unlist(contract$discovered, use.names = FALSE))
+  reported <- union(observed, intersect(discovered, names(contract$records)))
+  assessment <- .omopConceptDiscovery(union(observed, discovered), n, contract$declared)
+  assessment$levels <- setdiff(reported, as.character(unlist(contract$declared, use.names = FALSE)))
+  if (!discover) { assessment$safe <- TRUE; assessment$rules <- character() }
+  assessment
 }
 
-.conceptLevelReport <- function(df) {
+.conceptLevelReject <- function() {
+  stop(structure(list(message = paste0("Concept factor publication refused: generated concept ",
+                        "columns fail this site's factor-level rule."), call = NULL,
+                      code = "validation_error", reason = "concept_level_rule"),
+                 class = c("dsomop_plan_rejection", "error", "condition")))
+}
+
+.conceptSiteVerdict <- function(report) {
+  if (length(report$unsafe)) {
+    stop("Concept factor assignment refused by this site's factor-level rule.", call. = FALSE)
+  }
+  invisible(TRUE)
+}
+
+.conceptAssess <- function(df, col, contract, discover = TRUE) {
+  if (length(contract$ids) != nrow(df)) stop("Incomplete concept identity metadata.", call. = FALSE)
+  .conceptAssessIds(contract, contract$ids, nrow(df),
+    if(isTRUE(attr(df,"omop_concept_reference")))attr(df,"omop_reference_support"), discover)
+}
+
+.conceptLevelReport <- function(df, discover = TRUE) {
   contracts <- attr(df, "omop_concepts") %||% list()
   refreshed <- .conceptRefresh(contracts, attr(df, "omop_generated_columns") %||% list(), attr(df, "omop_presentation_handle"))
   contracts <- refreshed$contracts
   cap <- .omopDisclosureSettings()$nfilter_levels_max
-  out <- list(levels = list(), unsafe = character(), nfilter_levels_max = cap,
+  out <- list(levels = list(), unsafe = character(), unsafe_rules = list(), nfilter_levels_max = cap,
               concept_protocol = 1L, concepts = list())
   for (col in names(contracts)) {
     c <- contracts[[col]]
-    a <- .conceptAssess(df, col, c)
+    a <- .conceptAssess(df, col, c, discover)
     if (!isTRUE(a$safe)) {
       out$unsafe <- c(out$unsafe, col)
+      out$unsafe_rules[[col]] <- a$rules
       # No observed identity/name metadata for a refused column.
       next
     }
@@ -200,17 +247,21 @@
   }
   generated <- refreshed$generated
   out$generated <- list()
+  refused_keys <- character()
   for (key in names(generated)) {
     g <- generated[[key]]
     if (!isTRUE(g$declared) && !isTRUE(g$permitted)) {
-      out$unsafe <- union(out$unsafe, key)
+      # Generated keys embed concept IDs: report the class, never the key.
+      refused_keys <- c(refused_keys, key)
+      out$unsafe <- union(out$unsafe, "generated concept columns")
+      out$unsafe_rules[["generated concept columns"]] <- "generated-column admission"
       next
     }
     g[c("declared", "permitted")] <- NULL
     out$generated[[key]] <- g
   }
   out$numbers <- attr(df,"omop_numbers") %||% list()
-  out$keys <- names(attr(df, "omop_column_names")) %||% names(df)
+  out$keys <- setdiff(names(attr(df, "omop_column_names")) %||% names(df), refused_keys)
   if(!is.null(attr(df,"omop_codebook_schema")))out$schema<-attr(df,"omop_codebook_schema")
   out$evidence <- .conceptEvidence(out)
   out
@@ -229,7 +280,11 @@
     provenance <- .dsomopDpVerifyPersonLocal(df, policy = policy)
   }
   original <- df
-  .conceptCheckEvidence(.conceptLevelReport(df), spec, !is.null(attr(df, "omop_presentation_handle")))
+  # The site's own verdict on its observed levels applies at assignment too:
+  # a column this site refuses is never relevelled, whatever evidence is sent.
+  report <- .conceptLevelReport(df)
+  .conceptSiteVerdict(report)
+  .conceptCheckEvidence(report, spec, !is.null(attr(df, "omop_presentation_handle")))
   # Legacy factor-only calls leave numeric values and semantics untouched.
   if ("numbers" %in% names(spec)) .numberValidateShared(attr(df,"omop_numbers"), spec$numbers)
   refreshed <- .conceptRefresh(attr(df, "omop_concepts") %||% list(), attr(df, "omop_generated_columns") %||% list(), attr(df, "omop_presentation_handle"))
@@ -241,30 +296,23 @@
   if (!setequal(names(contracts), names(spec$columns))) {
     stop("Incomplete shared concept-column contract.", call. = FALSE)
   }
-  cap <- .omopDisclosureSettings()$nfilter_levels_max
   for (col in names(contracts)) {
     c <- contracts[[col]]
     shared <- spec$columns[[col]]
     if (identical(c$kind, "date") && !identical(.jcsCanonical(shared$calendar), .jcsCanonical(c$calendar))) .dateReject("Changed shared calendar identity.")
     if(identical(c$kind,"category")&&!identical(.jcsCanonical(shared$category),.jcsCanonical(c$category))) .categoryReject("Changed category contract.","category_domain_incompatible")
-    .conceptValidateResolution(shared, c$records)
+    a <- .conceptAssess(df, col, c, discover = FALSE)
+    .conceptValidateResolution(shared, c$records[union(a$levels,c$declared)])
     ids <- as.character(unlist(shared$ids, use.names = FALSE))
     labels <- unname(.categoryNullableStrings(shared$labels))
     levels <- as.character(unlist(shared$levels, use.names = FALSE))
     if (length(ids) != length(labels) || anyNA(ids) || (!identical(c$kind,"category") && anyNA(labels)) ||
-        anyDuplicated(ids) || anyDuplicated(levels) || !setequal(unique(labels[!is.na(labels)]), levels) ||
-        length(ids) > cap || length(levels) > cap) {
-      stop("Invalid or excessive shared concept levels.", call. = FALSE)
+        anyDuplicated(ids) || anyDuplicated(levels) || !setequal(unique(labels[!is.na(labels)]), levels)) {
+      stop("Invalid shared concept levels.", call. = FALSE)
     }
-    a <- .conceptAssess(df, col, c)
     if (!a$safe || !all(c(a$levels, c$declared) %in% ids)) {
       stop("Concept reconciliation cannot certify complete disclosure-safe coverage.", call. = FALSE)
     }
-    keys <- intersect(.PERSON_KEY_COLS(), names(df))
-    density_levels <- if ((c$kind %||% "") %in% c("date","number","category")) length(setdiff(ids, c$declared)) else length(ids)
-    if (length(keys) && nrow(df)) .assertSafeLevels(density_levels, length(unique(df[[keys[[1L]]]])))
-    reference_support <- attr(df, "omop_reference_support")
-    if (!is.null(reference_support)) .assertSafeLevels(length(ids), reference_support$total)
     values <- labels[match(c$ids, ids)]
     df[[col]] <- if (identical(c$kind,"category")) .categoryFactor(values,shared) else if ((c$kind %||% "") %in% c("date","number")) .dateOrdered(values, levels = levels) else .conceptFactor(values, levels = levels)
     if (identical(col, table_column)) {
@@ -278,7 +326,7 @@
   }
   attr(df, "omop_concepts") <- contracts
   df <- .conceptReferenceNames(df, contracts)
-  if ("concept_id" %in% names(contracts) && "concept_name" %in% names(df)) {
+  if (!isFALSE(contracts$concept_id$translate) && "concept_id" %in% names(contracts) && "concept_name" %in% names(df)) {
     df$concept_name <- as.character(df$concept_id)
   }
   if (length(attr(df, "omop_generated_columns")) && !length(spec$names)) stop("Incomplete shared generated-column names.", call. = FALSE)
@@ -354,8 +402,24 @@
     if (format == "long") raw(out$columns, out$table)
     if (format == "features") features(out$representation$features, out$table)
   }
-  if (identical(type, "concept_dictionary") && "concept_id" %in% names(columns)) columns$concept_id$role <- "concept"
+  if (identical(type, "concept_dictionary") && "concept_id" %in% names(columns)) {
+    columns$concept_id$role <- "concept"
+    attr(columns$concept_id, "concept_declared") <- attr(frame, "omop_dictionary_declared")
+    # The dictionary lists the complete declared sets of its source outputs
+    # plus the values those outputs release in the same plan, whose concept
+    # columns pass this site's discovery or are refused with the whole plan.
+    # Its rows are references, not a new domain: counting them against the
+    # dictionary's own length would refuse every dictionary.
+    attr(columns$concept_id, "concept_reference_admitted") <- TRUE
+  }
   if (identical(component, "covariateRef") && "conceptId" %in% names(columns)) columns$conceptId$role <- "concept"
+  if (identical(type, "intervals_long") && "concept_id" %in% names(columns)) {
+    # Interval rows carry their source concept; its concept filters resolve on
+    # the vocabulary tables only, so their IDs are declared levels.
+    attr(columns$concept_id, "concept") <- TRUE
+    declared <- .declaredOutputConceptIds(ctx$handle, out)
+    if (length(declared)) attr(columns$concept_id, "concept_declared") <- .conceptIdText(declared)
+  }
   columns
 }
 
@@ -375,6 +439,7 @@
   for (col in names(contracts)) {
     old <- contracts[[col]]$records
     if ((contracts[[col]]$kind %||% "") %in% c("date","number","category")) next
+    if (isFALSE(contracts[[col]]$translate)) next
     fresh <- .conceptVocabulary(handle, names(old))
     for (id in names(old)) if (old[[id]]$origin %in% c('variable','recipe')) {
       fresh[[id]]$origin <- old[[id]]$origin; fresh[[id]]$label <- old[[id]]$label
@@ -402,6 +467,7 @@
 # Legacy sparse feature descriptions are names, independent of value recodes.
 .conceptReferenceNames <- function(frame, contracts) {
   c <- contracts$conceptId
+  if (isFALSE(c$translate)) return(frame)
   if (is.null(c) || !all(c("covariateId", "covariateName", "analysisId") %in% names(frame))) return(frame)
   ids <- as.character(unlist(c$reference_keys, use.names = TRUE)[as.character(frame$covariateId)])
   shared <- c$resolved

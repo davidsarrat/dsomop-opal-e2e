@@ -27,7 +27,8 @@
   # protocol); helper-legacy-servers.R covers dsOMOP 2.10.2 sites.
   testthat::local_mocked_bindings(
     .get_session = function(...) list(conns = conns, res_symbol = "resource",
-      capabilities = setNames(lapply(sites, function(s) .caps()), sites)),
+      capabilities = setNames(lapply(sites, function(s) .caps()), sites),
+      server_versions = .current_versions(sites)),
     .prepare_plan_for_federation = function(plan, ...) plan,
     .session_harmonization_for_connections = function(...) NULL,
     .record_session_outputs = function(...) invisible(NULL),
@@ -54,10 +55,15 @@
       }
       invisible(NULL)
     },
-    datashield.aggregate = function(conns, expr, ...) {
+    datashield.aggregate = function(conns, expr, success = NULL, ...) {
       method <- as.character(expr[[1L]])
       state$calls[[length(state$calls) + 1L]] <- list(method = method,
                                                      sites = names(conns))
+      if (method == "omopFactorLevelsDS") {
+        report <- list(levels = list(), unsafe = character(), nfilter_levels_max = 40)
+        for (site in names(conns)) if (is.function(success)) success(site, report)
+        return(stats::setNames(rep(list(report), length(conns)), names(conns)))
+      }
       if (method == "omopPlanStatusDS") {
         if (retrieve_error) stop("status transport failed")
         for (site in names(conns)) {

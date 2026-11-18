@@ -67,7 +67,8 @@
 # and (A-20 (j)) the bounded realisations of the interval helpers.
 .REJECTION_REASONS <- c("adapter_person_mismatch", "cost_currency_mixed",
                         "stockpile_row_cap", "reducer_row_cap", "category_spec_invalid", "category_domain_incompatible", "category_rollup_ambiguous", "category_source_forbidden", "category_type_unsupported", "repeated_spec_invalid", "repeated_grain_incompatible", "codebook_metadata_missing", "number_daily_input", "number_daily_reducer", "number_daily_quantity", "number_spec_invalid", "number_unit_conflict", "number_source_invalid", "number_representation_conflict", "number_type_unsupported", "number_expression_invalid", "number_dependency_invalid", "date_spec_invalid", "date_source_invalid",
-                        "date_pattern_invalid", "date_policy_conflict", "date_parts_names")
+                        "date_pattern_invalid", "date_policy_conflict", "date_parts_names",
+                        "concept_level_rule")
 
 # The bounded status entry for a dsomop_plan_rejection condition: {code,
 # message} with the constant message per code, plus `reason` only when the
@@ -437,10 +438,9 @@
       }
     }
     if (is.data.frame(value)) {
-      translate <- .reduceTranslate(ctx)
       # Public reference provenance does not depend on concept translation.
       # Codebook reconciliation also visits untranslated reference components.
-      attr(value, "omop_concept_reference") <- if ((translate || .categoryNative(ctx$ir)) && identical(pc$grain, "none")) TRUE else NULL
+      attr(value, "omop_concept_reference") <- if (identical(pc$grain, "none")) TRUE else NULL
       columns <- attr(value, "omop_column_contract")
       if (is.null(columns) && !.dsomopDpIsV2(ctx$ir)) columns <- .conceptLegacyColumns(ctx, value, pc$output, pc$component)
       if (!is.null(columns)) value <- .conceptPresent(ctx, value, columns)
@@ -623,6 +623,28 @@ omopStagedRevokeDS <- function(exec_symbol) {
   .publishCommit(ctx)
   result <- get("result", ctx$target_env, inherits = FALSE)
   rm(list = ctx$id, envir = .publicationRegistry)
+  # Row verbs can receive tables retained from an older server session. A
+  # registered/tagged concept column without a shared factor contract cannot be
+  # repaired from this site's values alone: that would give different model
+  # matrix codings across sites. Typed catalog loaders were presented above.
+  registry <- utils::read.csv(system.file("column_classes.csv", package = "dsOMOP"),
+                              stringsAsFactors = FALSE)
+  registered <- unique(c("concept_id", "conceptId",
+    registry$column[registry$semantic_class == "concept"]))
+  # Reducer aliases such as count_concept_id can legitimately be numeric.
+  # Only registered CDM names or explicit lineage identify retained columns.
+  base_names <- sub("[.][xy]$", "", names(result))
+  concept_columns <- unique(c(
+    names(result)[base_names %in% registered],
+    attr(result, "omop_concept_cols"), names(attr(result, "omop_concepts"))))
+  concept_columns <- intersect(concept_columns, names(result))
+  unsafe <- concept_columns[!vapply(result[concept_columns], function(column)
+    is.factor(column) && inherits(column, c("dsomop_concept_factor",
+      "dsomop_category_factor", "dsomop_date_factor")), logical(1))]
+  if (length(unsafe)) stop("Concept IDs are always categories since 2.10.6. Columns ",
+    paste(sQuote(unsafe), collapse = ", "),
+    " require shared concept factors; republish the source with ds.omop.plan.execute() before applying row verbs.",
+    call. = FALSE)
   result
 }
 

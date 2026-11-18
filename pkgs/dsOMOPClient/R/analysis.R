@@ -199,6 +199,8 @@ utils::globalVariables(".data")
   if (!is.null(date_handling)) {
     args <- c(args, list(date_handling = date_handling))
   }
+  # This client reconciles every assigned concept factor (2.10.6).
+  if (identical(fn, "omopAnalysisRunAssignDS")) args <- c(args, list(concept_protocol = 1))
   as.call(args)
 }
 
@@ -757,6 +759,7 @@ ds.omop.analysis.run <- function(name, params = list(), cohort = NULL,
   }
 
   if (is_assign) {
+    .conceptAssertSupport(session, names(conns))
     # Assign-mode loader: reserve a fresh symbol, assign on every node, and
     # commit only after post-execution inventory proves complete federation
     # coverage. Any partial assignment is removed everywhere.
@@ -807,6 +810,7 @@ ds.omop.analysis.run <- function(name, params = list(), cohort = NULL,
       stop("Could not prove analysis assignment commit on: ",
            paste(missing, collapse = ", "), ".", call. = FALSE)
     }
+    .harmonizeConceptFactors(c(analysis = newobj), conns)
     .record_session_outputs(symbol, newobj)
     per_site <- stats::setNames(as.list(rep(TRUE, length(conns))), names(conns))
     result <- dsomop_result(

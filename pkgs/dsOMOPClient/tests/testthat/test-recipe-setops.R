@@ -230,7 +230,9 @@ test_that("a scalar cohort to omop_recipe is scope, not the base cohort", {
 # A fake session so .get_session() resolves and conns is non-NULL.
 .with_fake_session <- function(symbol = "omop") {
   assign(symbol, structure(list(conns = list(srv = "FAKE"),
-                                res_symbol = "dsO_fake"),
+                                res_symbol = "dsO_fake",
+                                capabilities = list(srv = .caps()),
+                                server_versions = .current_versions("srv")),
                            class = "omop_session"),
          envir = dsOMOPClient:::.dsomop_client_env)
   withr::defer_parent(
@@ -287,8 +289,8 @@ test_that("ds.omop.plan.execute splices scope symbols into the server call", {
                           population_id = "either"),
     cohort = "scope_tbl", tables = c("inc_a", "inc_b"), combine = "intersect")
   plan <- recipe_to_plan(recipe, version = 1)
-  # factor_concepts off so no harmonization aggregate is attempted.
-  plan$options$factor_concepts <- FALSE
+  # Keep mandatory factor reconciliation; use ID labels.
+  plan$options$factor_concepts <- TRUE
   plan$options$translate_concepts <- FALSE
 
   call_expr <- .capture_exec_call(plan, out = c(study = "D_study"))
@@ -323,7 +325,7 @@ test_that("ds.omop.plan.execute omits scope args when the recipe has none", {
     variables = omop_variable_age(),
     outputs = omop_output(name = "study", type = "wide"))
   plan <- recipe_to_plan(recipe, version = 1)
-  plan$options$factor_concepts <- FALSE
+  plan$options$factor_concepts <- TRUE
   plan$options$translate_concepts <- FALSE
 
   call_expr <- .capture_exec_call(plan, out = c(study = "D_study"))
@@ -354,7 +356,7 @@ test_that("execute rejects output and scope collisions before cleanup", {
     },
     .package = "DSI"
   )
-  plan$options$factor_concepts <- FALSE
+  plan$options$factor_concepts <- TRUE
   plan$options$translate_concepts <- FALSE
   expect_error(
     ds.omop.plan.execute(plan, out = c(study = "scope_tbl")),

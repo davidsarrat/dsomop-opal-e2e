@@ -1,12 +1,8 @@
 .categoryInputContract <- function(ctx,input) {
-  maps<-list()
-  walk<-function(x,path="input") {
-    if(!is.list(x))return(NULL)
-    if(!is.null(x$category_spec$rollup)&&x$category_spec$rollup$kind!="none")maps[[path]]<<-.categoryRollupMap(ctx$handle,x$category_spec$rollup)
-    for(i in seq_along(x))if(is.list(x[[i]]))walk(x[[i]],paste0(path,"/",names(x)[i] %||% i))
-  }
-  walk(input)
-  list(variable=input,maps=maps)
+  # This declaration is released in codebook/report schemas, including for
+  # public binary indicators and counts. Local vocabulary expansion belongs to
+  # private execution and must never be attached to these public declarations.
+  list(variable=input)
 }
 
 .categorySetIndicator <- function(ctx,raw,spec,key,missing="propagate",labels=NULL) {
@@ -143,13 +139,6 @@
     presented<-.numberOutputColumns(rows,cols,list(format="long"),"input","input",recipe=NULL)
     presented<-.conceptPresent(local,presented$frame,presented$columns)
     contract<-attr(presented,"omop_concepts")[[cn]]
-    upstream_safe<-TRUE
-    if(!is.null(contract)) {
-      roster_support<-.reduceRosterFrame(ctx,cons$roster)
-      person_key<-intersect(.PERSON_KEY_COLS(),names(roster_support))
-      if(length(person_key))presented[[person_key[1L]]]<-roster_support[[person_key[1L]]][match(rows$row_key,roster_support$cohort_row_id)]
-      upstream_safe<-isTRUE(.conceptAssess(presented,cn,contract)$safe)
-    }
     if(flag) {
       keys<-if(is.factor(presented[[cn]])) {
         identity<-.categoryNullableStrings(contract$resolved$aliases)[contract$ids]
@@ -213,7 +202,12 @@
           }
         }
         metadata<-list(spec=list(),producer=list(kind="category_reduce",input=contract$category %||% contract$number %||% contract$calendar),producer_order=producer_order,producer_ordered=is.ordered(presented[[cn]]),producer_aliases=.categoryMergedAliases(aliases))
-        record_keys<-union(effective,names(aliases)[!is.na(aliases)])
+        # Only this selector's output discovers levels. Intermediate inputs are
+        # private, and explicit public domains remain independent of local rows.
+        public <- if(identical(contract$kind,"category"))unname(aliases[contract$declared]) else
+          effective[match(contract$declared,names(contract$records))]
+        public <- unique(public[!is.na(public)])
+        record_keys<-union(unique(value[!is.na(value)]),public)
         records<-setNames(lapply(record_keys,function(key) {
           identity<-if(key %in% names(aliases))aliases[[key]] else key
           r<-contract$records[[key]] %||% list(origin="producer")
@@ -225,7 +219,7 @@
           }
           r
         }),record_keys)
-        c<-list(kind="category",category=metadata,ids=value,records=records,declared=character(),upstream_safe=upstream_safe,upstream_admitted=record_keys,resolved=.categoryResolveRecords(unname(records),identity=metadata))
+        c<-list(kind="category",category=metadata,ids=value,records=records,declared=public,discovered=contract$discovered,resolved=.categoryResolveRecords(unname(records),identity=metadata))
         value<-.categoryFactor(c$resolved$labels[match(value,c$resolved$ids)],c$resolved)
         attr(value,"category_consumed")<-c
       }

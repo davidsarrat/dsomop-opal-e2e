@@ -1,4 +1,66 @@
-# dsOMOPClient 2.10.5 (2026-11-14)
+# dsOMOPClient 2.10.6 (2026-11-18)
+
+- Concept IDs are categories everywhere; DataSHIELD's factor-level rule.
+  Every published concept column is a factor with identical levels across
+  retained sites, including untranslated, staged, joined and reducer outputs.
+  `translate_concepts = FALSE` now chooses decimal ID labels in numeric ID
+  order: compare labels such as `"4306655"`, not numbers.
+  `factor_concepts = TRUE` remains accepted; `factor_concepts = FALSE` is gone.
+  Publishing plan outputs, catalog assignments and row operations requires dsOMOP 2.10.6 or
+  later on every retained server: older untranslated and loader contracts
+  cannot prove complete concept-column coverage. Aggregate analyses and
+  explain-only inspection remain available on supported older servers.
+  Republish source tables retained with raw concept columns before using
+  standalone row operations.
+- Observed level discovery follows dsBase 6.3.5 `asFactorDS1`: the site's
+  distinct non-declared levels must fit `nfilter.levels.max` and
+  `nfilter.levels.density` times its output rows, including missing values.
+  Per-level `nfilter.tab` support and the shared-union cap no longer apply.
+  A stricter rule protects nothing: `ds.asFactor` releases the same levels
+  under this rule, and means of published per-concept 0/1 flags already give
+  exact counts. A looser rule would expose levels DataSHIELD refuses.
+  Count/table `nfilter.tab`, subset, DP and sensitive-column rules are unchanged.
+- Declared levels need no discovery and have no level limit: explicit category
+  levels, complete recodes, binary flags, IDs in label maps, complete public
+  hierarchy domains and concept sets resolved on the public vocabulary do not
+  reveal site occurrence. New `omop_concept_levels()` expands an
+  `omop_concept_set()` on the servers' vocabulary tables into declared levels for
+  `omop_category_spec(levels = )`. Events restricted by a concept set declare it
+  for their concept column automatically. Kept unmapped values remain observed.
+  Complete recodes can group rare source concepts before publication.
+  Refusals name the column, site and rule without counts, explain how to
+  declare/group levels or narrow events, mention that the server administrator
+  can raise `nfilter.levels.max` / `nfilter.levels.density`, and revoke the
+  publication.
+  Legacy untagged outputs also refuse unsafe reconciliation instead of retaining
+  numeric concept columns. Shared level assignment has no level-count rule.
+- Exploration with many concept codes: with dsOMOP 2.10.6 servers,
+  `ds.omop.value.counts()`, `ds.omop.crosstab()` and concept drilldowns return
+  the codes with enough persons even when a concept column has more than
+  `nfilter.levels.max` distinct codes; rare codes stay hidden, and date columns
+  keep their level gate.
+- A refused publication whose reason is `concept_level_rule` explains the
+  remedies: declare the concepts with a concept set, group them, or ask that
+  server's administrator to raise the limits.
+- Plan executions and catalog assignments declare `concept_protocol = 1`: this
+  client reconciles every published concept factor. dsOMOP 2.10.6 servers
+  refuse untranslated legacy plans and concept-bearing catalog assignments from
+  older clients, which would leave level sets that differ between servers.
+
+# dsOMOPClient 2.10.5 (2026-11-15)
+
+- Release: paired server/client 2.10.5, with checked numeric expressions,
+  typed categories and shared codebooks, versioned clinical formulas and
+  recorded-day reduction. Republish server methods and Options after upgrading;
+  retain existing private roots. Broader workflow/declaration-library work is
+  deferred.
+
+Release validation: [Opal contract run 43661271157](https://github.com/davidsarrat/dsomop-opal-e2e/actions/runs/43661271157)
+and [end-to-end run 43661274062](https://github.com/davidsarrat/dsomop-opal-e2e/actions/runs/43661274062).
+The release pipeline records both as successful; the end-to-end artifacts cover
+fresh installation and upgrade from 2.10.4 on Opal 6.2.1, including preservation
+of the existing DP noise root. These runs do not establish live execution on
+every SQL dialect or exercise the separate numeric scenario N.
 
 - Corrected: ordinary `any`/`all` reducers still require a predicate at
   construction. Within `omop_category_reduce()`, the typed category input
@@ -86,7 +148,7 @@
   their original numeric declarations; already rounded coefficients cannot be
   recovered from saved text.
 - Scope: broader A-31 deliverables are deferred as listed in
-  the issue tracker. Real Opal acceptance belongs to integration e2e.
+  the issue tracker. Real Opal evidence is cited above; numeric scenario N was not exercised there.
 
 - Corrected (audit prerequisite integration): imported vocabulary validity
   remains executable in category rollup domains, including exclusions.

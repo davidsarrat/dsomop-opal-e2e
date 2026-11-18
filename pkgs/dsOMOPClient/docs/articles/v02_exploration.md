@@ -1,9 +1,20 @@
 # Schema Exploration
 
+## Numeric and category metadata in 2.10.5
+
+Use `recipe_codebook(recipe)` to inspect prospective columns locally and
+`recipe_codebook(result)` to inspect an execution receipt. Both use the
+same presentation declarations; execution additionally resolves
+available sources and storage types. Preserve stable keys and declared
+column order when comparing sites. Public vocabulary labels are
+metadata; their presence does not establish that any patient has the
+corresponding value. Numeric binning and category presentation do not
+bypass the final disclosure gate.
+
 ## Overview
 
 Before extracting data, you need to understand what’s available in each
-CDM. dsOMOP v2 provides schema metadata and **aggregate** exploration
+CDM. dsOMOP provides schema metadata and **aggregate** exploration
 functions without returning clinical rows to the client.
 
 Each reviewed aggregate has its own disclosure contract. Person-bearing
@@ -180,7 +191,7 @@ turning a workspace `omop.table` into a reusable cohort with
 
 ## Disclosure-Gated Manipulation of Extracted Tables
 
-Once a plan or recipe has produced a server-side `omop.table` (see
+Once a recipe has produced a server-side `omop.table` (see
 *Extraction*), you can reshape it **without** pulling any row-level data
 using disclosure-aware verbs. Each verb takes the *name(s)* of
 server-side `omop.table` symbols, computes the new frame on every
@@ -228,8 +239,8 @@ comparison$server_only     # tables unique to particular servers
 comparison$column_diffs    # column differences across servers
 ```
 
-This comparison feeds plan harmonization (see the *Multi-Server*
-vignette).
+Use this comparison before the [multi-site category
+lesson](https://isglobal-brge.github.io/dsOMOPClient/articles/book-10-harmonise.md).
 
 ## Schema Snapshot
 

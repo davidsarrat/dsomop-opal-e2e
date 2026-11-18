@@ -3549,8 +3549,8 @@
         add_cohort_date <- !is.null(cohort_table) &&
           !is.null(out$temporal$index_window)
 
-        # Every staged long event stream preserves numeric OMOP concept IDs and
-        # therefore writes directly to Parquet without materializing in R.
+        # Long event streams first write private raw IDs without materializing
+        # all rows in R; publication then applies the shared factor contract.
         # Features/wide/sparse need in-memory reshaping, so they fall through.
         can_stream <- staged && repr == "long"
 
@@ -3992,19 +3992,12 @@
         stop("concept_dictionary is derived from other outputs and cannot ",
              "apply filters$custom directly.", call. = FALSE)
       }
-      results[[out_name]] <- if (staged || !isFALSE(plan$options$translate_concepts)) {
-        .buildDeclaredConceptDictionary(
-          handle,
-          outputs = outputs,
-          source_outputs = out$source_outputs
-        )
-      } else {
-        .buildConceptDictionary(
-          handle,
-          results = results,
-          source_outputs = out$source_outputs
-        )
-      }
+      results[[out_name]] <- .buildDeclaredConceptDictionary(
+        handle,
+        outputs = outputs,
+        source_outputs = out$source_outputs,
+        results = results
+      )
     }, error = function(e) {
       if (!inherits(e, "dsomop_plan_rejection") ||
           !e$code %in% c("coverage_ambiguous", "join_cardinality", "match_candidates_exceeded",
