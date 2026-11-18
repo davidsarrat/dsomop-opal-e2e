@@ -1,0 +1,122 @@
+drivers before: RPostgres 1.4.10, RPostgreSQL 0.7.8; removed from /var/lib/rock/R/library; after: RPostgres not installed, RPostgreSQL 0.7.8
+SUMMARY [fresh] F: Rock drivers for this scenario: RPostgres not installed, RPostgreSQL 0.7.8
+== omop_data.gibleed through RPostgreSQL
+OK    ds.omop.connect("omop_data.gibleed") (2.3 s)
+SUMMARY [fresh] F omop_data.gibleed connect (verified UTC session): OK
+OK    ds.omop.tables (0 s)
+--- tabs[CDM]
+             table_name has_person_id
+1                person          TRUE
+2    observation_period          TRUE
+3      visit_occurrence          TRUE
+4          visit_detail          TRUE
+5  condition_occurrence          TRUE
+6         drug_exposure          TRUE
+7  procedure_occurrence          TRUE
+8       device_exposure          TRUE
+9           measurement          TRUE
+10          observation          TRUE
+11                death          TRUE
+12                 note          TRUE
+13             note_nlp         FALSE
+14             specimen          TRUE
+15    fact_relationship         FALSE
+16             location         FALSE
+17            care_site         FALSE
+18             provider         FALSE
+19    payer_plan_period          TRUE
+20                 cost         FALSE
+21             drug_era          TRUE
+22             dose_era          TRUE
+23        condition_era          TRUE
+24             metadata         FALSE
+25           cdm_source         FALSE
+SUMMARY [fresh] F omop_data.gibleed ds.omop.tables (analyst script): OK
+OK    ds.omop.date.counts("condition_occurrence") (0.2 s)
+SUMMARY [fresh] F omop_data.gibleed ds.omop.date.counts: OK
+OK    recipe: demographics (1.1 s)
+SUMMARY [fresh] F omop_data.gibleed recipe demographics (wide): OK
+OK    recipe: GI bleed index, drug events in the 2 years before (long) (1.4 s)
+SUMMARY [fresh] F omop_data.gibleed recipe GI bleed index (wide): OK
+OK    ds.omop.disconnect (cleanup) (0.3 s)
+SUMMARY [fresh] F omop_data.gibleed ds.omop.disconnect (cleanup): OK
+== omop_data.gibleed_v1 through RPostgreSQL
+OK    ds.omop.connect("omop_data.gibleed_v1") (1.4 s)
+SUMMARY [fresh] F omop_data.gibleed_v1 connect (verified UTC session): OK
+OK    ds.omop.tables (0 s)
+--- tabs[CDM]
+             table_name has_person_id
+1                person          TRUE
+2    observation_period          TRUE
+3      visit_occurrence          TRUE
+4          visit_detail          TRUE
+5  condition_occurrence          TRUE
+6         drug_exposure          TRUE
+7  procedure_occurrence          TRUE
+8       device_exposure          TRUE
+9           measurement          TRUE
+10          observation          TRUE
+11                death          TRUE
+12                 note          TRUE
+13             note_nlp         FALSE
+14             specimen          TRUE
+15    fact_relationship         FALSE
+16             location         FALSE
+17            care_site         FALSE
+18             provider         FALSE
+19    payer_plan_period          TRUE
+20                 cost         FALSE
+21             drug_era          TRUE
+22             dose_era          TRUE
+23        condition_era          TRUE
+24             metadata         FALSE
+25           cdm_source         FALSE
+SUMMARY [fresh] F omop_data.gibleed_v1 ds.omop.tables (analyst script): OK
+OK    ds.omop.date.counts("condition_occurrence") (0.2 s)
+SUMMARY [fresh] F omop_data.gibleed_v1 ds.omop.date.counts: OK
+OK    recipe: demographics (1 s)
+SUMMARY [fresh] F omop_data.gibleed_v1 recipe demographics (wide): OK
+OK    recipe: GI bleed index, drug events in the 2 years before (long) (1.4 s)
+SUMMARY [fresh] F omop_data.gibleed_v1 recipe GI bleed index (wide): OK
+OK    ds.omop.disconnect (cleanup) (0.3 s)
+SUMMARY [fresh] F omop_data.gibleed_v1 ds.omop.disconnect (cleanup): OK
+== omop_data.gibleed_noschema through RPostgreSQL
+OK    ds.omop.connect("omop_data.gibleed_noschema") (1.5 s)
+SUMMARY [fresh] F omop_data.gibleed_noschema connect (verified UTC session): OK
+OK    ds.omop.tables (0 s)
+--- tabs[CDM]
+             table_name has_person_id
+1                person          TRUE
+2    observation_period          TRUE
+3      visit_occurrence          TRUE
+4          visit_detail          TRUE
+5  condition_occurrence          TRUE
+6         drug_exposure          TRUE
+7  procedure_occurrence          TRUE
+8       device_exposure          TRUE
+9           measurement          TRUE
+10          observation          TRUE
+11                death          TRUE
+12                 note          TRUE
+13             note_nlp         FALSE
+14             specimen          TRUE
+15    fact_relationship         FALSE
+16             location         FALSE
+17            care_site         FALSE
+18             provider         FALSE
+19    payer_plan_period          TRUE
+20                 cost         FALSE
+21             drug_era          TRUE
+22             dose_era          TRUE
+23        condition_era          TRUE
+24             metadata         FALSE
+25           cdm_source         FALSE
+SUMMARY [fresh] F omop_data.gibleed_noschema ds.omop.tables (analyst script): OK
+OK    ds.omop.date.counts("condition_occurrence") (0.2 s)
+SUMMARY [fresh] F omop_data.gibleed_noschema ds.omop.date.counts: OK
+OK    recipe: demographics (1 s)
+SUMMARY [fresh] F omop_data.gibleed_noschema recipe demographics (wide): OK
+OK    recipe: GI bleed index, drug events in the 2 years before (long) (1.5 s)
+SUMMARY [fresh] F omop_data.gibleed_noschema recipe GI bleed index (wide): OK
+OK    ds.omop.disconnect (cleanup) (0.3 s)
+SUMMARY [fresh] F omop_data.gibleed_noschema ds.omop.disconnect (cleanup): OK
