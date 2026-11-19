@@ -1532,6 +1532,81 @@ section("G23", "adaptive hierarchy levels, fingerprint transport and verbs on pu
                           if (!is.null(reports) && !reports$ok) last_server_error(reports$error)), collapse = " | ")))
 })
 
+section("G24", "dsBase-safe labels, small categories and ds.table()-shaped tables (2.10.9)", function() {
+  if (utils::packageVersion("dsOMOPClient") < "2.10.9") {
+    verdict("G24", "INFO", "safe labels, small categories and tables (dsOMOP 2.10.9)", "not run: the candidate client predates 2.10.9")
+    return(invisible())
+  }
+  if (!identical(psql_value("SELECT count(*) FROM pg_database WHERE datname = 'omopauto'", db = "postgres"), "1"))
+    stop("G24 needs the omopauto database that G22 builds")
+  # Question Q6: seven answers whose names have spaces, commas and accents; 400 people of the person table answer,
+  # five answers frequent, answer 6 by one person and answer 7 by two (small categories at both connections).
+  psql(paste(
+    "INSERT INTO cdm.concept (concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept,",
+    "  concept_code, valid_start_date, valid_end_date, invalid_reason) VALUES",
+    "(2100100006, 'E2E question 6', 'Observation', 'E2EAuto', 'Question', 'S', 'Q6', DATE '2000-01-01', DATE '2099-12-31', NULL),",
+    "(2100300001, 'Acute myocardial infarction', 'Observation', 'E2ELabels', 'Answer', 'S', 'L1', DATE '2000-01-01', DATE '2099-12-31', NULL),",
+    "(2100300002, 'Fracture of radius, closed', 'Observation', 'E2ELabels', 'Answer', 'S', 'L2', DATE '2000-01-01', DATE '2099-12-31', NULL),",
+    "(2100300003, 'Neumonía (adquirida)', 'Observation', 'E2ELabels', 'Answer', 'S', 'L3', DATE '2000-01-01', DATE '2099-12-31', NULL),",
+    "(2100300004, 'HIV/AIDS', 'Observation', 'E2ELabels', 'Answer', 'S', 'L4', DATE '2000-01-01', DATE '2099-12-31', NULL),",
+    "(2100300005, '50% stenosis', 'Observation', 'E2ELabels', 'Answer', 'S', 'L5', DATE '2000-01-01', DATE '2099-12-31', NULL),",
+    "(2100300006, 'Rare one', 'Observation', 'E2ELabels', 'Answer', 'S', 'L6', DATE '2000-01-01', DATE '2099-12-31', NULL),",
+    "(2100300007, 'Rare two', 'Observation', 'E2ELabels', 'Answer', 'S', 'L7', DATE '2000-01-01', DATE '2099-12-31', NULL);",
+    "INSERT INTO cdm.vocabulary (vocabulary_id, vocabulary_name, vocabulary_reference, vocabulary_version, vocabulary_concept_id)",
+    "VALUES ('E2ELabels', 'E2E label characters', 'e2e', 'v1', 0);",
+    "INSERT INTO cdm.observation (observation_id, person_id, observation_concept_id, observation_date,",
+    "  observation_type_concept_id, value_as_concept_id)",
+    "SELECT 960000000 + p.i, p.person_id, 2100100006, p.d, 38000280,",
+    "  CASE WHEN p.i = 1 THEN 2100300006 WHEN p.i IN (2, 3) THEN 2100300007 ELSE 2100300001 + (p.i % 5) END",
+    "FROM (SELECT person_id, d, row_number() OVER (ORDER BY person_id) AS i FROM",
+    "  (SELECT DISTINCT ON (person_id) person_id, observation_period_start_date AS d FROM cdm.observation_period",
+    "   WHERE person_id IN (SELECT person_id FROM cdm.person) ORDER BY person_id, observation_period_start_date) op) p",
+    "WHERE p.i <= 400;",
+    "ANALYZE;"), db = "omopauto", label = "question Q6 with label characters and small categories")
+  s <- open_session("G24", servers = c("SiteA", "SiteB"), resource = "omop_data.gibleed_auto")
+  on.exit(close_session(s), add = TRUE)
+  if (!isTRUE(s$ok)) stop("no G24 session: ", s$error)
+  q6 <- omop_variable(event = omop_event("observation", name = "q6", concepts = omop_concept_set(2100100006L)),
+                      reducer = omop_reduce("first_value", value = "value_as_concept_id"))
+  sex <- omop_variable(name = "sex", table = "person", column = "gender_concept_id", type = "categorical", format = "raw")
+  r <- omop_recipe(variables = list(q6, sex), outputs = omop_output(name = "lab", type = "wide"))
+  pub <- capture_ds("G24: recipe_execute(Q6 + sex -> G_labels)", recipe_execute(r, out = c(lab = "G_labels"), symbol = s$symbol, conns = s$conns))
+  col <- "q6_first_value"
+  lev <- if (pub$ok) capture_ds("G24: dsBaseClient::ds.levels(G_labels$q6)", dsBaseClient::ds.levels(paste0("G_labels$", col), datasources = s$conns)) else NULL
+  levels <- if (!is.null(lev) && lev$ok) unlist(lev$value[[1L]]$Levels) else character()
+  safe <- length(levels) && all(grepl("^[A-Za-z0-9._+-]+$", levels))
+  # Small categories make dsBase's own table refuse; the safe labels let it through Opal's parser.
+  plain <- if (pub$ok) capture_ds("G24: dsBaseClient::ds.table(G_labels$q6)", dsBaseClient::ds.table(paste0("G_labels$", col), datasources = s$conns)) else NULL
+  parsed <- !is.null(plain) && (plain$ok || !grepl("Lexical error", plain$error %||% "", fixed = TRUE))
+  verdict("G24a", if (pub$ok && safe && "Acute_myocardial_infarction" %in% levels && "Neumonia_adquirida" %in% levels && parsed) "PASS" else "FAIL",
+          "published labels with spaces, commas and accents are dsBase-safe and pass Opal's expression parser",
+          sprintf("published: %s; labels: %s; ds.table reached the servers: %s", pub$ok, paste(levels, collapse = " | "), parsed))
+  small <- if (pub$ok) capture_ds("G24: ds.omop.drop_small_categories(G_labels -> G_small)",
+    ds.omop.drop_small_categories("G_labels", newobj = "G_small", symbol = s$symbol, conns = s$conns)) else NULL
+  before <- if (pub$ok) capture_ds("G24: dsBaseClient::ds.summary(G_labels$q6)", dsBaseClient::ds.summary(paste0("G_labels$", col), datasources = s$conns)) else NULL
+  after <- if (!is.null(small) && small$ok) capture_ds("G24: dsBaseClient::ds.summary(G_small$q6)", dsBaseClient::ds.summary(paste0("G_small$", col), datasources = s$conns)) else NULL
+  tab_small <- if (!is.null(small) && small$ok) capture_ds("G24: dsBaseClient::ds.table(G_small$q6)", dsBaseClient::ds.table(paste0("G_small$", col), datasources = s$conns)) else NULL
+  invalid_before <- !is.null(before) && (!before$ok || any(vapply(before$value, function(x) identical(x, "INVALID object!"), logical(1))))
+  valid_after <- !is.null(after) && after$ok && all(vapply(after$value, is.list, logical(1)))
+  table_after <- !is.null(tab_small) && tab_small$ok && identical(tab_small$value$validity.message, "Data in all studies were valid")
+  verdict("G24b", if (invalid_before && valid_after && table_after) "PASS" else "FAIL",
+          "small categories (1 and 2 people) refuse ds.summary(); the drop_small_categories() copy makes ds.summary() and ds.table() valid",
+          sprintf("original refused: %s; copy summary valid: %s; copy ds.table valid: %s; %s", invalid_before, valid_after, table_after,
+                  paste(c(if (!is.null(small) && !small$ok) last_server_error(small$error)), collapse = " | ")))
+  t1 <- if (pub$ok) capture_ds("G24: ds.omop.table(G_labels, q6, small = missing)", ds.omop.table("G_labels", col, small = "missing", conns = s$conns)) else NULL
+  t2 <- if (pub$ok) capture_ds("G24: ds.omop.table(G_labels, q6, by = sex, small = missing)", ds.omop.table("G_labels", col, by = "sex", small = "missing", conns = s$conns)) else NULL
+  ol <- if (!is.null(t1) && t1$ok) t1$value$output.list else NULL
+  shaped <- !is.null(ol) && all(c("TABLE_rvar.by.study_counts", "TABLES.COMBINED_all.sources_counts", "TABLES.COMBINED_all.sources_proportions") %in% names(ol)) &&
+    identical(colnames(ol$TABLE_rvar.by.study_counts), names(s$conns)) &&
+    isTRUE(all.equal(as.numeric(rowSums(ol$TABLE_rvar.by.study_counts)), as.numeric(ol$TABLES.COMBINED_all.sources_counts)))
+  cells <- if (!is.null(t2) && t2$ok) unclass(t2$value$output.list$TABLES.COMBINED_all.sources_counts) else NULL
+  two_way <- !is.null(cells) && length(dim(cells)) == 2L && all(cells == 0 | cells >= 3)
+  verdict("G24c", if (shaped && two_way) "PASS" else "FAIL",
+          "ds.omop.table() returns ds.table()'s object (per site and combined) and two-way tables with small cells made missing",
+          sprintf("one-way shaped: %s; two-way cells 0 or >= 3: %s; %s", shaped, two_way,
+                  paste(c(if (!is.null(t1) && !t1$ok) last_server_error(t1$error), if (!is.null(t2) && !t2$ok) last_server_error(t2$error)), collapse = " | ")))
+})
+
 section("G3b", "how long the automatic data generation takes on this CDM", function() {
   g <- INFO$admin_generation
   tm <- INFO$timing
