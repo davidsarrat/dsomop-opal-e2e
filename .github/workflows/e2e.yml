@@ -123,6 +123,10 @@ jobs:
         if: always() && contains(inputs.scenarios, 'G')
         timeout-minutes: 20
         run: Rscript scripts/scenario_G_old.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
+      - name: Scenario L (experiment, label characters and dsBase tables)
+        if: always() && contains(inputs.scenarios, 'L')
+        timeout-minutes: 20
+        run: Rscript scripts/scenario_L.R 2>&1 | tee -a "$OUT/$E2E_PATH-steps.log"
       - name: Scenario N (numeric values and units)
         if: always() && contains(inputs.scenarios, 'N')
         timeout-minutes: 20
