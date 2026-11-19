@@ -1,0 +1,37 @@
+dsOMOP on Rock: not installed; RPostgres: 1.4.10
+== gibleed_v1
+ERROR ds.omop.connect(resource = "omop_data.gibleed_v1", symbol = "omop", conns = conns) (0.3 s): dsOMOP is not ready on Ethiopia:
+Ethiopia: [Client error: (400) Bad Request] No such DataSHIELD 'AGGREGATE' method with name: omopPingDS The server's DataSHIELD profile does not publish dsOMOP's omopPingDS. An Opal administrator installs dsOMOP 2.10.3 and publishes its settings in the profile the analysts use (Administration > DataSHIELD > Packages > dsOMOP > Publish); Opal does not publish the methods of an upgraded package by itself. ds.omop.server.version() shows what each server publishes.
+--- DSI::datashield.errors()
+$Ethiopia
+[1] "[Client error: (400) Bad Request] No such DataSHIELD 'AGGREGATE' method with name: omopPingDS"
+
+SUMMARY [upgrade] C: 1.x resource gibleed_v1: FAIL: dsOMOP is not ready on Ethiopia:
+Ethiopia: [Client error: (400) Bad Request] No such DataSHIELD 'AGGREGATE' method with name: omopPingDS The server's DataSHIELD profile does not publish dsOMOP's omopPingDS. An Opal administrator installs dsOMOP 2.10.3 and publishes its settings in the profile the analysts use (Administration > DataSHIELD > Packages > dsOMOP > Publish); Opal does not publish the methods of an upgraded package by itself. ds.omop.server.version() shows what each server publishes.
+== gibleed_v1_vocab
+ERROR ds.omop.connect(resource = "omop_data.gibleed_v1_vocab", symbol = "omop", conns = conns) (0.1 s): dsOMOP is not ready on Ethiopia:
+Ethiopia: [Client error: (400) Bad Request] No such DataSHIELD 'AGGREGATE' method with name: omopPingDS The server's DataSHIELD profile does not publish dsOMOP's omopPingDS. An Opal administrator installs dsOMOP 2.10.3 and publishes its settings in the profile the analysts use (Administration > DataSHIELD > Packages > dsOMOP > Publish); Opal does not publish the methods of an upgraded package by itself. ds.omop.server.version() shows what each server publishes.
+--- DSI::datashield.errors()
+$Ethiopia
+[1] "[Client error: (400) Bad Request] No such DataSHIELD 'AGGREGATE' method with name: omopPingDS"
+
+SUMMARY [upgrade] C: 1.x resource gibleed_v1_vocab: FAIL: dsOMOP is not ready on Ethiopia:
+Ethiopia: [Client error: (400) Bad Request] No such DataSHIELD 'AGGREGATE' method with name: omopPingDS The server's DataSHIELD profile does not publish dsOMOP's omopPingDS. An Opal administrator installs dsOMOP 2.10.3 and publishes its settings in the profile the analysts use (Administration > DataSHIELD > Packages > dsOMOP > Publish); Opal does not publish the methods of an upgraded package by itself. ds.omop.server.version() shows what each server publishes.
+== gibleed_v1_schemaonly
+ERROR ds.omop.connect(resource = "omop_data.gibleed_v1_schemaonly", symbol = "omop", conns = conns) (0.1 s): dsOMOP is not ready on Ethiopia:
+Ethiopia: [Client error: (400) Bad Request] No such DataSHIELD 'AGGREGATE' method with name: omopPingDS The server's DataSHIELD profile does not publish dsOMOP's omopPingDS. An Opal administrator installs dsOMOP 2.10.3 and publishes its settings in the profile the analysts use (Administration > DataSHIELD > Packages > dsOMOP > Publish); Opal does not publish the methods of an upgraded package by itself. ds.omop.server.version() shows what each server publishes.
+--- DSI::datashield.errors()
+$Ethiopia
+[1] "[Client error: (400) Bad Request] No such DataSHIELD 'AGGREGATE' method with name: omopPingDS"
+
+SUMMARY [upgrade] C: 1.x resource gibleed_v1_schemaonly: FAIL: dsOMOP is not ready on Ethiopia:
+Ethiopia: [Client error: (400) Bad Request] No such DataSHIELD 'AGGREGATE' method with name: omopPingDS The server's DataSHIELD profile does not publish dsOMOP's omopPingDS. An Opal administrator installs dsOMOP 2.10.3 and publishes its settings in the profile the analysts use (Administration > DataSHIELD > Packages > dsOMOP > Publish); Opal does not publish the methods of an upgraded package by itself. ds.omop.server.version() shows what each server publishes.
+== gibleed_v1_plain
+ERROR ds.omop.connect(resource = "omop_data.gibleed_v1_plain", symbol = "omop", conns = conns) (0.1 s): dsOMOP is not ready on Ethiopia:
+Ethiopia: [Client error: (400) Bad Request] No such DataSHIELD 'AGGREGATE' method with name: omopPingDS The server's DataSHIELD profile does not publish dsOMOP's omopPingDS. An Opal administrator installs dsOMOP 2.10.3 and publishes its settings in the profile the analysts use (Administration > DataSHIELD > Packages > dsOMOP > Publish); Opal does not publish the methods of an upgraded package by itself. ds.omop.server.version() shows what each server publishes.
+--- DSI::datashield.errors()
+$Ethiopia
+[1] "[Client error: (400) Bad Request] No such DataSHIELD 'AGGREGATE' method with name: omopPingDS"
+
+SUMMARY [upgrade] C: 1.x resource gibleed_v1_plain: FAIL: dsOMOP is not ready on Ethiopia:
+Ethiopia: [Client error: (400) Bad Request] No such DataSHIELD 'AGGREGATE' method with name: omopPingDS The server's DataSHIELD profile does not publish dsOMOP's omopPingDS. An Opal administrator installs dsOMOP 2.10.3 and publishes its settings in the profile the analysts use (Administration > DataSHIELD > Packages > dsOMOP > Publish); Opal does not publish the methods of an upgraded package by itself. ds.omop.server.version() shows what each server publishes.

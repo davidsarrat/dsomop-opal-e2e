@@ -1,0 +1,23 @@
+== A1: install and publish the historical dsOMOP 6a22d259db95a3bfd264d029b653587f935e32db baseline
+Historical dsOMOP source: 6a22d259db95a3bfd264d029b653587f935e32db; archive version 1.1.1
+OK    dsadmin.install_local_package(o, historical archive) (1.1 s)
+--- Rock historical installation (service R session and library)
+$status
+[1] 1
+
+$library
+[1] "/var/lib/rock/R/library"
+
+$log
+ [1] "Error: Failed to install 'dsomop-historical-5dae259a58f3.tar.gz' from local:"                                                                                         
+ [2] "  HTTP error 403."                                                                                                                                                    
+ [3] "  API rate limit exceeded for 3.41.210.132. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)"
+ [4] ""                                                                                                                                                                     
+ [5] "  Rate limit remaining: 0/60"                                                                                                                                         
+ [6] "  Rate limit reset at: 2026-11-19 01:33:32 UTC"                                                                                                                       
+ [7] ""                                                                                                                                                                     
+ [8] "  To increase your GitHub API rate limit"                                                                                                                             
+ [9] "  - Use `usethis::create_github_token()` to create a Personal Access Token."                                                                                          
+[10] "  - Use `gitcreds::gitcreds_set()` to add the token."                                                                                                                 
+[11] "Execution halted"                                                                                                                                                     
+
