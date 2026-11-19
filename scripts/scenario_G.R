@@ -1502,12 +1502,15 @@ section("G23", "adaptive hierarchy levels, fingerprint transport and verbs on pu
                                  symbol = s$symbol, conns = s$conns))
   b <- capture_ds("G23: ds.omop.bind_rows(G_adaptive, G_adaptive_f -> G_adaptive_b)",
                   ds.omop.bind_rows("G_adaptive", "G_adaptive_f", newobj = "G_adaptive_b", symbol = s$symbol, conns = s$conns))
-  dims <- if (b$ok) capture_ds("G23: dsBaseClient::ds.dim(G_adaptive, G_adaptive_b)",
+  dims <- if (b$ok) capture_ds("G23: dsBaseClient::ds.dim(G_adaptive, G_adaptive_f, G_adaptive_b)",
     list(src = dsBaseClient::ds.dim("G_adaptive", type = "split", datasources = s$conns),
+         kept = dsBaseClient::ds.dim("G_adaptive_f", type = "split", datasources = s$conns),
          out = dsBaseClient::ds.dim("G_adaptive_b", type = "split", datasources = s$conns))) else NULL
-  # ds.dim names its answers after the object: compare the sites by position.
-  rows <- if (!is.null(dims) && dims$ok) mapply(function(src, out) identical(as.numeric(out[[1L]]), 2 * as.numeric(src[[1L]])),
-                                                 dims$value$src, dims$value$out) else FALSE
+  # ds.dim names its answers after the object: compare the sites by position. Only the people who answered Q5 are
+  # kept by the filter, so the stack holds the source's rows plus the kept ones.
+  rows <- if (!is.null(dims) && dims$ok) mapply(function(src, kept, out)
+    identical(as.numeric(out[[1L]]), as.numeric(src[[1L]]) + as.numeric(kept[[1L]])) && as.numeric(kept[[1L]]) == 1000,
+    dims$value$src, dims$value$kept, dims$value$out) else FALSE
   # Level reports on the results read the rows they keep or stack.
   levels_of <- function(x) lapply(DSI::datashield.aggregate(s$conns, call("omopFactorLevelsDS", as.symbol(x))),
                                   function(r) list(unsafe = r$unsafe, levels = r$levels$q5_first_value))
@@ -1517,7 +1520,7 @@ section("G23", "adaptive hierarchy levels, fingerprint transport and verbs on pu
     identical(reports$value[[3L]], reports$value[[1L]])
   verdict("G23c", if (f$ok && b$ok && length(rows) && all(rows) && same) "PASS" else "FAIL",
           "filter and bind_rows work on a reconciled recipe output, and level reports read their rows (failed before 2.10.8)",
-          sprintf("filter: %s; bind_rows: %s; stacked rows double the source: %s; level reports equal the source's: %s; %s",
+          sprintf("filter: %s; bind_rows: %s; filter keeps the 1,000 answers and the stack holds both: %s; level reports equal the source's: %s; %s",
                   f$ok, b$ok, paste(rows, collapse = "/"), same,
                   paste(c(if (!f$ok) last_server_error(f$error), if (!b$ok) last_server_error(b$error),
                           if (!is.null(reports) && !reports$ok) last_server_error(reports$error)), collapse = " | ")))
