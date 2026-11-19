@@ -1,0 +1,16 @@
+SUMMARY O1: PASS
+SUMMARY O2: PASS
+SUMMARY O3: PASS
+ERROR publication matrix (3.3 s): Plan publication refused: other:small [insufficient_support]. Execution-owned artifacts were revoked and removed.
+ERROR publication matrix (4.5 s): Plan publication refused: other:small [insufficient_support]. Execution-owned artifacts were revoked and removed.
+OK    publication matrix (3.7 s)
+OK    publication matrix (10.9 s)
+OK    publication matrix (3.6 s)
+  [warning] Plan publication is partial: other:small [insufficient_support].
+OK    publication matrix (10.4 s)
+  [warning] Plan publication is partial: other:small [insufficient_support].
+OK    publication matrix (3.6 s)
+OK    publication matrix (10.8 s)
+SUMMARY O4: PASS
+SUMMARY O5: PASS
+SUMMARY O6: PASS
