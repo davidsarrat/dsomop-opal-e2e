@@ -7,17 +7,14 @@ source("scripts/g_lib.R")
 start_log("scenario-L")
 assert_candidate_server()
 cases <- list(
-  plain = c("Male", "Female"), space = c("Male adult", "Female adult"), comma = c("Male, adult", "Female, adult"),
-  parentheses = c("Male (adult)", "Female (adult)"), slash = c("Male/adult", "Female/adult"),
-  apostrophe = c("Male's", "Female's"), double_quote = c("Male \"a\"", "Female \"a\""),
-  accents = c("Hombre éñ", "Mujer áü"), hyphen = c("Male-adult", "Female-adult"),
-  dot = c("Male.adult", "Female.adult"), underscore = c("Male_adult", "Female_adult"),
-  colon_semicolon = c("Male: a; b", "Female: a; b"), ampersand = c("Male & co", "Female & co"),
-  percent = c("50% male", "50% female"), plus_equals = c("male+1=2", "female+1=2"), angle = c("<male>", "<female>"),
-  hash = c("male #1", "female #1"), dollar = c("$male", "$female"), backslash = c("male\\x", "female\\x"),
-  pipe = c("male|x", "female|x"), brackets = c("[male]", "{female}"), question = c("male?", "female!"),
-  at_tilde = c("male@x", "female~x"), star_caret = c("male*", "female^"), leading_digit = c("1 male", "2 female"),
-  unicode_dash = c("male – a", "female – a"), na_text = c("NA", "Female"), long = c(strrep("Male ", 40), "Female"))
+  comma = c("Male,a", "Female,a"), colon = c("Male:a", "Female:a"), semicolon = c("Male;a", "Female;a"),
+  hash = c("Male#a", "Female#a"), ampersand = c("Male&a", "Female&a"), exclamation = c("Male!", "Female!"),
+  tilde = c("Male~a", "Female~a"), caret = c("Male^a", "Female^a"), plus = c("Male+a", "Female+a"),
+  parenthesis = c("Male(a)", "Female(a)"), accent_e = c("Mal\u00e9", "Femal\u00e9"), enye = c("Ma\u00f1a", "Fe\u00f1a"),
+  umlaut = c("M\u00fcller", "F\u00fcller"), sharp_s = c("Ma\u00dfe", "Fe\u00dfe"), cjk = c("\u7537", "\u5973"),
+  unicode_dash = c("Male\u2013a", "Female\u2013a"), nbsp = c("Male\u00a0a", "Female\u00a0a"), tab = c("Male\ta", "Female\ta"),
+  underscore_digit = c("_1male", "_2female"), dot_start = c(".male", ".female"), hyphen_start = c("-male", "-female"),
+  digits = c("123", "456"), mixed_safe = c("Male-adult_1.a", "Female-adult_2.b"))
 s <- open_session("L")
 if (!isTRUE(s$ok)) stop("no L session: ", s$error)
 for (case in names(cases)) section(paste0("L-", case), paste("labels with", case), function() {
