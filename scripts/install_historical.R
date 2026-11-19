@@ -19,6 +19,21 @@ historical_source <- function(ref, directory) {
   tag <- sub("^v", "", tag)
   if (grepl("^[0-9]+[.][0-9]+[.][0-9]+$", tag) && !identical(version, tag))
     stop("Historical archive version does not match requested tag ", ref)
+  # A Remotes field (1.1.1: github::datashield/dsBase, already in the Rock
+  # image) makes remotes query the GitHub API unauthenticated from Rock, which
+  # shared runner IPs exhaust (403). Drop it; hard CRAN dependencies still resolve.
+  if ("Remotes" %in% colnames(d)) {
+    unpacked <- file.path(directory, "unpacked")
+    dir.create(unpacked)
+    utils::untar(archive, exdir = unpacked)
+    path <- file.path(unpacked, desc)
+    d2 <- read.dcf(path, keep.white = colnames(read.dcf(path)))
+    write.dcf(d2[, setdiff(colnames(d2), "Remotes"), drop = FALSE], path, keep.white = colnames(d2))
+    archive <- file.path(directory, "dsOMOP-historical-noremotes.tar.gz")
+    old <- setwd(unpacked); on.exit(setwd(old), add = TRUE)
+    utils::tar(archive, files = dirname(desc), compression = "gzip", tar = "internal")
+    say("Historical archive: dropped its Remotes field (", paste(d[1L, "Remotes"], collapse = " "), ")")
+  }
   list(archive = archive, version = version)
 }
 
