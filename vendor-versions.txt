@@ -1,0 +1,12 @@
+candidate: Version: 2.10.9 (pkgs/dsOMOP, vendored from a committed branch)
+R version 4.6.1 (2026-06-24) 
+DBI 1.3.0 
+RPostgres 1.4.10 
+RMariaDB 1.3.5 
+arrow 26.0.1 
+duckdb not installed 
+SqlRender not installed 
+testthat 3.3.2 
+service container f92a942be86b4b319a3cd19867b8c3e0_mariadb114sha25667873d30a17f6a9c331f06363b2fa15f38abca415529966d67c84f87f82439fe_7d05cd: mariadb:11.4@sha256:67873d30a17f6a9c331f06363b2fa15f38abca415529966d67c84f87f82439fe
+service container fa92483097c54fb2bd4f462f330e4faa_mysql84sha256b3b90af2a6552ae30c266fdb7d5dd55f3afb72404bb78d37fe8a23eb857fd3fb_5869ed: mysql:8.4@sha256:b3b90af2a6552ae30c266fdb7d5dd55f3afb72404bb78d37fe8a23eb857fd3fb
+service container 790c811211d649999dc07c095f8cee9d_postgres16sha25695206741a5b214807675e14165369d05b93a9cf692223b616d07cca227e74b0b_134237: postgres:16@sha256:95206741a5b214807675e14165369d05b93a9cf692223b616d07cca227e74b0b
