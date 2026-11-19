@@ -3093,10 +3093,20 @@ omopAnalysisRunAssignDS <- function(omop_symbol, name, params = list(),
 #' follows the same DataSHIELD rule: a column whose levels in use fail it is
 #' reported without levels. No counts are returned.
 #'
+#' With \code{fingerprint = TRUE} (dsOMOP 2.10.8), a plain concept column's
+#' long public list (500 or more declared vocabulary records) is reported as its
+#' length and digest instead of its records; \code{list_records} returns those
+#' records once, only for a column this site's report admits. Both carry
+#' vocabulary metadata only.
+#'
 #' @param df A data frame or staged descriptor previously assigned server-side
 #'   by \code{\link{omopPlanExecuteDS}}.
 #' @param occurring Optional encoded \code{list(columns = )}: factor column
 #'   names, or \code{"*"} for every published factor column.
+#' @param fingerprint Optional encoded logical: report long public lists by
+#'   digest (\code{lists}) instead of by record.
+#' @param list_records Optional column name: return the public list records of
+#'   that column (a fingerprinted report's list), for the client to read once.
 #' @return A named list with \code{levels} (named list mapping
 #'   each safe concept-id column to its character levels), \code{unsafe}
 #'   (character vector of concept-id columns that failed the disclosure gate),
@@ -3106,11 +3116,22 @@ omopAnalysisRunAssignDS <- function(omop_symbol, name, params = list(),
 #'   identities, stable keys and evidence binding.
 #' @seealso \code{\link{omopAsFactorColumnsDS}}, \code{\link{.assertSafeLevels}}
 #' @export
-omopFactorLevelsDS <- function(df, occurring = NULL) {
+omopFactorLevelsDS <- function(df, occurring = NULL, fingerprint = NULL, list_records = NULL) {
   if (!is.null(occurring)) return(.factorOccurrenceReport(df, .ds_arg(occurring)$columns))
-  if (inherits(df, "FlowerDatasetDescriptor") && !is.null(df$metadata$concept_presentation)) return(.conceptStageReport(df))
-  if (is.data.frame(df) && (!is.null(attr(df, "omop_concepts")) ||
-      !is.null(attr(df, "omop_generated_columns")) || !is.null(attr(df,"omop_numbers")) || !is.null(attr(df,"omop_codebook_schema")))) return(.conceptLevelReport(df))
+  fingerprint <- isTRUE(.ds_arg(fingerprint)) || !is.null(list_records)
+  staged <- inherits(df, "FlowerDatasetDescriptor") && !is.null(df$metadata$concept_presentation)
+  tagged <- is.data.frame(df) && (!is.null(attr(df, "omop_concepts")) ||
+      !is.null(attr(df, "omop_generated_columns")) || !is.null(attr(df,"omop_numbers")) || !is.null(attr(df,"omop_codebook_schema")))
+  report <- if (staged) .conceptStageReport(df, fingerprint = fingerprint) else if (tagged) .conceptLevelReport(df, fingerprint = fingerprint) else NULL
+  if (!is.null(list_records)) {
+    # A public list is returned only for a column this site's report admits.
+    if (is.null(report)) stop("No public concept list for this column.", call. = FALSE)
+    # The same refreshed records the report's digest was computed from.
+    contracts <- if (staged) local({ meta <- .conceptStageData(df); .conceptRefresh(meta$contracts, meta$generated, meta$handle)$contracts }) else
+      .conceptRefresh(attr(df, "omop_concepts") %||% list(), list(), attr(df, "omop_presentation_handle"))$contracts
+    return(.conceptListRecords(report, contracts, unlist(.ds_arg(list_records), use.names = FALSE)))
+  }
+  if (!is.null(report)) return(report)
   cap <- .omopDisclosureSettings()$nfilter_levels_max
   empty <- list(levels = list(), unsafe = character(0), unsafe_rules = list(), nfilter_levels_max = cap)
   if (!is.data.frame(df) || !.is_omop.table(df)) {
