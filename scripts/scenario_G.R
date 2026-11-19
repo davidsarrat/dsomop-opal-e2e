@@ -1465,6 +1465,7 @@ section("G23", "adaptive hierarchy levels, fingerprint transport and verbs on pu
     "SELECT 950000000 + p.i, p.person_id, 2100100005, p.d, 38000280, 2100201000 + ((p.i % 60) / 10) * 100 + (p.i % 10)",
     "FROM (SELECT person_id, d, row_number() OVER (ORDER BY person_id) AS i FROM",
     "  (SELECT DISTINCT ON (person_id) person_id, observation_period_start_date AS d FROM cdm.observation_period",
+    "   WHERE person_id IN (SELECT person_id FROM cdm.person)",
     "   ORDER BY person_id, observation_period_start_date) op) p WHERE p.i <= 1000;",
     "ANALYZE;"), db = "omopauto", label = "synthetic hierarchy E2EHier and question Q5")
   question <- function(q) omop_variable(event = omop_event("observation", name = paste0("q", q),
@@ -1507,9 +1508,12 @@ section("G23", "adaptive hierarchy levels, fingerprint transport and verbs on pu
          kept = dsBaseClient::ds.dim("G_adaptive_f", type = "split", datasources = s$conns),
          out = dsBaseClient::ds.dim("G_adaptive_b", type = "split", datasources = s$conns))) else NULL
   # ds.dim names its answers after the object: compare the sites by position. Only the people who answered Q5 are
-  # kept by the filter, so the stack holds the source's rows plus the kept ones.
+  # kept by the filter (GiBleed's observation_period also lists people that its person table lacks, so count the
+  # answers of people in the person table), and the stack holds the source's rows plus the kept ones.
+  answered <- suppressWarnings(as.numeric(psql_value(paste("SELECT COUNT(DISTINCT o.person_id) FROM cdm.observation o",
+    "JOIN cdm.person p ON p.person_id = o.person_id WHERE o.observation_concept_id = 2100100005"), db = "omopauto")))
   rows <- if (!is.null(dims) && dims$ok) mapply(function(src, kept, out)
-    identical(as.numeric(out[[1L]]), as.numeric(src[[1L]]) + as.numeric(kept[[1L]])) && as.numeric(kept[[1L]]) == 1000,
+    identical(as.numeric(out[[1L]]), as.numeric(src[[1L]]) + as.numeric(kept[[1L]])) && identical(as.numeric(kept[[1L]]), answered),
     dims$value$src, dims$value$kept, dims$value$out) else FALSE
   # Level reports on the results read the rows they keep or stack.
   levels_of <- function(x) lapply(DSI::datashield.aggregate(s$conns, call("omopFactorLevelsDS", as.symbol(x))),
@@ -1522,8 +1526,8 @@ section("G23", "adaptive hierarchy levels, fingerprint transport and verbs on pu
     dims$value$src, dims$value$kept, dims$value$out), collapse = ", ") else "not read"
   verdict("G23c", if (f$ok && b$ok && length(rows) && all(rows) && same) "PASS" else "FAIL",
           "filter and bind_rows work on a reconciled recipe output, and level reports read their rows (failed before 2.10.8)",
-          sprintf("filter: %s; bind_rows: %s; filter keeps the 1,000 answers and the stack holds both: %s (rows %s); level reports equal the source's: %s; %s",
-                  f$ok, b$ok, paste(rows, collapse = "/"), counts, same,
+          sprintf("filter: %s; bind_rows: %s; filter keeps the %s answers and the stack holds both: %s (rows %s); level reports equal the source's: %s; %s",
+                  f$ok, b$ok, format(answered), paste(rows, collapse = "/"), counts, same,
                   paste(c(if (!f$ok) last_server_error(f$error), if (!b$ok) last_server_error(b$error),
                           if (!is.null(reports) && !reports$ok) last_server_error(reports$error)), collapse = " | ")))
 })
