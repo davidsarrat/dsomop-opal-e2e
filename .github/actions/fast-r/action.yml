@@ -1,0 +1,47 @@
+name: Fast R
+description: >
+  R from Posit's build (pinned version) with P3M binary packages and a user library, as setup-r with
+  use-public-rspm, but without setup-r's R CMD check tools, and with apt on the main Ubuntu archive with short
+  timeouts. The runners' Azure Ubuntu mirror can stall for minutes per package before apt falls back.
+inputs:
+  r-version:
+    description: R version (a Posit build for this Ubuntu release)
+    default: "4.6.1"
+runs:
+  using: composite
+  steps:
+    - name: apt on the main Ubuntu archive, short timeouts
+      shell: bash
+      run: |
+        printf 'Acquire::Retries "3";\nAcquire::http::Timeout "15";\nAcquire::https::Timeout "15";\n' |
+          sudo tee /etc/apt/apt.conf.d/99-e2e-timeouts >/dev/null
+        if [ -f /etc/apt/apt-mirrors.txt ]; then
+          printf 'http://archive.ubuntu.com/ubuntu/\tpriority:1\nhttp://azure.archive.ubuntu.com/ubuntu/\tpriority:2\n' |
+            sudo tee /etc/apt/apt-mirrors.txt >/dev/null
+        fi
+        cat /etc/apt/apt-mirrors.txt 2>/dev/null || true
+    - name: R ${{ inputs.r-version }} (Posit build)
+      shell: bash
+      run: |
+        set -euo pipefail
+        v="${{ inputs.r-version }}"
+        if ! "/opt/R/$v/bin/R" --version >/dev/null 2>&1; then
+          release=$(. /etc/os-release && echo "${VERSION_ID//./}")
+          curl -fsSL --retry 3 --max-time 300 -o /tmp/r.deb "https://cdn.posit.co/r/ubuntu-${release}/pkgs/r-${v}_1_amd64.deb"
+          sudo apt-get update -y -q >/dev/null
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -q --no-install-recommends /tmp/r.deb
+        fi
+        sudo ln -sf "/opt/R/$v/bin/R" /usr/local/bin/R
+        sudo ln -sf "/opt/R/$v/bin/Rscript" /usr/local/bin/Rscript
+        # P3M binaries need R's user agent; packages go to a user library, as with setup-r.
+        cat <<'PROFILE' | sudo tee -a "/opt/R/$v/lib/R/etc/Rprofile.site" >/dev/null
+        local({
+          codename <- tryCatch(sub("^VERSION_CODENAME=", "", grep("^VERSION_CODENAME=", readLines("/etc/os-release"), value = TRUE)), error = function(e) "noble")
+          options(repos = c(CRAN = sprintf("https://p3m.dev/cran/__linux__/%s/latest", codename)),
+                  HTTPUserAgent = sprintf("R/%s R (%s)", getRversion(), paste(getRversion(), R.version[["platform"]], R.version[["arch"]], R.version[["os"]])),
+                  Ncpus = 2L)
+        })
+        PROFILE
+        mkdir -p "$RUNNER_TEMP/Library"
+        echo "R_LIBS_USER=$RUNNER_TEMP/Library" >> "$GITHUB_ENV"
+        R_LIBS_USER="$RUNNER_TEMP/Library" Rscript -e 'cat(R.version.string, "\n"); print(getOption("repos")); print(.libPaths())'
