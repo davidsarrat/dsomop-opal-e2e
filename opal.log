@@ -1,0 +1,605 @@
+Preparing default conf in /srv ...
+Preparing default plugins in /srv ...
+Disabling default Agate setting as AGATE_HOST is not defined...
+Setting Rock R server connection...
+Setting password...
+Starting Opal before first run script...
+Waiting for Opal to be ready...
+JAVA=java
+JAVA_OPTS=-Xms1G -Xmx2G -XX:+UseG1GC
+OPAL_HOME=/srv
+OPAL_DIST=/usr/share/opal
+Archive:  /srv/plugins/opal-datasource-redcap-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-redcap-2.0.0/
+   creating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/jackson-dataformat-xml-2.17.2.jar  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/stax2-api-4.2.2.jar  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/README.md  
+  inflating: /srv/plugins/opal-datasource-redcap-2.0.0/lib/opal-datasource-redcap-2.0.0.jar  
+Archive:  /srv/plugins/opal-datasource-readr-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-readr-2.0.0/
+   creating: /srv/plugins/opal-datasource-readr-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/export.json  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/README.md  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/lib/opal-datasource-readr-2.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-readr-2.0.0/import.json  
+Archive:  /srv/plugins/opal-datasource-readxl-2.0.1-dist.zip
+   creating: /srv/plugins/opal-datasource-readxl-2.0.1/
+   creating: /srv/plugins/opal-datasource-readxl-2.0.1/lib/
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/import.json  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/lib/opal-datasource-readxl-2.0.1.jar  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/export.json  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/README.md  
+  inflating: /srv/plugins/opal-datasource-readxl-2.0.1/site.properties  
+Archive:  /srv/plugins/opal-datasource-spss-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-spss-2.0.0/
+   creating: /srv/plugins/opal-datasource-spss-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/lib/magma-datasource-spss-1.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/lib/spssreader-1.2.2.jar  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/README.md  
+  inflating: /srv/plugins/opal-datasource-spss-2.0.0/lib/opal-datasource-spss-2.0.0.jar  
+Archive:  /srv/plugins/opal-datasource-limesurvey-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-limesurvey-2.0.0/
+   creating: /srv/plugins/opal-datasource-limesurvey-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/lib/opal-datasource-limesurvey-2.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-limesurvey-2.0.0/README.md  
+Archive:  /srv/plugins/opal-analysis-validate-2.0.0-dist.zip
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/
+   creating: /srv/plugins/opal-analysis-validate-2.0.0/lib/
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/report.Rmd  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/form.json  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/report.Rmd  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/routine.R  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/indicator/form.json  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/report.Rmd  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/routine.R  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/validator/form.json  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/README.md  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/lib/opal-analysis-validate-2.0.0.jar  
+  inflating: /srv/plugins/opal-analysis-validate-2.0.0/templates/catValidator/routine.R  
+Archive:  /srv/plugins/opal-datasource-googlesheets4-2.0.0-dist.zip
+   creating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/
+   creating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/lib/
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/import.json  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/site.properties  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/plugin.properties  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/lib/opal-datasource-googlesheets4-2.0.0.jar  
+  inflating: /srv/plugins/opal-datasource-googlesheets4-2.0.0/README.md  
+Listening for transport dt_socket at address: 8000
+Upgrading Opal...
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+Upgrade successful.
+Listening for transport dt_socket at address: 8000
+ __    __    __      ____  _____        _      
+ \ \   \ \   \ \    / __ \|  __ \ /\   | |     
+  \ \   \ \   \ \  | |  | | |__) /  \  | |     
+   > >   > >   > > | |  | |  ___/ /\ \ | |     
+  / /   / /   / /  | |__| | |  / ____ \| |____ 
+ /_/   /_/   /_/    \____/|_| /_/    \_\______|
+                                               
+                                               
+Starting Opal...
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+WARNING: A restricted method in java.lang.foreign.Linker has been called
+WARNING: java.lang.foreign.Linker::downcallHandle has been called by the unnamed module
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for this module
+
+2026-11-19 02:29:03,148 ERROR org.obiba.shiro.web.filter.AuthenticationFilter - Exception 
+com.orientechnologies.orient.core.storage.ORecordDuplicatedException: Cannot index record #26:1: found duplicated key 'OCompositeKey{keys=[opal, /files/home/administrator, administrator, USER, FILES_SHARE]}' in index 'SubjectAcl.domain.node.principal.type.permission' previously assigned to the record #27:0	DB name="opal-config" INDEX=SubjectAcl.domain.node.principal.type.permission RID=#27:0
+	at com.orientechnologies.orient.core.index.engine.UniqueIndexEngineValidator.validate(UniqueIndexEngineValidator.java:33)
+	at com.orientechnologies.orient.core.index.engine.UniqueIndexEngineValidator.validate(UniqueIndexEngineValidator.java:9)
+	at com.orientechnologies.orient.core.storage.index.sbtree.singlevalue.v3.CellBTreeSingleValueV3.lambda$update$1(CellBTreeSingleValueV3.java:278)
+	at com.orientechnologies.orient.core.storage.impl.local.paginated.atomicoperations.OAtomicOperationsManager.calculateInsideComponentOperation(OAtomicOperationsManager.java:221)
+	at com.orientechnologies.orient.core.storage.impl.local.paginated.atomicoperations.OAtomicOperationsManager.calculateInsideComponentOperation(OAtomicOperationsManager.java:213)
+	at com.orientechnologies.orient.core.storage.impl.local.paginated.base.ODurableComponent.calculateInsideComponentOperation(ODurableComponent.java:96)
+	at com.orientechnologies.orient.core.storage.index.sbtree.singlevalue.v3.CellBTreeSingleValueV3.update(CellBTreeSingleValueV3.java:226)
+	at com.orientechnologies.orient.core.storage.index.sbtree.singlevalue.v3.CellBTreeSingleValueV3.validatedPut(CellBTreeSingleValueV3.java:218)
+	at com.orientechnologies.orient.core.index.engine.v1.OCellBTreeSingleValueIndexEngine.validatedPut(OCellBTreeSingleValueIndexEngine.java:207)
+	at com.orientechnologies.orient.core.storage.impl.local.OAbstractPaginatedStorage.doValidatedPutIndexValue(OAbstractPaginatedStorage.java:3410)
+	at com.orientechnologies.orient.core.storage.impl.local.OAbstractPaginatedStorage.validatedPutIndexValue(OAbstractPaginatedStorage.java:3379)
+	at com.orientechnologies.orient.core.index.OIndexUnique.doPut(OIndexUnique.java:52)
+	at com.orientechnologies.orient.core.storage.impl.local.OAbstractPaginatedStorage.applyTxChanges(OAbstractPaginatedStorage.java:2584)
+	at com.orientechnologies.orient.core.storage.impl.local.OAbstractPaginatedStorage.commitIndexes(OAbstractPaginatedStorage.java:2569)
+	at com.orientechnologies.orient.core.storage.impl.local.OAbstractPaginatedStorage.commit(OAbstractPaginatedStorage.java:2493)
+	at com.orientechnologies.orient.core.storage.impl.local.OAbstractPaginatedStorage.commit(OAbstractPaginatedStorage.java:2309)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentEmbedded.internalCommit(ODatabaseDocumentEmbedded.java:1958)
+	at com.orientechnologies.orient.core.tx.OTransactionOptimistic.doCommit(OTransactionOptimistic.java:651)
+	at com.orientechnologies.orient.core.tx.OTransactionOptimistic.commit(OTransactionOptimistic.java:116)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentAbstract.commit(ODatabaseDocumentAbstract.java:1599)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentAbstract.commit(ODatabaseDocumentAbstract.java:1569)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx.commit(ODatabaseDocumentTx.java:715)
+	at org.obiba.opal.core.service.OrientDbServiceImpl.save(OrientDbServiceImpl.java:131)
+	at org.obiba.opal.core.service.OrientDbServiceImpl.save(OrientDbServiceImpl.java:112)
+	at org.obiba.opal.core.service.security.SubjectAclServiceImpl.addSubjectPermission(SubjectAclServiceImpl.java:186)
+	at org.obiba.opal.core.service.SubjectProfileServiceImpl.ensureFolderPermissions(SubjectProfileServiceImpl.java:270)
+	at org.obiba.opal.core.service.SubjectProfileServiceImpl.ensureProfile(SubjectProfileServiceImpl.java:99)
+	at org.obiba.opal.web.security.AuthenticationExecutorImpl.ensureProfile(AuthenticationExecutorImpl.java:107)
+	at org.obiba.shiro.web.filter.AbstractAuthenticationExecutor.login(AbstractAuthenticationExecutor.java:88)
+	at org.obiba.shiro.web.filter.AuthenticationFilter.authenticateBasicHeader(AuthenticationFilter.java:300)
+	at org.obiba.shiro.web.filter.AuthenticationFilter.authenticateBasicHeader(AuthenticationFilter.java:274)
+	at org.obiba.shiro.web.filter.AuthenticationFilter.authenticateAndBind(AuthenticationFilter.java:209)
+	at org.obiba.shiro.web.filter.AuthenticationFilter.doFilterInternal(AuthenticationFilter.java:173)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:355)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:272)
+	at org.eclipse.jetty.ee10.servlet.FilterHolder.doFilter(FilterHolder.java:205)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1601)
+	at org.obiba.opal.server.httpd.OpalVersionFilter.doFilterInternal(OpalVersionFilter.java:39)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.eclipse.jetty.ee10.servlet.FilterHolder.doFilter(FilterHolder.java:205)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$Chain.doFilter(ServletHandler.java:1601)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler$MappedServlet.handle(ServletHandler.java:1556)
+	at org.eclipse.jetty.ee10.servlet.ServletChannel.dispatch(ServletChannel.java:871)
+	at org.eclipse.jetty.ee10.servlet.ServletChannel.handle(ServletChannel.java:449)
+	at org.eclipse.jetty.ee10.servlet.ServletHandler.handle(ServletHandler.java:469)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:546)
+	at org.eclipse.jetty.ee10.servlet.SessionHandler.handle(SessionHandler.java:719)
+	at org.eclipse.jetty.server.handler.ContextHandler.handle(ContextHandler.java:1253)
+	at org.eclipse.jetty.server.handler.PathMappingsHandler.handle(PathMappingsHandler.java:146)
+	at org.eclipse.jetty.server.handler.gzip.GzipHandler.handle(GzipHandler.java:621)
+	at org.eclipse.jetty.server.Server.handle(Server.java:197)
+	at org.eclipse.jetty.server.internal.HttpChannelState$HandlerInvoker.run(HttpChannelState.java:804)
+	at org.eclipse.jetty.server.internal.HttpConnection.onFillable(HttpConnection.java:420)
+	at org.eclipse.jetty.server.internal.HttpConnection$FillableCallback.succeeded(HttpConnection.java:1790)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:105)
+	at org.eclipse.jetty.io.SelectableChannelEndPoint$1.run(SelectableChannelEndPoint.java:54)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:1009)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.doRunJob(QueuedThreadPool.java:1240)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.run(QueuedThreadPool.java:1194)
+	at java.base/java.lang.Thread.run(Unknown Source)
+First run setup...
+Initializing Opal IDs database with MongoDB...
+Opal Server successfully started.
+Opal is attached to this console. Press ctrl-c to stop.
+Enter content:
+
+Initializing Opal data database with MongoDB...
+Enter content:
+
+First run complete. Stopping background Opal...
+Opal Server shutting down...
+2026-11-19 02:29:05,333 ERROR org.obiba.opal.datashield.cfg.DataShieldProfileService - Cannot read R/DataSHIELD packages to initialize profile
+java.lang.NullPointerException
+	at java.base/java.util.Objects.requireNonNull(Unknown Source)
+	at java.base/java.lang.String.lookupCharset(Unknown Source)
+	at java.base/java.lang.String.getBytes(Unknown Source)
+	at com.orientechnologies.orient.core.sql.parser.OStatementCache.parse(OStatementCache.java:126)
+	at com.orientechnologies.orient.core.sql.parser.OStatementCache.get(OStatementCache.java:100)
+	at com.orientechnologies.orient.core.sql.parser.OStatementCache.get(OStatementCache.java:66)
+	at com.orientechnologies.orient.core.sql.OSQLEngine.parse(OSQLEngine.java:77)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentEmbedded.query(ODatabaseDocumentEmbedded.java:610)
+	at com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx.query(ODatabaseDocumentTx.java:1359)
+	at org.obiba.opal.core.service.OrientDbServiceImpl.findUniqueDocument(OrientDbServiceImpl.java:171)
+	at org.obiba.opal.core.service.OrientDbServiceImpl.getDocuments(OrientDbServiceImpl.java:139)
+	at org.obiba.opal.core.service.OrientDbServiceImpl.save(OrientDbServiceImpl.java:123)
+	at org.obiba.opal.core.service.OrientDbServiceImpl.save(OrientDbServiceImpl.java:112)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.saveProfile(DataShieldProfileService.java:173)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.publish(DataShieldProfileService.java:247)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.publish(DataShieldProfileService.java:240)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.lambda$onRServiceStarted$6(DataShieldProfileService.java:217)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(Unknown Source)
+	at java.base/java.util.HashMap$KeySpliterator.forEachRemaining(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(Unknown Source)
+	at java.base/java.util.stream.ReferencePipeline.forEach(Unknown Source)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.lambda$onRServiceStarted$7(DataShieldProfileService.java:217)
+	at java.base/java.util.concurrent.ConcurrentHashMap$ValuesView.forEach(Unknown Source)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.onRServiceStarted(DataShieldProfileService.java:211)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at com.google.common.eventbus.Subscriber.invokeSubscriberMethod(Subscriber.java:84)
+	at com.google.common.eventbus.Subscriber$SynchronizedSubscriber.invokeSubscriberMethod(Subscriber.java:141)
+	at com.google.common.eventbus.Subscriber.lambda$dispatchEvent$0(Subscriber.java:70)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.eventbus.Subscriber.dispatchEvent(Subscriber.java:67)
+	at com.google.common.eventbus.Dispatcher$PerThreadQueuedDispatcher.dispatch(Dispatcher.java:112)
+	at com.google.common.eventbus.EventBus.post(EventBus.java:262)
+	at org.obiba.opal.core.service.AppsServiceImpl.registerApp(AppsServiceImpl.java:76)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.discoverHost(RockServerDiscoveryService.java:102)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.discoverOrCheckHost(RockServerDiscoveryService.java:67)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.scanHosts(RockServerDiscoveryService.java:53)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:128)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$1(ScheduledMethodRunnable.java:122)
+	at io.micrometer.observation.Observation.observe(Observation.java:569)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:122)
+	at org.springframework.scheduling.config.Task$OutcomeTrackingRunnable.run(Task.java:88)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(Unknown Source)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Unknown Source)
+2026-11-19 02:29:05,401 ERROR org.obiba.opal.datashield.cfg.DataShieldProfileService - Cannot read R/DataSHIELD packages to initialize profile
+java.lang.IllegalStateException: Pool factory is closed
+	at com.orientechnologies.orient.core.db.OPartitionedDatabasePoolFactory.checkForClose(OPartitionedDatabasePoolFactory.java:147)
+	at com.orientechnologies.orient.core.db.OPartitionedDatabasePoolFactory.get(OPartitionedDatabasePoolFactory.java:107)
+	at org.obiba.opal.core.service.LocalOrientDbServerFactory.getDocumentTx(LocalOrientDbServerFactory.java:148)
+	at org.obiba.opal.core.service.OrientDbServiceImpl.findUnique(OrientDbServiceImpl.java:153)
+	at org.obiba.opal.core.service.AppsServiceImpl.getAppsConfig(AppsServiceImpl.java:166)
+	at org.obiba.opal.core.service.AppsServiceImpl.getRockAppConfig(AppsServiceImpl.java:192)
+	at org.obiba.opal.r.rock.RockService.getManagerCredentials(RockService.java:433)
+	at org.obiba.opal.r.rock.RockService$2.<init>(RockService.java:408)
+	at org.obiba.opal.r.rock.RockService.createHeaders(RockService.java:407)
+	at org.obiba.opal.r.rock.RockService.getState(RockService.java:153)
+	at org.obiba.opal.r.rock.RockService.isRunning(RockService.java:140)
+	at java.base/java.util.stream.MatchOps$1MatchSink.accept(Unknown Source)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.tryAdvance(Unknown Source)
+	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source)
+	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(Unknown Source)
+	at java.base/java.util.stream.ReferencePipeline.anyMatch(Unknown Source)
+	at org.obiba.opal.r.cluster.RServerCluster.isRunning(RServerCluster.java:105)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.lambda$onRServiceStarted$7(DataShieldProfileService.java:212)
+	at java.base/java.util.concurrent.ConcurrentHashMap$ValuesView.forEach(Unknown Source)
+	at org.obiba.opal.datashield.cfg.DataShieldProfileService.onRServiceStarted(DataShieldProfileService.java:211)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at com.google.common.eventbus.Subscriber.invokeSubscriberMethod(Subscriber.java:84)
+	at com.google.common.eventbus.Subscriber$SynchronizedSubscriber.invokeSubscriberMethod(Subscriber.java:141)
+	at com.google.common.eventbus.Subscriber.lambda$dispatchEvent$0(Subscriber.java:70)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.eventbus.Subscriber.dispatchEvent(Subscriber.java:67)
+	at com.google.common.eventbus.Dispatcher$PerThreadQueuedDispatcher.dispatch(Dispatcher.java:112)
+	at com.google.common.eventbus.EventBus.post(EventBus.java:262)
+	at org.obiba.opal.core.service.AppsServiceImpl$1.lambda$run$0(AppsServiceImpl.java:209)
+	at java.base/java.util.ArrayList.forEach(Unknown Source)
+	at org.obiba.opal.core.service.AppsServiceImpl$1.run(AppsServiceImpl.java:209)
+	at java.base/java.util.TimerThread.mainLoop(Unknown Source)
+	at java.base/java.util.TimerThread.run(Unknown Source)
+2026-11-19 02:29:05,412 ERROR org.obiba.opal.r.rock.RockService - Error when reading R server resource providers
+java.lang.IllegalStateException: Pool factory is closed
+	at com.orientechnologies.orient.core.db.OPartitionedDatabasePoolFactory.checkForClose(OPartitionedDatabasePoolFactory.java:147)
+	at com.orientechnologies.orient.core.db.OPartitionedDatabasePoolFactory.get(OPartitionedDatabasePoolFactory.java:107)
+	at org.obiba.opal.core.service.LocalOrientDbServerFactory.getDocumentTx(LocalOrientDbServerFactory.java:148)
+	at org.obiba.opal.core.service.OrientDbServiceImpl.findUnique(OrientDbServiceImpl.java:153)
+	at org.obiba.opal.core.service.AppsServiceImpl.getAppsConfig(AppsServiceImpl.java:166)
+	at org.obiba.opal.core.service.AppsServiceImpl.getRockAppConfig(AppsServiceImpl.java:192)
+	at org.obiba.opal.r.rock.RockService.getUserCredentials(RockService.java:447)
+	at org.obiba.opal.r.rock.RockService.newRServerSession(RockService.java:341)
+	at org.obiba.opal.r.service.RServerService.newRServerSession(RServerService.java:65)
+	at org.obiba.opal.r.service.RServerService.newRServerSession(RServerService.java:52)
+	at org.obiba.opal.r.rock.RockService.execute(RockService.java:363)
+	at org.obiba.opal.r.rock.RockService.getResourceProviders(RockService.java:226)
+	at org.obiba.opal.r.cluster.RServerCluster.getResourceProviders(RServerCluster.java:222)
+	at org.obiba.opal.r.service.RResourceProvidersService.loadResourceProviders(RResourceProvidersService.java:194)
+	at org.obiba.opal.r.service.RResourceProvidersService.onRServiceInitialized(RResourceProvidersService.java:144)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at com.google.common.eventbus.Subscriber.invokeSubscriberMethod(Subscriber.java:84)
+	at com.google.common.eventbus.Subscriber$SynchronizedSubscriber.invokeSubscriberMethod(Subscriber.java:141)
+	at com.google.common.eventbus.Subscriber.lambda$dispatchEvent$0(Subscriber.java:70)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.eventbus.Subscriber.dispatchEvent(Subscriber.java:67)
+	at com.google.common.eventbus.Dispatcher$PerThreadQueuedDispatcher.dispatch(Dispatcher.java:112)
+	at com.google.common.eventbus.EventBus.post(EventBus.java:262)
+	at org.obiba.opal.core.service.AppsServiceImpl.registerApp(AppsServiceImpl.java:76)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.discoverHost(RockServerDiscoveryService.java:102)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.discoverOrCheckHost(RockServerDiscoveryService.java:67)
+	at org.obiba.opal.r.rock.RockServerDiscoveryService.scanHosts(RockServerDiscoveryService.java:53)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:128)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$1(ScheduledMethodRunnable.java:122)
+	at io.micrometer.observation.Observation.observe(Observation.java:569)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:122)
+	at org.springframework.scheduling.config.Task$OutcomeTrackingRunnable.run(Task.java:88)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(Unknown Source)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Unknown Source)
+2026-11-19 02:29:05,425 ERROR org.obiba.opal.r.rock.RockService - Error when reading R server resource providers
+org.apache.shiro.UnavailableSecurityManagerException: No SecurityManager accessible to the calling code, either bound to the org.apache.shiro.util.ThreadContext or as a vm static singleton.  This is an invalid application configuration.
+	at org.apache.shiro.SecurityUtils.getSecurityManager(SecurityUtils.java:125)
+	at org.apache.shiro.subject.Subject$Builder.<init>(Subject.java:623)
+	at org.apache.shiro.SecurityUtils.getSubject(SecurityUtils.java:59)
+	at org.obiba.opal.r.rock.RockService.execute(RockService.java:362)
+	at org.obiba.opal.r.rock.RockService.getResourceProviders(RockService.java:226)
+	at org.obiba.opal.r.cluster.RServerCluster.getResourceProviders(RServerCluster.java:222)
+	at org.obiba.opal.r.service.RResourceProvidersService.loadResourceProviders(RResourceProvidersService.java:194)
+	at org.obiba.opal.r.service.RResourceProvidersService.onRServiceInitialized(RResourceProvidersService.java:144)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at com.google.common.eventbus.Subscriber.invokeSubscriberMethod(Subscriber.java:84)
+	at com.google.common.eventbus.Subscriber$SynchronizedSubscriber.invokeSubscriberMethod(Subscriber.java:141)
+	at com.google.common.eventbus.Subscriber.lambda$dispatchEvent$0(Subscriber.java:70)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.eventbus.Subscriber.dispatchEvent(Subscriber.java:67)
+	at com.google.common.eventbus.Dispatcher$PerThreadQueuedDispatcher.dispatch(Dispatcher.java:112)
+	at com.google.common.eventbus.EventBus.post(EventBus.java:262)
+	at org.obiba.opal.core.service.AppsServiceImpl$1.lambda$run$0(AppsServiceImpl.java:209)
+	at java.base/java.util.ArrayList.forEach(Unknown Source)
+	at org.obiba.opal.core.service.AppsServiceImpl$1.run(AppsServiceImpl.java:209)
+	at java.base/java.util.TimerThread.mainLoop(Unknown Source)
+	at java.base/java.util.TimerThread.run(Unknown Source)
+Starting Opal...
+JAVA=java
+JAVA_OPTS=-Xms1G -Xmx2G -XX:+UseG1GC
+OPAL_HOME=/srv
+OPAL_DIST=/usr/share/opal
+Listening for transport dt_socket at address: 8000
+Upgrading Opal...
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+Upgrade successful.
+Listening for transport dt_socket at address: 8000
+ __    __    __      ____  _____        _      
+ \ \   \ \   \ \    / __ \|  __ \ /\   | |     
+  \ \   \ \   \ \  | |  | | |__) /  \  | |     
+   > >   > >   > > | |  | |  ___/ /\ \ | |     
+  / /   / /   / /  | |__| | |  / ____ \| |____ 
+ /_/   /_/   /_/    \____/|_| /_/    \_\______|
+                                               
+                                               
+Starting Opal...
+No org.slf4j.impl.StaticLoggerBinder found in ClassPath, trying with log4j2...
+WARNING: A restricted method in java.lang.foreign.Linker has been called
+WARNING: java.lang.foreign.Linker::downcallHandle has been called by the unnamed module
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for this module
+
+Opal Server successfully started.
+Opal is attached to this console. Press ctrl-c to stop.
+2026-11-19 02:38:08,287 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'is.null(base::assign('dsOexec.mbEvCS', value={dsOMOP::omopDpPlanExecuteDS("dsO.3gktxH", "B64:eyJ2ZXJzaW9uIjoyLCJtZXRhIjp7Imxhbmd1YWdlX3ZlcnNpb24iOiIyLjAiLCJzZW1hbnRpY192ZXJzaW9uIjoiMi4wLjAiLCJnZW5lcmF0ZWRfYnkiOiJkc09NT1BDbGllbnQiLCJjbGllbnRfdmVyc2lvbiI6IjIuMTAuNyJ9LCJjb25jZXB0X3NldHMiOnsibWkiOnsiY29uY2VwdHMiOls0MzI5ODQ3XSwiaW5jbHVkZV9kZXNjZW5kYW50cyI6dHJ1ZX0sInN0YXRpbnMiOnsiY29uY2VwdHMiOlsxNTM5NDAzXSwiaW5jbHVkZV9kZXNjZW5kYW50cyI6dHJ1ZX19LCJldmVudHMiOnsibWkiOnsidGFibGUiOiJjb25kaXRpb25fb2NjdXJyZW5jZSIsImNvbmNlcHRfc2V0IjoibWkifSwic3RhdGluX3J4Ijp7InRhYmxlIjoiZHJ1Z19leHBvc3VyZSIsImNvbmNlcHRfc2V0Ijoic3RhdGlucyJ9LCJkaWFiZXRlcyI6eyJ0YWJsZSI6ImNvbmRpdGlvbl9vY2N1cnJlbmNlIiwiY29uY2VwdF9zZXQiOnsiY29uY2VwdHMiOlsyMDE4MjBdLCJpbmNsdWRlX2Rlc2NlbmRhbnRzIjp0cnVlfX19LCJwb3B1bGF0aW9ucyI6eyJjYXNlcyI6eyJraW5kIjoiaW5kZXgiLCJsYWJlbCI6IkZpcnN0IE1JIiwiaW5kZXgiOnsic291cmNlIjp7ImV2ZW50IjoibWkifSwic2VsZWN0IjoiZmlyc3RfZWxpZ2libGUiLCJlbmQiOnsic3RyYXRlZ3kiOiJmaXhlZCIsImRheXMiOjB9fSwid2hlcmUiOnsib2JzZXJ2ZWQiOnsiYmVmb3JlIjozNjV9fX0sImVsaWdpYmxlIjp7ImtpbmQiOiJjcml0ZXJpYSIsImxhYmVsIjoiT2JzZXJ2ZWQgb25lIHllYXIiLCJ3aGVyZSI6eyJvYnNlcnZlZCI6eyJiZWZvcmUiOjM2NX19fSwiY2MiOnsia2luZCI6Im1hdGNoIiwibGFiZWwiOiJOZXN0ZWQgY2FzZS1jb250cm9sIiwibWF0Y2giOnsiY2FzZXMiOiJjYXNlcyIsImNvbnRyb2xzIjoiZWxpZ2libGUiLCJvdXRjb21lIjp7ImV2ZW50IjoibWkifSwiYXQiOiJpbmRleCIsIm1hdGNoIjpbInNleCIseyJhZ2VfYmFuZCI6NX0sImNhbGVuZGFyX3llYXIiLHsic3RyYXRhIjp7InNvdXJjZSI6eyJldmVudCI6ImRpYWJldGVzIn0sIndpbmRvdyI6eyJzdGFydCI6bnVsbCwiZW5kIjotMSwiYW5jaG9yIjoiaW5kZXgifX19XSwiY29udHJvbHNfcGVyX2Nhc2UiOjQsInByaW9yX291dGNvbWUiOiJleGNsdWRlIiwiZnV0dXJlX2Nhc2VzIjoiZWxpZ2libGUiLCJyZXBsYWNlbWVudCI6ImJldHdlZW5fc2V0cyIsInNlZWQiOjIwMjYxMTExLCJpbnN1ZmZpY2llbnQiOiJrZWVwX2F2YWlsYWJsZSIsIm1pc3Npbmdfc3RyYXRhIjoiaW5lbGlnaWJsZSIsIm1heF9jYW5kaWRhdGVzIjoxMDAwMDAwfX19LCJ2YXJpYWJsZXMiOnsic2V0X2lkIjp7InBvcHVsYXRpb25fY29sdW1uIjp7Im5hbWUiOiJzZXRfaWQifX0sImlzX2Nhc2UiOnsicG9wdWxhdGlvbl9jb2x1bW4iOnsibmFtZSI6ImlzX2Nhc2UifX0sInciOnsicG9wdWxhdGlvbl9jb2x1bW4iOnsibmFtZSI6InNhbXBsaW5nX3dlaWdodCJ9fSwiYWdlIjp7ImRlcml2ZWQiOnsia2luZCI6ImFnZSIsInJlZmVyZW5jZSI6ImluZGV4IiwiYmFuZHMiOmZhbHNlfX0sInNleCI6eyJkZXJpdmVkIjp7ImtpbmQiOiJzZXhfbWYifX0sInN0YXRpbl8zNjUiOnsic291cmNlIjp7ImV2ZW50Ijoic3RhdGluX3J4In0sInJlZHVjZXIiOnsiZm4iOiJiaW5hcnkiLCJ3aW5kb3ciOnsic3RhcnQiOi0zNjUsImVuZCI6LTEsImFuY2hvciI6ImluZGV4In19fX0sIm91dHB1dHMiOnsiY2NfdGFibGUiOnsicm93cyI6ImNjIiwiZm9ybWF0Ijoid2lkZSIsImdyYWluIjoiZXBpc29kZSIsInJlc3VsdF9zeW1ib2wiOiJEX2NjIiwiY29sdW1ucyI6WyJzZXRfaWQiLCJpc19jYXNlIiwidyIsImFnZSIsInNleCIsInN0YXRpbl8zNjUiXX19LCJwdWJsaXNoIjpbImNjX3RhYmxlIl19", "B64:eyJjY190YWJsZSI6IkRfY2MifQ", "memory", commit_policy = "server", concept_protocol = 1)}))' -> Error : Plan output 'cc_table' cannot be prepared for DP releases: not_person_local.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'is.null(base::assign('dsOexec.mbEvCS', value={dsOMOP::omopDpPlanExecuteDS("dsO.3gktxH", "B64:eyJ2ZXJzaW9uIjoyLCJtZXRhIjp7Imxhbmd1YWdlX3ZlcnNpb24iOiIyLjAiLCJzZW1hbnRpY192ZXJzaW9uIjoiMi4wLjAiLCJnZW5lcmF0ZWRfYnkiOiJkc09NT1BDbGllbnQiLCJjbGllbnRfdmVyc2lvbiI6IjIuMTAuNyJ9LCJjb25jZXB0X3NldHMiOnsibWkiOnsiY29uY2VwdHMiOls0MzI5ODQ3XSwiaW5jbHVkZV9kZXNjZW5kYW50cyI6dHJ1ZX0sInN0YXRpbnMiOnsiY29uY2VwdHMiOlsxNTM5NDAzXSwiaW5jbHVkZV9kZXNjZW5kYW50cyI6dHJ1ZX19LCJldmVudHMiOnsibWkiOnsidGFibGUiOiJjb25kaXRpb25fb2NjdXJyZW5jZSIsImNvbmNlcHRfc2V0IjoibWkifSwic3RhdGluX3J4Ijp7InRhYmxlIjoiZHJ1Z19leHBvc3VyZSIsImNvbmNlcHRfc2V0Ijoic3RhdGlucyJ9LCJkaWFiZXRlcyI6eyJ0YWJsZSI6ImNvbmRpdGlvbl9vY2N1cnJlbmNlIiwiY29uY2VwdF9zZXQiOnsiY29uY2VwdHMiOlsyMDE4MjBdLCJpbmNsdWRlX2Rlc2NlbmRhbnRzIjp0cnVlfX19LCJwb3B1bGF0aW9ucyI6eyJjYXNlcyI6eyJraW5kIjoiaW5kZXgiLCJsYWJlbCI6IkZpcnN0IE1JIiwiaW5kZXgiOnsic291cmNlIjp7ImV2ZW50IjoibWkifSwic2VsZWN0IjoiZmlyc3RfZWxpZ2libGUiLCJlbmQiOnsic3RyYXRlZ3kiOiJmaXhlZCIsImRheXMiOjB9fSwid2hlcmUiOnsib2JzZXJ2ZWQiOnsiYmVmb3JlIjozNjV9fX0sImVsaWdpYmxlIjp7ImtpbmQiOiJjcml0ZXJpYSIsImxhYmVsIjoiT2JzZXJ2ZWQgb25lIHllYXIiLCJ3aGVyZSI6eyJvYnNlcnZlZCI6eyJiZWZvcmUiOjM2NX19fSwiY2MiOnsia2luZCI6Im1hdGNoIiwibGFiZWwiOiJOZXN0ZWQgY2FzZS1jb250cm9sIiwibWF0Y2giOnsiY2FzZXMiOiJjYXNlcyIsImNvbnRyb2xzIjoiZWxpZ2libGUiLCJvdXRjb21lIjp7ImV2ZW50IjoibWkifSwiYXQiOiJpbmRleCIsIm1hdGNoIjpbInNleCIseyJhZ2VfYmFuZCI6NX0sImNhbGVuZGFyX3llYXIiLHsic3RyYXRhIjp7InNvdXJjZSI6eyJldmVudCI6ImRpYWJldGVzIn0sIndpbmRvdyI6eyJzdGFydCI6bnVsbCwiZW5kIjotMSwiYW5jaG9yIjoiaW5kZXgifX19XSwiY29udHJvbHNfcGVyX2Nhc2UiOjQsInByaW9yX291dGNvbWUiOiJleGNsdWRlIiwiZnV0dXJlX2Nhc2VzIjoiZWxpZ2libGUiLCJyZXBsYWNlbWVudCI6ImJldHdlZW5fc2V0cyIsInNlZWQiOjIwMjYxMTExLCJpbnN1ZmZpY2llbnQiOiJrZWVwX2F2YWlsYWJsZSIsIm1pc3Npbmdfc3RyYXRhIjoiaW5lbGlnaWJsZSIsIm1heF9jYW5kaWRhdGVzIjoxMDAwMDAwfX19LCJ2YXJpYWJsZXMiOnsic2V0X2lkIjp7InBvcHVsYXRpb25fY29sdW1uIjp7Im5hbWUiOiJzZXRfaWQifX0sImlzX2Nhc2UiOnsicG9wdWxhdGlvbl9jb2x1bW4iOnsibmFtZSI6ImlzX2Nhc2UifX0sInciOnsicG9wdWxhdGlvbl9jb2x1bW4iOnsibmFtZSI6InNhbXBsaW5nX3dlaWdodCJ9fSwiYWdlIjp7ImRlcml2ZWQiOnsia2luZCI6ImFnZSIsInJlZmVyZW5jZSI6ImluZGV4IiwiYmFuZHMiOmZhbHNlfX0sInNleCI6eyJkZXJpdmVkIjp7ImtpbmQiOiJzZXhfbWYifX0sInN0YXRpbl8zNjUiOnsic291cmNlIjp7ImV2ZW50Ijoic3RhdGluX3J4In0sInJlZHVjZXIiOnsiZm4iOiJiaW5hcnkiLCJ3aW5kb3ciOnsic3RhcnQiOi0zNjUsImVuZCI6LTEsImFuY2hvciI6ImluZGV4In19fX0sIm91dHB1dHMiOnsiY2NfdGFibGUiOnsicm93cyI6ImNjIiwiZm9ybWF0Ijoid2lkZSIsImdyYWluIjoiZXBpc29kZSIsInJlc3VsdF9zeW1ib2wiOiJEX2NjIiwiY29sdW1ucyI6WyJzZXRfaWQiLCJpc19jYXNlIiwidyIsImFnZSIsInNleCIsInN0YXRpbl8zNjUiXX19LCJwdWJsaXNoIjpbImNjX3RhYmxlIl19", "B64:eyJjY190YWJsZSI6IkRfY2MifQ", "memory", commit_policy = "server", concept_protocol = 1)}))' -> Error : Plan output 'cc_table' cannot be prepared for DP releases: not_person_local.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:75)
+	at org.obiba.opal.datashield.RestrictedAssignmentROperation.doWithConnection(RestrictedAssignmentROperation.java:38)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:369)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:357)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:120)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:108)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'is.null(base::assign('dsOexec.mbEvCS', value={dsOMOP::omopDpPlanExecuteDS("dsO.3gktxH", "B64:eyJ2ZXJzaW9uIjoyLCJtZXRhIjp7Imxhbmd1YWdlX3ZlcnNpb24iOiIyLjAiLCJzZW1hbnRpY192ZXJzaW9uIjoiMi4wLjAiLCJnZW5lcmF0ZWRfYnkiOiJkc09NT1BDbGllbnQiLCJjbGllbnRfdmVyc2lvbiI6IjIuMTAuNyJ9LCJjb25jZXB0X3NldHMiOnsibWkiOnsiY29uY2VwdHMiOls0MzI5ODQ3XSwiaW5jbHVkZV9kZXNjZW5kYW50cyI6dHJ1ZX0sInN0YXRpbnMiOnsiY29uY2VwdHMiOlsxNTM5NDAzXSwiaW5jbHVkZV9kZXNjZW5kYW50cyI6dHJ1ZX19LCJldmVudHMiOnsibWkiOnsidGFibGUiOiJjb25kaXRpb25fb2NjdXJyZW5jZSIsImNvbmNlcHRfc2V0IjoibWkifSwic3RhdGluX3J4Ijp7InRhYmxlIjoiZHJ1Z19leHBvc3VyZSIsImNvbmNlcHRfc2V0Ijoic3RhdGlucyJ9LCJkaWFiZXRlcyI6eyJ0YWJsZSI6ImNvbmRpdGlvbl9vY2N1cnJlbmNlIiwiY29uY2VwdF9zZXQiOnsiY29uY2VwdHMiOlsyMDE4MjBdLCJpbmNsdWRlX2Rlc2NlbmRhbnRzIjp0cnVlfX19LCJwb3B1bGF0aW9ucyI6eyJjYXNlcyI6eyJraW5kIjoiaW5kZXgiLCJsYWJlbCI6IkZpcnN0IE1JIiwiaW5kZXgiOnsic291cmNlIjp7ImV2ZW50IjoibWkifSwic2VsZWN0IjoiZmlyc3RfZWxpZ2libGUiLCJlbmQiOnsic3RyYXRlZ3kiOiJmaXhlZCIsImRheXMiOjB9fSwid2hlcmUiOnsib2JzZXJ2ZWQiOnsiYmVmb3JlIjozNjV9fX0sImVsaWdpYmxlIjp7ImtpbmQiOiJjcml0ZXJpYSIsImxhYmVsIjoiT2JzZXJ2ZWQgb25lIHllYXIiLCJ3aGVyZSI6eyJvYnNlcnZlZCI6eyJiZWZvcmUiOjM2NX19fSwiY2MiOnsia2luZCI6Im1hdGNoIiwibGFiZWwiOiJOZXN0ZWQgY2FzZS1jb250cm9sIiwibWF0Y2giOnsiY2FzZXMiOiJjYXNlcyIsImNvbnRyb2xzIjoiZWxpZ2libGUiLCJvdXRjb21lIjp7ImV2ZW50IjoibWkifSwiYXQiOiJpbmRleCIsIm1hdGNoIjpbInNleCIseyJhZ2VfYmFuZCI6NX0sImNhbGVuZGFyX3llYXIiLHsic3RyYXRhIjp7InNvdXJjZSI6eyJldmVudCI6ImRpYWJldGVzIn0sIndpbmRvdyI6eyJzdGFydCI6bnVsbCwiZW5kIjotMSwiYW5jaG9yIjoiaW5kZXgifX19XSwiY29udHJvbHNfcGVyX2Nhc2UiOjQsInByaW9yX291dGNvbWUiOiJleGNsdWRlIiwiZnV0dXJlX2Nhc2VzIjoiZWxpZ2libGUiLCJyZXBsYWNlbWVudCI6ImJldHdlZW5fc2V0cyIsInNlZWQiOjIwMjYxMTExLCJpbnN1ZmZpY2llbnQiOiJrZWVwX2F2YWlsYWJsZSIsIm1pc3Npbmdfc3RyYXRhIjoiaW5lbGlnaWJsZSIsIm1heF9jYW5kaWRhdGVzIjoxMDAwMDAwfX19LCJ2YXJpYWJsZXMiOnsic2V0X2lkIjp7InBvcHVsYXRpb25fY29sdW1uIjp7Im5hbWUiOiJzZXRfaWQifX0sImlzX2Nhc2UiOnsicG9wdWxhdGlvbl9jb2x1bW4iOnsibmFtZSI6ImlzX2Nhc2UifX0sInciOnsicG9wdWxhdGlvbl9jb2x1bW4iOnsibmFtZSI6InNhbXBsaW5nX3dlaWdodCJ9fSwiYWdlIjp7ImRlcml2ZWQiOnsia2luZCI6ImFnZSIsInJlZmVyZW5jZSI6ImluZGV4IiwiYmFuZHMiOmZhbHNlfX0sInNleCI6eyJkZXJpdmVkIjp7ImtpbmQiOiJzZXhfbWYifX0sInN0YXRpbl8zNjUiOnsic291cmNlIjp7ImV2ZW50Ijoic3RhdGluX3J4In0sInJlZHVjZXIiOnsiZm4iOiJiaW5hcnkiLCJ3aW5kb3ciOnsic3RhcnQiOi0zNjUsImVuZCI6LTEsImFuY2hvciI6ImluZGV4In19fX0sIm91dHB1dHMiOnsiY2NfdGFibGUiOnsicm93cyI6ImNjIiwiZm9ybWF0Ijoid2lkZSIsImdyYWluIjoiZXBpc29kZSIsInJlc3VsdF9zeW1ib2wiOiJEX2NjIiwiY29sdW1ucyI6WyJzZXRfaWQiLCJpc19jYXNlIiwidyIsImFnZSIsInNleCIsInN0YXRpbl8zNjUiXX19LCJwdWJsaXNoIjpbImNjX3RhYmxlIl19", "B64:eyJjY190YWJsZSI6IkRfY2MifQ", "memory", commit_policy = "server", concept_protocol = 1)}))' -> Error : Plan output 'cc_table' cannot be prepared for DP releases: not_person_local.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 12 common frames omitted
+2026-11-19 02:38:08,348 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'is.null(base::assign('dsOexec.mbEvCS', value={dsOMOP::omopDpPlanExecuteDS("dsO.3gktxH", "B64:eyJ2ZXJzaW9uIjoyLCJtZXRhIjp7Imxhbmd1YWdlX3ZlcnNpb24iOiIyLjAiLCJzZW1hbnRpY192ZXJzaW9uIjoiMi4wLjAiLCJnZW5lcmF0ZWRfYnkiOiJkc09NT1BDbGllbnQiLCJjbGllbnRfdmVyc2lvbiI6IjIuMTAuNyJ9LCJjb25jZXB0X3NldHMiOnsibWkiOnsiY29uY2VwdHMiOls0MzI5ODQ3XSwiaW5jbHVkZV9kZXNjZW5kYW50cyI6dHJ1ZX0sInN0YXRpbnMiOnsiY29uY2VwdHMiOlsxNTM5NDAzXSwiaW5jbHVkZV9kZXNjZW5kYW50cyI6dHJ1ZX19LCJldmVudHMiOnsibWkiOnsidGFibGUiOiJjb25kaXRpb25fb2NjdXJyZW5jZSIsImNvbmNlcHRfc2V0IjoibWkifSwic3RhdGluX3J4Ijp7InRhYmxlIjoiZHJ1Z19leHBvc3VyZSIsImNvbmNlcHRfc2V0Ijoic3RhdGlucyJ9LCJkaWFiZXRlcyI6eyJ0YWJsZSI6ImNvbmRpdGlvbl9vY2N1cnJlbmNlIiwiY29uY2VwdF9zZXQiOnsiY29uY2VwdHMiOlsyMDE4MjBdLCJpbmNsdWRlX2Rlc2NlbmRhbnRzIjp0cnVlfX19LCJwb3B1bGF0aW9ucyI6eyJjYXNlcyI6eyJraW5kIjoiaW5kZXgiLCJsYWJlbCI6IkZpcnN0IE1JIiwiaW5kZXgiOnsic291cmNlIjp7ImV2ZW50IjoibWkifSwic2VsZWN0IjoiZmlyc3RfZWxpZ2libGUiLCJlbmQiOnsic3RyYXRlZ3kiOiJmaXhlZCIsImRheXMiOjB9fSwid2hlcmUiOnsib2JzZXJ2ZWQiOnsiYmVmb3JlIjozNjV9fX0sImVsaWdpYmxlIjp7ImtpbmQiOiJjcml0ZXJpYSIsImxhYmVsIjoiT2JzZXJ2ZWQgb25lIHllYXIiLCJ3aGVyZSI6eyJvYnNlcnZlZCI6eyJiZWZvcmUiOjM2NX19fSwiY2MiOnsia2luZCI6Im1hdGNoIiwibGFiZWwiOiJOZXN0ZWQgY2FzZS1jb250cm9sIiwibWF0Y2giOnsiY2FzZXMiOiJjYXNlcyIsImNvbnRyb2xzIjoiZWxpZ2libGUiLCJvdXRjb21lIjp7ImV2ZW50IjoibWkifSwiYXQiOiJpbmRleCIsIm1hdGNoIjpbInNleCIseyJhZ2VfYmFuZCI6NX0sImNhbGVuZGFyX3llYXIiLHsic3RyYXRhIjp7InNvdXJjZSI6eyJldmVudCI6ImRpYWJldGVzIn0sIndpbmRvdyI6eyJzdGFydCI6bnVsbCwiZW5kIjotMSwiYW5jaG9yIjoiaW5kZXgifX19XSwiY29udHJvbHNfcGVyX2Nhc2UiOjQsInByaW9yX291dGNvbWUiOiJleGNsdWRlIiwiZnV0dXJlX2Nhc2VzIjoiZWxpZ2libGUiLCJyZXBsYWNlbWVudCI6ImJldHdlZW5fc2V0cyIsInNlZWQiOjIwMjYxMTExLCJpbnN1ZmZpY2llbnQiOiJrZWVwX2F2YWlsYWJsZSIsIm1pc3Npbmdfc3RyYXRhIjoiaW5lbGlnaWJsZSIsIm1heF9jYW5kaWRhdGVzIjoxMDAwMDAwfX19LCJ2YXJpYWJsZXMiOnsic2V0X2lkIjp7InBvcHVsYXRpb25fY29sdW1uIjp7Im5hbWUiOiJzZXRfaWQifX0sImlzX2Nhc2UiOnsicG9wdWxhdGlvbl9jb2x1bW4iOnsibmFtZSI6ImlzX2Nhc2UifX0sInciOnsicG9wdWxhdGlvbl9jb2x1bW4iOnsibmFtZSI6InNhbXBsaW5nX3dlaWdodCJ9fSwiYWdlIjp7ImRlcml2ZWQiOnsia2luZCI6ImFnZSIsInJlZmVyZW5jZSI6ImluZGV4IiwiYmFuZHMiOmZhbHNlfX0sInNleCI6eyJkZXJpdmVkIjp7ImtpbmQiOiJzZXhfbWYifX0sInN0YXRpbl8zNjUiOnsic291cmNlIjp7ImV2ZW50Ijoic3RhdGluX3J4In0sInJlZHVjZXIiOnsiZm4iOiJiaW5hcnkiLCJ3aW5kb3ciOnsic3RhcnQiOi0zNjUsImVuZCI6LTEsImFuY2hvciI6ImluZGV4In19fX0sIm91dHB1dHMiOnsiY2NfdGFibGUiOnsicm93cyI6ImNjIiwiZm9ybWF0Ijoid2lkZSIsImdyYWluIjoiZXBpc29kZSIsInJlc3VsdF9zeW1ib2wiOiJEX2NjIiwiY29sdW1ucyI6WyJzZXRfaWQiLCJpc19jYXNlIiwidyIsImFnZSIsInNleCIsInN0YXRpbl8zNjUiXX19LCJwdWJsaXNoIjpbImNjX3RhYmxlIl19", "B64:eyJjY190YWJsZSI6IkRfY2MifQ", "memory", commit_policy = "server", concept_protocol = 1)}))' -> Error : Plan output 'cc_table' cannot be prepared for DP releases: not_person_local.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'is.null(base::assign('dsOexec.mbEvCS', value={dsOMOP::omopDpPlanExecuteDS("dsO.3gktxH", "B64:eyJ2ZXJzaW9uIjoyLCJtZXRhIjp7Imxhbmd1YWdlX3ZlcnNpb24iOiIyLjAiLCJzZW1hbnRpY192ZXJzaW9uIjoiMi4wLjAiLCJnZW5lcmF0ZWRfYnkiOiJkc09NT1BDbGllbnQiLCJjbGllbnRfdmVyc2lvbiI6IjIuMTAuNyJ9LCJjb25jZXB0X3NldHMiOnsibWkiOnsiY29uY2VwdHMiOls0MzI5ODQ3XSwiaW5jbHVkZV9kZXNjZW5kYW50cyI6dHJ1ZX0sInN0YXRpbnMiOnsiY29uY2VwdHMiOlsxNTM5NDAzXSwiaW5jbHVkZV9kZXNjZW5kYW50cyI6dHJ1ZX19LCJldmVudHMiOnsibWkiOnsidGFibGUiOiJjb25kaXRpb25fb2NjdXJyZW5jZSIsImNvbmNlcHRfc2V0IjoibWkifSwic3RhdGluX3J4Ijp7InRhYmxlIjoiZHJ1Z19leHBvc3VyZSIsImNvbmNlcHRfc2V0Ijoic3RhdGlucyJ9LCJkaWFiZXRlcyI6eyJ0YWJsZSI6ImNvbmRpdGlvbl9vY2N1cnJlbmNlIiwiY29uY2VwdF9zZXQiOnsiY29uY2VwdHMiOlsyMDE4MjBdLCJpbmNsdWRlX2Rlc2NlbmRhbnRzIjp0cnVlfX19LCJwb3B1bGF0aW9ucyI6eyJjYXNlcyI6eyJraW5kIjoiaW5kZXgiLCJsYWJlbCI6IkZpcnN0IE1JIiwiaW5kZXgiOnsic291cmNlIjp7ImV2ZW50IjoibWkifSwic2VsZWN0IjoiZmlyc3RfZWxpZ2libGUiLCJlbmQiOnsic3RyYXRlZ3kiOiJmaXhlZCIsImRheXMiOjB9fSwid2hlcmUiOnsib2JzZXJ2ZWQiOnsiYmVmb3JlIjozNjV9fX0sImVsaWdpYmxlIjp7ImtpbmQiOiJjcml0ZXJpYSIsImxhYmVsIjoiT2JzZXJ2ZWQgb25lIHllYXIiLCJ3aGVyZSI6eyJvYnNlcnZlZCI6eyJiZWZvcmUiOjM2NX19fSwiY2MiOnsia2luZCI6Im1hdGNoIiwibGFiZWwiOiJOZXN0ZWQgY2FzZS1jb250cm9sIiwibWF0Y2giOnsiY2FzZXMiOiJjYXNlcyIsImNvbnRyb2xzIjoiZWxpZ2libGUiLCJvdXRjb21lIjp7ImV2ZW50IjoibWkifSwiYXQiOiJpbmRleCIsIm1hdGNoIjpbInNleCIseyJhZ2VfYmFuZCI6NX0sImNhbGVuZGFyX3llYXIiLHsic3RyYXRhIjp7InNvdXJjZSI6eyJldmVudCI6ImRpYWJldGVzIn0sIndpbmRvdyI6eyJzdGFydCI6bnVsbCwiZW5kIjotMSwiYW5jaG9yIjoiaW5kZXgifX19XSwiY29udHJvbHNfcGVyX2Nhc2UiOjQsInByaW9yX291dGNvbWUiOiJleGNsdWRlIiwiZnV0dXJlX2Nhc2VzIjoiZWxpZ2libGUiLCJyZXBsYWNlbWVudCI6ImJldHdlZW5fc2V0cyIsInNlZWQiOjIwMjYxMTExLCJpbnN1ZmZpY2llbnQiOiJrZWVwX2F2YWlsYWJsZSIsIm1pc3Npbmdfc3RyYXRhIjoiaW5lbGlnaWJsZSIsIm1heF9jYW5kaWRhdGVzIjoxMDAwMDAwfX19LCJ2YXJpYWJsZXMiOnsic2V0X2lkIjp7InBvcHVsYXRpb25fY29sdW1uIjp7Im5hbWUiOiJzZXRfaWQifX0sImlzX2Nhc2UiOnsicG9wdWxhdGlvbl9jb2x1bW4iOnsibmFtZSI6ImlzX2Nhc2UifX0sInciOnsicG9wdWxhdGlvbl9jb2x1bW4iOnsibmFtZSI6InNhbXBsaW5nX3dlaWdodCJ9fSwiYWdlIjp7ImRlcml2ZWQiOnsia2luZCI6ImFnZSIsInJlZmVyZW5jZSI6ImluZGV4IiwiYmFuZHMiOmZhbHNlfX0sInNleCI6eyJkZXJpdmVkIjp7ImtpbmQiOiJzZXhfbWYifX0sInN0YXRpbl8zNjUiOnsic291cmNlIjp7ImV2ZW50Ijoic3RhdGluX3J4In0sInJlZHVjZXIiOnsiZm4iOiJiaW5hcnkiLCJ3aW5kb3ciOnsic3RhcnQiOi0zNjUsImVuZCI6LTEsImFuY2hvciI6ImluZGV4In19fX0sIm91dHB1dHMiOnsiY2NfdGFibGUiOnsicm93cyI6ImNjIiwiZm9ybWF0Ijoid2lkZSIsImdyYWluIjoiZXBpc29kZSIsInJlc3VsdF9zeW1ib2wiOiJEX2NjIiwiY29sdW1ucyI6WyJzZXRfaWQiLCJpc19jYXNlIiwidyIsImFnZSIsInNleCIsInN0YXRpbl8zNjUiXX19LCJwdWJsaXNoIjpbImNjX3RhYmxlIl19", "B64:eyJjY190YWJsZSI6IkRfY2MifQ", "memory", commit_policy = "server", concept_protocol = 1)}))' -> Error : Plan output 'cc_table' cannot be prepared for DP releases: not_person_local.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:75)
+	at org.obiba.opal.datashield.RestrictedAssignmentROperation.doWithConnection(RestrictedAssignmentROperation.java:38)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:369)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:357)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:120)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:108)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'is.null(base::assign('dsOexec.mbEvCS', value={dsOMOP::omopDpPlanExecuteDS("dsO.3gktxH", "B64:eyJ2ZXJzaW9uIjoyLCJtZXRhIjp7Imxhbmd1YWdlX3ZlcnNpb24iOiIyLjAiLCJzZW1hbnRpY192ZXJzaW9uIjoiMi4wLjAiLCJnZW5lcmF0ZWRfYnkiOiJkc09NT1BDbGllbnQiLCJjbGllbnRfdmVyc2lvbiI6IjIuMTAuNyJ9LCJjb25jZXB0X3NldHMiOnsibWkiOnsiY29uY2VwdHMiOls0MzI5ODQ3XSwiaW5jbHVkZV9kZXNjZW5kYW50cyI6dHJ1ZX0sInN0YXRpbnMiOnsiY29uY2VwdHMiOlsxNTM5NDAzXSwiaW5jbHVkZV9kZXNjZW5kYW50cyI6dHJ1ZX19LCJldmVudHMiOnsibWkiOnsidGFibGUiOiJjb25kaXRpb25fb2NjdXJyZW5jZSIsImNvbmNlcHRfc2V0IjoibWkifSwic3RhdGluX3J4Ijp7InRhYmxlIjoiZHJ1Z19leHBvc3VyZSIsImNvbmNlcHRfc2V0Ijoic3RhdGlucyJ9LCJkaWFiZXRlcyI6eyJ0YWJsZSI6ImNvbmRpdGlvbl9vY2N1cnJlbmNlIiwiY29uY2VwdF9zZXQiOnsiY29uY2VwdHMiOlsyMDE4MjBdLCJpbmNsdWRlX2Rlc2NlbmRhbnRzIjp0cnVlfX19LCJwb3B1bGF0aW9ucyI6eyJjYXNlcyI6eyJraW5kIjoiaW5kZXgiLCJsYWJlbCI6IkZpcnN0IE1JIiwiaW5kZXgiOnsic291cmNlIjp7ImV2ZW50IjoibWkifSwic2VsZWN0IjoiZmlyc3RfZWxpZ2libGUiLCJlbmQiOnsic3RyYXRlZ3kiOiJmaXhlZCIsImRheXMiOjB9fSwid2hlcmUiOnsib2JzZXJ2ZWQiOnsiYmVmb3JlIjozNjV9fX0sImVsaWdpYmxlIjp7ImtpbmQiOiJjcml0ZXJpYSIsImxhYmVsIjoiT2JzZXJ2ZWQgb25lIHllYXIiLCJ3aGVyZSI6eyJvYnNlcnZlZCI6eyJiZWZvcmUiOjM2NX19fSwiY2MiOnsia2luZCI6Im1hdGNoIiwibGFiZWwiOiJOZXN0ZWQgY2FzZS1jb250cm9sIiwibWF0Y2giOnsiY2FzZXMiOiJjYXNlcyIsImNvbnRyb2xzIjoiZWxpZ2libGUiLCJvdXRjb21lIjp7ImV2ZW50IjoibWkifSwiYXQiOiJpbmRleCIsIm1hdGNoIjpbInNleCIseyJhZ2VfYmFuZCI6NX0sImNhbGVuZGFyX3llYXIiLHsic3RyYXRhIjp7InNvdXJjZSI6eyJldmVudCI6ImRpYWJldGVzIn0sIndpbmRvdyI6eyJzdGFydCI6bnVsbCwiZW5kIjotMSwiYW5jaG9yIjoiaW5kZXgifX19XSwiY29udHJvbHNfcGVyX2Nhc2UiOjQsInByaW9yX291dGNvbWUiOiJleGNsdWRlIiwiZnV0dXJlX2Nhc2VzIjoiZWxpZ2libGUiLCJyZXBsYWNlbWVudCI6ImJldHdlZW5fc2V0cyIsInNlZWQiOjIwMjYxMTExLCJpbnN1ZmZpY2llbnQiOiJrZWVwX2F2YWlsYWJsZSIsIm1pc3Npbmdfc3RyYXRhIjoiaW5lbGlnaWJsZSIsIm1heF9jYW5kaWRhdGVzIjoxMDAwMDAwfX19LCJ2YXJpYWJsZXMiOnsic2V0X2lkIjp7InBvcHVsYXRpb25fY29sdW1uIjp7Im5hbWUiOiJzZXRfaWQifX0sImlzX2Nhc2UiOnsicG9wdWxhdGlvbl9jb2x1bW4iOnsibmFtZSI6ImlzX2Nhc2UifX0sInciOnsicG9wdWxhdGlvbl9jb2x1bW4iOnsibmFtZSI6InNhbXBsaW5nX3dlaWdodCJ9fSwiYWdlIjp7ImRlcml2ZWQiOnsia2luZCI6ImFnZSIsInJlZmVyZW5jZSI6ImluZGV4IiwiYmFuZHMiOmZhbHNlfX0sInNleCI6eyJkZXJpdmVkIjp7ImtpbmQiOiJzZXhfbWYifX0sInN0YXRpbl8zNjUiOnsic291cmNlIjp7ImV2ZW50Ijoic3RhdGluX3J4In0sInJlZHVjZXIiOnsiZm4iOiJiaW5hcnkiLCJ3aW5kb3ciOnsic3RhcnQiOi0zNjUsImVuZCI6LTEsImFuY2hvciI6ImluZGV4In19fX0sIm91dHB1dHMiOnsiY2NfdGFibGUiOnsicm93cyI6ImNjIiwiZm9ybWF0Ijoid2lkZSIsImdyYWluIjoiZXBpc29kZSIsInJlc3VsdF9zeW1ib2wiOiJEX2NjIiwiY29sdW1ucyI6WyJzZXRfaWQiLCJpc19jYXNlIiwidyIsImFnZSIsInNleCIsInN0YXRpbl8zNjUiXX19LCJwdWJsaXNoIjpbImNjX3RhYmxlIl19", "B64:eyJjY190YWJsZSI6IkRfY2MifQ", "memory", commit_policy = "server", concept_protocol = 1)}))' -> Error : Plan output 'cc_table' cannot be prepared for DP releases: not_person_local.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 12 common frames omitted
+2026-11-19 02:39:11,626 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopColumnStatsDS("dsO.Ti0zif", "person", "year_of_birth", concept_id = NULL, cohort = NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopColumnStatsDS("dsO.Ti0zif", "person", "year_of_birth", concept_id = NULL, cohort = NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:36)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:369)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:357)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:120)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:108)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopColumnStatsDS("dsO.Ti0zif", "person", "year_of_birth", concept_id = NULL, cohort = NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 11 common frames omitted
+2026-11-19 02:39:11,732 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopValueCountsDS("dsO.Ti0zif", "person", "year_of_birth", 20L, concept_id = NULL, cohort = NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopValueCountsDS("dsO.Ti0zif", "person", "year_of_birth", 20L, concept_id = NULL, cohort = NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:36)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:369)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:357)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:120)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:108)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopValueCountsDS("dsO.Ti0zif", "person", "year_of_birth", 20L, concept_id = NULL, cohort = NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 11 common frames omitted
+2026-11-19 02:39:11,770 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopCrossTabDS("dsO.Ti0zif", "person", "year_of_birth", "gender_concept_id", count_mode = "persons", row_concept_ids = NULL, col_concept_ids = NULL, cohort_table = NULL, stratify_by = NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopCrossTabDS("dsO.Ti0zif", "person", "year_of_birth", "gender_concept_id", count_mode = "persons", row_concept_ids = NULL, col_concept_ids = NULL, cohort_table = NULL, stratify_by = NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:36)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:369)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:357)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:120)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:108)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopCrossTabDS("dsO.Ti0zif", "person", "year_of_birth", "gender_concept_id", count_mode = "persons", row_concept_ids = NULL, col_concept_ids = NULL, cohort_table = NULL, stratify_by = NULL)' -> Error : Column 'year_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 11 common frames omitted
+2026-11-19 02:39:11,853 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopColumnStatsDS("dsO.Ti0zif", "person", "month_of_birth", concept_id = NULL, cohort = NULL)' -> Error : Column 'month_of_birth' is blocked (sensitive) and cannot be profiled.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopColumnStatsDS("dsO.Ti0zif", "person", "month_of_birth", concept_id = NULL, cohort = NULL)' -> Error : Column 'month_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:36)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:369)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:357)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:120)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:108)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopColumnStatsDS("dsO.Ti0zif", "person", "month_of_birth", concept_id = NULL, cohort = NULL)' -> Error : Column 'month_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 11 common frames omitted
+2026-11-19 02:39:11,942 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopValueCountsDS("dsO.Ti0zif", "person", "month_of_birth", 20L, concept_id = NULL, cohort = NULL)' -> Error : Column 'month_of_birth' is blocked (sensitive) and cannot be profiled.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopValueCountsDS("dsO.Ti0zif", "person", "month_of_birth", 20L, concept_id = NULL, cohort = NULL)' -> Error : Column 'month_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:36)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:369)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:357)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:120)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:108)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopValueCountsDS("dsO.Ti0zif", "person", "month_of_birth", 20L, concept_id = NULL, cohort = NULL)' -> Error : Column 'month_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 11 common frames omitted
+2026-11-19 02:39:12,045 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopCrossTabDS("dsO.Ti0zif", "person", "month_of_birth", "gender_concept_id", count_mode = "persons", row_concept_ids = NULL, col_concept_ids = NULL, cohort_table = NULL, stratify_by = NULL)' -> Error : Column 'month_of_birth' is blocked (sensitive) and cannot be profiled.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopCrossTabDS("dsO.Ti0zif", "person", "month_of_birth", "gender_concept_id", count_mode = "persons", row_concept_ids = NULL, col_concept_ids = NULL, cohort_table = NULL, stratify_by = NULL)' -> Error : Column 'month_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:36)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:369)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:357)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:120)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:108)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopCrossTabDS("dsO.Ti0zif", "person", "month_of_birth", "gender_concept_id", count_mode = "persons", row_concept_ids = NULL, col_concept_ids = NULL, cohort_table = NULL, stratify_by = NULL)' -> Error : Column 'month_of_birth' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 11 common frames omitted
+2026-11-19 02:39:12,127 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopColumnStatsDS("dsO.Ti0zif", "person", "birth_datetime", concept_id = NULL, cohort = NULL)' -> Error : Column 'birth_datetime' is blocked (sensitive) and cannot be profiled.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopColumnStatsDS("dsO.Ti0zif", "person", "birth_datetime", concept_id = NULL, cohort = NULL)' -> Error : Column 'birth_datetime' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:36)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:369)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:357)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:120)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:108)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopColumnStatsDS("dsO.Ti0zif", "person", "birth_datetime", concept_id = NULL, cohort = NULL)' -> Error : Column 'birth_datetime' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 11 common frames omitted
+2026-11-19 02:39:12,219 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopValueCountsDS("dsO.Ti0zif", "person", "birth_datetime", 20L, concept_id = NULL, cohort = NULL)' -> Error : Column 'birth_datetime' is blocked (sensitive) and cannot be profiled.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopValueCountsDS("dsO.Ti0zif", "person", "birth_datetime", 20L, concept_id = NULL, cohort = NULL)' -> Error : Column 'birth_datetime' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:36)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:369)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:357)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:120)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:108)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopValueCountsDS("dsO.Ti0zif", "person", "birth_datetime", 20L, concept_id = NULL, cohort = NULL)' -> Error : Column 'birth_datetime' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 11 common frames omitted
+2026-11-19 02:39:12,313 ERROR org.obiba.opal.r.service.AbstractRServerSession - Error when consuming R command: Error while evaluating 'dsOMOP::omopCrossTabDS("dsO.Ti0zif", "person", "birth_datetime", "gender_concept_id", count_mode = "persons", row_concept_ids = NULL, col_concept_ids = NULL, cohort_table = NULL, stratify_by = NULL)' -> Error : Column 'birth_datetime' is blocked (sensitive) and cannot be profiled.
+
+org.obiba.opal.spi.r.RRuntimeException: Error while evaluating 'dsOMOP::omopCrossTabDS("dsO.Ti0zif", "person", "birth_datetime", "gender_concept_id", count_mode = "persons", row_concept_ids = NULL, col_concept_ids = NULL, cohort_table = NULL, stratify_by = NULL)' -> Error : Column 'birth_datetime' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:106)
+	at org.obiba.opal.datashield.RestrictedRScriptROperation.doWithConnection(RestrictedRScriptROperation.java:36)
+	at org.obiba.opal.spi.r.AbstractROperation.doWithConnection(AbstractROperation.java:226)
+	at org.obiba.opal.r.rock.RockSession.execute(RockSession.java:225)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.consume(AbstractRServerSession.java:369)
+	at org.obiba.opal.r.service.AbstractRServerSession$RCommandsConsumer.run(AbstractRServerSession.java:357)
+	at org.apache.shiro.subject.support.SubjectRunnable.doRun(SubjectRunnable.java:120)
+	at org.apache.shiro.subject.support.SubjectRunnable.run(SubjectRunnable.java:108)
+	at org.obiba.opal.core.tx.TransactionalThread$1.doInTransactionWithoutResult(TransactionalThread.java:40)
+	at org.springframework.transaction.support.TransactionCallbackWithoutResult.doInTransaction(TransactionCallbackWithoutResult.java:40)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137)
+	at org.obiba.opal.core.tx.TransactionalThread.run(TransactionalThread.java:37)
+Caused by: org.obiba.opal.r.rock.RockServerException: Error while evaluating 'dsOMOP::omopCrossTabDS("dsO.Ti0zif", "person", "birth_datetime", "gender_concept_id", count_mode = "persons", row_concept_ids = NULL, col_concept_ids = NULL, cohort_table = NULL, stratify_by = NULL)' -> Error : Column 'birth_datetime' is blocked (sensitive) and cannot be profiled.
+
+	at org.obiba.opal.r.rock.RockSession.eval(RockSession.java:130)
+	at org.obiba.opal.spi.r.AbstractROperation.eval(AbstractROperation.java:100)
+	... 11 common frames omitted
+
+[collector exit=0]
