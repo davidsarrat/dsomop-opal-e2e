@@ -1,0 +1,157 @@
+OK    dsadmin.install_package(o, "filelock") [CRAN dependency of the candidate] (2.6 s)
+* checking for empty or unneeded directories
+* building ‘dsOMOP_2.10.9.tar.gz’
+
+OK    dsadmin.install_local_package(o, "dsOMOP_2.10.9.tar.gz") (31.1 s)
+After Opal's local call dsOMOP is '2.10.9'; installing the exact candidate archive from Rock's R session
+--- Rock candidate installation (service R session and library)
+$status
+[1] 0
+
+$library
+[1] "/var/lib/rock/R/library"
+
+$log
+ [1] "* installing *source* package ‘dsOMOP’ ..."                                                                                                                                                                                                            
+ [2] "** this is package ‘dsOMOP’ version ‘2.10.9’"                                                                                                                                                                                                          
+ [3] "** using staged installation"                                                                                                                                                                                                                          
+ [4] "dsOMOP: request-local OpenSSL HMAC acceleration enabled"                                                                                                                                                                                               
+ [5] "** libs"                                                                                                                                                                                                                                               
+ [6] "using C compiler: ‘gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0’"                                                                                                                                                                                       
+ [7] "gcc -std=gnu2x -I\"/usr/local/lib/R/include\" -DNDEBUG -DDSOMOP_HAVE_OPENSSL   -I/usr/local/include    -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c release_hmac.c -o release_hmac.o"
+ [8] "gcc -std=gnu2x -shared -L/usr/local/lib/R/lib -L/usr/local/lib -o dsOMOP.so release_hmac.o -lcrypto -L/usr/local/lib/R/lib -lR"                                                                                                                        
+ [9] "installing to /var/lib/rock/R/library/00LOCK-dsOMOP/00new/dsOMOP/libs"                                                                                                                                                                                 
+[10] "** R"                                                                                                                                                                                                                                                  
+[11] "** inst"                                                                                                                                                                                                                                               
+[12] "** byte-compile and prepare package for lazy loading"                                                                                                                                                                                                  
+[13] "** help"                                                                                                                                                                                                                                               
+[14] "*** installing help indices"                                                                                                                                                                                                                           
+[15] "** building package indices"                                                                                                                                                                                                                           
+[16] "** testing if installed package can be loaded from temporary location"                                                                                                                                                                                 
+[17] "** checking absolute paths in shared objects and dynamic libraries"                                                                                                                                                                                    
+[18] "** testing if installed package can be loaded from final location"                                                                                                                                                                                     
+[19] "** testing if installed package keeps a record of temporary installation path"                                                                                                                                                                         
+[20] "* DONE (dsOMOP)"                                                                                                                                                                                                                                       
+
+dsOMOP installed on Rock: 2.10.9
+dsOMOP methods published (O10 methods and Options republished): 59 aggregate + 14 assign; versions: 2.10.9; omopInitDS published: TRUE
+--- assign methods O10 methods and Options republished
+                      name   type    class                           value package version
+74 omopAnalysisRunAssignDS assign function dsOMOP::omopAnalysisRunAssignDS  dsOMOP  2.10.9
+75   omopAsFactorColumnsDS assign function   dsOMOP::omopAsFactorColumnsDS  dsOMOP  2.10.9
+76          omopBindRowsDS assign function          dsOMOP::omopBindRowsDS  dsOMOP  2.10.9
+77           omopCleanupDS assign function           dsOMOP::omopCleanupDS  dsOMOP  2.10.9
+78     omopCohortCombineDS assign function     dsOMOP::omopCohortCombineDS  dsOMOP  2.10.9
+79      omopCohortCreateDS assign function      dsOMOP::omopCohortCreateDS  dsOMOP  2.10.9
+80   omopCohortFromTableDS assign function   dsOMOP::omopCohortFromTableDS  dsOMOP  2.10.9
+81     omopDpPlanExecuteDS assign function     dsOMOP::omopDpPlanExecuteDS  dsOMOP  2.10.9
+82            omopFilterDS assign function            dsOMOP::omopFilterDS  dsOMOP  2.10.9
+83              omopInitDS assign function              dsOMOP::omopInitDS  dsOMOP  2.10.9
+84             omopMergeDS assign function             dsOMOP::omopMergeDS  dsOMOP  2.10.9
+85            omopMutateDS assign function            dsOMOP::omopMutateDS  dsOMOP  2.10.9
+86       omopPlanExecuteDS assign function       dsOMOP::omopPlanExecuteDS  dsOMOP  2.10.9
+87            omopSelectDS assign function            dsOMOP::omopSelectDS  dsOMOP  2.10.9
+--- aggregate methods O10 methods and Options republished
+                               name      type    class                                   value package version
+56           omopAchillesAnalysesDS aggregate function          dsOMOP::omopAchillesAnalysesDS  dsOMOP  2.10.9
+57            omopAchillesCatalogDS aggregate function           dsOMOP::omopAchillesCatalogDS  dsOMOP  2.10.9
+58       omopAchillesDistributionDS aggregate function      dsOMOP::omopAchillesDistributionDS  dsOMOP  2.10.9
+59            omopAchillesResultsDS aggregate function           dsOMOP::omopAchillesResultsDS  dsOMOP  2.10.9
+60             omopAchillesStatusDS aggregate function            dsOMOP::omopAchillesStatusDS  dsOMOP  2.10.9
+61                omopAnalysisGetDS aggregate function               dsOMOP::omopAnalysisGetDS  dsOMOP  2.10.9
+62               omopAnalysisListDS aggregate function              dsOMOP::omopAnalysisListDS  dsOMOP  2.10.9
+63                omopAnalysisRunDS aggregate function               dsOMOP::omopAnalysisRunDS  dsOMOP  2.10.9
+64                  omopCdmSourceDS aggregate function                 dsOMOP::omopCdmSourceDS  dsOMOP  2.10.9
+65                 omopCdmVersionDS aggregate function                dsOMOP::omopCdmVersionDS  dsOMOP  2.10.9
+66        omopCohortGetDefinitionDS aggregate function       dsOMOP::omopCohortGetDefinitionDS  dsOMOP  2.10.9
+67                 omopCohortListDS aggregate function                dsOMOP::omopCohortListDS  dsOMOP  2.10.9
+68                omopColumnStatsDS aggregate function               dsOMOP::omopColumnStatsDS  dsOMOP  2.10.9
+69           omopConceptAncestorsDS aggregate function          dsOMOP::omopConceptAncestorsDS  dsOMOP  2.10.9
+70             omopConceptClassesDS aggregate function            dsOMOP::omopConceptClassesDS  dsOMOP  2.10.9
+71           omopConceptDrilldownDS aggregate function          dsOMOP::omopConceptDrilldownDS  dsOMOP  2.10.9
+72          omopConceptPrevalenceDS aggregate function         dsOMOP::omopConceptPrevalenceDS  dsOMOP  2.10.9
+73       omopConceptRelationshipsDS aggregate function      dsOMOP::omopConceptRelationshipsDS  dsOMOP  2.10.9
+74            omopConceptSynonymsDS aggregate function           dsOMOP::omopConceptSynonymsDS  dsOMOP  2.10.9
+75                   omopCrossTabDS aggregate function                  dsOMOP::omopCrossTabDS  dsOMOP  2.10.9
+76                 omopDateCountsDS aggregate function                dsOMOP::omopDateCountsDS  dsOMOP  2.10.9
+77         omopDisclosureSettingsDS aggregate function        dsOMOP::omopDisclosureSettingsDS  dsOMOP  2.10.9
+78             omopDomainCoverageDS aggregate function            dsOMOP::omopDomainCoverageDS  dsOMOP  2.10.9
+79                    omopDomainsDS aggregate function                   dsOMOP::omopDomainsDS  dsOMOP  2.10.9
+80                  omopDpReleaseDS aggregate function                 dsOMOP::omopDpReleaseDS  dsOMOP  2.10.9
+81                   omopDpStatusDS aggregate function                  dsOMOP::omopDpStatusDS  dsOMOP  2.10.9
+82           omopExpandConceptSetDS aggregate function          dsOMOP::omopExpandConceptSetDS  dsOMOP  2.10.9
+83               omopFactorLevelsDS aggregate function              dsOMOP::omopFactorLevelsDS  dsOMOP  2.10.9
+84            omopGetCapabilitiesDS aggregate function           dsOMOP::omopGetCapabilitiesDS  dsOMOP  2.10.9
+85             omopGetDescendantsDS aggregate function            dsOMOP::omopGetDescendantsDS  dsOMOP  2.10.9
+86                omopListColumnsDS aggregate function               dsOMOP::omopListColumnsDS  dsOMOP  2.10.9
+87               omopListConceptsDS aggregate function              dsOMOP::omopListConceptsDS  dsOMOP  2.10.9
+88                 omopListTablesDS aggregate function                dsOMOP::omopListTablesDS  dsOMOP  2.10.9
+89              omopLocateConceptDS aggregate function             dsOMOP::omopLocateConceptDS  dsOMOP  2.10.9
+90             omopLookupConceptsDS aggregate function            dsOMOP::omopLookupConceptsDS  dsOMOP  2.10.9
+91                omopMissingnessDS aggregate function               dsOMOP::omopMissingnessDS  dsOMOP  2.10.9
+92           omopNumericHistogramDS aggregate function          dsOMOP::omopNumericHistogramDS  dsOMOP  2.10.9
+93           omopNumericQuantilesDS aggregate function          dsOMOP::omopNumericQuantilesDS  dsOMOP  2.10.9
+94               omopNumericRangeDS aggregate function              dsOMOP::omopNumericRangeDS  dsOMOP  2.10.9
+95        omopOhdsiResultContractDS aggregate function       dsOMOP::omopOhdsiResultContractDS  dsOMOP  2.10.9
+96               omopOhdsiResultsDS aggregate function              dsOMOP::omopOhdsiResultsDS  dsOMOP  2.10.9
+97                omopOhdsiStatusDS aggregate function               dsOMOP::omopOhdsiStatusDS  dsOMOP  2.10.9
+98               omopOhdsiSummaryDS aggregate function              dsOMOP::omopOhdsiSummaryDS  dsOMOP  2.10.9
+99                omopOhdsiTablesDS aggregate function               dsOMOP::omopOhdsiTablesDS  dsOMOP  2.10.9
+100                      omopPingDS aggregate function                      dsOMOP::omopPingDS  dsOMOP  2.10.9
+101               omopPlanExplainDS aggregate function               dsOMOP::omopPlanExplainDS  dsOMOP  2.10.9
+102               omopPlanPreviewDS aggregate function               dsOMOP::omopPlanPreviewDS  dsOMOP  2.10.9
+103                omopPlanStatusDS aggregate function                dsOMOP::omopPlanStatusDS  dsOMOP  2.10.9
+104                 omopQueryExecDS aggregate function                 dsOMOP::omopQueryExecDS  dsOMOP  2.10.9
+105                  omopQueryGetDS aggregate function                  dsOMOP::omopQueryGetDS  dsOMOP  2.10.9
+106 omopQueryLibraryStickyCatalogDS aggregate function dsOMOP::omopQueryLibraryStickyCatalogDS  dsOMOP  2.10.9
+107                 omopQueryListDS aggregate function                 dsOMOP::omopQueryListDS  dsOMOP  2.10.9
+108         omopRelationshipGraphDS aggregate function         dsOMOP::omopRelationshipGraphDS  dsOMOP  2.10.9
+109             omopSafeCutpointsDS aggregate function             dsOMOP::omopSafeCutpointsDS  dsOMOP  2.10.9
+110            omopSearchConceptsDS aggregate function            dsOMOP::omopSearchConceptsDS  dsOMOP  2.10.9
+111              omopStagedRevokeDS aggregate function              dsOMOP::omopStagedRevokeDS  dsOMOP  2.10.9
+112                omopTableStatsDS aggregate function                dsOMOP::omopTableStatsDS  dsOMOP  2.10.9
+113               omopValueCountsDS aggregate function               dsOMOP::omopValueCountsDS  dsOMOP  2.10.9
+114              omopVocabulariesDS aggregate function              dsOMOP::omopVocabulariesDS  dsOMOP  2.10.9
+--- publication check O10 methods and Options republished
+$declared
+aggregate    assign 
+       59        14 
+
+$published
+aggregate    assign 
+       59        14 
+
+$missing_aggregate
+character(0)
+
+$missing_assign
+character(0)
+
+$wrong_type
+character(0)
+
+$extra
+character(0)
+
+$wrong_function
+character(0)
+
+$versions
+[1] "2.10.9"
+
+$installed_version
+[1] "2.10.9"
+
+$not_exported
+character(0)
+
+$options_declared
+[1] 36
+
+$options_missing
+character(0)
+
+$options_different
+character(0)
+
+SUMMARY [fresh] O10 methods and Options republished: declared 59 agg + 14 assign; published 59 agg + 14 assign (version 2.10.9; installed 2.10.9); missing 0; wrong type 0; extra 0; wrong function 0; not exported 0; options 36 declared, missing 0, different 0
