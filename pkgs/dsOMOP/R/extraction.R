@@ -1764,6 +1764,15 @@
   paste(out, collapse = ", ")
 }
 
+# Comma-separated ID lists of at most `size` items, for IN lists in chunks:
+# Oracle allows 1000 items per list, and shorter statements suit every dialect.
+# An empty input gives one "NULL" list, which matches no row.
+.sqlIdChunks <- function(ids, size = 500L) {
+  ids <- unique(ids[!is.na(ids)])
+  if (!length(ids)) return("NULL")
+  vapply(split(ids, ceiling(seq_along(ids) / size)), .sqlIdList, "", USE.NAMES = FALSE)
+}
+
 #' Build a portable chunked SQL IN predicate for identifier values
 #'
 #' Oracle accepts at most 1000 expressions in one IN list. Splitting larger
