@@ -1,0 +1,1 @@
+[{"name": "default","servers": [{"name": "rserver~6a1de0ca-ccb3-4fa5-9552-562c67410008","cluster": "default","version": "4.6.1","running": true,"sessionCount": 0,"busySessionCount": 0,"cores": 4,"freeMemory": 13173152,"app": {"id": "6a1de0ca-ccb3-4fa5-9552-562c67410008","name": "rserver","type": "rock","cluster": "default","server": "http://rock:8085"}}]}]
