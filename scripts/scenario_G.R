@@ -1329,6 +1329,106 @@ section("G18", "no private fingerprint, map or support in DSI success, error, st
           if (length(odd_hex)) paste(utils::head(odd_hex, 15), collapse = ", ") else "only public labels (snapshot_id, sql_sha256) or none")
 })
 
+section("G22", "automatic vocabulary levels, their limit and model copies on a synthetic answer vocabulary (2.10.7)", function() {
+  if (utils::packageVersion("dsOMOPClient") < "2.10.7") {
+    verdict("G22", "INFO", "automatic vocabulary levels (dsOMOP 2.10.7)", "not run: the candidate client predates 2.10.7")
+    return(invisible())
+  }
+  # omopauto: GiBleed's CDM plus a synthetic vocabulary E2EAuto whose answer classes hold 1,000, 5,000 and 14,000
+  # concepts. Questions Q1-Q3 each have 1,000 people answering with 200 distinct answers of one class (more observed
+  # levels than nfilter.levels.max); Q4 has 30 distinct answers of the 1,000 class.
+  psql("CREATE DATABASE omopauto", db = "postgres", label = "create omopauto")
+  copy <- suppressWarnings(system2("docker", c("exec", "omopdb", "bash", "-o", "pipefail", "-c",
+    shQuote(paste0("pg_dump -U omop -d ", CDM_DB_NAME, " --schema=cdm | psql -v ON_ERROR_STOP=1 -q -U omop -d omopauto"))),
+    stdout = TRUE, stderr = TRUE))
+  if (!identical(as.integer(attr(copy, "status") %||% 0L), 0L)) stop("copying the CDM into omopauto failed: ", squash(copy, 300))
+  psql(paste(
+    "INSERT INTO cdm.vocabulary (vocabulary_id, vocabulary_name, vocabulary_reference, vocabulary_version, vocabulary_concept_id)",
+    "VALUES ('E2EAuto', 'E2E synthetic answers', 'e2e', 'v1', 0);",
+    "INSERT INTO cdm.concept (concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept,",
+    "  concept_code, valid_start_date, valid_end_date, invalid_reason)",
+    "SELECT 2100000000 + g, 'E2E answer ' || g, 'Observation', 'E2EAuto',",
+    "  CASE WHEN g <= 1000 THEN 'Answer1k' WHEN g <= 6000 THEN 'Answer5k' ELSE 'Answer14k' END,",
+    "  'S', 'A' || g, DATE '2000-01-01', DATE '2099-12-31', NULL FROM generate_series(1, 20000) g;",
+    "INSERT INTO cdm.concept (concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept,",
+    "  concept_code, valid_start_date, valid_end_date, invalid_reason)",
+    "SELECT 2100100000 + q, 'E2E question ' || q, 'Observation', 'E2EAuto', 'Question', 'S', 'Q' || q,",
+    "  DATE '2000-01-01', DATE '2099-12-31', NULL FROM generate_series(1, 4) q;",
+    "INSERT INTO cdm.observation (observation_id, person_id, observation_concept_id, observation_date,",
+    "  observation_type_concept_id, value_as_concept_id)",
+    "SELECT 900000000 + q * 10000 + p.i, p.person_id, 2100100000 + q, p.d, 38000280,",
+    "  2100000000 + CASE q WHEN 1 THEN 1 + (p.i % 200) WHEN 2 THEN 1001 + (p.i % 200) WHEN 3 THEN 6001 + (p.i % 200)",
+    "  ELSE 1 + (p.i % 30) END",
+    "FROM (SELECT person_id, d, row_number() OVER (ORDER BY person_id) AS i FROM",
+    "  (SELECT DISTINCT ON (person_id) person_id, observation_period_start_date AS d FROM cdm.observation_period",
+    "   ORDER BY person_id, observation_period_start_date) op) p, generate_series(1, 4) q WHERE p.i <= 1000;",
+    "ANALYZE;"), db = "omopauto", label = "synthetic answer vocabulary and observations")
+  capture("opal.resource_create(o, \"omop_data\", \"gibleed_auto\", ...)",
+          opal.resource_create(O, "omop_data", "gibleed_auto", "omop+dbi:postgresql://omopdb:5432/omopauto?cdm_schema=cdm",
+                               format = "omop.dbi.db", identity = "omop", secret = Sys.getenv("OMOPDB_PW")))
+  capture("opal.resource_perm_add(o, \"omop_data\", \"gibleed_auto\", \"analyst\", \"view\")",
+          opal.resource_perm_add(O, "omop_data", "gibleed_auto", subject = "analyst", type = "user", permission = "view"))
+  question <- function(q) omop_variable(event = omop_event("observation", name = paste0("q", q),
+                                                           concepts = omop_concept_set(2100100000L + q)),
+                                        reducer = omop_reduce("first_value", value = "value_as_concept_id"))
+  run <- function(s, q, out, spec = NULL) {
+    v <- question(q)
+    if (!is.null(spec)) v <- omop_category(v, spec)
+    r <- omop_recipe(variables = list(v), outputs = omop_output(name = "auto", type = "wide"),
+                     options = list(translate_concepts = FALSE))
+    res <- capture_ds(sprintf("%s: recipe_execute(Q%d -> %s)", s$label, q, out),
+                      recipe_execute(r, out = c(auto = out), symbol = s$symbol, conns = s$conns))
+    book <- if (res$ok) tryCatch(recipe_codebook(res$value)[[1L]]$columns, error = function(e) NULL) else NULL
+    lv <- if (!is.null(book)) book$levels[[match(paste0("q", q, "_first_value"), book$name)]] else NULL
+    list(ok = res$ok, error = res$error, secs = res$secs, levels = length(lv$keys %||% lv$labels))
+  }
+  sites <- c("SiteA", "SiteB")
+  s <- open_session("G22 default limit", servers = sites, resource = "omop_data.gibleed_auto")
+  on.exit(close_session(s), add = TRUE)
+  if (!isTRUE(s$ok)) stop("no G22 session: ", s$error)
+  q1 <- run(s, 1L, "G_auto1k")
+  verdict("G22a", if (q1$ok && q1$levels == 1000L) "PASS" else "FAIL",
+          "200 observed answers of a 1,000-answer class publish with that class declared automatically, at every site",
+          sprintf("published: %s; levels: %d; %.1f s; %s", q1$ok, q1$levels, q1$secs, if (!q1$ok) last_server_error(q1$error) else ""))
+  q2 <- run(s, 2L, "G_auto5k")
+  msg <- q2$error %||% ""
+  verdict("G22b", if (!q2$ok && grepl("dsomop.auto_declared_levels_max", msg, fixed = TRUE) && plain_error(msg) &&
+                      !grepl("[0-9]+ (levels|rows|persons|concepts)", msg)) "PASS" else "FAIL",
+          "a 5,000-answer class is longer than the default limit: refused, naming dsomop.auto_declared_levels_max, without counts",
+          squash(last_server_error(msg), 600))
+  keys <- paste0("concept:", 2100000000L + 1:1000)
+  q4 <- run(s, 4L, "G_auto_declared", omop_category_spec(levels = keys))
+  dl <- capture_ds("G22: ds.omop.drop_empty_levels(G_auto_declared -> G_auto_model)",
+                   ds.omop.drop_empty_levels("G_auto_declared", newobj = "G_auto_model", symbol = s$symbol, conns = s$conns))
+  kept <- if (dl$ok) dl$value$kept[dl$value$column == "q4_first_value"] else NA_integer_
+  lv <- capture_ds("G22: dsBaseClient::ds.levels(G_auto_model$q4_first_value)",
+                   dsBaseClient::ds.levels("G_auto_model$q4_first_value", datasources = s$conns))
+  n_lv <- if (lv$ok) unique(vapply(lv$value, function(x) length(x$Levels %||% x[[1L]]), 1L)) else NA_integer_
+  blocked <- capture_ds("G22: ds.omop.drop_empty_levels(G_auto1k -> G_auto1k_model)",
+                        ds.omop.drop_empty_levels("G_auto1k", newobj = "G_auto1k_model", symbol = s$symbol, conns = s$conns))
+  status1k <- if (blocked$ok) blocked$value$status[blocked$value$column == "q1_first_value"] else ""
+  verdict("G22c", if (q4$ok && q4$levels == 1000L && dl$ok && identical(kept, 30L) && identical(n_lv, 30L) &&
+                      blocked$ok && grepl("DataSHIELD level rule", status1k)) "PASS" else "FAIL",
+          "a model copy keeps only the levels that hold a value at some site; levels in use over the rule are kept",
+          sprintf("declared %d; kept %s; dsBase levels %s; 200 answers in use: %s", q4$levels, kept, paste(n_lv, collapse = "/"),
+                  if (blocked$ok) status1k else last_server_error(blocked$error)))
+  close_session(s)
+  # The limit is practical, not a disclosure control: measure longer lists end to end.
+  set_option("dsomop.auto_declared_levels_max", "20000")
+  on.exit(rm_option("dsomop.auto_declared_levels_max"), add = TRUE)
+  s2 <- open_session("G22 raised limit", servers = sites, resource = "omop_data.gibleed_auto")
+  on.exit(close_session(s2), add = TRUE)
+  if (!isTRUE(s2$ok)) stop("no G22 raised-limit session: ", s2$error)
+  q2b <- run(s2, 2L, "G_auto5k_raised")
+  q3b <- run(s2, 3L, "G_auto14k_raised")
+  verdict("G22d", if (q2b$ok && q2b$levels == 5000L && q3b$ok && q3b$levels == 14000L) "PASS" else "FAIL",
+          "with the server option raised, 5,000 and 14,000 declared levels publish identically at every site",
+          sprintf("5k: %s, %d levels, %.1f s; 14k: %s, %d levels, %.1f s; %s", q2b$ok, q2b$levels, q2b$secs, q3b$ok,
+                  q3b$levels, q3b$secs, paste(c(if (!q2b$ok) last_server_error(q2b$error), if (!q3b$ok) last_server_error(q3b$error)), collapse = " | ")))
+  verdict("G22e", "INFO", "end-to-end publication time by declared list length (two connections, translate_concepts = FALSE)",
+          sprintf("1,000 levels %.1f s; 5,000 levels %.1f s; 14,000 levels %.1f s", q1$secs, q2b$secs, q3b$secs))
+})
+
 section("G3b", "how long the automatic data generation takes on this CDM", function() {
   g <- INFO$admin_generation
   tm <- INFO$timing
