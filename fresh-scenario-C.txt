@@ -1,0 +1,6 @@
+dsOMOP on Rock: 2.10.9; RPostgres: 1.4.10
+== gibleed_v1
+  [message] ds.omop.connect(): the argument 'conns' is now called 'datasources'; 'conns' keeps working.
+OK    ds.omop.connect(resource = "omop_data.gibleed_v1", symbol = "omop", conns = conns) (2.7 s)
+OK    tabs <- ds.omop.tables(symbol = "omop", conns = conns)[[1]] (0.1 s)
+--- tabs[tabs$schema_category == "CDM", c("table_name", "has_person_id")]

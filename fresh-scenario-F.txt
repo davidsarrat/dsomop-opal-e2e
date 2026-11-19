@@ -1,0 +1,8 @@
+drivers before: RPostgres 1.4.10, RPostgreSQL 0.7.8; removed from /var/lib/rock/R/library; after: RPostgres not installed, RPostgreSQL 0.7.8
+SUMMARY [fresh] F: Rock drivers for this scenario: RPostgres not installed, RPostgreSQL 0.7.8
+== omop_data.gibleed through RPostgreSQL
+  [message] ds.omop.connect(): the argument 'conns' is now called 'datasources'; 'conns' keeps working.
+OK    ds.omop.connect("omop_data.gibleed") (3.5 s)
+SUMMARY [fresh] F omop_data.gibleed connect (verified UTC session): OK
+OK    ds.omop.tables (0 s)
+--- tabs[CDM]
