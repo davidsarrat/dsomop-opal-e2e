@@ -1,0 +1,224 @@
+# 23\. Case study: describing the same population across two sites
+
+**What you will learn**
+
+Describe a shared study population with one column per site and a total,
+using baseline values, common categories and explicit missing counts.
+
+**You need:** the Opal login from [Getting
+started](https://isglobal-brge.github.io/dsOMOPClient/articles/book-00-start.md)
+and [the lab
+lesson](https://isglobal-brge.github.io/dsOMOPClient/articles/book-14-labs.md).
+This chapter uses the two Synthea sites.
+
+## Research question
+
+What are the age, sex and baseline haemoglobin characteristics of people
+entering at their first haemoglobin measurement? We build the
+descriptive table that opens most study reports, often called “Table 1”.
+The two Synthea sites contain disjoint halves of the same people, so
+their people can be added without duplication.
+
+``` r
+library(dsOMOPClient)
+two_conns <- ds.omop.login(rep("https://localhost:8443", 2), user = "administrator",
+  password = "password",
+  server = c("north", "south"),
+  resource = c(north = "omop.synthea_north", south = "omop.synthea_south"))$conns
+```
+
+## Confirm the measurement and units at both sites
+
+``` r
+hits <- ds.omop.concept.search("Hemoglobin", domain = "Measurement", datasources = two_conns)$pooled
+selected <- hits[trimws(hits$concept_name) == "Hemoglobin [Mass/volume] in Blood", ]
+selected[c("concept_id", "concept_name", "standard_concept", "vocabulary_id")]
+```
+
+| concept\_id | concept\_name                       | standard\_concept | vocabulary\_id |
+| ----------: | :---------------------------------- | :---------------- | :------------- |
+|     3000963 | Hemoglobin \[Mass/volume\] in Blood | S                 | LOINC          |
+
+``` r
+hb_id <- selected$concept_id
+unit_counts <- ds.omop.value.counts("measurement", "unit_concept_id", concept_id = hb_id,
+  datasources = two_conns)$per_site
+do.call(rbind, lapply(names(unit_counts), function(site)
+  data.frame(Site = site, unit_counts[[site]][c("value", "concept_name", "n")])))
+```
+
+| Site  | value | concept\_name      |  n |
+| :---- | :---- | :----------------- | -: |
+| north | 8713  | gram per deciliter | 50 |
+| south | 8713  | gram per deciliter | 50 |
+
+``` r
+hb_set <- omop_concept_set(hb_id)
+saveRDS(hb_set, "baseline-haemoglobin.rds")
+```
+
+The shared concept is **3000963**, and both sites record **8713**, gram
+per deciliter (g/dL). Each site reports the band 50–54 rows. Adding the
+band floors gives 100; it does not mean there are exactly 100
+measurements. Meaning and units must agree before pooling, not merely
+the displayed name.
+
+## Use only information available at entry
+
+Completed age is measured at the first haemoglobin date. Choose
+haemoglobin on that date, with no positive tolerance; an all-history
+mean would include future values and would not describe baseline. Sex is
+the recorded female/male category; `omop_sex()` represents it as F/M,
+labelled Female/Male in the report below.
+
+``` r
+hb <- omop_event("measurement", hb_set, unit = omop_unit(8713L))
+characterise <- omop_study(hb, outputs = "baseline", baseline = list(
+  age = omop_age_at("index"), sex = omop_sex(),
+  age_band = omop_number_bins(omop_age_at("index"), breaks = c(0, 18, 121),
+    labels = c("under 18", "adult")),
+  haemoglobin = omop_value_at_index("measurement", hb_set,
+    tolerance = c(-90, 0), unit = omop_unit(8713L))))
+result <- recipe_execute(characterise, out = c(baseline = "D_baseline"), datasources = two_conns)
+columns <- recipe_codebook(result)[[1]]$columns
+age_column <- match("age_band", columns$name)
+data.frame(Age_group = columns$levels[[age_column]]$labels)
+```
+
+| Age\_group |
+| :--------- |
+| under\_18  |
+| adult      |
+
+Both sites use the declared age groups under 18 and adult (published as
+`under_18` and `adult`, labels that every dsBase function can carry),
+including any unused level. The same definition and index are required
+for comparable columns. The 90-day lookback cannot add earlier
+haemoglobin here because entry is the first haemoglobin; its selected
+value is the baseline reading itself.
+
+## Assemble the descriptive table from released aggregates
+
+For each numeric variable, `ds.mean()` supplies its mean and nonmissing
+count; `ds.var()` supplies variance, whose square root is the standard
+deviation (SD). For categories, percentages use all people in that site,
+with missingness shown as its own row. No patient rows are combined
+locally.
+
+``` r
+describe <- function(connections) {
+  aggregate_mean <- function(column) dsBaseClient::ds.mean(paste0("D_baseline$", column),
+    type = "combine", datasources = connections)$Global.Mean
+  variance <- function(column) dsBaseClient::ds.var(paste0("D_baseline$", column),
+    type = "combine", datasources = connections)$Global.Variance
+  age <- aggregate_mean("age"); lab <- aggregate_mean("haemoglobin")
+  n <- age[1, "Ntotal"]
+  numeric_text <- function(x, v) sprintf("%.2f (%.2f)", x[1, "EstimatedMean"], sqrt(v[1, "EstimatedVar"]))
+  counts <- function(column) dsBaseClient::ds.table(paste0("D_baseline$", column),
+    useNA = "always", datasources = connections)$output.list$TABLES.COMBINED_all.sources_counts
+  sex <- counts("sex"); bands <- counts("age_band")
+  cell <- function(numerator) sprintf("%d (%.1f%%)", numerator, 100 * numerator / n)
+  c(People = as.character(n),
+    `Age, years: mean (SD)` = numeric_text(age, variance("age")),
+    `Age missing, n` = as.character(age[1, "Nmissing"]),
+    `Female, n (%)` = cell(sex[["F"]]), `Male, n (%)` = cell(sex[["M"]]),
+    `Sex missing, n (%)` = cell(sex[["NA"]]),
+    `Under 18, n (%)` = cell(bands[["under_18"]]), `Adult, n (%)` = cell(bands[["adult"]]),
+    `Age group missing, n (%)` = cell(bands[["NA"]]),
+    `Baseline haemoglobin, g/dL: mean (SD)` = numeric_text(lab, variance("haemoglobin")),
+    `Haemoglobin missing, n` = as.character(lab[1, "Nmissing"]))
+}
+site_a <- describe(two_conns[1])
+site_b <- describe(two_conns[2])
+total <- describe(two_conns)
+data.frame(Characteristic = names(total), north = unname(site_a),
+  south = unname(site_b), Total = unname(total))
+```
+
+| Characteristic                        | north         | south         | Total         |
+| :------------------------------------ | :------------ | :------------ | :------------ |
+| People                                | 14            | 14            | 28            |
+| Age, years: mean (SD)                 | 18.64 (19.44) | 25.36 (20.13) | 22.00 (19.71) |
+| Age missing, n                        | 0             | 0             | 0             |
+| Female, n (%)                         | 4 (28.6%)     | 9 (64.3%)     | 13 (46.4%)    |
+| Male, n (%)                           | 10 (71.4%)    | 5 (35.7%)     | 15 (53.6%)    |
+| Sex missing, n (%)                    | 0 (0.0%)      | 0 (0.0%)      | 0 (0.0%)      |
+| Under 18, n (%)                       | 7 (50.0%)     | 6 (42.9%)     | 13 (46.4%)    |
+| Adult, n (%)                          | 7 (50.0%)     | 8 (57.1%)     | 15 (53.6%)    |
+| Age group missing, n (%)              | 0 (0.0%)      | 0 (0.0%)      | 0 (0.0%)      |
+| Baseline haemoglobin, g/dL: mean (SD) | 14.01 (1.62)  | 13.96 (2.53)  | 13.99 (2.08)  |
+| Haemoglobin missing, n                | 0             | 0             | 0             |
+
+Each site contributes 14 people, for 28 total. The sites differ: female
+counts are 4 (28.6%) and 9 (64.3%). Mean completed age is 18.64 and
+25.36 years, with pooled mean 22.00. Pooled baseline haemoglobin is
+**13.99 g/dL**, not the all-history mean 14.47. Missing rows state the
+denominator for each variable; a withheld cell must never be silently
+filled with zero.
+
+The total SD includes both within-site and between-site variation. It is
+not obtained by averaging site SDs. Site columns make population
+differences visible that a pooled column alone would hide.
+
+## Exercises
+
+**1. Detect future information.** Replace baseline haemoglobin with the
+mean over all history, keeping the same first-haemoglobin population.
+Quantify the difference.
+
+Solution 1
+
+``` r
+all_history <- omop_study(hb, outputs = "baseline", baseline = list(
+  baseline = omop_value_at_index("measurement", hb_set, tolerance = c(0, 0), unit = omop_unit(8713L)),
+  history = omop_variable(event = hb, reducer = omop_reduce("mean"))))
+recipe_execute(all_history, out = c(baseline = "D_history"), datasources = two_conns)
+ds.omop.mutate("D_history", difference = history - baseline,
+  newobj = "D_history_difference", datasources = two_conns)
+dsBaseClient::ds.mean("D_history_difference$difference", type = "combine", datasources = two_conns)$Global.Mean
+```
+
+|                 | EstimatedMean | Nmissing | Nvalid | Ntotal |
+| :-------------- | ------------: | -------: | -----: | -----: |
+| studiesCombined |         0.481 |        0 |     28 |     28 |
+
+The mean difference is about 0.481 g/dL. The all-history mean includes
+later readings for 25 people and therefore cannot be used as a baseline
+characteristic.
+
+**2. Add a common haemoglobin category.** Use a public teaching cutoff
+of 14 g/dL and show the counts separately at each site. Do equal
+definitions imply equal counts?
+
+Solution 2
+
+``` r
+bands <- omop_study(hb, outputs = "baseline", baseline = list(
+  band = omop_number_bins(omop_value_at_index("measurement", hb_set,
+    tolerance = c(0, 0), unit = omop_unit(8713L)),
+    breaks = c(-Inf, 14, Inf), labels = c("below 14", "14 or above"))))
+recipe_execute(bands, out = c(baseline = "D_baseline_bands"), datasources = two_conns)
+dsBaseClient::ds.table("D_baseline_bands$band",
+  datasources = two_conns)$output.list$TABLE_rvar.by.study_counts
+```
+
+|               | north | south |
+| :------------ | ----: | ----: |
+| below\_14     |     8 |     7 |
+| 14\_or\_above |     6 |     7 |
+| NA            |     0 |     0 |
+
+Both sites use the same boundary and labels. Counts depend on their
+people; sharing a definition makes comparison meaningful without forcing
+distributions to match. The cutoff is a teaching rule, not a clinical
+reference interval.
+
+## Recap
+
+Describe the population at a shared entry point, keep future information
+out of baseline variables, and show each site beside the total. Report
+missingness and use pooled variance for the total SD.
+
+**Next:** revisit the [capability
+tour](https://isglobal-brge.github.io/dsOMOPClient/articles/book-showcase.md)
+to choose the next analysis for your study.
