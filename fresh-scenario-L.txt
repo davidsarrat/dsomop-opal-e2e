@@ -1,0 +1,382 @@
+  [message] Logging into the collaborating servers
+OK    L: login (Ethiopia as analyst) (0.1 s)
+OK    L: ds.omop.connect("omop_data.gibleed", symbol = "omopG1") (2.5 s)
+
+======== L-plain: labels with plain
+OK    L plain: recipe_execute (2 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L plain: ds.table (2.6 s)
+OK    L plain: ds.summary (0.3 s)
+OK    L plain: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L plain: ds.omop.table (0.7 s)
+SUMMARY [fresh] G L-plain INFO: labels with plain | labels [Male | Female]; ds.table OK [Male | Female | NA]; ds.summary OK; ds.levels OK [Male | Female]; ds.omop.table OK [Male | Female]
+-------- L-plain done in 5.6 s
+
+======== L-space: labels with space
+OK    L space: recipe_execute (1.7 s)
+ERROR L space: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: ' ' (32), after prefix "\"Male"
+OK    L space: ds.summary (0.2 s)
+OK    L space: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L space: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-space INFO: labels with space | labels [Male adult | Female adult]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: ' ' (32), after prefix "\"Male"; ds.summary OK; ds.levels OK [Male adult | Female adult]; ds.omop.table OK [Male adult | Female adult]
+-------- L-space done in 2.8 s
+
+======== L-comma: labels with comma
+OK    L comma: recipe_execute (1.6 s)
+ERROR L comma: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 68. Encountered: ' ' (32), after prefix "\"Male,"
+OK    L comma: ds.summary (0.2 s)
+OK    L comma: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L comma: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-comma INFO: labels with comma | labels [Male, adult | Female, adult]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 68. Encountered: ' ' (32), after prefix "\"Male,"; ds.summary OK; ds.levels OK [Male, adult | Female, adult]; ds.omop.table OK [Male, adult | Female, adult]
+-------- L-comma done in 2.7 s
+
+======== L-parentheses: labels with parentheses
+OK    L parentheses: recipe_execute (1.5 s)
+ERROR L parentheses: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: ' ' (32), after prefix "\"Male"
+OK    L parentheses: ds.summary (0.3 s)
+OK    L parentheses: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L parentheses: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-parentheses INFO: labels with parentheses | labels [Male (adult) | Female (adult)]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: ' ' (32), after prefix "\"Male"; ds.summary OK; ds.levels OK [Male (adult) | Female (adult)]; ds.omop.table OK [Male (adult) | Female (adult)]
+-------- L-parentheses done in 2.7 s
+
+======== L-slash: labels with slash
+OK    L slash: recipe_execute (1.5 s)
+ERROR L slash: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '/' (47), after prefix "\"Male"
+OK    L slash: ds.summary (0.2 s)
+OK    L slash: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L slash: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-slash INFO: labels with slash | labels [Male/adult | Female/adult]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '/' (47), after prefix "\"Male"; ds.summary OK; ds.levels OK [Male/adult | Female/adult]; ds.omop.table OK [Male/adult | Female/adult]
+-------- L-slash done in 2.6 s
+
+======== L-apostrophe: labels with apostrophe
+OK    L apostrophe: recipe_execute (1.5 s)
+ERROR L apostrophe: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '\'' (39), after prefix "\"Male"
+OK    L apostrophe: ds.summary (0.2 s)
+OK    L apostrophe: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L apostrophe: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-apostrophe INFO: labels with apostrophe | labels [Male's | Female's]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '\'' (39), after prefix "\"Male"; ds.summary OK; ds.levels OK [Male's | Female's]; ds.omop.table OK [Male's | Female's]
+-------- L-apostrophe done in 2.5 s
+
+======== L-double_quote: labels with double_quote
+OK    L double_quote: recipe_execute (1.6 s)
+ERROR L double_quote: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: ' ' (32), after prefix "\"Male"
+OK    L double_quote: ds.summary (0.2 s)
+OK    L double_quote: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L double_quote: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-double_quote INFO: labels with double_quote | labels [Male "a" | Female "a"]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: ' ' (32), after prefix "\"Male"; ds.summary OK; ds.levels OK [Male "a" | Female "a"]; ds.omop.table OK [Male "a" | Female "a"]
+-------- L-double_quote done in 2.7 s
+
+======== L-accents: labels with accents
+OK    L accents: recipe_execute (1.5 s)
+ERROR L accents: ds.table (0.2 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 69. Encountered: ' ' (32), after prefix "\"Hombre"
+OK    L accents: ds.summary (0.2 s)
+OK    L accents: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L accents: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-accents INFO: labels with accents | labels [Hombre éñ | Mujer áü]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 69. Encountered: ' ' (32), after prefix "\"Hombre"; ds.summary OK; ds.levels OK [Hombre éñ | Mujer áü]; ds.omop.table OK [Hombre éñ | Mujer áü]
+-------- L-accents done in 2.6 s
+
+======== L-hyphen: labels with hyphen
+OK    L hyphen: recipe_execute (1.4 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L hyphen: ds.table (0.1 s)
+OK    L hyphen: ds.summary (0.3 s)
+OK    L hyphen: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L hyphen: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-hyphen INFO: labels with hyphen | labels [Male-adult | Female-adult]; ds.table OK [Male-adult | Female-adult | NA]; ds.summary OK; ds.levels OK [Male-adult | Female-adult]; ds.omop.table OK [Male-adult | Female-adult]
+-------- L-hyphen done in 2.5 s
+
+======== L-dot: labels with dot
+OK    L dot: recipe_execute (1.7 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L dot: ds.table (0.1 s)
+OK    L dot: ds.summary (0.2 s)
+OK    L dot: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L dot: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-dot INFO: labels with dot | labels [Male.adult | Female.adult]; ds.table OK [Male.adult | Female.adult | NA]; ds.summary OK; ds.levels OK [Male.adult | Female.adult]; ds.omop.table OK [Male.adult | Female.adult]
+-------- L-dot done in 2.7 s
+
+======== L-underscore: labels with underscore
+OK    L underscore: recipe_execute (1.5 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L underscore: ds.table (0.1 s)
+OK    L underscore: ds.summary (0.2 s)
+OK    L underscore: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L underscore: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-underscore INFO: labels with underscore | labels [Male_adult | Female_adult]; ds.table OK [Male_adult | Female_adult | NA]; ds.summary OK; ds.levels OK [Male_adult | Female_adult]; ds.omop.table OK [Male_adult | Female_adult]
+-------- L-underscore done in 2.5 s
+
+======== L-colon_semicolon: labels with colon_semicolon
+OK    L colon_semicolon: recipe_execute (1.5 s)
+ERROR L colon_semicolon: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 68. Encountered: ' ' (32), after prefix "\"Male:"
+OK    L colon_semicolon: ds.summary (0.2 s)
+OK    L colon_semicolon: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L colon_semicolon: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-colon_semicolon INFO: labels with colon_semicolon | labels [Male: a; b | Female: a; b]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 68. Encountered: ' ' (32), after prefix "\"Male:"; ds.summary OK; ds.levels OK [Male: a; b | Female: a; b]; ds.omop.table OK [Male: a; b | Female: a; b]
+-------- L-colon_semicolon done in 2.5 s
+
+======== L-ampersand: labels with ampersand
+OK    L ampersand: recipe_execute (1.5 s)
+ERROR L ampersand: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: ' ' (32), after prefix "\"Male"
+OK    L ampersand: ds.summary (0.2 s)
+OK    L ampersand: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L ampersand: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-ampersand INFO: labels with ampersand | labels [Male & co | Female & co]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: ' ' (32), after prefix "\"Male"; ds.summary OK; ds.levels OK [Male & co | Female & co]; ds.omop.table OK [Male & co | Female & co]
+-------- L-ampersand done in 2.5 s
+
+======== L-percent: labels with percent
+OK    L percent: recipe_execute (1.4 s)
+ERROR L percent: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 65. Encountered: '%' (37), after prefix "\"50"
+OK    L percent: ds.summary (0.2 s)
+OK    L percent: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L percent: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-percent INFO: labels with percent | labels [50% male | 50% female]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 65. Encountered: '%' (37), after prefix "\"50"; ds.summary OK; ds.levels OK [50% male | 50% female]; ds.omop.table OK [50% male | 50% female]
+-------- L-percent done in 2.4 s
+
+======== L-plus_equals: labels with plus_equals
+OK    L plus_equals: recipe_execute (1.5 s)
+ERROR L plus_equals: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 69. Encountered: '=' (61), after prefix "\"male+1"
+OK    L plus_equals: ds.summary (0.3 s)
+OK    L plus_equals: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L plus_equals: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-plus_equals INFO: labels with plus_equals | labels [male+1=2 | female+1=2]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 69. Encountered: '=' (61), after prefix "\"male+1"; ds.summary OK; ds.levels OK [male+1=2 | female+1=2]; ds.omop.table OK [male+1=2 | female+1=2]
+-------- L-plus_equals done in 2.6 s
+
+======== L-angle: labels with angle
+OK    L angle: recipe_execute (1.5 s)
+ERROR L angle: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 63. Encountered: '<' (60), after prefix "\""
+OK    L angle: ds.summary (0.2 s)
+OK    L angle: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L angle: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-angle INFO: labels with angle | labels [<male> | <female>]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 63. Encountered: '<' (60), after prefix "\""; ds.summary OK; ds.levels OK [<male> | <female>]; ds.omop.table OK [<male> | <female>]
+-------- L-angle done in 2.4 s
+
+======== L-hash: labels with hash
+OK    L hash: recipe_execute (1.4 s)
+ERROR L hash: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: ' ' (32), after prefix "\"male"
+OK    L hash: ds.summary (0.2 s)
+OK    L hash: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L hash: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-hash INFO: labels with hash | labels [male #1 | female #1]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: ' ' (32), after prefix "\"male"; ds.summary OK; ds.levels OK [male #1 | female #1]; ds.omop.table OK [male #1 | female #1]
+-------- L-hash done in 2.4 s
+
+======== L-dollar: labels with dollar
+OK    L dollar: recipe_execute (1.5 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L dollar: ds.table (0.1 s)
+OK    L dollar: ds.summary (0.2 s)
+OK    L dollar: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L dollar: ds.omop.table (0.7 s)
+SUMMARY [fresh] G L-dollar INFO: labels with dollar | labels [$male | $female]; ds.table OK [$male | $female | NA]; ds.summary OK; ds.levels OK [$male | $female]; ds.omop.table OK [$male | $female]
+-------- L-dollar done in 2.6 s
+
+======== L-backslash: labels with backslash
+OK    L backslash: recipe_execute (1.5 s)
+ERROR L backslash: ds.table (0.2 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '\\' (92), after prefix "\"male"
+OK    L backslash: ds.summary (0.3 s)
+OK    L backslash: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L backslash: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-backslash INFO: labels with backslash | labels [male\x | female\x]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '\\' (92), after prefix "\"male"; ds.summary OK; ds.levels OK [male\x | female\x]; ds.omop.table OK [male\x | female\x]
+-------- L-backslash done in 2.8 s
+
+======== L-pipe: labels with pipe
+OK    L pipe: recipe_execute (1.5 s)
+ERROR L pipe: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '|' (124), after prefix "\"male"
+OK    L pipe: ds.summary (0.2 s)
+OK    L pipe: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L pipe: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-pipe INFO: labels with pipe | labels [male|x | female|x]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '|' (124), after prefix "\"male"; ds.summary OK; ds.levels OK [male|x | female|x]; ds.omop.table OK [male|x | female|x]
+-------- L-pipe done in 2.4 s
+
+======== L-brackets: labels with brackets
+OK    L brackets: recipe_execute (1.4 s)
+ERROR L brackets: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 63. Encountered: '[' (91), after prefix "\""
+OK    L brackets: ds.summary (0.2 s)
+OK    L brackets: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L brackets: ds.omop.table (0.7 s)
+SUMMARY [fresh] G L-brackets INFO: labels with brackets | labels [[male] | {female}]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 63. Encountered: '[' (91), after prefix "\""; ds.summary OK; ds.levels OK [[male] | {female}]; ds.omop.table OK [[male] | {female}]
+-------- L-brackets done in 2.5 s
+
+======== L-question: labels with question
+OK    L question: recipe_execute (1.5 s)
+ERROR L question: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '?' (63), after prefix "\"male"
+OK    L question: ds.summary (0.2 s)
+OK    L question: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L question: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-question INFO: labels with question | labels [male? | female!]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '?' (63), after prefix "\"male"; ds.summary OK; ds.levels OK [male? | female!]; ds.omop.table OK [male? | female!]
+-------- L-question done in 2.4 s
+
+======== L-at_tilde: labels with at_tilde
+OK    L at_tilde: recipe_execute (1.5 s)
+ERROR L at_tilde: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '@' (64), after prefix "\"male"
+OK    L at_tilde: ds.summary (0.2 s)
+OK    L at_tilde: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L at_tilde: ds.omop.table (0.7 s)
+SUMMARY [fresh] G L-at_tilde INFO: labels with at_tilde | labels [male@x | female~x]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '@' (64), after prefix "\"male"; ds.summary OK; ds.levels OK [male@x | female~x]; ds.omop.table OK [male@x | female~x]
+-------- L-at_tilde done in 2.6 s
+
+======== L-star_caret: labels with star_caret
+OK    L star_caret: recipe_execute (1.4 s)
+ERROR L star_caret: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '*' (42), after prefix "\"male"
+OK    L star_caret: ds.summary (0.2 s)
+OK    L star_caret: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L star_caret: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-star_caret INFO: labels with star_caret | labels [male* | female^]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '*' (42), after prefix "\"male"; ds.summary OK; ds.levels OK [male* | female^]; ds.omop.table OK [male* | female^]
+-------- L-star_caret done in 2.4 s
+
+======== L-leading_digit: labels with leading_digit
+OK    L leading_digit: recipe_execute (1.5 s)
+ERROR L leading_digit: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 64. Encountered: ' ' (32), after prefix "\"1"
+OK    L leading_digit: ds.summary (0.2 s)
+OK    L leading_digit: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L leading_digit: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-leading_digit INFO: labels with leading_digit | labels [1 male | 2 female]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 64. Encountered: ' ' (32), after prefix "\"1"; ds.summary OK; ds.levels OK [1 male | 2 female]; ds.omop.table OK [1 male | 2 female]
+-------- L-leading_digit done in 2.5 s
+
+======== L-unicode_dash: labels with unicode_dash
+OK    L unicode_dash: recipe_execute (1.5 s)
+ERROR L unicode_dash: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: ' ' (32), after prefix "\"male"
+OK    L unicode_dash: ds.summary (0.2 s)
+OK    L unicode_dash: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L unicode_dash: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-unicode_dash INFO: labels with unicode_dash | labels [male – a | female – a]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: ' ' (32), after prefix "\"male"; ds.summary OK; ds.levels OK [male – a | female – a]; ds.omop.table OK [male – a | female – a]
+-------- L-unicode_dash done in 2.4 s
+
+======== L-na_text: labels with na_text
+OK    L na_text: recipe_execute (1.4 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L na_text: ds.table (0.1 s)
+  [warning] longer object length is not a multiple of shorter object length
+OK    L na_text: ds.summary (0.2 s)
+OK    L na_text: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L na_text: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-na_text INFO: labels with na_text | labels [NA | Female]; ds.table OK [NA | Female]; ds.summary OK; ds.levels OK [NA | Female]; ds.omop.table OK [NA | Female]
+-------- L-na_text done in 2.4 s
+
+======== L-long: labels with long
+OK    L long: recipe_execute (1.6 s)
+ERROR L long: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: ' ' (32), after prefix "\"Male"
+OK    L long: ds.summary (0.3 s)
+OK    L long: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L long: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-long INFO: labels with long | labels [Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male | Female]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: ' ' (32), after prefix "\"Male"; ds.summary OK; ds.levels OK [Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male | Female]; ds.omop.table OK [Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male Male | Female...
+-------- L-long done in 2.6 s
+OK    L: ds.omop.disconnect("omopG1") (0.6 s)
+SUMMARY [fresh] L: 28 label cases
