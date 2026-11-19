@@ -1518,10 +1518,12 @@ section("G23", "adaptive hierarchy levels, fingerprint transport and verbs on pu
     lapply(c("G_adaptive", "G_adaptive_f", "G_adaptive_b"), levels_of)) else NULL
   same <- !is.null(reports) && reports$ok && identical(reports$value[[2L]], reports$value[[1L]]) &&
     identical(reports$value[[3L]], reports$value[[1L]])
+  counts <- if (!is.null(dims) && dims$ok) paste(mapply(function(src, kept, out) sprintf("%s+%s->%s", src[[1L]], kept[[1L]], out[[1L]]),
+    dims$value$src, dims$value$kept, dims$value$out), collapse = ", ") else "not read"
   verdict("G23c", if (f$ok && b$ok && length(rows) && all(rows) && same) "PASS" else "FAIL",
           "filter and bind_rows work on a reconciled recipe output, and level reports read their rows (failed before 2.10.8)",
-          sprintf("filter: %s; bind_rows: %s; filter keeps the 1,000 answers and the stack holds both: %s; level reports equal the source's: %s; %s",
-                  f$ok, b$ok, paste(rows, collapse = "/"), same,
+          sprintf("filter: %s; bind_rows: %s; filter keeps the 1,000 answers and the stack holds both: %s (rows %s); level reports equal the source's: %s; %s",
+                  f$ok, b$ok, paste(rows, collapse = "/"), counts, same,
                   paste(c(if (!f$ok) last_server_error(f$error), if (!b$ok) last_server_error(b$error),
                           if (!is.null(reports) && !reports$ok) last_server_error(reports$error)), collapse = " | ")))
 })
