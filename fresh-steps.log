@@ -1,0 +1,2120 @@
+downloading uv 0.13.9 x86_64-unknown-linux-gnu
+Resolved 20 packages in 220ms
+Downloading pydantic-core (2.2MiB)
+Downloading cryptography (4.5MiB)
+Downloading pygments (1.2MiB)
+ Downloaded pydantic-core
+ Downloaded pygments
+ Downloaded cryptography
+Prepared 20 packages in 100ms
+Installed 20 packages in 11ms
+ + annotated-types==0.8.0
+ + certifi==2026.10.23
+ + cffi==2.1.1
+ + charset-normalizer==3.5.2
+ + click==8.5.1
+ + cryptography==50.0.2
+ + easy-opal==2.4.0
+ + idna==3.20
+ + markdown-it-py==4.3.0
+ + mdurl==0.1.2
+ + pycparser==3.12
+ + pydantic==2.14.3
+ + pydantic-core==2.50.4
+ + pygments==2.21.0
+ + pyyaml==6.0.3
+ + requests==2.34.2
+ + rich==15.0.0
+ + typing-extensions==4.16.0
+ + typing-inspection==0.4.5
+ + urllib3==2.8.0
+Installed 1 executable: easy-opal
+easy-opal v2.4.0
+- easy-opal
+
+=========================================================
+                                                       _
+                                                      | |
+  ___   __ _  ___  _   _           ___   _ __    __ _ | |
+ / _ \ / _` |/ __|| | | | ______  / _ \ | '_ \  / _` || |
+|  __/| (_| |\__ \| |_| ||______|| (_) || |_) || (_| || |
+ \___| \__,_||___/ \__, |         \___/ | .__/  \__,_||_|
+                    __/ |               | |
+                   |___/                |_|
+=========================================================
+
+Made with ♥ by David Sarrat González
+Bioinformatic Research Group in Epidemiology (BRGE)
+Barcelona Institute for Global Health (ISGlobal)
+
+Created instance 'e2e'.
+Generating certificate for: localhost
+Local CA created at /home/runner/.easy-opal/instances/e2e/data/certs/ca.crt
+SSL certificate generated in /home/runner/.easy-opal/instances/e2e/data/certs
+To avoid browser warnings, import 
+/home/runner/.easy-opal/instances/e2e/data/certs/ca.crt into your trust store.
+Configuration saved to /home/runner/.easy-opal/instances/e2e/config.json
+
+Admin password: ***
+Run 'easy-opal config show-password' to retrieve it later.
+
+Setup complete!
+Starting...
+$ docker compose --project-name e2e -f 
+/home/runner/.easy-opal/instances/e2e/docker-compose.yml up -d --remove-orphans 
+--wait
+ rock Pulling 
+ nginx Pulling 
+ mongo Pulling 
+ opal Pulling 
+ 517b871c26ea Pulling fs layer 
+ 96aae9022e0e Pulling fs layer 
+ 1f5590544273 Pulling fs layer 
+ 88ff2d217194 Pulling fs layer 
+ 4f4fb700ef54 Pulling fs layer 
+ 16450ae630c9 Pulling fs layer 
+ 88ff2d217194 Waiting 
+ fb4239ebaa91 Pulling fs layer 
+ 6c10e5b1f90f Pulling fs layer 
+ 5bf888372e08 Pulling fs layer 
+ 412d4130f2e4 Pulling fs layer 
+ 4f4fb700ef54 Waiting 
+ edbd55d3f851 Pulling fs layer 
+ 41d937d50e55 Pulling fs layer 
+ 87804bb063fe Pulling fs layer 
+ bdb9d7e30a30 Pulling fs layer 
+ 3af7318119aa Pulling fs layer 
+ bb1cbc82dfa7 Pulling fs layer 
+ edbd55d3f851 Waiting 
+ 16450ae630c9 Waiting 
+ 41d937d50e55 Waiting 
+ 87804bb063fe Waiting 
+ fb4239ebaa91 Waiting 
+ 6c10e5b1f90f Waiting 
+ bdb9d7e30a30 Waiting 
+ 3af7318119aa Waiting 
+ 5bf888372e08 Waiting 
+ bb1cbc82dfa7 Waiting 
+ 412d4130f2e4 Waiting 
+ 37fb86c2a767 Pulling fs layer 
+ 549c8ab03b9c Pulling fs layer 
+ ac0e64fcba3e Pulling fs layer 
+ 8181439971c0 Pulling fs layer 
+ 006c1be17f45 Pulling fs layer 
+ fcd4d7f2711b Pulling fs layer 
+ f8657d7700a3 Pulling fs layer 
+ 37fb86c2a767 Waiting 
+ 549c8ab03b9c Waiting 
+ ac0e64fcba3e Waiting 
+ fcd4d7f2711b Waiting 
+ f8657d7700a3 Waiting 
+ 8181439971c0 Waiting 
+ 006c1be17f45 Waiting 
+ 517b871c26ea Pulling fs layer 
+ 96aae9022e0e Pulling fs layer 
+ fa809973d4d2 Pulling fs layer 
+ 305c7f70d8b4 Pulling fs layer 
+ 5dbb4ecf4262 Pulling fs layer 
+ fa809973d4d2 Waiting 
+ dfeac3f920ae Pulling fs layer 
+ 305c7f70d8b4 Waiting 
+ 6ce4a72a46f3 Pulling fs layer 
+ 8ec6dbad104f Pulling fs layer 
+ 246c7eb17a29 Pulling fs layer 
+ 5dbb4ecf4262 Waiting 
+ dfeac3f920ae Waiting 
+ 8ec6dbad104f Waiting 
+ 246c7eb17a29 Waiting 
+ 6ce4a72a46f3 Waiting 
+ 7a48b8f0e5c7 Already exists 
+ ae7f2070d0a7 Pulling fs layer 
+ dbc9765dd584 Pulling fs layer 
+ 2805b2a869fe Pulling fs layer 
+ de95d05026f2 Pulling fs layer 
+ f769b5656b89 Pulling fs layer 
+ 1bf99b6a6b2f Pulling fs layer 
+ ee6df5bc6d6d Pulling fs layer 
+ 4f4fb700ef54 Pulling fs layer 
+ 902040128b5f Pulling fs layer 
+ ba8de933b764 Pulling fs layer 
+ 27ce2b2d3af7 Pulling fs layer 
+ 2ac632ea01c3 Pulling fs layer 
+ 8902a2e7abe8 Pulling fs layer 
+ bef12b0d0c26 Pulling fs layer 
+ 1c96732738b6 Pulling fs layer 
+ 49965202d247 Pulling fs layer 
+ 4f4fb700ef54 Waiting 
+ 902040128b5f Waiting 
+ bef12b0d0c26 Waiting 
+ ba8de933b764 Waiting 
+ 1c96732738b6 Waiting 
+ 27ce2b2d3af7 Waiting 
+ 49965202d247 Waiting 
+ 2ac632ea01c3 Waiting 
+ 8902a2e7abe8 Waiting 
+ ae7f2070d0a7 Waiting 
+ de95d05026f2 Waiting 
+ 1bf99b6a6b2f Waiting 
+ f769b5656b89 Waiting 
+ dbc9765dd584 Waiting 
+ ee6df5bc6d6d Waiting 
+ 2805b2a869fe Waiting 
+ 96aae9022e0e Downloading [==================================================>]     389B/389B
+ 96aae9022e0e Verifying Checksum 
+ 96aae9022e0e Download complete 
+ 96aae9022e0e Downloading [==================================================>]     389B/389B
+ 96aae9022e0e Verifying Checksum 
+ 96aae9022e0e Download complete 
+ 1f5590544273 Downloading [>                                                  ]  130.5kB/12.15MB
+ 517b871c26ea Downloading [>                                                  ]  425.4kB/42.17MB
+ 517b871c26ea Downloading [>                                                  ]  425.4kB/42.17MB
+ 88ff2d217194 Downloading [>                                                  ]  540.1kB/63.1MB
+ 1f5590544273 Download complete 
+ 4f4fb700ef54 Downloading [==================================================>]      32B/32B
+ 4f4fb700ef54 Verifying Checksum 
+ 4f4fb700ef54 Download complete 
+ 517b871c26ea Downloading [===================================>               ]  29.82MB/42.17MB
+ 517b871c26ea Downloading [===================================>               ]  29.82MB/42.17MB
+ 16450ae630c9 Downloading [==================================================>]  2.464kB/2.464kB
+ 16450ae630c9 Verifying Checksum 
+ 16450ae630c9 Download complete 
+ 88ff2d217194 Downloading [====================>                              ]  26.49MB/63.1MB
+ 517b871c26ea Verifying Checksum 
+ 517b871c26ea Download complete 
+ 517b871c26ea Download complete 
+ fb4239ebaa91 Downloading [>                                                  ]  538.3kB/55.2MB
+ 6c10e5b1f90f Downloading [>                                                  ]  177.1kB/17.25MB
+ 88ff2d217194 Downloading [==========================================>        ]  53.53MB/63.1MB
+ 6c10e5b1f90f Verifying Checksum 
+ 6c10e5b1f90f Download complete 
+ fb4239ebaa91 Downloading [======================>                            ]  25.01MB/55.2MB
+ 517b871c26ea Extracting [>                                                  ]    426kB/42.17MB
+ 517b871c26ea Extracting [>                                                  ]    426kB/42.17MB
+ 88ff2d217194 Download complete 
+ 5bf888372e08 Downloading [>                                                  ]  524.6kB/210.7MB
+ 412d4130f2e4 Downloading [==================================================>]      98B/98B
+ 412d4130f2e4 Verifying Checksum 
+ 412d4130f2e4 Download complete 
+ edbd55d3f851 Downloading [=>                                                 ]  15.79kB/542.8kB
+ edbd55d3f851 Downloading [==================================================>]  542.8kB/542.8kB
+ edbd55d3f851 Download complete 
+ fb4239ebaa91 Downloading [================================================>  ]   53.8MB/55.2MB
+ fb4239ebaa91 Verifying Checksum 
+ fb4239ebaa91 Download complete 
+ 41d937d50e55 Downloading [====================================>              ]  3.502kB/4.85kB
+ 41d937d50e55 Downloading [==================================================>]   4.85kB/4.85kB
+ 41d937d50e55 Verifying Checksum 
+ 41d937d50e55 Download complete 
+ 517b871c26ea Extracting [======>                                            ]  5.538MB/42.17MB
+ 517b871c26ea Extracting [======>                                            ]  5.538MB/42.17MB
+ 87804bb063fe Downloading [==================================================>]     663B/663B
+ 87804bb063fe Verifying Checksum 
+ 87804bb063fe Download complete 
+ 5bf888372e08 Downloading [======>                                            ]  28.19MB/210.7MB
+ bdb9d7e30a30 Downloading [===========================>                       ]  3.502kB/6.45kB
+ bdb9d7e30a30 Downloading [==================================================>]   6.45kB/6.45kB
+ bdb9d7e30a30 Verifying Checksum 
+ bdb9d7e30a30 Download complete 
+ 3af7318119aa Downloading [=======>                                           ]  16.38kB/116.8kB
+ 3af7318119aa Downloading [==================================================>]  116.8kB/116.8kB
+ 3af7318119aa Verifying Checksum 
+ 3af7318119aa Download complete 
+ bb1cbc82dfa7 Downloading [==================================================>]     291B/291B
+ bb1cbc82dfa7 Download complete 
+ 37fb86c2a767 Downloading [>                                                  ]  310.7kB/29.86MB
+ 517b871c26ea Extracting [===========>                                       ]  9.372MB/42.17MB
+ 517b871c26ea Extracting [===========>                                       ]  9.372MB/42.17MB
+ 549c8ab03b9c Downloading [>                                                  ]  343.5kB/34.05MB
+ 5bf888372e08 Downloading [=============>                                     ]  55.97MB/210.7MB
+ 37fb86c2a767 Downloading [============================================>      ]  26.46MB/29.86MB
+ 37fb86c2a767 Verifying Checksum 
+ 517b871c26ea Extracting [=============>                                     ]  11.08MB/42.17MB
+ 517b871c26ea Extracting [=============>                                     ]  11.08MB/42.17MB
+ 37fb86c2a767 Download complete 
+ 549c8ab03b9c Downloading [==========================================>        ]   28.9MB/34.05MB
+ 549c8ab03b9c Verifying Checksum 
+ 549c8ab03b9c Download complete 
+ 5bf888372e08 Downloading [===================>                               ]  83.16MB/210.7MB
+ ac0e64fcba3e Downloading [==================================================>]     626B/626B
+ ac0e64fcba3e Verifying Checksum 
+ ac0e64fcba3e Download complete 
+ 8181439971c0 Downloading [==================================================>]     965B/965B
+ 8181439971c0 Verifying Checksum 
+ 8181439971c0 Download complete 
+ 37fb86c2a767 Extracting [>                                                  ]  327.7kB/29.86MB
+ 006c1be17f45 Downloading [==================================================>]     405B/405B
+ 006c1be17f45 Verifying Checksum 
+ 006c1be17f45 Download complete 
+ fcd4d7f2711b Downloading [==================================================>]  1.211kB/1.211kB
+ fcd4d7f2711b Verifying Checksum 
+ fcd4d7f2711b Download complete 
+ f8657d7700a3 Downloading [==================================================>]  1.399kB/1.399kB
+ f8657d7700a3 Verifying Checksum 
+ f8657d7700a3 Download complete 
+ 517b871c26ea Extracting [==================>                                ]  15.76MB/42.17MB
+ 517b871c26ea Extracting [==================>                                ]  15.76MB/42.17MB
+ fa809973d4d2 Downloading [==================================================>]  1.214kB/1.214kB
+ fa809973d4d2 Verifying Checksum 
+ fa809973d4d2 Download complete 
+ 5bf888372e08 Downloading [=========================>                         ]  108.7MB/210.7MB
+ 305c7f70d8b4 Downloading [>                                                  ]  15.79kB/1.542MB
+ 305c7f70d8b4 Verifying Checksum 
+ 305c7f70d8b4 Download complete 
+ 5dbb4ecf4262 Downloading [>                                                  ]  15.79kB/938.8kB
+ 37fb86c2a767 Extracting [======>                                            ]  3.604MB/29.86MB
+ 5dbb4ecf4262 Verifying Checksum 
+ 5dbb4ecf4262 Download complete 
+ dfeac3f920ae Downloading [==================================================>]     116B/116B
+ dfeac3f920ae Verifying Checksum 
+ dfeac3f920ae Download complete 
+ 6ce4a72a46f3 Downloading [==================================================>]     267B/267B
+ 6ce4a72a46f3 Verifying Checksum 
+ 6ce4a72a46f3 Download complete 
+ 8ec6dbad104f Downloading [>                                                  ]    537kB/348.5MB
+ 5bf888372e08 Downloading [================================>                  ]  137.1MB/210.7MB
+ 246c7eb17a29 Downloading [==================================>                ]  3.502kB/5.006kB
+ 246c7eb17a29 Downloading [==================================================>]  5.006kB/5.006kB
+ 246c7eb17a29 Verifying Checksum 
+ 517b871c26ea Extracting [=====================>                             ]  18.32MB/42.17MB
+ 517b871c26ea Extracting [=====================>                             ]  18.32MB/42.17MB
+ 246c7eb17a29 Download complete 
+ 37fb86c2a767 Extracting [==========>                                        ]  6.554MB/29.86MB
+ ae7f2070d0a7 Downloading [==================================================>]  1.855kB/1.855kB
+ ae7f2070d0a7 Verifying Checksum 
+ ae7f2070d0a7 Download complete 
+ ae7f2070d0a7 Extracting [==================================================>]  1.855kB/1.855kB
+ ae7f2070d0a7 Extracting [==================================================>]  1.855kB/1.855kB
+ 8ec6dbad104f Downloading [===>                                               ]  27.78MB/348.5MB
+ 5bf888372e08 Downloading [=====================================>             ]    159MB/210.7MB
+ dbc9765dd584 Downloading [>                                                  ]  537.1kB/308MB
+ 37fb86c2a767 Extracting [=============>                                     ]  8.192MB/29.86MB
+ 517b871c26ea Extracting [======================>                            ]  18.74MB/42.17MB
+ 517b871c26ea Extracting [======================>                            ]  18.74MB/42.17MB
+ 8ec6dbad104f Downloading [=======>                                           ]  52.83MB/348.5MB
+ 5bf888372e08 Downloading [==========================================>        ]  178.7MB/210.7MB
+ dbc9765dd584 Downloading [===>                                               ]  19.15MB/308MB
+ dbc9765dd584 Downloading [===>                                               ]  23.94MB/308MB
+ 5bf888372e08 Downloading [=============================================>     ]  192.5MB/210.7MB
+ 8ec6dbad104f Downloading [=========>                                         ]   66.7MB/348.5MB
+ 517b871c26ea Extracting [=======================>                           ]   19.6MB/42.17MB
+ 517b871c26ea Extracting [=======================>                           ]   19.6MB/42.17MB
+ 5bf888372e08 Verifying Checksum 
+ 5bf888372e08 Download complete 
+ dbc9765dd584 Downloading [=======>                                           ]  47.38MB/308MB
+ 8ec6dbad104f Downloading [=============>                                     ]  91.74MB/348.5MB
+ 37fb86c2a767 Extracting [===============>                                   ]  9.503MB/29.86MB
+ 2805b2a869fe Downloading [==================================================>]  2.829kB/2.829kB
+ 2805b2a869fe Verifying Checksum 
+ 2805b2a869fe Download complete 
+ 517b871c26ea Extracting [========================>                          ]  20.87MB/42.17MB
+ 517b871c26ea Extracting [========================>                          ]  20.87MB/42.17MB
+ de95d05026f2 Downloading [==================================================>]  1.502kB/1.502kB
+ de95d05026f2 Verifying Checksum 
+ de95d05026f2 Download complete 
+ dbc9765dd584 Downloading [===========>                                       ]   70.3MB/308MB
+ 8ec6dbad104f Downloading [=================>                                 ]  120.6MB/348.5MB
+ 37fb86c2a767 Extracting [=================>                                 ]  10.49MB/29.86MB
+ f769b5656b89 Downloading [>                                                  ]  289.6kB/28.5MB
+ 517b871c26ea Extracting [===========================>                       ]     23MB/42.17MB
+ 517b871c26ea Extracting [===========================>                       ]     23MB/42.17MB
+ dbc9765dd584 Downloading [===============>                                   ]  95.85MB/308MB
+ 8ec6dbad104f Downloading [=====================>                             ]  148.3MB/348.5MB
+ 37fb86c2a767 Extracting [===================>                               ]  11.47MB/29.86MB
+ f769b5656b89 Downloading [============================================>      ]   25.4MB/28.5MB
+ f769b5656b89 Download complete 
+ 1bf99b6a6b2f Downloading [=======>                                           ]    3.5kB/24.69kB
+ 1bf99b6a6b2f Downloading [==================================================>]  24.69kB/24.69kB
+ 1bf99b6a6b2f Verifying Checksum 
+ 1bf99b6a6b2f Download complete 
+ dbc9765dd584 Downloading [==================>                                ]  116.6MB/308MB
+ 517b871c26ea Extracting [==============================>                    ]  25.56MB/42.17MB
+ 517b871c26ea Extracting [==============================>                    ]  25.56MB/42.17MB
+ 8ec6dbad104f Downloading [========================>                          ]  170.2MB/348.5MB
+ ee6df5bc6d6d Downloading [>                                                  ]  524.3kB/62.96MB
+ 37fb86c2a767 Extracting [=====================>                             ]  13.11MB/29.86MB
+ dbc9765dd584 Downloading [======================>                            ]  138.5MB/308MB
+ 8ec6dbad104f Downloading [===========================>                       ]  193.6MB/348.5MB
+ 517b871c26ea Extracting [=================================>                 ]  28.11MB/42.17MB
+ 517b871c26ea Extracting [=================================>                 ]  28.11MB/42.17MB
+ ee6df5bc6d6d Downloading [======>                                            ]  7.903MB/62.96MB
+ 37fb86c2a767 Extracting [==========================>                        ]  15.73MB/29.86MB
+ dbc9765dd584 Downloading [==========================>                        ]  163.6MB/308MB
+ 8ec6dbad104f Downloading [==============================>                    ]  215.5MB/348.5MB
+ 517b871c26ea Extracting [=====================================>             ]  31.52MB/42.17MB
+ 517b871c26ea Extracting [=====================================>             ]  31.52MB/42.17MB
+ ee6df5bc6d6d Downloading [============>                                      ]  15.83MB/62.96MB
+ 37fb86c2a767 Extracting [=============================>                     ]  17.69MB/29.86MB
+ dbc9765dd584 Downloading [==============================>                    ]  186.1MB/308MB
+ 8ec6dbad104f Downloading [=================================>                 ]  236.9MB/348.5MB
+ ee6df5bc6d6d Downloading [==============================>                    ]  38.21MB/62.96MB
+ 517b871c26ea Extracting [=======================================>           ]  33.65MB/42.17MB
+ 517b871c26ea Extracting [=======================================>           ]  33.65MB/42.17MB
+ 37fb86c2a767 Extracting [================================>                  ]  19.66MB/29.86MB
+ dbc9765dd584 Downloading [==================================>                ]  210.6MB/308MB
+ 8ec6dbad104f Downloading [=====================================>             ]  259.3MB/348.5MB
+ ee6df5bc6d6d Downloading [==============================================>    ]     58MB/62.96MB
+ ee6df5bc6d6d Verifying Checksum 
+ ee6df5bc6d6d Download complete 
+ 37fb86c2a767 Extracting [===================================>               ]   21.3MB/29.86MB
+ 4f4fb700ef54 Downloading [==================================================>]      32B/32B
+ 4f4fb700ef54 Verifying Checksum 
+ 4f4fb700ef54 Download complete 
+ dbc9765dd584 Downloading [=====================================>             ]  231.9MB/308MB
+ 8ec6dbad104f Downloading [========================================>          ]  283.9MB/348.5MB
+ 517b871c26ea Extracting [==========================================>        ]  35.78MB/42.17MB
+ 517b871c26ea Extracting [==========================================>        ]  35.78MB/42.17MB
+ 902040128b5f Downloading [>                                                  ]  359.8kB/35.11MB
+ 37fb86c2a767 Extracting [=======================================>           ]  23.59MB/29.86MB
+ dbc9765dd584 Downloading [=========================================>         ]  252.7MB/308MB
+ 8ec6dbad104f Downloading [===========================================>       ]  299.9MB/348.5MB
+ 902040128b5f Downloading [===========================>                       ]  19.46MB/35.11MB
+ 902040128b5f Verifying Checksum 
+ 37fb86c2a767 Extracting [=========================================>         ]   24.9MB/29.86MB
+ 902040128b5f Download complete 
+ dbc9765dd584 Downloading [============================================>      ]  272.4MB/308MB
+ 8ec6dbad104f Downloading [==============================================>    ]  322.9MB/348.5MB
+ ba8de933b764 Downloading [>                                                  ]  360.4kB/35.11MB
+ 8ec6dbad104f Verifying Checksum 
+ 8ec6dbad104f Download complete 
+ dbc9765dd584 Downloading [================================================>  ]  300.2MB/308MB
+ 27ce2b2d3af7 Downloading [==================================================>]  1.144kB/1.144kB
+ 27ce2b2d3af7 Verifying Checksum 
+ 27ce2b2d3af7 Download complete 
+ dbc9765dd584 Download complete 
+ 2ac632ea01c3 Downloading [==================================================>]  1.376kB/1.376kB
+ 2ac632ea01c3 Verifying Checksum 
+ 2ac632ea01c3 Download complete 
+ 8902a2e7abe8 Downloading [==================================================>]     390B/390B
+ 8902a2e7abe8 Verifying Checksum 
+ 8902a2e7abe8 Download complete 
+ bef12b0d0c26 Downloading [>                                                  ]  535.1kB/970MB
+ ba8de933b764 Downloading [====================>                              ]  14.72MB/35.11MB
+ 1c96732738b6 Downloading [==================================================>]     500B/500B
+ 1c96732738b6 Verifying Checksum 
+ 1c96732738b6 Download complete 
+ 517b871c26ea Extracting [===========================================>       ]  36.63MB/42.17MB
+ 517b871c26ea Extracting [===========================================>       ]  36.63MB/42.17MB
+ 37fb86c2a767 Extracting [===========================================>       ]  26.21MB/29.86MB
+ ba8de933b764 Downloading [==================================================>]  35.11MB/35.11MB
+ ba8de933b764 Verifying Checksum 
+ ba8de933b764 Download complete 
+ bef12b0d0c26 Downloading [=>                                                 ]  29.92MB/970MB
+ 49965202d247 Downloading [>                                                  ]  487.5kB/48.06MB
+ 517b871c26ea Extracting [=============================================>     ]  38.76MB/42.17MB
+ 517b871c26ea Extracting [=============================================>     ]  38.76MB/42.17MB
+ 37fb86c2a767 Extracting [===============================================>   ]  28.18MB/29.86MB
+ bef12b0d0c26 Downloading [==>                                                ]  55.58MB/970MB
+ 49965202d247 Downloading [==========================>                        ]  25.38MB/48.06MB
+ 49965202d247 Verifying Checksum 
+ 49965202d247 Download complete 
+ bef12b0d0c26 Downloading [====>                                              ]  82.78MB/970MB
+ 37fb86c2a767 Extracting [================================================>  ]  28.84MB/29.86MB
+ bef12b0d0c26 Downloading [=====>                                             ]    111MB/970MB
+ 517b871c26ea Extracting [==============================================>    ]  39.19MB/42.17MB
+ 517b871c26ea Extracting [==============================================>    ]  39.19MB/42.17MB
+ bef12b0d0c26 Downloading [=======>                                           ]  139.9MB/970MB
+ 37fb86c2a767 Extracting [================================================>  ]  29.16MB/29.86MB
+ bef12b0d0c26 Downloading [========>                                          ]  169.2MB/970MB
+ 37fb86c2a767 Extracting [==================================================>]  29.86MB/29.86MB
+ bef12b0d0c26 Downloading [==========>                                        ]  199.6MB/970MB
+ bef12b0d0c26 Downloading [===========>                                       ]  230.1MB/970MB
+ bef12b0d0c26 Downloading [=============>                                     ]  261.6MB/970MB
+ 517b871c26ea Extracting [==============================================>    ]  39.62MB/42.17MB
+ 517b871c26ea Extracting [==============================================>    ]  39.62MB/42.17MB
+ bef12b0d0c26 Downloading [===============>                                   ]  292.5MB/970MB
+ 37fb86c2a767 Pull complete 
+ ae7f2070d0a7 Pull complete 
+ bef12b0d0c26 Downloading [================>                                  ]  324.5MB/970MB
+ 549c8ab03b9c Extracting [>                                                  ]  360.4kB/34.05MB
+ dbc9765dd584 Extracting [>                                                  ]  557.1kB/308MB
+ bef12b0d0c26 Downloading [==================>                                ]  355.5MB/970MB
+ 549c8ab03b9c Extracting [======>                                            ]  4.325MB/34.05MB
+ dbc9765dd584 Extracting [>                                                  ]  1.671MB/308MB
+ bef12b0d0c26 Downloading [===================>                               ]  382.7MB/970MB
+ 549c8ab03b9c Extracting [============>                                      ]  8.651MB/34.05MB
+ dbc9765dd584 Extracting [>                                                  ]  5.014MB/308MB
+ bef12b0d0c26 Downloading [=====================>                             ]  409.3MB/970MB
+ 549c8ab03b9c Extracting [===================>                               ]  13.34MB/34.05MB
+ dbc9765dd584 Extracting [=>                                                 ]  8.913MB/308MB
+ bef12b0d0c26 Downloading [======================>                            ]    437MB/970MB
+ 517b871c26ea Extracting [===============================================>   ]  40.04MB/42.17MB
+ 517b871c26ea Extracting [===============================================>   ]  40.04MB/42.17MB
+ 549c8ab03b9c Extracting [======================>                            ]  15.14MB/34.05MB
+ dbc9765dd584 Extracting [==>                                                ]  13.93MB/308MB
+ bef12b0d0c26 Downloading [=======================>                           ]  465.3MB/970MB
+ 549c8ab03b9c Extracting [============================>                      ]  19.46MB/34.05MB
+ dbc9765dd584 Extracting [==>                                                ]  18.38MB/308MB
+ bef12b0d0c26 Downloading [=========================>                         ]  493.6MB/970MB
+ 549c8ab03b9c Extracting [==================================>                ]  23.79MB/34.05MB
+ bef12b0d0c26 Downloading [==========================>                        ]  520.3MB/970MB
+ 517b871c26ea Extracting [================================================>  ]  40.89MB/42.17MB
+ 517b871c26ea Extracting [================================================>  ]  40.89MB/42.17MB
+ dbc9765dd584 Extracting [===>                                               ]  21.17MB/308MB
+ 549c8ab03b9c Extracting [=========================================>         ]  28.11MB/34.05MB
+ bef12b0d0c26 Downloading [============================>                      ]  549.1MB/970MB
+ bef12b0d0c26 Downloading [=============================>                     ]  578.9MB/970MB
+ dbc9765dd584 Extracting [===>                                               ]  22.28MB/308MB
+ 549c8ab03b9c Extracting [==============================================>    ]  31.36MB/34.05MB
+ bef12b0d0c26 Downloading [===============================>                   ]  606.2MB/970MB
+ 517b871c26ea Extracting [=================================================> ]  41.75MB/42.17MB
+ 517b871c26ea Extracting [=================================================> ]  41.75MB/42.17MB
+ dbc9765dd584 Extracting [===>                                               ]  22.84MB/308MB
+ 549c8ab03b9c Extracting [===============================================>   ]  32.44MB/34.05MB
+ bef12b0d0c26 Downloading [================================>                  ]    634MB/970MB
+ bef12b0d0c26 Downloading [==================================>                ]  662.3MB/970MB
+ 549c8ab03b9c Extracting [==================================================>]  34.05MB/34.05MB
+ 517b871c26ea Extracting [==================================================>]  42.17MB/42.17MB
+ 517b871c26ea Extracting [==================================================>]  42.17MB/42.17MB
+ dbc9765dd584 Extracting [===>                                               ]  23.95MB/308MB
+ bef12b0d0c26 Downloading [===================================>               ]  692.7MB/970MB
+ bef12b0d0c26 Downloading [====================================>              ]  709.2MB/970MB
+ dbc9765dd584 Extracting [===>                                               ]  24.51MB/308MB
+ bef12b0d0c26 Downloading [======================================>            ]  739.6MB/970MB
+ bef12b0d0c26 Downloading [======================================>            ]  754.5MB/970MB
+ dbc9765dd584 Extracting [====>                                              ]  25.07MB/308MB
+ 517b871c26ea Pull complete 
+ 517b871c26ea Pull complete 
+ bef12b0d0c26 Downloading [=======================================>           ]  773.6MB/970MB
+ 96aae9022e0e Extracting [==================================================>]     389B/389B
+ 96aae9022e0e Extracting [==================================================>]     389B/389B
+ 96aae9022e0e Extracting [==================================================>]     389B/389B
+ 96aae9022e0e Extracting [==================================================>]     389B/389B
+ bef12b0d0c26 Downloading [========================================>          ]  787.5MB/970MB
+ 96aae9022e0e Pull complete 
+ 96aae9022e0e Pull complete 
+ bef12b0d0c26 Downloading [=========================================>         ]  814.7MB/970MB
+ dbc9765dd584 Extracting [====>                                              ]  25.62MB/308MB
+ bef12b0d0c26 Downloading [==========================================>        ]  828.6MB/970MB
+ dbc9765dd584 Extracting [====>                                              ]  26.18MB/308MB
+ fa809973d4d2 Extracting [==================================================>]  1.214kB/1.214kB
+ fa809973d4d2 Extracting [==================================================>]  1.214kB/1.214kB
+ 1f5590544273 Extracting [>                                                  ]  131.1kB/12.15MB
+ bef12b0d0c26 Downloading [============================================>      ]  856.4MB/970MB
+ dbc9765dd584 Extracting [====>                                              ]  29.52MB/308MB
+ bef12b0d0c26 Downloading [============================================>      ]  869.2MB/970MB
+ bef12b0d0c26 Downloading [============================================>      ]  870.2MB/970MB
+ dbc9765dd584 Extracting [=====>                                             ]   31.2MB/308MB
+ 1f5590544273 Extracting [=>                                                 ]  262.1kB/12.15MB
+ bef12b0d0c26 Downloading [==============================================>    ]  896.9MB/970MB
+ dbc9765dd584 Extracting [=====>                                             ]  34.54MB/308MB
+ 1f5590544273 Extracting [==============>                                    ]  3.539MB/12.15MB
+ bef12b0d0c26 Downloading [===============================================>   ]  927.3MB/970MB
+ 1f5590544273 Extracting [===================>                               ]  4.719MB/12.15MB
+ bef12b0d0c26 Downloading [=================================================> ]  958.2MB/970MB
+ dbc9765dd584 Extracting [=====>                                             ]  36.21MB/308MB
+ bef12b0d0c26 Verifying Checksum 
+ bef12b0d0c26 Download complete 
+ 1f5590544273 Extracting [==================================>                ]  8.389MB/12.15MB
+ dbc9765dd584 Extracting [======>                                            ]  41.22MB/308MB
+ 1f5590544273 Extracting [======================================>            ]  9.306MB/12.15MB
+ dbc9765dd584 Extracting [=======>                                           ]  45.12MB/308MB
+ 1f5590544273 Extracting [=============================================>     ]  11.14MB/12.15MB
+ dbc9765dd584 Extracting [========>                                          ]  51.25MB/308MB
+ dbc9765dd584 Extracting [=========>                                         ]  60.16MB/308MB
+ 1f5590544273 Extracting [===============================================>   ]  11.53MB/12.15MB
+ dbc9765dd584 Extracting [===========>                                       ]  68.52MB/308MB
+ 1f5590544273 Extracting [===============================================>   ]  11.67MB/12.15MB
+ 1f5590544273 Extracting [==================================================>]  12.15MB/12.15MB
+ dbc9765dd584 Extracting [============>                                      ]  76.32MB/308MB
+ dbc9765dd584 Extracting [=============>                                     ]  81.33MB/308MB
+ dbc9765dd584 Extracting [==============>                                    ]   86.9MB/308MB
+ dbc9765dd584 Extracting [===============>                                   ]  94.14MB/308MB
+ dbc9765dd584 Extracting [================>                                  ]  101.4MB/308MB
+ dbc9765dd584 Extracting [=================>                                 ]  109.7MB/308MB
+ dbc9765dd584 Extracting [==================>                                ]  115.9MB/308MB
+ dbc9765dd584 Extracting [====================>                              ]  124.8MB/308MB
+ dbc9765dd584 Extracting [=====================>                             ]  134.3MB/308MB
+ dbc9765dd584 Extracting [=======================>                           ]  142.6MB/308MB
+ dbc9765dd584 Extracting [========================>                          ]  150.4MB/308MB
+ dbc9765dd584 Extracting [========================>                          ]  153.7MB/308MB
+ dbc9765dd584 Extracting [==========================>                        ]  163.2MB/308MB
+ dbc9765dd584 Extracting [===========================>                       ]  172.1MB/308MB
+ dbc9765dd584 Extracting [=============================>                     ]  181.6MB/308MB
+ dbc9765dd584 Extracting [===============================>                   ]  191.1MB/308MB
+ dbc9765dd584 Extracting [================================>                  ]    200MB/308MB
+ dbc9765dd584 Extracting [=================================>                 ]  207.8MB/308MB
+ fa809973d4d2 Pull complete 
+ 549c8ab03b9c Pull complete 
+ 1f5590544273 Pull complete 
+ 305c7f70d8b4 Extracting [=>                                                 ]  32.77kB/1.542MB
+ ac0e64fcba3e Extracting [==================================================>]     626B/626B
+ ac0e64fcba3e Extracting [==================================================>]     626B/626B
+ ac0e64fcba3e Pull complete 
+ 8181439971c0 Extracting [==================================================>]     965B/965B
+ 8181439971c0 Extracting [==================================================>]     965B/965B
+ 8181439971c0 Pull complete 
+ 006c1be17f45 Extracting [==================================================>]     405B/405B
+ 006c1be17f45 Extracting [==================================================>]     405B/405B
+ 006c1be17f45 Pull complete 
+ fcd4d7f2711b Extracting [==================================================>]  1.211kB/1.211kB
+ fcd4d7f2711b Extracting [==================================================>]  1.211kB/1.211kB
+ fcd4d7f2711b Pull complete 
+ f8657d7700a3 Extracting [==================================================>]  1.399kB/1.399kB
+ f8657d7700a3 Extracting [==================================================>]  1.399kB/1.399kB
+ f8657d7700a3 Pull complete 
+ nginx Pulled 
+ 305c7f70d8b4 Extracting [===================================>               ]  1.081MB/1.542MB
+ 88ff2d217194 Extracting [>                                                  ]  557.1kB/63.1MB
+ dbc9765dd584 Extracting [==================================>                ]  211.7MB/308MB
+ 305c7f70d8b4 Extracting [==================================================>]  1.542MB/1.542MB
+ 88ff2d217194 Extracting [====>                                              ]  5.571MB/63.1MB
+ 305c7f70d8b4 Pull complete 
+ 5dbb4ecf4262 Extracting [=>                                                 ]  32.77kB/938.8kB
+ dbc9765dd584 Extracting [===================================>               ]  216.1MB/308MB
+ 5dbb4ecf4262 Extracting [==================================================>]  938.8kB/938.8kB
+ 5dbb4ecf4262 Extracting [==================================================>]  938.8kB/938.8kB
+ 5dbb4ecf4262 Pull complete 
+ dfeac3f920ae Extracting [==================================================>]     116B/116B
+ dfeac3f920ae Extracting [==================================================>]     116B/116B
+ dfeac3f920ae Pull complete 
+ 6ce4a72a46f3 Extracting [==================================================>]     267B/267B
+ 6ce4a72a46f3 Extracting [==================================================>]     267B/267B
+ 6ce4a72a46f3 Pull complete 
+ 88ff2d217194 Extracting [=======>                                           ]  10.03MB/63.1MB
+ 8ec6dbad104f Extracting [>                                                  ]  557.1kB/348.5MB
+ dbc9765dd584 Extracting [===================================>               ]  220.6MB/308MB
+ 88ff2d217194 Extracting [===========>                                       ]  14.48MB/63.1MB
+ 8ec6dbad104f Extracting [=>                                                 ]  8.356MB/348.5MB
+ dbc9765dd584 Extracting [====================================>              ]  226.2MB/308MB
+ 88ff2d217194 Extracting [================>                                  ]  20.61MB/63.1MB
+ 8ec6dbad104f Extracting [=>                                                 ]  11.14MB/348.5MB
+ dbc9765dd584 Extracting [=====================================>             ]  232.3MB/308MB
+ 88ff2d217194 Extracting [====================>                              ]  25.62MB/63.1MB
+ 8ec6dbad104f Extracting [==>                                                ]  16.15MB/348.5MB
+ dbc9765dd584 Extracting [======================================>            ]  235.1MB/308MB
+ 88ff2d217194 Extracting [========================>                          ]  30.64MB/63.1MB
+ 8ec6dbad104f Extracting [===>                                               ]  22.28MB/348.5MB
+ dbc9765dd584 Extracting [======================================>            ]  239.5MB/308MB
+ 88ff2d217194 Extracting [============================>                      ]  36.21MB/63.1MB
+ 8ec6dbad104f Extracting [===>                                               ]   27.3MB/348.5MB
+ dbc9765dd584 Extracting [========================================>          ]  247.3MB/308MB
+ 88ff2d217194 Extracting [================================>                  ]  40.67MB/63.1MB
+ 8ec6dbad104f Extracting [====>                                              ]  34.54MB/348.5MB
+ dbc9765dd584 Extracting [========================================>          ]  250.7MB/308MB
+ 88ff2d217194 Extracting [===================================>               ]  45.12MB/63.1MB
+ 8ec6dbad104f Extracting [=====>                                             ]  38.99MB/348.5MB
+ dbc9765dd584 Extracting [=========================================>         ]  256.2MB/308MB
+ 8ec6dbad104f Extracting [======>                                            ]  45.68MB/348.5MB
+ 88ff2d217194 Extracting [=======================================>           ]  49.58MB/63.1MB
+ dbc9765dd584 Extracting [===========================================>       ]  265.2MB/308MB
+ 8ec6dbad104f Extracting [=======>                                           ]  51.81MB/348.5MB
+ 88ff2d217194 Extracting [==========================================>        ]  54.03MB/63.1MB
+ dbc9765dd584 Extracting [===========================================>       ]  269.1MB/308MB
+ 8ec6dbad104f Extracting [========>                                          ]  57.38MB/348.5MB
+ 88ff2d217194 Extracting [===============================================>   ]  60.16MB/63.1MB
+ dbc9765dd584 Extracting [===========================================>       ]  270.7MB/308MB
+ 88ff2d217194 Extracting [==================================================>]   63.1MB/63.1MB
+ 8ec6dbad104f Extracting [=========>                                         ]  62.95MB/348.5MB
+ 8ec6dbad104f Extracting [=========>                                         ]  69.63MB/348.5MB
+ 8ec6dbad104f Extracting [===========>                                       ]  78.54MB/348.5MB
+ 8ec6dbad104f Extracting [============>                                      ]  85.79MB/348.5MB
+ 8ec6dbad104f Extracting [=============>                                     ]   94.7MB/348.5MB
+ 8ec6dbad104f Extracting [==============>                                    ]  99.16MB/348.5MB
+ dbc9765dd584 Extracting [============================================>      ]  274.6MB/308MB
+ 8ec6dbad104f Extracting [==============>                                    ]  101.9MB/348.5MB
+ 8ec6dbad104f Extracting [===============>                                   ]    107MB/348.5MB
+ 8ec6dbad104f Extracting [================>                                  ]  118.1MB/348.5MB
+ 8ec6dbad104f Extracting [==================>                                ]  130.4MB/348.5MB
+ 8ec6dbad104f Extracting [====================>                              ]  142.6MB/348.5MB
+ dbc9765dd584 Extracting [============================================>      ]  275.2MB/308MB
+ 8ec6dbad104f Extracting [=====================>                             ]  153.2MB/348.5MB
+ dbc9765dd584 Extracting [============================================>      ]  276.3MB/308MB
+ 88ff2d217194 Pull complete 
+ 4f4fb700ef54 Extracting [==================================================>]      32B/32B
+ 4f4fb700ef54 Extracting [==================================================>]      32B/32B
+ 8ec6dbad104f Extracting [=======================>                           ]    161MB/348.5MB
+ dbc9765dd584 Extracting [=============================================>     ]  281.3MB/308MB
+ 8ec6dbad104f Extracting [========================>                          ]  168.8MB/348.5MB
+ dbc9765dd584 Extracting [==============================================>    ]  289.1MB/308MB
+ 8ec6dbad104f Extracting [=========================>                         ]  178.3MB/348.5MB
+ 8ec6dbad104f Extracting [=========================>                         ]  179.4MB/348.5MB
+ dbc9765dd584 Extracting [===============================================>   ]  289.7MB/308MB
+ 4f4fb700ef54 Pull complete 
+ 16450ae630c9 Extracting [==================================================>]  2.464kB/2.464kB
+ 16450ae630c9 Extracting [==================================================>]  2.464kB/2.464kB
+ 8ec6dbad104f Extracting [==========================>                        ]  186.6MB/348.5MB
+ dbc9765dd584 Extracting [===============================================>   ]  292.5MB/308MB
+ 16450ae630c9 Pull complete 
+ 8ec6dbad104f Extracting [===========================>                       ]  194.4MB/348.5MB
+ dbc9765dd584 Extracting [===============================================>   ]  294.1MB/308MB
+ fb4239ebaa91 Extracting [>                                                  ]  557.1kB/55.2MB
+ 8ec6dbad104f Extracting [============================>                      ]  201.1MB/348.5MB
+ fb4239ebaa91 Extracting [=====>                                             ]  5.571MB/55.2MB
+ 8ec6dbad104f Extracting [=============================>                     ]  208.3MB/348.5MB
+ dbc9765dd584 Extracting [===============================================>   ]  295.2MB/308MB
+ fb4239ebaa91 Extracting [======>                                            ]  6.685MB/55.2MB
+ 8ec6dbad104f Extracting [==============================>                    ]  215.6MB/348.5MB
+ 8ec6dbad104f Extracting [===============================>                   ]  221.7MB/348.5MB
+ dbc9765dd584 Extracting [================================================>  ]  295.8MB/308MB
+ fb4239ebaa91 Extracting [======>                                            ]  7.242MB/55.2MB
+ 8ec6dbad104f Extracting [================================>                  ]  224.5MB/348.5MB
+ dbc9765dd584 Extracting [================================================>  ]  297.5MB/308MB
+ fb4239ebaa91 Extracting [=======>                                           ]  7.799MB/55.2MB
+ 8ec6dbad104f Extracting [================================>                  ]  226.7MB/348.5MB
+ fb4239ebaa91 Extracting [=======>                                           ]  8.356MB/55.2MB
+ 8ec6dbad104f Extracting [=================================>                 ]    234MB/348.5MB
+ fb4239ebaa91 Extracting [========>                                          ]  8.913MB/55.2MB
+ dbc9765dd584 Extracting [=================================================> ]  306.9MB/308MB
+ 8ec6dbad104f Extracting [==================================>                ]  241.8MB/348.5MB
+ 8ec6dbad104f Extracting [===================================>               ]    249MB/348.5MB
+ fb4239ebaa91 Extracting [========>                                          ]   9.47MB/55.2MB
+ dbc9765dd584 Extracting [=================================================> ]  307.5MB/308MB
+ 8ec6dbad104f Extracting [====================================>              ]  254.6MB/348.5MB
+ fb4239ebaa91 Extracting [==========>                                        ]  11.14MB/55.2MB
+ 8ec6dbad104f Extracting [=====================================>             ]  260.1MB/348.5MB
+ dbc9765dd584 Extracting [==================================================>]    308MB/308MB
+ fb4239ebaa91 Extracting [===========>                                       ]  12.81MB/55.2MB
+ 8ec6dbad104f Extracting [=====================================>             ]  263.5MB/348.5MB
+ fb4239ebaa91 Extracting [============>                                      ]  13.93MB/55.2MB
+ 8ec6dbad104f Extracting [======================================>            ]  270.2MB/348.5MB
+ fb4239ebaa91 Extracting [==============>                                    ]   15.6MB/55.2MB
+ 8ec6dbad104f Extracting [========================================>          ]  279.1MB/348.5MB
+ fb4239ebaa91 Extracting [===============>                                   ]  17.27MB/55.2MB
+ 8ec6dbad104f Extracting [=========================================>         ]    288MB/348.5MB
+ fb4239ebaa91 Extracting [================>                                  ]  18.38MB/55.2MB
+ 8ec6dbad104f Extracting [==========================================>        ]  293.6MB/348.5MB
+ fb4239ebaa91 Extracting [==================>                                ]  20.05MB/55.2MB
+ 8ec6dbad104f Extracting [===========================================>       ]  303.6MB/348.5MB
+ 8ec6dbad104f Extracting [=============================================>     ]  313.6MB/348.5MB
+ fb4239ebaa91 Extracting [====================>                              ]  22.28MB/55.2MB
+ 8ec6dbad104f Extracting [==============================================>    ]  322.5MB/348.5MB
+ dbc9765dd584 Pull complete 
+ 2805b2a869fe Extracting [==================================================>]  2.829kB/2.829kB
+ 2805b2a869fe Extracting [==================================================>]  2.829kB/2.829kB
+ fb4239ebaa91 Extracting [=====================>                             ]   23.4MB/55.2MB
+ 8ec6dbad104f Extracting [===============================================>   ]  330.3MB/348.5MB
+ fb4239ebaa91 Extracting [======================>                            ]  25.07MB/55.2MB
+ 8ec6dbad104f Extracting [================================================>  ]  335.3MB/348.5MB
+ fb4239ebaa91 Extracting [========================>                          ]   27.3MB/55.2MB
+ 2805b2a869fe Pull complete 
+ de95d05026f2 Extracting [==================================================>]  1.502kB/1.502kB
+ de95d05026f2 Extracting [==================================================>]  1.502kB/1.502kB
+ de95d05026f2 Pull complete 
+ 8ec6dbad104f Extracting [================================================>  ]  339.2MB/348.5MB
+ fb4239ebaa91 Extracting [==========================>                        ]  29.52MB/55.2MB
+ f769b5656b89 Extracting [>                                                  ]  294.9kB/28.5MB
+ 8ec6dbad104f Extracting [=================================================> ]    342MB/348.5MB
+ fb4239ebaa91 Extracting [==============================>                    ]  33.98MB/55.2MB
+ f769b5656b89 Extracting [========>                                          ]  5.014MB/28.5MB
+ fb4239ebaa91 Extracting [==================================>                ]  38.44MB/55.2MB
+ 8ec6dbad104f Extracting [=================================================> ]  346.5MB/348.5MB
+ f769b5656b89 Extracting [=============>                                     ]  7.963MB/28.5MB
+ fb4239ebaa91 Extracting [=======================================>           ]  44.01MB/55.2MB
+ f769b5656b89 Extracting [====================>                              ]   11.8MB/28.5MB
+ f769b5656b89 Extracting [===============================>                   ]  17.99MB/28.5MB
+ 8ec6dbad104f Extracting [=================================================> ]  348.2MB/348.5MB
+ 8ec6dbad104f Extracting [==================================================>]  348.5MB/348.5MB
+ f769b5656b89 Extracting [========================================>          ]     23MB/28.5MB
+ f769b5656b89 Extracting [=================================================> ]  28.31MB/28.5MB
+ fb4239ebaa91 Extracting [==========================================>        ]  46.79MB/55.2MB
+ f769b5656b89 Extracting [==================================================>]   28.5MB/28.5MB
+ 8ec6dbad104f Pull complete 
+ f769b5656b89 Pull complete 
+ 1bf99b6a6b2f Extracting [==================================================>]  24.69kB/24.69kB
+ 1bf99b6a6b2f Extracting [==================================================>]  24.69kB/24.69kB
+ 246c7eb17a29 Extracting [==================================================>]  5.006kB/5.006kB
+ 246c7eb17a29 Extracting [==================================================>]  5.006kB/5.006kB
+ fb4239ebaa91 Extracting [============================================>      ]  49.58MB/55.2MB
+ 246c7eb17a29 Pull complete 
+ mongo Pulled 
+ 1bf99b6a6b2f Pull complete 
+ ee6df5bc6d6d Extracting [>                                                  ]  557.1kB/62.96MB
+ fb4239ebaa91 Extracting [===============================================>   ]  52.36MB/55.2MB
+ ee6df5bc6d6d Extracting [=====>                                             ]  7.242MB/62.96MB
+ fb4239ebaa91 Extracting [================================================>  ]  54.03MB/55.2MB
+ ee6df5bc6d6d Extracting [==========>                                        ]  13.37MB/62.96MB
+ ee6df5bc6d6d Extracting [================>                                  ]  21.17MB/62.96MB
+ fb4239ebaa91 Extracting [=================================================> ]  55.15MB/55.2MB
+ fb4239ebaa91 Extracting [==================================================>]   55.2MB/55.2MB
+ ee6df5bc6d6d Extracting [======================>                            ]  27.85MB/62.96MB
+ fb4239ebaa91 Pull complete 
+ 6c10e5b1f90f Extracting [>                                                  ]  196.6kB/17.25MB
+ ee6df5bc6d6d Extracting [==========================>                        ]  33.42MB/62.96MB
+ 6c10e5b1f90f Extracting [===============>                                   ]  5.505MB/17.25MB
+ ee6df5bc6d6d Extracting [==============================>                    ]  38.99MB/62.96MB
+ 6c10e5b1f90f Extracting [=========================>                         ]  8.847MB/17.25MB
+ ee6df5bc6d6d Extracting [===================================>               ]  45.12MB/62.96MB
+ 6c10e5b1f90f Extracting [=============================>                     ]  10.03MB/17.25MB
+ ee6df5bc6d6d Extracting [========================================>          ]  50.69MB/62.96MB
+ 6c10e5b1f90f Extracting [======================================>            ]  13.17MB/17.25MB
+ ee6df5bc6d6d Extracting [==============================================>    ]  57.93MB/62.96MB
+ 6c10e5b1f90f Extracting [==========================================>        ]  14.75MB/17.25MB
+ ee6df5bc6d6d Extracting [==================================================>]  62.96MB/62.96MB
+ ee6df5bc6d6d Pull complete 
+ 4f4fb700ef54 Extracting [==================================================>]      32B/32B
+ 4f4fb700ef54 Extracting [==================================================>]      32B/32B
+ 6c10e5b1f90f Extracting [=============================================>     ]  15.73MB/17.25MB
+ 4f4fb700ef54 Pull complete 
+ 902040128b5f Extracting [>                                                  ]  360.4kB/35.11MB
+ 6c10e5b1f90f Extracting [================================================>  ]  16.71MB/17.25MB
+ 902040128b5f Extracting [===================================>               ]  25.23MB/35.11MB
+ 902040128b5f Extracting [==================================================>]  35.11MB/35.11MB
+ 6c10e5b1f90f Extracting [==================================================>]  17.25MB/17.25MB
+ 902040128b5f Pull complete 
+ ba8de933b764 Extracting [>                                                  ]  360.4kB/35.11MB
+ 6c10e5b1f90f Pull complete 
+ 5bf888372e08 Extracting [>                                                  ]  557.1kB/210.7MB
+ ba8de933b764 Extracting [=======================>                           ]  16.22MB/35.11MB
+ 5bf888372e08 Extracting [===>                                               ]  15.04MB/210.7MB
+ ba8de933b764 Extracting [===============================================>   ]  33.16MB/35.11MB
+ ba8de933b764 Extracting [==================================================>]  35.11MB/35.11MB
+ 5bf888372e08 Extracting [======>                                            ]   27.3MB/210.7MB
+ ba8de933b764 Pull complete 
+ 27ce2b2d3af7 Extracting [==================================================>]  1.144kB/1.144kB
+ 27ce2b2d3af7 Extracting [==================================================>]  1.144kB/1.144kB
+ 27ce2b2d3af7 Pull complete 
+ 2ac632ea01c3 Extracting [==================================================>]  1.376kB/1.376kB
+ 2ac632ea01c3 Extracting [==================================================>]  1.376kB/1.376kB
+ 2ac632ea01c3 Pull complete 
+ 8902a2e7abe8 Extracting [==================================================>]     390B/390B
+ 8902a2e7abe8 Extracting [==================================================>]     390B/390B
+ 8902a2e7abe8 Pull complete 
+ bef12b0d0c26 Extracting [>                                                  ]  557.1kB/970MB
+ 5bf888372e08 Extracting [==========>                                        ]  42.89MB/210.7MB
+ bef12b0d0c26 Extracting [=>                                                 ]  20.61MB/970MB
+ 5bf888372e08 Extracting [==============>                                    ]  60.72MB/210.7MB
+ bef12b0d0c26 Extracting [==>                                                ]  41.22MB/970MB
+ 5bf888372e08 Extracting [=================>                                 ]  74.65MB/210.7MB
+ bef12b0d0c26 Extracting [===>                                               ]   63.5MB/970MB
+ 5bf888372e08 Extracting [====================>                              ]   86.9MB/210.7MB
+ bef12b0d0c26 Extracting [====>                                              ]  84.67MB/970MB
+ 5bf888372e08 Extracting [======================>                            ]  93.59MB/210.7MB
+ bef12b0d0c26 Extracting [=====>                                             ]  105.3MB/970MB
+ 5bf888372e08 Extracting [==========================>                        ]  110.9MB/210.7MB
+ bef12b0d0c26 Extracting [======>                                            ]  125.3MB/970MB
+ 5bf888372e08 Extracting [==============================>                    ]  128.1MB/210.7MB
+ bef12b0d0c26 Extracting [=======>                                           ]  145.9MB/970MB
+ 5bf888372e08 Extracting [=================================>                 ]  142.6MB/210.7MB
+ bef12b0d0c26 Extracting [========>                                          ]  168.2MB/970MB
+ 5bf888372e08 Extracting [=====================================>             ]  159.3MB/210.7MB
+ bef12b0d0c26 Extracting [=========>                                         ]    190MB/970MB
+ 5bf888372e08 Extracting [=========================================>         ]  173.8MB/210.7MB
+ bef12b0d0c26 Extracting [==========>                                        ]  211.1MB/970MB
+ 5bf888372e08 Extracting [===========================================>       ]  184.4MB/210.7MB
+ bef12b0d0c26 Extracting [===========>                                       ]  231.7MB/970MB
+ 5bf888372e08 Extracting [===============================================>   ]  199.4MB/210.7MB
+ bef12b0d0c26 Extracting [=============>                                     ]  252.3MB/970MB
+ 5bf888372e08 Extracting [=================================================> ]    210MB/210.7MB
+ 5bf888372e08 Extracting [==================================================>]  210.7MB/210.7MB
+ bef12b0d0c26 Extracting [==============>                                    ]    273MB/970MB
+ bef12b0d0c26 Extracting [===============>                                   ]  299.7MB/970MB
+ bef12b0d0c26 Extracting [================>                                  ]  324.2MB/970MB
+ bef12b0d0c26 Extracting [=================>                                 ]  333.1MB/970MB
+ bef12b0d0c26 Extracting [=================>                                 ]    342MB/970MB
+ bef12b0d0c26 Extracting [==================>                                ]  349.3MB/970MB
+ bef12b0d0c26 Extracting [==================>                                ]  354.3MB/970MB
+ bef12b0d0c26 Extracting [==================>                                ]  359.9MB/970MB
+ bef12b0d0c26 Extracting [==================>                                ]  367.1MB/970MB
+ bef12b0d0c26 Extracting [===================>                               ]  373.2MB/970MB
+ bef12b0d0c26 Extracting [===================>                               ]  379.9MB/970MB
+ bef12b0d0c26 Extracting [===================>                               ]  384.9MB/970MB
+ bef12b0d0c26 Extracting [====================>                              ]  391.6MB/970MB
+ bef12b0d0c26 Extracting [====================>                              ]  395.5MB/970MB
+ bef12b0d0c26 Extracting [====================>                              ]  396.6MB/970MB
+ 5bf888372e08 Pull complete 
+ 412d4130f2e4 Extracting [==================================================>]      98B/98B
+ 412d4130f2e4 Extracting [==================================================>]      98B/98B
+ 412d4130f2e4 Pull complete 
+ edbd55d3f851 Extracting [===>                                               ]  32.77kB/542.8kB
+ edbd55d3f851 Extracting [==================================================>]  542.8kB/542.8kB
+ edbd55d3f851 Pull complete 
+ 41d937d50e55 Extracting [==================================================>]   4.85kB/4.85kB
+ 41d937d50e55 Extracting [==================================================>]   4.85kB/4.85kB
+ 41d937d50e55 Pull complete 
+ 87804bb063fe Extracting [==================================================>]     663B/663B
+ 87804bb063fe Extracting [==================================================>]     663B/663B
+ 87804bb063fe Pull complete 
+ bdb9d7e30a30 Extracting [==================================================>]   6.45kB/6.45kB
+ bdb9d7e30a30 Extracting [==================================================>]   6.45kB/6.45kB
+ bdb9d7e30a30 Pull complete 
+ 3af7318119aa Extracting [==============>                                    ]  32.77kB/116.8kB
+ 3af7318119aa Extracting [==================================================>]  116.8kB/116.8kB
+ bef12b0d0c26 Extracting [====================>                              ]  397.2MB/970MB
+ 3af7318119aa Pull complete 
+ bb1cbc82dfa7 Extracting [==================================================>]     291B/291B
+ bb1cbc82dfa7 Extracting [==================================================>]     291B/291B
+ bb1cbc82dfa7 Pull complete 
+ opal Pulled 
+ bef12b0d0c26 Extracting [====================>                              ]  398.3MB/970MB
+ bef12b0d0c26 Extracting [====================>                              ]  398.9MB/970MB
+ bef12b0d0c26 Extracting [====================>                              ]    400MB/970MB
+ bef12b0d0c26 Extracting [====================>                              ]  401.1MB/970MB
+ bef12b0d0c26 Extracting [====================>                              ]  403.3MB/970MB
+ bef12b0d0c26 Extracting [====================>                              ]  406.1MB/970MB
+ bef12b0d0c26 Extracting [=====================>                             ]  409.4MB/970MB
+ bef12b0d0c26 Extracting [=====================>                             ]  413.3MB/970MB
+ bef12b0d0c26 Extracting [=====================>                             ]  422.2MB/970MB
+ bef12b0d0c26 Extracting [======================>                            ]  431.2MB/970MB
+ bef12b0d0c26 Extracting [======================>                            ]  440.1MB/970MB
+ bef12b0d0c26 Extracting [=======================>                           ]  448.4MB/970MB
+ bef12b0d0c26 Extracting [=======================>                           ]  456.8MB/970MB
+ bef12b0d0c26 Extracting [=======================>                           ]  465.1MB/970MB
+ bef12b0d0c26 Extracting [========================>                          ]  467.9MB/970MB
+ bef12b0d0c26 Extracting [========================>                          ]  474.6MB/970MB
+ bef12b0d0c26 Extracting [========================>                          ]  484.1MB/970MB
+ bef12b0d0c26 Extracting [=========================>                         ]    493MB/970MB
+ bef12b0d0c26 Extracting [=========================>                         ]  499.1MB/970MB
+ bef12b0d0c26 Extracting [=========================>                         ]  504.1MB/970MB
+ bef12b0d0c26 Extracting [==========================>                        ]  511.9MB/970MB
+ bef12b0d0c26 Extracting [==========================>                        ]  520.3MB/970MB
+ bef12b0d0c26 Extracting [===========================>                       ]  528.1MB/970MB
+ bef12b0d0c26 Extracting [===========================>                       ]  534.8MB/970MB
+ bef12b0d0c26 Extracting [============================>                      ]  545.4MB/970MB
+ bef12b0d0c26 Extracting [============================>                      ]  553.7MB/970MB
+ bef12b0d0c26 Extracting [============================>                      ]  562.1MB/970MB
+ bef12b0d0c26 Extracting [=============================>                     ]  569.9MB/970MB
+ bef12b0d0c26 Extracting [=============================>                     ]  578.2MB/970MB
+ bef12b0d0c26 Extracting [==============================>                    ]  587.1MB/970MB
+ bef12b0d0c26 Extracting [==============================>                    ]    596MB/970MB
+ bef12b0d0c26 Extracting [===============================>                   ]    605MB/970MB
+ bef12b0d0c26 Extracting [===============================>                   ]  612.8MB/970MB
+ bef12b0d0c26 Extracting [===============================>                   ]    615MB/970MB
+ bef12b0d0c26 Extracting [===============================>                   ]  618.9MB/970MB
+ bef12b0d0c26 Extracting [================================>                  ]  623.3MB/970MB
+ bef12b0d0c26 Extracting [================================>                  ]  630.6MB/970MB
+ bef12b0d0c26 Extracting [================================>                  ]  633.9MB/970MB
+ bef12b0d0c26 Extracting [================================>                  ]    635MB/970MB
+ bef12b0d0c26 Extracting [================================>                  ]  638.9MB/970MB
+ bef12b0d0c26 Extracting [=================================>                 ]  647.9MB/970MB
+ bef12b0d0c26 Extracting [=================================>                 ]  655.7MB/970MB
+ bef12b0d0c26 Extracting [==================================>                ]  663.5MB/970MB
+ bef12b0d0c26 Extracting [==================================>                ]  672.4MB/970MB
+ bef12b0d0c26 Extracting [==================================>                ]  678.5MB/970MB
+ bef12b0d0c26 Extracting [===================================>               ]  683.5MB/970MB
+ bef12b0d0c26 Extracting [===================================>               ]  686.3MB/970MB
+ bef12b0d0c26 Extracting [===================================>               ]  691.3MB/970MB
+ bef12b0d0c26 Extracting [===================================>               ]  694.6MB/970MB
+ bef12b0d0c26 Extracting [====================================>              ]  700.2MB/970MB
+ bef12b0d0c26 Extracting [====================================>              ]  704.7MB/970MB
+ bef12b0d0c26 Extracting [====================================>              ]  708.6MB/970MB
+ bef12b0d0c26 Extracting [=====================================>             ]    718MB/970MB
+ bef12b0d0c26 Extracting [=====================================>             ]  725.8MB/970MB
+ bef12b0d0c26 Extracting [=====================================>             ]  731.4MB/970MB
+ bef12b0d0c26 Extracting [======================================>            ]  738.1MB/970MB
+ bef12b0d0c26 Extracting [======================================>            ]  745.3MB/970MB
+ bef12b0d0c26 Extracting [======================================>            ]  749.8MB/970MB
+ bef12b0d0c26 Extracting [=======================================>           ]  758.2MB/970MB
+ bef12b0d0c26 Extracting [=======================================>           ]  760.4MB/970MB
+ bef12b0d0c26 Extracting [=======================================>           ]    766MB/970MB
+ bef12b0d0c26 Extracting [=======================================>           ]  770.4MB/970MB
+ bef12b0d0c26 Extracting [=======================================>           ]  773.8MB/970MB
+ bef12b0d0c26 Extracting [========================================>          ]  777.7MB/970MB
+ bef12b0d0c26 Extracting [========================================>          ]  784.3MB/970MB
+ bef12b0d0c26 Extracting [========================================>          ]  788.2MB/970MB
+ bef12b0d0c26 Extracting [========================================>          ]  794.4MB/970MB
+ bef12b0d0c26 Extracting [=========================================>         ]    801MB/970MB
+ bef12b0d0c26 Extracting [=========================================>         ]  805.5MB/970MB
+ bef12b0d0c26 Extracting [=========================================>         ]  809.4MB/970MB
+ bef12b0d0c26 Extracting [==========================================>        ]    815MB/970MB
+ bef12b0d0c26 Extracting [==========================================>        ]  819.4MB/970MB
+ bef12b0d0c26 Extracting [==========================================>        ]  827.2MB/970MB
+ bef12b0d0c26 Extracting [==========================================>        ]  833.4MB/970MB
+ bef12b0d0c26 Extracting [===========================================>       ]  837.8MB/970MB
+ bef12b0d0c26 Extracting [===========================================>       ]  841.2MB/970MB
+ bef12b0d0c26 Extracting [===========================================>       ]  845.6MB/970MB
+ bef12b0d0c26 Extracting [===========================================>       ]    849MB/970MB
+ bef12b0d0c26 Extracting [===========================================>       ]  852.9MB/970MB
+ bef12b0d0c26 Extracting [===========================================>       ]  853.4MB/970MB
+ bef12b0d0c26 Extracting [============================================>      ]    854MB/970MB
+ bef12b0d0c26 Extracting [============================================>      ]  854.5MB/970MB
+ bef12b0d0c26 Extracting [============================================>      ]  855.6MB/970MB
+ bef12b0d0c26 Extracting [============================================>      ]  857.3MB/970MB
+ bef12b0d0c26 Extracting [============================================>      ]  862.9MB/970MB
+ bef12b0d0c26 Extracting [============================================>      ]  865.1MB/970MB
+ bef12b0d0c26 Extracting [============================================>      ]  866.2MB/970MB
+ bef12b0d0c26 Extracting [============================================>      ]  867.9MB/970MB
+ bef12b0d0c26 Extracting [============================================>      ]  870.1MB/970MB
+ bef12b0d0c26 Extracting [=============================================>     ]    874MB/970MB
+ bef12b0d0c26 Extracting [=============================================>     ]  875.7MB/970MB
+ bef12b0d0c26 Extracting [=============================================>     ]  881.3MB/970MB
+ bef12b0d0c26 Extracting [=============================================>     ]  886.3MB/970MB
+ bef12b0d0c26 Extracting [=============================================>     ]  887.9MB/970MB
+ bef12b0d0c26 Extracting [==============================================>    ]  901.9MB/970MB
+ bef12b0d0c26 Extracting [==============================================>    ]  906.3MB/970MB
+ bef12b0d0c26 Extracting [===============================================>   ]    918MB/970MB
+ bef12b0d0c26 Extracting [===============================================>   ]  924.7MB/970MB
+ bef12b0d0c26 Extracting [================================================>  ]  933.6MB/970MB
+ bef12b0d0c26 Extracting [================================================>  ]  938.6MB/970MB
+ bef12b0d0c26 Extracting [================================================>  ]  949.2MB/970MB
+ bef12b0d0c26 Extracting [=================================================> ]  954.2MB/970MB
+ bef12b0d0c26 Extracting [=================================================> ]  958.1MB/970MB
+ bef12b0d0c26 Extracting [=================================================> ]  967.6MB/970MB
+ bef12b0d0c26 Extracting [==================================================>]    970MB/970MB
+ bef12b0d0c26 Pull complete 
+ 1c96732738b6 Extracting [==================================================>]     500B/500B
+ 1c96732738b6 Extracting [==================================================>]     500B/500B
+ 1c96732738b6 Pull complete 
+ 49965202d247 Extracting [>                                                  ]  491.5kB/48.06MB
+ 49965202d247 Extracting [==============>                                    ]  14.25MB/48.06MB
+ 49965202d247 Extracting [==========================>                        ]  25.56MB/48.06MB
+ 49965202d247 Extracting [======================================>            ]  37.36MB/48.06MB
+ 49965202d247 Extracting [==================================================>]  48.06MB/48.06MB
+ 49965202d247 Pull complete 
+ rock Pulled 
+ Network e2e_default  Creating
+ Network e2e_default  Created
+ Volume "e2e_e2e-opal-data"  Creating
+ Volume "e2e_e2e-opal-data"  Created
+ Volume "e2e_e2e-rock-data"  Creating
+ Volume "e2e_e2e-rock-data"  Created
+ Volume "e2e_e2e-mongo-data"  Creating
+ Volume "e2e_e2e-mongo-data"  Created
+ Container e2e-mongo  Creating
+ Container e2e-mongo  Created
+ Container e2e-opal  Creating
+ Container e2e-opal  Created
+ Container e2e-nginx  Creating
+ Container e2e-rock  Creating
+ Container e2e-nginx  Created
+ Container e2e-rock  Created
+ Container e2e-mongo  Starting
+ Container e2e-mongo  Started
+ Container e2e-mongo  Waiting
+ Container e2e-mongo  Healthy
+ Container e2e-opal  Starting
+ Container e2e-opal  Started
+ Container e2e-opal  Waiting
+ Container e2e-opal  Waiting
+ Container e2e-opal  Healthy
+ Container e2e-rock  Starting
+ Container e2e-opal  Healthy
+ Container e2e-nginx  Starting
+ Container e2e-rock  Started
+ Container e2e-nginx  Started
+ Container e2e-nginx  Waiting
+ Container e2e-mongo  Waiting
+ Container e2e-opal  Waiting
+ Container e2e-rock  Waiting
+ Container e2e-opal  Healthy
+ Container e2e-mongo  Healthy
+ Container e2e-nginx  Healthy
+ Container e2e-rock  Healthy
+
+Opal is accessible at: https://localhost:8443
+Login: administrator / ***
+Starting e2e...
+$ docker compose --project-name e2e -f 
+/home/runner/.easy-opal/instances/e2e/docker-compose.yml up -d --remove-orphans 
+--wait
+ Container e2e-mongo  Running
+ Container e2e-opal  Running
+ Container e2e-nginx  Running
+ Container e2e-rock  Running
+ Container e2e-mongo  Waiting
+ Container e2e-mongo  Healthy
+ Container e2e-opal  Waiting
+ Container e2e-opal  Waiting
+ Container e2e-opal  Healthy
+ Container e2e-opal  Healthy
+ Container e2e-opal  Waiting
+ Container e2e-rock  Waiting
+ Container e2e-nginx  Waiting
+ Container e2e-mongo  Waiting
+ Container e2e-rock  Healthy
+ Container e2e-mongo  Healthy
+ Container e2e-nginx  Healthy
+ Container e2e-opal  Healthy
+e2e is running.
+$ docker compose --project-name e2e -f 
+/home/runner/.easy-opal/instances/e2e/docker-compose.yml ps
+NAME        IMAGE                                   COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+e2e-mongo   docker.io/library/mongo:latest          "docker-entrypoint.s…"   mongo     41 seconds ago   Up 41 seconds (healthy)   27017/tcp
+e2e-nginx   docker.io/library/nginx:latest          "/docker-entrypoint.…"   nginx     41 seconds ago   Up 14 seconds (healthy)   80/tcp, 0.0.0.0:8443->443/tcp, [::]:8443->443/tcp
+e2e-opal    docker.io/obiba/opal:latest             "/bin/bash /docker-e…"   opal      41 seconds ago   Up 30 seconds (healthy)   8080/tcp, 8443/tcp
+e2e-rock    docker.io/datashield/rock-base:latest   "/docker-entrypoint.…"   rock      41 seconds ago   Up 14 seconds (healthy)   8085/tcp
+e2e-rock  datashield/rock-base:latest  Up 14 seconds (healthy)
+e2e-nginx  nginx:latest  Up 14 seconds (healthy)
+e2e-opal  obiba/opal:latest  Up 30 seconds (healthy)
+e2e-mongo  mongo:latest  Up 41 seconds (healthy)
+network: e2e_default
+Opal version: 6.2.1
+[{"name": "default","servers": [{"name": "e2e-rock~3d6ae1a2-4f14-4ba1-8f34-c2e39acac480","cluster": "default","version": "4.6.1","running": true,"sessionCount": 0,"busySessionCount": 0,"cores": 4,"freeMemory": 13296924,"app": {"id": "3d6ae1a2-4f14-4ba1-8f34-c2e39acac480","name": "e2e-rock","type": "rock","cluster": "default","server": "http://rock:8085"}}]}]
+            Version  LibPath                        
+DBI         "1.3.0"  "/usr/local/lib/R/site-library"
+jsonlite    "2.0.0"  "/usr/local/lib/R/site-library"
+openssl     "2.5.0"  "/usr/local/lib/R/site-library"
+R6          "2.6.1"  "/usr/local/lib/R/site-library"
+remotes     "2.5.0"  "/usr/local/lib/R/site-library"
+RPostgreSQL "0.7-8"  "/usr/local/lib/R/site-library"
+RSQLite     "3.53.3" "/usr/local/lib/R/site-library"
+missing: dsBase resourcer RPostgres filelock dsOMOP 
+                                             CRAN 
+"https://p3m.dev/cran/__linux__/noble/2026-10-28" 
+[1] "R version 4.6.1 (2026-06-24)"
+also installing the dependencies ‘rbibutils’, ‘forcats’, ‘stringi’, ‘utf8’, ‘dotCall64’, ‘Rcpp’, ‘Rdpack’, ‘minqa’, ‘nloptr’, ‘reformulas’, ‘RcppEigen’, ‘farver’, ‘labeling’, ‘curl’, ‘clipr’, ‘crayon’, ‘glue’, ‘lifecycle’, ‘rlang’, ‘vroom’, ‘tzdb’, ‘prettyunits’, ‘haven’, ‘vctrs’, ‘stringr’, ‘tidyr’, ‘tidyselect’, ‘magrittr’, ‘pillar’, ‘pkgconfig’, ‘bit’, ‘generics’, ‘timechange’, ‘sys’, ‘spam’, ‘viridisLite’, ‘RColorBrewer’, ‘maps’, ‘metadat’, ‘numDeriv’, ‘mathjaxr’, ‘pbapply’, ‘digest’, ‘metabook’, ‘lme4’, ‘CompQuadForm’, ‘xml2’, ‘purrr’, ‘scales’, ‘gtable’, ‘isoband’, ‘S7’, ‘httr’, ‘readr’, ‘mime’, ‘progress’, ‘labelled’, ‘tibble’, ‘R6’, ‘cli’, ‘bit64’, ‘blob’, ‘hms’, ‘lubridate’, ‘withr’, ‘cpp11’, ‘askpass’, ‘fields’, ‘metafor’, ‘meta’, ‘ggplot2’, ‘gridExtra’, ‘data.table’, ‘dplyr’
+
+Installing 32 packages: xfun, highr, evaluate, fastmap, base64enc, htmltools, rappdirs, fs, sass, memoise, jquerylib, cachem, diffobj, ps, otel, callr, rprojroot, processx, pkgbuild, desc, tinytex, knitr, fontawesome, bslib, waldo, praise, pkgload, brio, rly, rmarkdown, testthat, DSLite
+opalr 3.7.0 
+DSI 1.8.0 
+DSOpal 1.5.0 
+dsOMOPClient 2.10.8 
+stack network: e2e_default
+Unable to find image 'postgres:16' locally
+16: Pulling from library/postgres
+37fb86c2a767: Already exists
+a0a147a27498: Pulling fs layer
+893773e1f215: Pulling fs layer
+a43692ded922: Pulling fs layer
+a71988767d8f: Pulling fs layer
+8c5b8924f0a2: Pulling fs layer
+a37be121ef1e: Pulling fs layer
+57869d2f2b40: Pulling fs layer
+0bda6b874f77: Pulling fs layer
+4fefcc83b4c3: Pulling fs layer
+7ae4197f54cb: Pulling fs layer
+a160a6fee115: Pulling fs layer
+a115041a3e47: Pulling fs layer
+0bda6b874f77: Waiting
+4fefcc83b4c3: Waiting
+a71988767d8f: Waiting
+7ae4197f54cb: Waiting
+8c5b8924f0a2: Waiting
+a160a6fee115: Waiting
+a115041a3e47: Waiting
+a37be121ef1e: Waiting
+57869d2f2b40: Waiting
+a0a147a27498: Verifying Checksum
+a0a147a27498: Download complete
+a43692ded922: Verifying Checksum
+a43692ded922: Download complete
+893773e1f215: Verifying Checksum
+893773e1f215: Download complete
+8c5b8924f0a2: Verifying Checksum
+8c5b8924f0a2: Download complete
+a71988767d8f: Download complete
+a37be121ef1e: Verifying Checksum
+a37be121ef1e: Download complete
+57869d2f2b40: Verifying Checksum
+57869d2f2b40: Download complete
+4fefcc83b4c3: Verifying Checksum
+4fefcc83b4c3: Download complete
+7ae4197f54cb: Verifying Checksum
+7ae4197f54cb: Download complete
+a160a6fee115: Verifying Checksum
+a160a6fee115: Download complete
+a0a147a27498: Pull complete
+a115041a3e47: Verifying Checksum
+a115041a3e47: Download complete
+893773e1f215: Pull complete
+a43692ded922: Pull complete
+0bda6b874f77: Verifying Checksum
+0bda6b874f77: Download complete
+a71988767d8f: Pull complete
+8c5b8924f0a2: Pull complete
+a37be121ef1e: Pull complete
+57869d2f2b40: Pull complete
+0bda6b874f77: Pull complete
+4fefcc83b4c3: Pull complete
+7ae4197f54cb: Pull complete
+a160a6fee115: Pull complete
+a115041a3e47: Pull complete
+Digest: sha256:3950ad7c3148ca2175ef1b6c36c9efbf78957ae8fbe8b3a5d7c35af50500382f
+Status: Downloaded newer image for postgres:16
+Archive:  /tmp/gibleed.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+        0  2023-04-06 20:13   GiBleed_5.3/
+      276  2023-04-06 20:13   __MACOSX/._GiBleed_5.3
+      161  2022-08-09 16:23   GiBleed_5.3/SOURCE_TO_CONCEPT_MAP.csv
+      176  2022-08-09 16:23   __MACOSX/GiBleed_5.3/._SOURCE_TO_CONCEPT_MAP.csv
+      218  2022-08-09 16:23   GiBleed_5.3/PROVIDER.csv
+      176  2022-08-09 16:23   __MACOSX/GiBleed_5.3/._PROVIDER.csv
+   216962  2022-08-09 16:23   GiBleed_5.3/OBSERVATION_PERIOD.csv
+      176  2022-08-09 16:23   __MACOSX/GiBleed_5.3/._OBSERVATION_PERIOD.csv
+  9590040  2022-08-09 16:23   GiBleed_5.3/DRUG_EXPOSURE.csv
+      176  2022-08-09 16:23   __MACOSX/GiBleed_5.3/._DRUG_EXPOSURE.csv
+      121  2022-08-09 16:22   GiBleed_5.3/CARE_SITE.csv
+      176  2022-08-09 16:22   __MACOSX/GiBleed_5.3/._CARE_SITE.csv
+      385  2023-04-07 12:53   GiBleed_5.3/COST.csv
+      232  2023-04-07 12:53   __MACOSX/GiBleed_5.3/._COST.csv
+      483  2022-08-09 16:22   GiBleed_5.3/CONCEPT_RELATIONSHIP.csv
+      176  2022-08-09 16:22   __MACOSX/GiBleed_5.3/._CONCEPT_RELATIONSHIP.csv
+      289  2022-08-09 16:23   GiBleed_5.3/SPECIMEN.csv
+      176  2022-08-09 16:23   __MACOSX/GiBleed_5.3/._SPECIMEN.csv
+      118  2022-08-09 16:22   GiBleed_5.3/DEATH.csv
+      176  2022-08-09 16:22   __MACOSX/GiBleed_5.3/._DEATH.csv
+    10667  2023-09-18 20:30   GiBleed_5.3/VOCABULARY.csv
+      332  2023-09-18 20:30   __MACOSX/GiBleed_5.3/._VOCABULARY.csv
+      301  2022-08-09 16:22   GiBleed_5.3/DEVICE_EXPOSURE.csv
+      176  2022-08-09 16:22   __MACOSX/GiBleed_5.3/._DEVICE_EXPOSURE.csv
+       84  2022-08-09 16:23   GiBleed_5.3/FACT_RELATIONSHIP.csv
+      176  2022-08-09 16:23   __MACOSX/GiBleed_5.3/._FACT_RELATIONSHIP.csv
+      103  2022-08-09 16:22   GiBleed_5.3/DOSE_ERA.csv
+      176  2022-08-09 16:22   __MACOSX/GiBleed_5.3/._DOSE_ERA.csv
+       61  2022-08-09 16:22   GiBleed_5.3/CONCEPT_CLASS.csv
+      176  2022-08-09 16:22   __MACOSX/GiBleed_5.3/._CONCEPT_CLASS.csv
+    44791  2022-08-09 16:22   GiBleed_5.3/CONCEPT.csv
+      176  2022-08-09 16:22   __MACOSX/GiBleed_5.3/._CONCEPT.csv
+       76  2022-08-09 16:23   GiBleed_5.3/LOCATION.csv
+      176  2022-08-09 16:23   __MACOSX/GiBleed_5.3/._LOCATION.csv
+      218  2022-08-09 16:23   GiBleed_5.3/DRUG_STRENGTH.csv
+      176  2022-08-09 16:23   __MACOSX/GiBleed_5.3/._DRUG_STRENGTH.csv
+    36060  2022-08-09 16:23   GiBleed_5.3/RELATIONSHIP.csv
+      176  2022-08-09 16:23   __MACOSX/GiBleed_5.3/._RELATIONSHIP.csv
+  4603727  2022-08-09 16:23   GiBleed_5.3/MEASUREMENT.csv
+      176  2022-08-09 16:23   __MACOSX/GiBleed_5.3/._MEASUREMENT.csv
+       66  2022-08-09 16:22   GiBleed_5.3/COHORT.csv
+      176  2022-08-09 16:22   __MACOSX/GiBleed_5.3/._COHORT.csv
+      191  2022-08-09 16:23   GiBleed_5.3/NOTE_NLP.csv
+      176  2022-08-09 16:23   __MACOSX/GiBleed_5.3/._NOTE_NLP.csv
+      126  2022-08-09 16:22   GiBleed_5.3/COHORT_ATTRIBUTE.csv
+      176  2022-08-09 16:22   __MACOSX/GiBleed_5.3/._COHORT_ATTRIBUTE.csv
+  7541183  2022-08-09 16:22   GiBleed_5.3/CONDITION_OCCURRENCE.csv
+      176  2022-08-09 16:22   __MACOSX/GiBleed_5.3/._CONDITION_OCCURRENCE.csv
+    61240  2022-08-09 16:22   GiBleed_5.3/CONCEPT_SYNONYM.csv
+      176  2022-08-09 16:22   __MACOSX/GiBleed_5.3/._CONCEPT_SYNONYM.csv
+  2525631  2022-08-09 16:22   GiBleed_5.3/DRUG_ERA.csv
+      232  2022-08-09 16:22   __MACOSX/GiBleed_5.3/._DRUG_ERA.csv
+      553  2022-08-09 16:22   GiBleed_5.3/CDM_SOURCE.csv
+      332  2022-08-09 16:22   __MACOSX/GiBleed_5.3/._CDM_SOURCE.csv
+   148881  2022-08-09 16:23   GiBleed_5.3/VISIT_OCCURRENCE.csv
+      176  2022-08-09 16:23   __MACOSX/GiBleed_5.3/._VISIT_OCCURRENCE.csv
+      118  2022-08-09 16:23   GiBleed_5.3/METADATA.csv
+care_site: 0 rows (6 of 6 CSV columns)
+cdm_source: 1 rows (10 of 10 CSV columns)
+skip COHORT.csv: no such CDM 5.3 table
+skip COHORT_ATTRIBUTE.csv: no such CDM 5.3 table
+sample concept: concept_id=35208414, concept_name=Gastrointestinal hemorrhage, unspecified, domain_id=Condition, vocabulary_id=ICD10CM, concept_class_id=4-char billing code, standard_concept=, concept_code=K92.2, valid_start_date=2007-01-01, valid_end_date=2099-12-31, invalid_reason=
+concept: 444 rows (10 of 10 CSV columns)
+concept_ancestor: 65690 rows (4 of 4 CSV columns)
+concept_class: 0 rows (3 of 3 CSV columns)
+concept_relationship: 8 rows (6 of 6 CSV columns)
+concept_synonym: 1064 rows (3 of 3 CSV columns)
+condition_era: 65719 rows (6 of 6 CSV columns)
+sample condition_occurrence: condition_occurrence_id=4483, person_id=263, condition_concept_id=4112343, condition_start_date=2015-10-02, condition_start_datetime=2015-10-02T00:00:00Z, condition_end_date=2015-10-14, condition_end_datetime=2015-10-14T00:00:00Z, condition_type_concept_id=32020, stop_reason=, provider_id=, visit_occurrence_id=17479, visit_detail_id=0, condition_source_value=195662009, condition_source_concept_id=4112343, condition_status_source_value=, condition_status_concept_id=0
+condition_occurrence: 65332 rows (16 of 16 CSV columns)
+cost: 0 rows (22 of 22 CSV columns)
+death: 0 rows (7 of 7 CSV columns)
+device_exposure: 0 rows (15 of 15 CSV columns)
+domain: 45 rows (3 of 3 CSV columns)
+dose_era: 0 rows (7 of 7 CSV columns)
+drug_era: 52508 rows (7 of 7 CSV columns)
+sample drug_exposure: drug_exposure_id=26318, person_id=573, drug_concept_id=40213160, drug_exposure_start_date=1960-04-09, drug_exposure_start_datetime=1960-04-09T00:00:00Z, drug_exposure_end_date=1960-04-09, drug_exposure_end_datetime=1960-04-09T00:00:00Z, verbatim_end_date=1960-04-09, drug_type_concept_id=581452, stop_reason=, refills=0, quantity=0, days_supply=0, sig=, route_concept_id=0, lot_number=0, provider_id=0, visit_occurrence_id=38004, visit_detail_id=0, drug_source_value=10, drug_source_concept_id=40213160, route_source_value=, dose_unit_source_value=
+drug_exposure: 67707 rows (23 of 23 CSV columns)
+drug_strength: 0 rows (12 of 12 CSV columns)
+fact_relationship: 0 rows (5 of 5 CSV columns)
+location: 0 rows (8 of 8 CSV columns)
+measurement: 44053 rows (20 of 20 CSV columns)
+metadata: 0 rows (7 of 7 CSV columns)
+note: 0 rows (14 of 14 CSV columns)
+note_nlp: 0 rows (14 of 14 CSV columns)
+observation: 1477 rows (18 of 18 CSV columns)
+sample observation_period: observation_period_id=6, person_id=6, observation_period_start_date=1963-12-31, observation_period_end_date=2007-02-06, period_type_concept_id=44814724
+observation_period: 5343 rows (5 of 5 CSV columns)
+payer_plan_period: 0 rows (17 of 17 CSV columns)
+sample person: person_id=6, gender_concept_id=8532, year_of_birth=1963, month_of_birth=12, day_of_birth=31, birth_datetime=1963-12-31T00:00:00Z, race_concept_id=8516, ethnicity_concept_id=0, location_id=, provider_id=, care_site_id=, person_source_value=001f4a87-70d0-435c-a4b9-1425f6928d33, gender_source_value=F, gender_source_concept_id=0, race_source_value=black, race_source_concept_id=0, ethnicity_source_value=west_indian, ethnicity_source_concept_id=0
+person: 2694 rows (18 of 18 CSV columns)
+procedure_occurrence: 37409 rows (14 of 14 CSV columns)
+provider: 0 rows (13 of 13 CSV columns)
+relationship: 480 rows (6 of 6 CSV columns)
+source_to_concept_map: 0 rows (9 of 9 CSV columns)
+specimen: 0 rows (15 of 15 CSV columns)
+visit_detail: 0 rows (19 of 19 CSV columns)
+visit_occurrence: 1037 rows (17 of 17 CSV columns)
+vocabulary: 91 rows (5 of 5 CSV columns)
+split copy: vocab = ['concept', 'concept_ancestor', 'concept_class', 'concept_relationship', 'concept_synonym', 'domain', 'drug_strength', 'relationship', 'source_to_concept_map', 'vocabulary']
+omopsmall.cdm: persons=150
+role e2e_reader: SELECT on omop.cdm and omop53.cdm
+omop.cdm.cdm_source: Synthea synthetic health database|v5.3.1|v5.0 18-JAN-19
+omop53.cdm.cdm_source: Synthea synthetic health database|5.3|v5.0 18-JAN-19
+omoppub.public.cdm_source: Synthea synthetic health database|5.3|v5.0 18-JAN-19
+omop.cdm: person=2694, condition_occurrence=65332, drug_exposure=67707, concept=444
+omop.cdm2: person=2694, condition_occurrence=65332, drug_exposure=67707
+omop.vocab: concept=444
+omop53.cdm: person=2694, condition_occurrence=65332, drug_exposure=67707, concept=444
+omoppub.public: person=2694, condition_occurrence=65332, drug_exposure=67707, concept=444
+loaded tables: 35
+$dataset
+[1] "Synthea27Nj"
+
+$archive_bytes
+[1] 3351707
+
+$measurements
+$measurements$rows
+[1] 10040
+
+$measurements$numeric
+[1] 9107
+
+$measurements$mapped_unit
+[1] 8403
+
+$measurements$numeric_and_mapped_unit
+[1] 8403
+
+$measurements$numeric_fraction
+[1] 0.9070717
+
+$measurements$mapped_unit_fraction
+[1] 0.8369522
+
+$measurements$both_fraction
+[1] 0.8369522
+
+$measurements$reference_ranges
+[1] 0
+
+
+Opal version: 6.2.1
+--- general configuration before
+$name
+[1] "Opal"
+
+$languages
+$languages[[1]]
+[1] "en"
+
+
+$defaultCharSet
+[1] "ISO-8859-1"
+
+$enforced2FA
+[1] FALSE
+
+$allowRPackageManagement
+[1] FALSE
+
+$allowRPatOnly
+[1] FALSE
+
+OK    opal.put(o, "system", "conf", "general", "_rPackage") (0 s)
+--- general configuration after
+$name
+[1] "Opal"
+
+$languages
+$languages[[1]]
+[1] "en"
+
+
+$defaultCharSet
+[1] "ISO-8859-1"
+
+$enforced2FA
+[1] FALSE
+
+$allowRPackageManagement
+[1] TRUE
+
+$allowRPatOnly
+[1] FALSE
+
+SUMMARY [fresh] Opal 6.2.1: allowRPackageManagement on a fresh Opal = FALSE; after the administrator enables it = TRUE
+--- DataSHIELD profiles
+     name cluster enabled restrictedAccess
+1 default default    TRUE            FALSE
+--- default profile
+List of 4
+ $ name            : chr "default"
+ $ cluster         : chr "default"
+ $ enabled         : logi TRUE
+ $ restrictedAccess: logi FALSE
+NULL
+OK    oadmin.user_add(o, "analyst") (0.2 s)
+$ok
+[1] TRUE
+
+$value
+NULL
+
+$warnings
+character(0)
+
+$messages
+character(0)
+
+$secs
+[1] 0.2
+
+OK    dsadmin.perm_add(o, "analyst", "user", "use") (0.1 s)
+$ok
+[1] TRUE
+
+$value
+NULL
+
+$warnings
+character(0)
+
+$messages
+character(0)
+
+$secs
+[1] 0.1
+
+OK    opal.project_create(o, "omop_data") (0.1 s)
+$ok
+[1] TRUE
+
+$value
+NULL
+
+$warnings
+character(0)
+
+$messages
+character(0)
+
+$secs
+[1] 0.1
+
+CDM database behind the resources: omop (gibleed_asshipped always uses omop, cdm_version as shipped)
+resource numeric_cdm            format omop.dbi.db  url omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=numeric_cdm
+OK    opal.resource_create(o, "omop_data", "numeric_cdm", ...) (0.1 s)
+OK    opal.resource_perm_add(o, "omop_data", "numeric_cdm", "analyst", permission = "view") (0 s)
+resource gibleed                format omop.dbi.db  url omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=cdm
+OK    opal.resource_create(o, "omop_data", "gibleed", ...) (0 s)
+OK    opal.resource_perm_add(o, "omop_data", "gibleed", "analyst", permission = "view") (0 s)
+resource gibleed_noschema       format omop.dbi.db  url omop+dbi:postgresql://omopdb:5432/omopone
+OK    opal.resource_create(o, "omop_data", "gibleed_noschema", ...) (0 s)
+OK    opal.resource_perm_add(o, "omop_data", "gibleed_noschema", "analyst", permission = "view") (0 s)
+resource gibleed_tls_disable    format omop.dbi.db  url omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=cdm&sslmode=disable
+OK    opal.resource_create(o, "omop_data", "gibleed_tls_disable", ...) (0 s)
+OK    opal.resource_perm_add(o, "omop_data", "gibleed_tls_disable", "analyst", permission = "view") (0 s)
+resource gibleed_legacy         format omop.dbi.db  url omop+dbi:postgresql://omopdb:5432/omop53?cdm_schema=cdm
+OK    opal.resource_create(o, "omop_data", "gibleed_legacy", ...) (0 s)
+OK    opal.resource_perm_add(o, "omop_data", "gibleed_legacy", "analyst", permission = "view") (0 s)
+resource gibleed_asshipped      format omop.dbi.db  url omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=cdm
+OK    opal.resource_create(o, "omop_data", "gibleed_asshipped", ...) (0 s)
+OK    opal.resource_perm_add(o, "omop_data", "gibleed_asshipped", "analyst", permission = "view") (0 s)
+resource gibleed_v1             format omop.cdm.db  url postgresql://omopdb:5432/omop//dsomop::/schema:cdm/vocabulary_schema:cdm
+OK    opal.resource_create(o, "omop_data", "gibleed_v1", ...) (0 s)
+OK    opal.resource_perm_add(o, "omop_data", "gibleed_v1", "analyst", permission = "view") (0 s)
+resource gibleed_v1_vocab       format omop.cdm.db  url postgresql://omopdb:5432/omop//dsomop::/schema:cdm2/vocabulary_schema:vocab
+OK    opal.resource_create(o, "omop_data", "gibleed_v1_vocab", ...) (0 s)
+OK    opal.resource_perm_add(o, "omop_data", "gibleed_v1_vocab", "analyst", permission = "view") (0 s)
+resource gibleed_v1_schemaonly  format omop.cdm.db  url postgresql://omopdb:5432/omop//dsomop::/schema:cdm
+OK    opal.resource_create(o, "omop_data", "gibleed_v1_schemaonly", ...) (0 s)
+OK    opal.resource_perm_add(o, "omop_data", "gibleed_v1_schemaonly", "analyst", permission = "view") (0 s)
+resource gibleed_v1_plain       format omop.cdm.db  url postgresql://omopdb:5432/omoppub
+OK    opal.resource_create(o, "omop_data", "gibleed_v1_plain", ...) (0 s)
+OK    opal.resource_perm_add(o, "omop_data", "gibleed_v1_plain", "analyst", permission = "view") (0 s)
+resource gibleed_small          format omop.dbi.db  url omop+dbi:postgresql://omopdb:5432/omopsmall?cdm_schema=cdm
+OK    opal.resource_create(o, "omop_data", "gibleed_small", ...) (0 s)
+OK    opal.resource_perm_add(o, "omop_data", "gibleed_small", "analyst", permission = "view") (0 s)
+resource gibleed_reader         format omop.dbi.db  url omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=cdm
+OK    opal.resource_create(o, "omop_data", "gibleed_reader", ...) (0 s)
+OK    opal.resource_perm_add(o, "omop_data", "gibleed_reader", "analyst", permission = "view") (0 s)
+--- Rock as Opal's R sessions see it
+$libPaths
+[1] "/var/lib/rock/R/library"       "/usr/local/lib/R/site-library" "/usr/local/lib/R/library"     
+
+$user
+[1] "rock"
+
+$R
+[1] "R version 4.6.1 (2026-06-24)"
+
+$packages
+     dsBase   resourcer         DBI   RPostgres RPostgreSQL     RSQLite          R6    jsonlite    filelock     openssl     remotes      dsOMOP 
+    "6.3.5"     "1.5.2"     "1.3.0"    "1.4.10"     "0.7-8"    "3.53.3"     "2.6.1"     "2.0.0"         "-"     "2.5.0"     "2.5.0"         "-" 
+
+--- resources
+                    name                                                                         url      format
+1                gibleed                       omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=cdm omop.dbi.db
+2      gibleed_asshipped                       omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=cdm omop.dbi.db
+3         gibleed_legacy                     omop+dbi:postgresql://omopdb:5432/omop53?cdm_schema=cdm omop.dbi.db
+4       gibleed_noschema                                   omop+dbi:postgresql://omopdb:5432/omopone omop.dbi.db
+5         gibleed_reader                       omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=cdm omop.dbi.db
+6          gibleed_small                  omop+dbi:postgresql://omopdb:5432/omopsmall?cdm_schema=cdm omop.dbi.db
+7    gibleed_tls_disable       omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=cdm&sslmode=disable omop.dbi.db
+8             gibleed_v1    postgresql://omopdb:5432/omop//dsomop::/schema:cdm/vocabulary_schema:cdm omop.cdm.db
+9       gibleed_v1_plain                                            postgresql://omopdb:5432/omoppub omop.cdm.db
+10 gibleed_v1_schemaonly                          postgresql://omopdb:5432/omop//dsomop::/schema:cdm omop.cdm.db
+11      gibleed_v1_vocab postgresql://omopdb:5432/omop//dsomop::/schema:cdm2/vocabulary_schema:vocab omop.cdm.db
+12           numeric_cdm               omop+dbi:postgresql://omopdb:5432/omop?cdm_schema=numeric_cdm omop.dbi.db
+== FRESH install of dsOMOP (candidate) on a clean Opal
+dsOMOP on Rock before: not installed
+dsOMOP methods published (before install): 0 aggregate + 0 assign; versions: ; omopInitDS published: FALSE
+--- assign methods before install
+[1] name    type    class   value   package version
+<0 rows> (or 0-length row.names)
+--- aggregate methods before install
+[1] name    type    class   value   package version
+<0 rows> (or 0-length row.names)
+OK    dsadmin.install_package(o, "filelock") [CRAN dependency of the candidate] (3.4 s)
+* checking for empty or unneeded directories
+* building ‘dsOMOP_2.10.8.tar.gz’
+
+OK    dsadmin.install_local_package(o, "dsOMOP_2.10.8.tar.gz") (1.7 s)
+After Opal's local call dsOMOP is 'not installed'; installing the exact candidate archive from Rock's R session
+--- Rock candidate installation (service R session and library)
+$status
+[1] 0
+
+$library
+[1] "/var/lib/rock/R/library"
+
+$log
+ [1] "* installing *source* package ‘dsOMOP’ ..."                                                                                                                                                                                                            
+ [2] "** this is package ‘dsOMOP’ version ‘2.10.8’"                                                                                                                                                                                                          
+ [3] "** using staged installation"                                                                                                                                                                                                                          
+ [4] "dsOMOP: request-local OpenSSL HMAC acceleration enabled"                                                                                                                                                                                               
+ [5] "** libs"                                                                                                                                                                                                                                               
+ [6] "using C compiler: ‘gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0’"                                                                                                                                                                                       
+ [7] "gcc -std=gnu2x -I\"/usr/local/lib/R/include\" -DNDEBUG -DDSOMOP_HAVE_OPENSSL   -I/usr/local/include    -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c release_hmac.c -o release_hmac.o"
+ [8] "gcc -std=gnu2x -shared -L/usr/local/lib/R/lib -L/usr/local/lib -o dsOMOP.so release_hmac.o -lcrypto -L/usr/local/lib/R/lib -lR"                                                                                                                        
+ [9] "installing to /var/lib/rock/R/library/00LOCK-dsOMOP/00new/dsOMOP/libs"                                                                                                                                                                                 
+[10] "** R"                                                                                                                                                                                                                                                  
+[11] "** inst"                                                                                                                                                                                                                                               
+[12] "** byte-compile and prepare package for lazy loading"                                                                                                                                                                                                  
+[13] "** help"                                                                                                                                                                                                                                               
+[14] "*** installing help indices"                                                                                                                                                                                                                           
+[15] "** building package indices"                                                                                                                                                                                                                           
+[16] "** testing if installed package can be loaded from temporary location"                                                                                                                                                                                 
+[17] "** checking absolute paths in shared objects and dynamic libraries"                                                                                                                                                                                    
+[18] "** testing if installed package can be loaded from final location"                                                                                                                                                                                     
+[19] "** testing if installed package keeps a record of temporary installation path"                                                                                                                                                                         
+[20] "* DONE (dsOMOP)"                                                                                                                                                                                                                                       
+
+dsOMOP installed on Rock: 2.10.8
+dsOMOP methods published (after install (auto-publish of a new package)): 0 aggregate + 0 assign; versions: ; omopInitDS published: FALSE
+--- assign methods after install (auto-publish of a new package)
+[1] name    type    class   value   package version
+<0 rows> (or 0-length row.names)
+--- aggregate methods after install (auto-publish of a new package)
+[1] name    type    class   value   package version
+<0 rows> (or 0-length row.names)
+--- publication check after install (auto-publish of a new package)
+$declared
+aggregate    assign 
+       59        14 
+
+$published
+aggregate    assign 
+        0         0 
+
+$missing_aggregate
+ [1] "omopPlanStatusDS"                "omopStagedRevokeDS"              "omopPingDS"                      "omopGetCapabilitiesDS"           "omopDisclosureSettingsDS"       
+ [6] "omopListTablesDS"                "omopListColumnsDS"               "omopRelationshipGraphDS"         "omopTableStatsDS"                "omopColumnStatsDS"              
+[11] "omopDomainCoverageDS"            "omopMissingnessDS"               "omopValueCountsDS"               "omopSearchConceptsDS"            "omopLookupConceptsDS"           
+[16] "omopGetDescendantsDS"            "omopExpandConceptSetDS"          "omopConceptAncestorsDS"          "omopConceptSynonymsDS"           "omopConceptRelationshipsDS"     
+[21] "omopListConceptsDS"              "omopVocabulariesDS"              "omopDomainsDS"                   "omopConceptClassesDS"            "omopCdmSourceDS"                
+[26] "omopCdmVersionDS"                "omopPlanPreviewDS"               "omopPlanExplainDS"               "omopCohortListDS"                "omopCohortGetDefinitionDS"      
+[31] "omopConceptPrevalenceDS"         "omopCrossTabDS"                  "omopNumericRangeDS"              "omopNumericHistogramDS"          "omopNumericQuantilesDS"         
+[36] "omopDateCountsDS"                "omopConceptDrilldownDS"          "omopLocateConceptDS"             "omopSafeCutpointsDS"             "omopAchillesStatusDS"           
+[41] "omopAchillesAnalysesDS"          "omopAchillesResultsDS"           "omopAchillesDistributionDS"      "omopAchillesCatalogDS"           "omopOhdsiStatusDS"              
+[46] "omopOhdsiTablesDS"               "omopOhdsiResultsDS"              "omopOhdsiResultContractDS"       "omopOhdsiSummaryDS"              "omopQueryListDS"                
+[51] "omopQueryGetDS"                  "omopQueryExecDS"                 "omopAnalysisListDS"              "omopAnalysisGetDS"               "omopAnalysisRunDS"              
+[56] "omopQueryLibraryStickyCatalogDS" "omopDpStatusDS"                  "omopDpReleaseDS"                 "omopFactorLevelsDS"             
+
+$missing_assign
+ [1] "omopInitDS"              "omopPlanExecuteDS"       "omopCohortCreateDS"      "omopCohortCombineDS"     "omopCohortFromTableDS"   "omopCleanupDS"           "omopAsFactorColumnsDS"  
+ [8] "omopMergeDS"             "omopFilterDS"            "omopSelectDS"            "omopBindRowsDS"          "omopMutateDS"            "omopAnalysisRunAssignDS" "omopDpPlanExecuteDS"    
+
+$wrong_type
+character(0)
+
+$extra
+character(0)
+
+$wrong_function
+character(0)
+
+$versions
+character(0)
+
+$installed_version
+[1] "2.10.8"
+
+$not_exported
+character(0)
+
+$options_declared
+[1] 36
+
+$options_missing
+ [1] "nfilter.subset"                      "nfilter.tab"                         "nfilter.levels.max"                  "nfilter.levels.density"              "nfilter.string"                     
+ [6] "nfilter.stringShort"                 "nfilter.noise"                       "nfilter.glm"                         "dsomop.nfilter.dist"                 "dsomop.nfilter.band"                
+[11] "dsomop.nfilter.age_range"            "dsomop.nfilter.date_range"           "dsomop.max_feature_specs"            "dsomop.max_pivot_concepts"           "dsomop.max_output_columns"          
+[16] "dsomop.max_temporal_bins"            "dsomop.max_filter_depth"             "dsomop.max_filter_nodes"             "dsomop.max_filter_values"            "dsomop.max_plan_outputs"            
+[21] "dsomop.max_analysis_scope_tables"    "dsomop.max_temp_tables_per_handle"   "dsomop.datetime_timezone"            "dsomop.query_strict"                 "dsomop.allow_absolute_dates"        
+[26] "dsomop.allow_sensitive_columns"      "default.dsomop.tools.enabled"        "default.dsomop.tools.mode"           "default.dsomop.dp.enabled"           "default.dsomop.dp.exclusive"        
+[31] "default.dsomop.dp.domain"            "default.dsomop.dp.release_epsilon"   "default.dsomop.dp.privacy_epoch"     "default.dsomop.dp.max_levels"        "default.dsomop.dp.max_contributions"
+[36] "default.dsomop.dp.numeric_grid"     
+
+$options_different
+character(0)
+
+SUMMARY [fresh] after install (auto-publish of a new package): declared 59 agg + 14 assign; published 0 agg + 0 assign (version ; installed 2.10.8); missing 73; wrong type 0; extra 0; wrong function 0; not exported 0; options 36 declared, missing 36, different 0
+dsOMOP is installed but nothing was auto-published (it did not come through Opal's install call): publishing
+OK    dsadmin.publish_package(o, "dsOMOP") (1.1 s)
+dsOMOP methods published (after an explicit publish): 59 aggregate + 14 assign; versions: 2.10.8; omopInitDS published: TRUE
+--- assign methods after an explicit publish
+                      name   type    class                           value package version
+61 omopAnalysisRunAssignDS assign function dsOMOP::omopAnalysisRunAssignDS  dsOMOP  2.10.8
+62   omopAsFactorColumnsDS assign function   dsOMOP::omopAsFactorColumnsDS  dsOMOP  2.10.8
+63          omopBindRowsDS assign function          dsOMOP::omopBindRowsDS  dsOMOP  2.10.8
+64           omopCleanupDS assign function           dsOMOP::omopCleanupDS  dsOMOP  2.10.8
+65     omopCohortCombineDS assign function     dsOMOP::omopCohortCombineDS  dsOMOP  2.10.8
+66      omopCohortCreateDS assign function      dsOMOP::omopCohortCreateDS  dsOMOP  2.10.8
+67   omopCohortFromTableDS assign function   dsOMOP::omopCohortFromTableDS  dsOMOP  2.10.8
+68     omopDpPlanExecuteDS assign function     dsOMOP::omopDpPlanExecuteDS  dsOMOP  2.10.8
+69            omopFilterDS assign function            dsOMOP::omopFilterDS  dsOMOP  2.10.8
+70              omopInitDS assign function              dsOMOP::omopInitDS  dsOMOP  2.10.8
+71             omopMergeDS assign function             dsOMOP::omopMergeDS  dsOMOP  2.10.8
+72            omopMutateDS assign function            dsOMOP::omopMutateDS  dsOMOP  2.10.8
+73       omopPlanExecuteDS assign function       dsOMOP::omopPlanExecuteDS  dsOMOP  2.10.8
+74            omopSelectDS assign function            dsOMOP::omopSelectDS  dsOMOP  2.10.8
+--- aggregate methods after an explicit publish
+                               name      type    class                                   value package version
+55           omopAchillesAnalysesDS aggregate function          dsOMOP::omopAchillesAnalysesDS  dsOMOP  2.10.8
+56            omopAchillesCatalogDS aggregate function           dsOMOP::omopAchillesCatalogDS  dsOMOP  2.10.8
+57       omopAchillesDistributionDS aggregate function      dsOMOP::omopAchillesDistributionDS  dsOMOP  2.10.8
+58            omopAchillesResultsDS aggregate function           dsOMOP::omopAchillesResultsDS  dsOMOP  2.10.8
+59             omopAchillesStatusDS aggregate function            dsOMOP::omopAchillesStatusDS  dsOMOP  2.10.8
+60                omopAnalysisGetDS aggregate function               dsOMOP::omopAnalysisGetDS  dsOMOP  2.10.8
+61               omopAnalysisListDS aggregate function              dsOMOP::omopAnalysisListDS  dsOMOP  2.10.8
+62                omopAnalysisRunDS aggregate function               dsOMOP::omopAnalysisRunDS  dsOMOP  2.10.8
+63                  omopCdmSourceDS aggregate function                 dsOMOP::omopCdmSourceDS  dsOMOP  2.10.8
+64                 omopCdmVersionDS aggregate function                dsOMOP::omopCdmVersionDS  dsOMOP  2.10.8
+65        omopCohortGetDefinitionDS aggregate function       dsOMOP::omopCohortGetDefinitionDS  dsOMOP  2.10.8
+66                 omopCohortListDS aggregate function                dsOMOP::omopCohortListDS  dsOMOP  2.10.8
+67                omopColumnStatsDS aggregate function               dsOMOP::omopColumnStatsDS  dsOMOP  2.10.8
+68           omopConceptAncestorsDS aggregate function          dsOMOP::omopConceptAncestorsDS  dsOMOP  2.10.8
+69             omopConceptClassesDS aggregate function            dsOMOP::omopConceptClassesDS  dsOMOP  2.10.8
+70           omopConceptDrilldownDS aggregate function          dsOMOP::omopConceptDrilldownDS  dsOMOP  2.10.8
+71          omopConceptPrevalenceDS aggregate function         dsOMOP::omopConceptPrevalenceDS  dsOMOP  2.10.8
+72       omopConceptRelationshipsDS aggregate function      dsOMOP::omopConceptRelationshipsDS  dsOMOP  2.10.8
+73            omopConceptSynonymsDS aggregate function           dsOMOP::omopConceptSynonymsDS  dsOMOP  2.10.8
+74                   omopCrossTabDS aggregate function                  dsOMOP::omopCrossTabDS  dsOMOP  2.10.8
+75                 omopDateCountsDS aggregate function                dsOMOP::omopDateCountsDS  dsOMOP  2.10.8
+76         omopDisclosureSettingsDS aggregate function        dsOMOP::omopDisclosureSettingsDS  dsOMOP  2.10.8
+77             omopDomainCoverageDS aggregate function            dsOMOP::omopDomainCoverageDS  dsOMOP  2.10.8
+78                    omopDomainsDS aggregate function                   dsOMOP::omopDomainsDS  dsOMOP  2.10.8
+79                  omopDpReleaseDS aggregate function                 dsOMOP::omopDpReleaseDS  dsOMOP  2.10.8
+80                   omopDpStatusDS aggregate function                  dsOMOP::omopDpStatusDS  dsOMOP  2.10.8
+81           omopExpandConceptSetDS aggregate function          dsOMOP::omopExpandConceptSetDS  dsOMOP  2.10.8
+82               omopFactorLevelsDS aggregate function              dsOMOP::omopFactorLevelsDS  dsOMOP  2.10.8
+83            omopGetCapabilitiesDS aggregate function           dsOMOP::omopGetCapabilitiesDS  dsOMOP  2.10.8
+84             omopGetDescendantsDS aggregate function            dsOMOP::omopGetDescendantsDS  dsOMOP  2.10.8
+85                omopListColumnsDS aggregate function               dsOMOP::omopListColumnsDS  dsOMOP  2.10.8
+86               omopListConceptsDS aggregate function              dsOMOP::omopListConceptsDS  dsOMOP  2.10.8
+87                 omopListTablesDS aggregate function                dsOMOP::omopListTablesDS  dsOMOP  2.10.8
+88              omopLocateConceptDS aggregate function             dsOMOP::omopLocateConceptDS  dsOMOP  2.10.8
+89             omopLookupConceptsDS aggregate function            dsOMOP::omopLookupConceptsDS  dsOMOP  2.10.8
+90                omopMissingnessDS aggregate function               dsOMOP::omopMissingnessDS  dsOMOP  2.10.8
+91           omopNumericHistogramDS aggregate function          dsOMOP::omopNumericHistogramDS  dsOMOP  2.10.8
+92           omopNumericQuantilesDS aggregate function          dsOMOP::omopNumericQuantilesDS  dsOMOP  2.10.8
+93               omopNumericRangeDS aggregate function              dsOMOP::omopNumericRangeDS  dsOMOP  2.10.8
+94        omopOhdsiResultContractDS aggregate function       dsOMOP::omopOhdsiResultContractDS  dsOMOP  2.10.8
+95               omopOhdsiResultsDS aggregate function              dsOMOP::omopOhdsiResultsDS  dsOMOP  2.10.8
+96                omopOhdsiStatusDS aggregate function               dsOMOP::omopOhdsiStatusDS  dsOMOP  2.10.8
+97               omopOhdsiSummaryDS aggregate function              dsOMOP::omopOhdsiSummaryDS  dsOMOP  2.10.8
+98                omopOhdsiTablesDS aggregate function               dsOMOP::omopOhdsiTablesDS  dsOMOP  2.10.8
+99                       omopPingDS aggregate function                      dsOMOP::omopPingDS  dsOMOP  2.10.8
+100               omopPlanExplainDS aggregate function               dsOMOP::omopPlanExplainDS  dsOMOP  2.10.8
+101               omopPlanPreviewDS aggregate function               dsOMOP::omopPlanPreviewDS  dsOMOP  2.10.8
+102                omopPlanStatusDS aggregate function                dsOMOP::omopPlanStatusDS  dsOMOP  2.10.8
+103                 omopQueryExecDS aggregate function                 dsOMOP::omopQueryExecDS  dsOMOP  2.10.8
+104                  omopQueryGetDS aggregate function                  dsOMOP::omopQueryGetDS  dsOMOP  2.10.8
+105 omopQueryLibraryStickyCatalogDS aggregate function dsOMOP::omopQueryLibraryStickyCatalogDS  dsOMOP  2.10.8
+106                 omopQueryListDS aggregate function                 dsOMOP::omopQueryListDS  dsOMOP  2.10.8
+107         omopRelationshipGraphDS aggregate function         dsOMOP::omopRelationshipGraphDS  dsOMOP  2.10.8
+108             omopSafeCutpointsDS aggregate function             dsOMOP::omopSafeCutpointsDS  dsOMOP  2.10.8
+109            omopSearchConceptsDS aggregate function            dsOMOP::omopSearchConceptsDS  dsOMOP  2.10.8
+110              omopStagedRevokeDS aggregate function              dsOMOP::omopStagedRevokeDS  dsOMOP  2.10.8
+111                omopTableStatsDS aggregate function                dsOMOP::omopTableStatsDS  dsOMOP  2.10.8
+112               omopValueCountsDS aggregate function               dsOMOP::omopValueCountsDS  dsOMOP  2.10.8
+113              omopVocabulariesDS aggregate function              dsOMOP::omopVocabulariesDS  dsOMOP  2.10.8
+--- publication check after an explicit publish
+$declared
+aggregate    assign 
+       59        14 
+
+$published
+aggregate    assign 
+       59        14 
+
+$missing_aggregate
+character(0)
+
+$missing_assign
+character(0)
+
+$wrong_type
+character(0)
+
+$extra
+character(0)
+
+$wrong_function
+character(0)
+
+$versions
+[1] "2.10.8"
+
+$installed_version
+[1] "2.10.8"
+
+$not_exported
+character(0)
+
+$options_declared
+[1] 36
+
+$options_missing
+character(0)
+
+$options_different
+character(0)
+
+SUMMARY [fresh] after an explicit publish: declared 59 agg + 14 assign; published 59 agg + 14 assign (version 2.10.8; installed 2.10.8); missing 0; wrong type 0; extra 0; wrong function 0; not exported 0; options 36 declared, missing 0, different 0
+
+Logging into the collaborating servers
+== analyst introspection (fresh install)
+OK    DSI::datashield.pkg_status(conns) (0.1 s)
+--- DSI::datashield.pkg_status(conns)
+$package_status
+       Ethiopia
+dsBase     TRUE
+dsOMOP     TRUE
+
+$version_status
+       Ethiopia
+dsBase "6.3.5" 
+dsOMOP "2.10.8"
+
+OK    DSI::datashield.methods(conns, type = "assign") (0 s)
+columns: name, type, class, value, package, version, server; rows: 104
+dsOMOP rows: 14
+--- first dsOMOP assign rows
+                      name   type    class                           value package version   server
+61 omopAnalysisRunAssignDS assign function dsOMOP::omopAnalysisRunAssignDS  dsOMOP  2.10.8 Ethiopia
+62   omopAsFactorColumnsDS assign function   dsOMOP::omopAsFactorColumnsDS  dsOMOP  2.10.8 Ethiopia
+63          omopBindRowsDS assign function          dsOMOP::omopBindRowsDS  dsOMOP  2.10.8 Ethiopia
+64           omopCleanupDS assign function           dsOMOP::omopCleanupDS  dsOMOP  2.10.8 Ethiopia
+OK    DSI::datashield.methods(conns, type = "aggregate") (0 s)
+columns: name, type, class, value, package, version, server; rows: 131
+dsOMOP rows: 59
+--- first dsOMOP aggregate rows
+                         name      type    class                              value package version   server
+55     omopAchillesAnalysesDS aggregate function     dsOMOP::omopAchillesAnalysesDS  dsOMOP  2.10.8 Ethiopia
+56      omopAchillesCatalogDS aggregate function      dsOMOP::omopAchillesCatalogDS  dsOMOP  2.10.8 Ethiopia
+57 omopAchillesDistributionDS aggregate function dsOMOP::omopAchillesDistributionDS  dsOMOP  2.10.8 Ethiopia
+58      omopAchillesResultsDS aggregate function      dsOMOP::omopAchillesResultsDS  dsOMOP  2.10.8 Ethiopia
+OK    DSI::datashield.method_status(conns, type = "assign") (0 s)
+--- method_status (assign), omop rows
+                                           name   type Ethiopia
+omopAnalysisRunAssignDS omopAnalysisRunAssignDS assign     TRUE
+omopAsFactorColumnsDS     omopAsFactorColumnsDS assign     TRUE
+omopBindRowsDS                   omopBindRowsDS assign     TRUE
+omopCleanupDS                     omopCleanupDS assign     TRUE
+omopCohortCombineDS         omopCohortCombineDS assign     TRUE
+omopCohortCreateDS           omopCohortCreateDS assign     TRUE
+omopCohortFromTableDS     omopCohortFromTableDS assign     TRUE
+omopDpPlanExecuteDS         omopDpPlanExecuteDS assign     TRUE
+omopFilterDS                       omopFilterDS assign     TRUE
+omopInitDS                           omopInitDS assign     TRUE
+omopMergeDS                         omopMergeDS assign     TRUE
+omopMutateDS                       omopMutateDS assign     TRUE
+omopPlanExecuteDS             omopPlanExecuteDS assign     TRUE
+omopSelectDS                       omopSelectDS assign     TRUE
+OK    DSI::datashield.profiles(conns) (0 s)
+--- DSI::datashield.profiles(conns)
+$available
+        Ethiopia
+default     TRUE
+
+$current
+         profile
+Ethiopia default
+
+--- ds.omop.client.version() after a fresh install
+[1] "2.10.8"
+OK    ds.omop.server.version(conns) after a fresh install (0.9 s)
+--- ds.omop.server.version(conns) after a fresh install
+    server published running missing ready advice recipe_language
+1 Ethiopia    2.10.8  2.10.8          TRUE           not conn....
+SUMMARY [fresh] ds.omop.server.version(conns) after a fresh install:     server published running missing ready advice recipe_language / 1 Ethiopia    2.10.8  2.10.8          TRUE           not conn....
+RPostgres on Rock: 1.4.10; RPostgreSQL: 0.7.8
+SUMMARY [fresh] Rock drivers: RPostgres 1.4.10, RPostgreSQL 0.7.8
+== the analyst's script on omop_data.gibleed (resource form with TLS mode left empty)
+OK    ds.omop.connect(resource = "omop_data.gibleed", symbol = "omop", conns = conns) (3.1 s)
+OK    tabs <- ds.omop.tables(symbol = "omop", conns = conns)[[1]] (0.1 s)
+--- tabs[tabs$schema_category == "CDM", c("table_name", "has_person_id")]
+             table_name has_person_id
+1                person          TRUE
+2    observation_period          TRUE
+3      visit_occurrence          TRUE
+4          visit_detail          TRUE
+5  condition_occurrence          TRUE
+6         drug_exposure          TRUE
+7  procedure_occurrence          TRUE
+8       device_exposure          TRUE
+9           measurement          TRUE
+10          observation          TRUE
+11                death          TRUE
+12                 note          TRUE
+13             note_nlp         FALSE
+14             specimen          TRUE
+15    fact_relationship         FALSE
+16             location         FALSE
+17            care_site         FALSE
+18             provider         FALSE
+19    payer_plan_period          TRUE
+20                 cost         FALSE
+21             drug_era          TRUE
+22             dose_era          TRUE
+23        condition_era          TRUE
+24             metadata         FALSE
+25           cdm_source         FALSE
+OK    ds.omop.disconnect(symbol = "omop", conns = conns) (0.3 s)
+SUMMARY [fresh] analyst script on gibleed (TLS mode empty): OK
+== the analyst's script on omop_data.gibleed_noschema (2.x resource without a CDM schema; GiBleed is in cdm)
+OK    ds.omop.connect(resource = "omop_data.gibleed_noschema", symbol = "omop", conns = conns) (1.8 s)
+OK    tabs <- ds.omop.tables(symbol = "omop", conns = conns)[[1]] (0.1 s)
+--- tabs[tabs$schema_category == "CDM", c("table_name", "has_person_id")]
+             table_name has_person_id
+1                person          TRUE
+2    observation_period          TRUE
+3      visit_occurrence          TRUE
+4          visit_detail          TRUE
+5  condition_occurrence          TRUE
+6         drug_exposure          TRUE
+7  procedure_occurrence          TRUE
+8       device_exposure          TRUE
+9           measurement          TRUE
+10          observation          TRUE
+11                death          TRUE
+12                 note          TRUE
+13             note_nlp         FALSE
+14             specimen          TRUE
+15    fact_relationship         FALSE
+16             location         FALSE
+17            care_site         FALSE
+18             provider         FALSE
+19    payer_plan_period          TRUE
+20                 cost         FALSE
+21             drug_era          TRUE
+22             dose_era          TRUE
+23        condition_era          TRUE
+24             metadata         FALSE
+25           cdm_source         FALSE
+OK    ds.omop.disconnect(symbol = "omop", conns = conns) (0.4 s)
+SUMMARY [fresh] analyst script on gibleed_noschema (no cdm_schema, TLS mode empty): OK
+  [message] Logging into the collaborating servers
+OK    L: login (Ethiopia as analyst) (0.1 s)
+OK    L: ds.omop.connect("omop_data.gibleed", symbol = "omopG1") (2.5 s)
+
+======== L-comma: labels with comma
+OK    L comma: recipe_execute (3.2 s)
+ERROR L comma: ds.table (2.6 s): There are some DataSHIELD errors, list them with datashield.errors()
+ℹ Errors can now be automatically printed, rather than requiring a call to datashield.errors().
+ℹ To enable this behavior, run [1m[33moptions(datashield.errors.print = TRUE)[39m[22m
+This message is displayed once per session.
+
+  [datashield.errors] Command 'tableDS(rvar.transmit = "L_comma$gender", cvar.transmit = NULL, stvar.transmit = NULL, rvar.all.unique.levels.transmit = "Male,a,Female,a", cvar.all.unique.levels.transmit = NULL, stvar.all.unique.levels.transmit = NULL, exclude.transmit = NULL, useNA.transmit = "always", force.nfilter.transmit = NULL)' failed on 'Ethiopia': Error while evaluating 'dsBase::tableDS(rvar.transmit = "L_comma$gender", cvar.transmit = NULL, stvar.transmit = NULL, rvar.all.unique.levels.transmit = "Male,a,Female,a", cvar.all.unique.levels.transmit = NULL, stvar.all.unique.levels.transmit = NULL, exclude.transmit = NULL, useNA.transmit = "always", force.nfilter.transmit = NULL)' -> Error in `levels<-`(`*tmp*`, value = as.character(levels)) : factor level [4] is duplicated 
+OK    L comma: ds.summary (0.3 s)
+OK    L comma: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L comma: ds.omop.table (0.7 s)
+SUMMARY [fresh] G L-comma INFO: labels with comma | labels [Male,a | Female,a]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: Command 'tableDS(rvar.transmit = "L_comma$gender", cvar.transmit = NULL, stvar.transmit = NULL, rvar.all.unique.levels...; ds.summary OK; ds.levels OK [Male,a | Female,a]; ds.omop.table OK [Male,a | Female,a]
+-------- L-comma done in 6.9 s
+
+======== L-colon: labels with colon
+OK    L colon: recipe_execute (1.8 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L colon: ds.table (0.1 s)
+OK    L colon: ds.summary (0.4 s)
+OK    L colon: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L colon: ds.omop.table (0.7 s)
+SUMMARY [fresh] G L-colon INFO: labels with colon | labels [Male:a | Female:a]; ds.table OK [Male:a | Female:a | NA]; ds.summary OK; ds.levels OK [Male:a | Female:a]; ds.omop.table OK [Male:a | Female:a]
+-------- L-colon done in 3.1 s
+
+======== L-semicolon: labels with semicolon
+OK    L semicolon: recipe_execute (1.8 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L semicolon: ds.table (0.2 s)
+OK    L semicolon: ds.summary (0.3 s)
+OK    L semicolon: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L semicolon: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-semicolon INFO: labels with semicolon | labels [Male;a | Female;a]; ds.table OK [Male;a | Female;a | NA]; ds.summary OK; ds.levels OK [Male;a | Female;a]; ds.omop.table OK [Male;a | Female;a]
+-------- L-semicolon done in 2.9 s
+
+======== L-hash: labels with hash
+OK    L hash: recipe_execute (1.8 s)
+ERROR L hash: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '#' (35), after prefix "\"Male"
+OK    L hash: ds.summary (0.3 s)
+OK    L hash: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L hash: ds.omop.table (0.7 s)
+SUMMARY [fresh] G L-hash INFO: labels with hash | labels [Male#a | Female#a]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '#' (35), after prefix "\"Male"; ds.summary OK; ds.levels OK [Male#a | Female#a]; ds.omop.table OK [Male#a | Female#a]
+-------- L-hash done in 3 s
+
+======== L-ampersand: labels with ampersand
+OK    L ampersand: recipe_execute (1.8 s)
+ERROR L ampersand: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '&' (38), after prefix "\"Male"
+OK    L ampersand: ds.summary (0.3 s)
+OK    L ampersand: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L ampersand: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-ampersand INFO: labels with ampersand | labels [Male&a | Female&a]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '&' (38), after prefix "\"Male"; ds.summary OK; ds.levels OK [Male&a | Female&a]; ds.omop.table OK [Male&a | Female&a]
+-------- L-ampersand done in 3 s
+
+======== L-exclamation: labels with exclamation
+OK    L exclamation: recipe_execute (1.7 s)
+ERROR L exclamation: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '!' (33), after prefix "\"Male"
+OK    L exclamation: ds.summary (0.3 s)
+OK    L exclamation: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L exclamation: ds.omop.table (0.7 s)
+SUMMARY [fresh] G L-exclamation INFO: labels with exclamation | labels [Male! | Female!]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '!' (33), after prefix "\"Male"; ds.summary OK; ds.levels OK [Male! | Female!]; ds.omop.table OK [Male! | Female!]
+-------- L-exclamation done in 2.9 s
+
+======== L-tilde: labels with tilde
+OK    L tilde: recipe_execute (1.7 s)
+ERROR L tilde: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '~' (126), after prefix "\"Male"
+OK    L tilde: ds.summary (0.3 s)
+OK    L tilde: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L tilde: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-tilde INFO: labels with tilde | labels [Male~a | Female~a]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '~' (126), after prefix "\"Male"; ds.summary OK; ds.levels OK [Male~a | Female~a]; ds.omop.table OK [Male~a | Female~a]
+-------- L-tilde done in 2.9 s
+
+======== L-caret: labels with caret
+OK    L caret: recipe_execute (1.8 s)
+ERROR L caret: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '^' (94), after prefix "\"Male"
+OK    L caret: ds.summary (0.3 s)
+OK    L caret: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L caret: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-caret INFO: labels with caret | labels [Male^a | Female^a]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '^' (94), after prefix "\"Male"; ds.summary OK; ds.levels OK [Male^a | Female^a]; ds.omop.table OK [Male^a | Female^a]
+-------- L-caret done in 2.9 s
+
+======== L-plus: labels with plus
+OK    L plus: recipe_execute (1.7 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L plus: ds.table (0.1 s)
+OK    L plus: ds.summary (0.2 s)
+OK    L plus: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L plus: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-plus INFO: labels with plus | labels [Male+a | Female+a]; ds.table OK [Male+a | Female+a | NA]; ds.summary OK; ds.levels OK [Male+a | Female+a]; ds.omop.table OK [Male+a | Female+a]
+-------- L-plus done in 2.8 s
+
+======== L-parenthesis: labels with parenthesis
+OK    L parenthesis: recipe_execute (2 s)
+ERROR L parenthesis: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '(' (40), after prefix "\"Male"
+OK    L parenthesis: ds.summary (0.2 s)
+OK    L parenthesis: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L parenthesis: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-parenthesis INFO: labels with parenthesis | labels [Male(a) | Female(a)]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '(' (40), after prefix "\"Male"; ds.summary OK; ds.levels OK [Male(a) | Female(a)]; ds.omop.table OK [Male(a) | Female(a)]
+-------- L-parenthesis done in 3.1 s
+
+======== L-accent_e: labels with accent_e
+OK    L accent_e: recipe_execute (1.7 s)
+ERROR L accent_e: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 66. Encountered: '\u00e9' (233), after prefix "\"Mal"
+OK    L accent_e: ds.summary (0.2 s)
+OK    L accent_e: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L accent_e: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-accent_e INFO: labels with accent_e | labels [Malé | Femalé]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 66. Encountered: '\u00e9' (233), after prefix "\"Mal...; ds.summary OK; ds.levels OK [Malé | Femalé]; ds.omop.table OK [Malé | Femalé]
+-------- L-accent_e done in 2.8 s
+
+======== L-enye: labels with enye
+OK    L enye: recipe_execute (1.8 s)
+ERROR L enye: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 65. Encountered: '\u00f1' (241), after prefix "\"Ma"
+OK    L enye: ds.summary (0.2 s)
+OK    L enye: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L enye: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-enye INFO: labels with enye | labels [Maña | Feña]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 65. Encountered: '\u00f1' (241), after prefix "\"Ma"; ds.summary OK; ds.levels OK [Maña | Feña]; ds.omop.table OK [Maña | Feña]
+-------- L-enye done in 2.9 s
+
+======== L-umlaut: labels with umlaut
+OK    L umlaut: recipe_execute (1.7 s)
+ERROR L umlaut: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 64. Encountered: '\u00fc' (252), after prefix "\"M"
+OK    L umlaut: ds.summary (0.2 s)
+OK    L umlaut: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L umlaut: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-umlaut INFO: labels with umlaut | labels [Müller | Füller]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 64. Encountered: '\u00fc' (252), after prefix "\"M"; ds.summary OK; ds.levels OK [Müller | Füller]; ds.omop.table OK [Müller | Füller]
+-------- L-umlaut done in 2.8 s
+
+======== L-sharp_s: labels with sharp_s
+OK    L sharp_s: recipe_execute (1.7 s)
+ERROR L sharp_s: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 65. Encountered: '\u00df' (223), after prefix "\"Ma"
+OK    L sharp_s: ds.summary (0.2 s)
+OK    L sharp_s: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L sharp_s: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-sharp_s INFO: labels with sharp_s | labels [Maße | Feße]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 65. Encountered: '\u00df' (223), after prefix "\"Ma"; ds.summary OK; ds.levels OK [Maße | Feße]; ds.omop.table OK [Maße | Feße]
+-------- L-sharp_s done in 2.8 s
+
+======== L-cjk: labels with cjk
+OK    L cjk: recipe_execute (1.7 s)
+ERROR L cjk: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 63. Encountered: '\u7537' (30007), after prefix "\""
+OK    L cjk: ds.summary (0.2 s)
+OK    L cjk: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L cjk: ds.omop.table (0.8 s)
+SUMMARY [fresh] G L-cjk INFO: labels with cjk | labels [男 | 女]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 63. Encountered: '\u7537' (30007), after prefix "\""; ds.summary OK; ds.levels OK [男 | 女]; ds.omop.table OK [男 | 女]
+-------- L-cjk done in 3 s
+
+======== L-unicode_dash: labels with unicode_dash
+OK    L unicode_dash: recipe_execute (1.7 s)
+ERROR L unicode_dash: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '\u2013' (8211), after prefix "\"Male"
+OK    L unicode_dash: ds.summary (0.3 s)
+OK    L unicode_dash: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L unicode_dash: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-unicode_dash INFO: labels with unicode_dash | labels [Male–a | Female–a]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '\u2013' (8211), after prefix "\"Ma...; ds.summary OK; ds.levels OK [Male–a | Female–a]; ds.omop.table OK [Male–a | Female–a]
+-------- L-unicode_dash done in 2.8 s
+
+======== L-nbsp: labels with nbsp
+OK    L nbsp: recipe_execute (1.7 s)
+ERROR L nbsp: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '\u00a0' (160), after prefix "\"Male"
+OK    L nbsp: ds.summary (0.2 s)
+OK    L nbsp: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L nbsp: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-nbsp INFO: labels with nbsp | labels [Male a | Female a]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '\u00a0' (160), after prefix "\"Mal...; ds.summary OK; ds.levels OK [Male a | Female a]; ds.omop.table OK [Male a | Female a]
+-------- L-nbsp done in 2.8 s
+
+======== L-tab: labels with tab
+OK    L tab: recipe_execute (1.7 s)
+ERROR L tab: ds.table (0.1 s): There are some DataSHIELD errors, list them with datashield.errors()
+  [datashield.errors] [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '\\' (92), after prefix "\"Male"
+OK    L tab: ds.summary (0.2 s)
+OK    L tab: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L tab: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-tab INFO: labels with tab | labels [Male a | Female a]; ds.table FAILED: There are some DataSHIELD errors, list them with datashield.errors() || Ethiopia: [Client error: (400) Bad Request] Lexical error at line 2, column 67. Encountered: '\\' (92), after prefix "\"Male"; ds.summary OK; ds.levels OK [Male a | Female a]; ds.omop.table OK [Male a | Female a]
+-------- L-tab done in 2.7 s
+
+======== L-underscore_digit: labels with underscore_digit
+OK    L underscore_digit: recipe_execute (1.6 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L underscore_digit: ds.table (0.1 s)
+OK    L underscore_digit: ds.summary (0.3 s)
+OK    L underscore_digit: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L underscore_digit: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-underscore_digit INFO: labels with underscore_digit | labels [_1male | _2female]; ds.table OK [_1male | _2female | NA]; ds.summary OK; ds.levels OK [_1male | _2female]; ds.omop.table OK [_1male | _2female]
+-------- L-underscore_digit done in 2.8 s
+
+======== L-dot_start: labels with dot_start
+OK    L dot_start: recipe_execute (1.7 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L dot_start: ds.table (0.1 s)
+OK    L dot_start: ds.summary (0.2 s)
+OK    L dot_start: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L dot_start: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-dot_start INFO: labels with dot_start | labels [.male | .female]; ds.table OK [.male | .female | NA]; ds.summary OK; ds.levels OK [.male | .female]; ds.omop.table OK [.male | .female]
+-------- L-dot_start done in 2.7 s
+
+======== L-hyphen_start: labels with hyphen_start
+OK    L hyphen_start: recipe_execute (1.7 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L hyphen_start: ds.table (0.1 s)
+OK    L hyphen_start: ds.summary (0.3 s)
+OK    L hyphen_start: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L hyphen_start: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-hyphen_start INFO: labels with hyphen_start | labels [-male | -female]; ds.table OK [-male | -female | NA]; ds.summary OK; ds.levels OK [-male | -female]; ds.omop.table OK [-male | -female]
+-------- L-hyphen_start done in 2.8 s
+
+======== L-digits: labels with digits
+OK    L digits: recipe_execute (1.7 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L digits: ds.table (0.1 s)
+OK    L digits: ds.summary (0.2 s)
+OK    L digits: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L digits: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-digits INFO: labels with digits | labels [123 | 456]; ds.table OK [123 | 456 | NA]; ds.summary OK; ds.levels OK [123 | 456]; ds.omop.table OK [123 | 456]
+-------- L-digits done in 2.7 s
+
+======== L-mixed_safe: labels with mixed_safe
+OK    L mixed_safe: recipe_execute (1.8 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L mixed_safe: ds.table (0.1 s)
+OK    L mixed_safe: ds.summary (0.2 s)
+OK    L mixed_safe: ds.levels (0.1 s)
+  [message] Data in all studies were valid
+  [message] Study1: No errors reported from this study
+  [message] 
+OK    L mixed_safe: ds.omop.table (0.6 s)
+SUMMARY [fresh] G L-mixed_safe INFO: labels with mixed_safe | labels [Male-adult_1.a | Female-adult_2.b]; ds.table OK [Male-adult_1.a | Female-adult_2.b | NA]; ds.summary OK; ds.levels OK [Male-adult_1.a | Female-adult_2.b]; ds.omop.table OK [Male-adult_1.a | Female-adult_2.b]
+-------- L-mixed_safe done in 2.9 s
+OK    L: ds.omop.disconnect("omopG1") (0.5 s)
+SUMMARY [fresh] L: 23 label cases
