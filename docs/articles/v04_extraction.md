@@ -1,0 +1,354 @@
+# Events, reducers and analysis outputs
+
+These 2.10.5 examples use the integrated recipe API implementation. They
+are not evaluated during documentation builds because they need live
+DataSHIELD connections and study-specific vocabulary inputs. Patient
+tables are assigned beside the data; use reviewed DataSHIELD methods to
+analyse them. The previous chapter explains populations and index dates.
+
+## Choose rows, then columns
+
+The simple layer is enough for baseline values around an index. Define
+concept sets for your vocabulary; the following IDs illustrate a
+diabetes study.
+
+``` r
+library(dsOMOPClient)
+index <- omop_event("condition_occurrence", 201826, descendants = TRUE)
+study <- omop_study(
+  index = index, require = list(age = c(18, NA)),
+  baseline = list(age = omop_age(), sex = omop_sex(),
+    hba1c = omop_value_at_index("measurement", 3004410,
+                               tolerance = c(-90, 30), unit = 8554),
+    visits = omop_count("visit_occurrence", before = 365)),
+  outputs = "baseline")
+recipe_to_code(study)
+```
+
+`before = 365` includes days -365 through 0; `after = 30` includes days
+1 through 30. Choose only one of `before`, `after` and `window`. Without
+one, shortcuts use all history through index day. A numeric unit
+restricts rows to that unit; it does not convert values. `omop_unit()`
+supplies explicit affine conversions, applied before predicates and
+reducers.
+
+## Education level and cause of death in one wide table
+
+An education question is the observation’s `observation_concept_id`; the
+answer (primary, secondary, and so on) is `value_as_concept_id`. Choose
+the question’s concept ID from the site’s vocabulary.
+`education_question` below is that study input, not a universal
+education code.
+
+The familiar table/format spelling remains available:
+
+``` r
+education <- omop_variable(
+  name = "education", table = "observation", concept_id = education_question,
+  value_source = "value_as_concept_id", type = "categorical", format = "last_value")
+cause <- omop_variable(name = "cause_of_death", table = "death",
+  column = "cause_concept_id", type = "categorical", format = "first_value")
+```
+
+The advanced spelling names an event and reducer. This selects the last
+coded answer through the index day, avoiding post-index education
+updates:
+
+``` r
+education_event <- omop_event("observation", concepts = education_question)
+education <- omop_variable(name = "education", event = education_event,
+  reducer = omop_reduce("last_value", value = "value_as_concept_id",
+                         window = omop_window(NULL, 0), missing = "skip"))
+cause <- omop_variable(name = "cause_of_death", event = omop_event("death"),
+  reducer = omop_reduce("first_value", value = "cause_concept_id"))
+pop <- omop_population(id = "patients", index = omop_index(index))
+recipe <- omop_recipe(
+  populations = list(patients = pop),
+  variables = list(education = education, cause_of_death = cause),
+  outputs = list(profile = omop_output("profile", format = "wide",
+    rows = "patients", grain = "episode",
+    columns = c("education", "cause_of_death"))),
+  options = list(translate_concepts = TRUE))
+recipe_explain(recipe, conns = conns)
+result <- recipe_execute(recipe, out = c(profile = "D_profile"), conns = conns)
+```
+
+Translation follows the declared concept type, including renamed wide
+columns; it does not depend on an `_concept_id` suffix. The assigned
+columns are unordered factors with shared permitted levels. Joins and
+computations use internal IDs; the published labels are presentation. To
+use concept IDs as factor labels, set `options = list(translate_concepts
+= FALSE)` on the recipe. Since 2.10.6, concept columns are always
+factors with shared levels across retained sites. Compare their labels,
+for example `"4306655"`, rather than numeric IDs. `cause_of_death` is
+the coded cause, not proof that everyone has died; missing cause stays
+NA. It is an outcome description and may use future information, so do
+not treat it as a pre-index predictor.
+
+For a dataset that stores answers as text, this spelling illustrates the
+requested alternative, but it is deliberately refused under ordinary
+policy:
+
+``` r
+education_text <- omop_variable(name = "education_text", table = "observation",
+  concept_id = education_question, value_source = "value_as_string",
+  type = "categorical", format = "last_value")
+# recipe_to_plan() refuses a recipe that releases this class-1 source.
+```
+
+`value_as_string` holds a source string; `cause_source_value` retains
+the original source cause code, such as an ICD-10 code. Both are
+protected source fields (class 1), even when a source code is structured
+rather than narrative text. Selecting a categorical type or renaming the
+column does not make them safe. Use coded `value_as_concept_id` and
+`cause_concept_id` for the portable recipe. An administrator’s existing
+sensitive-column override is not permission to use text predicates or to
+alias protected source columns through mutation.
+
+## Declare labels and keep complete categories
+
+Use study-reviewed concept IDs as the names of a public `labels` map.
+Variable maps override recipe maps; equal labels deliberately combine
+categories. This example uses illustrative gender IDs, which must be
+checked for your CDM:
+
+``` r
+gender <- omop_variable(name = "gender", table = "person",
+  column = "gender_concept_id", type = "categorical", format = "raw",
+  labels = c(`8507` = "Male", `8532` = "Female"))
+```
+
+`column_names` maps stable untranslated generated column keys to
+complete R names. It renames columns without combining them; duplicate
+target names are refused. Automatic duplicate concept names are
+disambiguated by ID. Empty labels are refused, while a literal `"NA"` is
+a category distinct from missing. `factor_concepts = TRUE` remains
+accepted; `factor_concepts = FALSE` is rejected. Observed levels follow
+DataSHIELD’s factor-level maximum and density rule in both translation
+modes. Declared levels and complete recodes need no discovery. When a
+site’s observed levels exceed that rule and a short public vocabulary
+list holds them, the servers declare that list themselves (up to each
+server’s `dsomop.auto_declared_levels_max`, 1000 by default); dates
+without `level_range` declare every period of their observed years. A
+refusal names the column, site and rule; declare the levels (for example
+with `omop_concept_levels()`), group them with `omop_category_recode()`
+/ `omop_category_rollup()`, or narrow events with `concepts =`. Before a
+pooled model, `ds.omop.drop_empty_levels()` copies a table without the
+levels that no site uses.
+
+After publishing the education recipe above, use its committed symbol
+for a pooled table that retains every permitted category, including
+unused levels:
+
+``` r
+ds.omop.table("D_profile", "education", conns = conns)
+```
+
+This helper preserves commas and other literal label text and excludes
+actual missing values. A failed or suppressed site count causes refusal,
+never a zero substitution. Direct `dsBaseClient::ds.table()` can omit
+globally unused levels. Concept factors keep their shared levels during
+model-frame subsetting; other packages still need their own reviewed
+methods and model compatibility checks.
+
+Derived sex uses the public `F`, `M` factor domain. Age bands,
+birth-year bands and calendar categories are ordered factors, including
+unused declared levels. Ordered factors use ordered contrasts in R
+models; choose your model coding explicitly. Use `as.character()` for
+labels, not integer factor codes as values. CSV and Parquet staging
+preserve levels and order; read them through the staged descriptor
+contract rather than treating the CSV file as an ordinary download.
+
+## Dates, calendar periods and age at an event
+
+Native date helpers separate the date source from its presentation. A
+recipe `date_spec` supplies defaults; each variable overrides the fields
+it declares. These are variables that can be included in a wide output
+like education above:
+
+``` r
+visit_quarter <- omop_date("first_visit",
+  omop_date_spec(precision = "quarter",
+    level_range = c("2010-01-01", "2030-12-31")))
+visit_trend <- omop_date("first_visit",
+  omop_date_spec(precision = "month", representation = "number",
+    origin = "2010-01-01"))
+visit_start <- omop_date("first_visit",
+  omop_date_spec(precision = "quarter", representation = "start"))
+visit_parts <- omop_date_parts("first_visit",
+  c(visit_year = "year", visit_month = "month", weekday = "weekday"))
+age_at_death <- omop_age_at("death")
+followup_days <- omop_time_between("index", "observation_end", unit = "days")
+```
+
+Calendar periods default to ordered factors. `number` provides a trend
+coordinate; `start` and `end` provide inclusive Date bounds.
+`level_range` declares additional public levels, including unused middle
+years; it never filters observed dates. Names use fixed English. ISO
+week labels use `%G-W%V`, not `%Y-W%V`; custom patterns use a closed
+directive set. Fiscal calendars and explicitly profiled epidemiological
+weeks are available in `omop_date_spec()`.
+
+`omop_age_at()` counts completed anniversaries at its own reference
+date; February 29 birthdays use March 1 in non-leap years. Incomplete
+birth dates return NA unless an explicit imputation is chosen. `unit =
+"annual_years"` requests calendar-year age instead. `omop_age()` also
+returns annual age. Use an explicit `omop_date_spec()` on a
+first/last-date reducer to select Date presentation.
+
+For a reproducible future-date policy, use `omop_date_spec(future =
+"na", as_of = "2026-01-01")`. The policy applies after row selection: a
+selected later date becomes NA; it does not substitute an earlier event.
+Invalid dates remain missing. Exact-date assignment needs no
+`dsomop.allow_absolute_dates` opt-in. Date-derived columns retain
+class-2 provenance, final person support and all downstream aggregate
+controls.
+
+## Understand the reducer
+
+A reducer summarizes an event stream per person or episode. Count and
+binary return zero for an available empty stream. Value reducers return
+NA; a sum returns zero. Unavailable sources and undefined required
+anchors yield NA, including for counts. `first_value` and `last_value`
+select one complete row by date and deterministic source key; `missing =
+"skip"` skips missing values before selection, whereas `keep` retains
+the selected row’s missing value. Selected value, unit, operator and
+date must refer to the same row.
+
+``` r
+rx <- omop_event("drug_exposure", 1503297, descendants = TRUE)
+era <- omop_era(rx, gap = 30, persistence = 0)
+covered <- omop_variable(event = era,
+  reducer = omop_reduce("covered_days", window = omop_window(1, 365),
+                         observed_only = TRUE))
+observed <- omop_observed_days(omop_window(1, 365))
+```
+
+Course duration includes grace and persistence; `covered_days` unions
+recorded coverage and excludes those gaps. With `observed_only = TRUE`,
+the numerator and `observed_days` denominator use the same observed
+days. Thus PDC can be computed as covered/observed, with a zero
+denominator becoming NA. MPR uses `supply_days`, not `duration_sum`;
+overlapping supplies have different meanings in those measures.
+Stockpiling exposes a separate `effective_supply` relation that must be
+selected explicitly. Native comorbidity scores use conditions through
+their reference date (the episode index by default); a consumer with no
+unique index needs a fixed date.
+
+## Choose an output shape
+
+| Shape                           | Intended use                                                                                                      |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `wide`                          | One row per declared person or episode; selected variables become columns.                                        |
+| `long`                          | Event rows from `sources`; a reducer needs `broadcast = TRUE` to repeat over them.                                |
+| `survival`                      | Named TAR components; first event, competing risk, recurrent events, counting process or multi-state as declared. |
+| `intervals`                     | Recorded or constructed intervals.                                                                                |
+| `person_period`                 | Dense or sparse panels with explicit bins and source identities.                                                  |
+| `temporal_covariates`, `sparse` | Covariate rows plus reference companions.                                                                         |
+| `membership`, `dictionary`      | Patient membership, or plan/vocabulary reference metadata respectively.                                           |
+| `joined`                        | A declared, validated composition of private inputs.                                                              |
+
+An indexed population requires episode grain unless a person-grain
+output explicitly collapses episodes (`first_episode`, `last_episode` or
+`any`). A dense available-but-event-free source keeps its declared
+columns and zero/NA rules; an unavailable source is NA. Multi-concept
+source columns retain concept identity. Carry-forward is per source and
+concept, evaluated at period start.
+
+Survival windows and censoring are explicit. The recipe API adds no
+implicit cohort-end cap; request `index_end` when intended. A named TAR
+yields its own inventory entry, such as `D_tte.itt`. Each independently
+accessible patient component must pass distinct-person support; a
+passing roster does not permit a small event component to escape.
+Reference companions are released only with their passing family.
+
+## Publish and analyse
+
+``` r
+recipe <- recipe_set_publish(recipe, "profile")
+result <- recipe_execute(recipe, out = c(profile = "D_profile"),
+                         output_mode = "memory", conns = conns)
+# Use the symbols in result's committed inventory for downstream analysis.
+dsBaseClient::ds.dim("D_profile", datasources = conns)
+
+# Assigned ordinary analysis columns can be transformed server-side.
+ds.omop.mutate("D_profile", has_cause = !is.na(cause_of_death),
+                newobj = "D_profile_derived", conns = conns)
+ds.omop.filter("D_profile_derived", expr = omop_where(has_cause == TRUE),
+                newobj = "D_deaths", conns = conns)
+```
+
+Fresh names may differ when destinations already exist. Verbs publish a
+new patient object and recheck its own support; mutations cannot read or
+write person, episode or set keys. They use a closed expression
+language, not arbitrary R. In-place mutation (`newobj = x`) keeps a
+rollback copy until federation commit is verified and invalidates DP
+provenance.
+
+Staged mode writes private server-local Parquet (CSV fallback) and
+returns validated descriptors, not download URLs. A server-side consumer
+resolves a committed component with `omopStagedDatasetPath()`.
+Uncommitted or revoked components are unreadable. Keep the returned
+dynamic inventory rather than predicting component suffixes.
+
+Exact birth components and exact age may be assigned on request.
+Assigned age bands accept any increasing integer grid starting at zero,
+including `c(0, 18, 19, 65)`, without per-band suppression. Aggregate
+endpoints retain their existing admission, banding and suppression
+rules; a permitted assigned column does not grant an unrestricted
+aggregate release.
+
+## Numeric presentation and recorded-day reduction in 2.10.5
+
+`omop_number_spec()` declares units, transforms, rounding and
+representation. `omop_number_expr()` composes checked private
+arithmetic; `omop_number_input()` chooses canonical or presented inputs
+explicitly. Signed64 selectors retain exact decimal transport, including
+the signed minimum and empty results. Arithmetic refuses inexact
+conversion to binary64. Keep raw/count identity representation when
+exact conversion is unavailable; do not repair a refusal by coercing
+IDs.
+
+Ordinary reducers weight records. To weight recorded concept-days
+equally, select events first and reduce within each day before applying
+the outer reducer:
+
+``` r
+measurement_rows <- omop_number_rows(
+  omop_event("measurement", concepts = 3004410), value = "value_as_number")
+daily_mean <- omop_number_daily(measurement_rows,
+  reducer = omop_reduce("mean"), within_day = "mean", missing = "skip")
+```
+
+Choose concept IDs and normalize source units for the study. Within-day
+choices are `mean`, `max` and canonical-event `first`; missingness is
+`skip` or `propagate`, separately from the outer reducer. No absent days
+are filled, and multiple concepts remain separate concept-day
+observations. A server must advertise `number.daily` before this
+declaration can execute.
+
+The versioned `omop_formula_bmi()`, `omop_formula_map()`,
+`omop_formula_ratio()` and `omop_formula_egfr_ckdepi2021()` constructors
+expand into typed private operations. Declare coordinates and
+conversions explicitly. For eGFR, provide an explicit sex mapping and
+completed calendar age at the selected creatinine event; put source-unit
+normalization on the shared event used by both inputs. Invalid values
+produce typed NA; structural unit, anchor and version errors refuse.
+Independently selected measurements do not imply contemporaneity.
+
+## Typed categories and codebooks in 2.10.5
+
+`omop_category_rows()` and `omop_category_column()` select typed
+categorical sources; `omop_category_spec()` declares public
+presentation. `omop_category_indicators()` uses stable category keys,
+and `omop_category_reduce()` supplies typed input context for indicator
+`any`/`all` reductions. Ordinary `omop_reduce("any")` or
+`omop_reduce("all")` still needs an explicit predicate.
+
+Inspect `recipe_codebook(recipe)` before execution and
+`recipe_codebook(result)` afterward. The shared presentation contract
+preserves column order, numeric/date/ category copies, membership
+provenance and lossless character row keys. Execution resolves source
+availability and concrete storage types, so those fields need not equal
+unresolved prospective metadata. Keep the published codebook with the
+study and treat row keys as opaque strings.
