@@ -1,0 +1,35 @@
+Finalize Aggregate  (cost=15651.06..15651.07 rows=1 width=12) (actual rows=1 loops=1)
+  Buffers: shared hit=851 read=7533
+  ->  Gather  (cost=15650.84..15651.05 rows=2 width=12) (actual rows=3 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=851 read=7533
+        ->  Partial Aggregate  (cost=14650.84..14650.85 rows=1 width=12) (actual rows=1 loops=3)
+              Buffers: shared hit=851 read=7533
+              ->  Parallel Seq Scan on person  (cost=0.00..12561.89 rows=417789 width=4) (actual rows=334231 loops=3)
+                    Buffers: shared hit=851 read=7533
+Planning:
+  Buffers: shared hit=63 read=1
+Planning Time: 0.222 ms
+Execution Time: 28.897 ms
+Index Only Scan using person_pkey on person  (cost=0.42..26048.84 rows=1002694 width=4) (actual rows=1002694 loops=1)
+  Heap Fetches: 0
+  Buffers: shared hit=2743
+Planning:
+  Buffers: shared hit=10
+Planning Time: 0.081 ms
+Execution Time: 46.753 ms
+Finalize Aggregate  (cost=43067.55..43067.56 rows=1 width=12) (actual rows=1 loops=1)
+  Buffers: shared hit=36 read=22873
+  ->  Gather  (cost=43067.33..43067.54 rows=2 width=12) (actual rows=3 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=36 read=22873
+        ->  Partial Aggregate  (cost=42067.33..42067.34 rows=1 width=12) (actual rows=1 loops=3)
+              Buffers: shared hit=36 read=22873
+              ->  Parallel Seq Scan on condition_occurrence  (cost=0.00..35681.22 rows=1277222 width=4) (actual rows=1021777 loops=3)
+                    Buffers: shared hit=36 read=22873
+Planning:
+  Buffers: shared hit=43
+Planning Time: 0.158 ms
+Execution Time: 79.175 ms
