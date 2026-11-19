@@ -1391,10 +1391,14 @@ section("G22", "automatic vocabulary levels, their limit and model copies on a s
           "200 observed answers of a 1,000-answer class publish with that class declared automatically, at every site",
           sprintf("published: %s; levels: %d; %.1f s; %s", q1$ok, q1$levels, q1$secs, if (!q1$ok) last_server_error(q1$error) else ""))
   q2 <- run(s, 2L, "G_auto5k")
-  msg <- q2$error %||% ""
-  verdict("G22b", if (!q2$ok && grepl("dsomop.auto_declared_levels_max", msg, fixed = TRUE) && plain_error(msg) &&
+  verdict("G22a2", if (q2$ok && q2$levels == 5000L) "PASS" else "FAIL",
+          "a 5,000-answer class is within the default limit (10,000) and publishes the same way",
+          sprintf("published: %s; levels: %d; %.1f s; %s", q2$ok, q2$levels, q2$secs, if (!q2$ok) last_server_error(q2$error) else ""))
+  q3 <- run(s, 3L, "G_auto14k")
+  msg <- q3$error %||% ""
+  verdict("G22b", if (!q3$ok && grepl("dsomop.auto_declared_levels_max", msg, fixed = TRUE) && plain_error(msg) &&
                       !grepl("[0-9]+ (levels|rows|persons|concepts)", msg)) "PASS" else "FAIL",
-          "a 5,000-answer class is longer than the default limit: refused, naming dsomop.auto_declared_levels_max, without counts",
+          "a 14,000-answer class is longer than the default limit: refused, naming dsomop.auto_declared_levels_max, without counts",
           squash(last_server_error(msg), 600))
   keys <- paste0("concept:", 2100000000L + 1:1000)
   q4 <- run(s, 4L, "G_auto_declared", omop_category_spec(levels = keys))
@@ -1419,14 +1423,12 @@ section("G22", "automatic vocabulary levels, their limit and model copies on a s
   s2 <- open_session("G22 raised limit", servers = sites, resource = "omop_data.gibleed_auto")
   on.exit(close_session(s2), add = TRUE)
   if (!isTRUE(s2$ok)) stop("no G22 raised-limit session: ", s2$error)
-  q2b <- run(s2, 2L, "G_auto5k_raised")
   q3b <- run(s2, 3L, "G_auto14k_raised")
-  verdict("G22d", if (q2b$ok && q2b$levels == 5000L && q3b$ok && q3b$levels == 14000L) "PASS" else "FAIL",
-          "with the server option raised, 5,000 and 14,000 declared levels publish identically at every site",
-          sprintf("5k: %s, %d levels, %.1f s; 14k: %s, %d levels, %.1f s; %s", q2b$ok, q2b$levels, q2b$secs, q3b$ok,
-                  q3b$levels, q3b$secs, paste(c(if (!q2b$ok) last_server_error(q2b$error), if (!q3b$ok) last_server_error(q3b$error)), collapse = " | ")))
+  verdict("G22d", if (q3b$ok && q3b$levels == 14000L) "PASS" else "FAIL",
+          "with the server option raised, 14,000 declared levels publish identically at every site",
+          sprintf("14k: %s, %d levels, %.1f s; %s", q3b$ok, q3b$levels, q3b$secs, if (!q3b$ok) last_server_error(q3b$error) else ""))
   verdict("G22e", "INFO", "end-to-end publication time by declared list length (two connections, translate_concepts = FALSE)",
-          sprintf("1,000 levels %.1f s; 5,000 levels %.1f s; 14,000 levels %.1f s", q1$secs, q2b$secs, q3b$secs))
+          sprintf("1,000 levels %.1f s; 5,000 levels %.1f s; 14,000 levels %.1f s", q1$secs, q2$secs, q3b$secs))
 })
 
 section("G3b", "how long the automatic data generation takes on this CDM", function() {
