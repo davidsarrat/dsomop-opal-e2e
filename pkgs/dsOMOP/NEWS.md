@@ -1,3 +1,66 @@
+# dsOMOP 2.10.9 (development)
+
+- Copies for tables: `omopAsFactorColumnsDS(kind = "suppress_small")` makes the
+  values of categories (or, for a two-way table, cells) held by fewer than
+  `nfilter.tab` people at a site missing, with secondary suppression so that a
+  total minus a table never gives a small count. Used by
+  `ds.omop.drop_small_categories()` and `ds.omop.table(small = "missing")`; the
+  published table is unchanged.
+- Labels that dsBase's functions carry on Opal: Opal's expression parser rejects
+  spaces, accented letters and most punctuation in strings, and `ds.table()`
+  splits its level list at commas. When the client asks, published factor
+  labels keep ASCII letters, digits, `.`, `_`, `-` and `+` (common Latin
+  letters transliterated with a fixed table, the same at every site; a label in
+  another script takes its identity; collisions get a suffix). Level reports
+  say which columns carry them.
+- Two-way table copies for `ds.omop.table(by = )`.
+- `omopMissingnessDS()` also returns `n_total` and `n_missing`, the banded
+  counts behind each `missing_rate` (persons for person tables, rows
+  otherwise), so clients can pool missingness across servers. `n_missing` is
+  released only when the rate is; nothing else changes and no method needs to
+  be published again. `omopConceptDrilldownDS()` does the same for its
+  missingness (banded record counts; the total is the summary's `n_records`).
+
+# dsOMOP 2.10.8 (2026-11-19)
+
+- Adaptive vocabulary levels: an automatic list climbs the public hierarchy
+  (`concept_ancestor`) only as far as DataSHIELD's level rule needs. At each
+  separation every observed concept takes one ancestor (fewest descendants,
+  then smallest ID); the first separation whose containers, with the kinds and
+  leftover values, pass the rule once is kept, and the list is the valid
+  descendants of those containers of the observed kinds. Sixty observed
+  diagnoses in six subgroups declare those subgroups' concepts, not the whole
+  vocabulary. Only the containers and kinds come from the data, and they are
+  counted under the rule; vocabularies without a hierarchy keep the kinds' list.
+- Fingerprints for long public lists: `omopFactorLevelsDS(fingerprint = TRUE)`
+  sends a plain concept column's list of 500 or more declared vocabulary
+  records as a digest, `omopFactorLevelsDS(list_records = )` returns those
+  records once (only for a column the site's report admits), and
+  `omopAsFactorColumnsDS()` rebuilds a compact shared column from the site's
+  own list, checking the list's digest and a digest of the complete shared
+  resolution. Older clients get full reports and specs as before.
+- Observed levels are weighed against observations: DataSHIELD's
+  `nfilter.levels.density` applies to a column's rows, where a person's
+  repeated value counts once. Copies of a person's value stacked
+  (`omopBindRowsDS`), joined (`omopMergeDS`) or broadcast onto the event rows
+  of a long output no longer loosen the rule; a wide output (one row per
+  person) counts its rows, as before. This applies at publication, to concept
+  level reports, to the levels-in-use report of `ds.omop.drop_empty_levels()`,
+  to staged outputs, to concept dictionaries and to the legacy factor
+  transport. A long or episode output whose observed levels passed only
+  because people repeat their values is now published with its automatic
+  vocabulary list (its observed levels then stay hidden, and the level set is
+  the public list) or, without such a list, refused with the rule named. A
+  copy that lost its person key (a column subset by another package) releases
+  no level through the legacy factor transport.
+- Faster reconciliation: the relevel reuses its report's evidence digest.
+- Corrected: verbs over a published recipe output keep its shared factors.
+  Before, publication presented them again, which failed on every v2 output
+  ("argument is of length zero") and read translated labels as concept IDs.
+  `omopFilterDS` and `omopBindRowsDS` also keep the concept identities of the
+  rows they keep or stack, so level reports (and `ds.omop.table()`) work on
+  their results.
+
 # dsOMOP 2.10.7 (2026-11-19)
 
 - Automatic vocabulary levels: a concept column whose observed levels fail

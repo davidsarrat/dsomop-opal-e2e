@@ -1,3 +1,106 @@
+# dsOMOPClient 2.10.9 (development)
+
+- `ds.omop.table()` returns `ds.table()`'s object: per-site and combined counts
+  and proportions, the validity message and, with `report.chisq.tests`, the
+  tests, with the exact published labels and the declared categories that no
+  site has. New arguments `by` (two-way tables), `useNA`,
+  `report.chisq.tests` and `small = "missing"`. The pooled counts it returned
+  before are `$output.list$TABLES.COMBINED_all.sources_counts`, also given by
+  `as.table()`; printing shows the combined and per-site tables. Positional
+  calls `ds.omop.table(data, column, conns)` keep working. Factor columns of
+  copies without a published contract (made by `ds.omop.drop_empty_levels()` or
+  `ds.omop.drop_small_categories()`) go to `ds.table()` as they are.
+- `ds.omop.drop_small_categories()`: a copy where categories held by fewer than
+  `nfilter.tab` people at a site are missing (with secondary suppression), then
+  without levels no site uses, so `ds.summary()` and `ds.table()` work on it.
+  Use it for descriptive tables; group rare categories for models.
+- `recipe_execute()` and `ds.omop.plan.execute()` gain `small_categories =
+  "missing"`: the published outputs then have those categories missing at each
+  site in every factor column, keeping their levels, labels and codebook
+  (in-memory outputs, dsOMOP 2.10.9 servers).
+- Published factor labels work in every dsBase function on Opal by default
+  (for example `Acute_myocardial_infarction`, `Neumonia`): spaces, accents and
+  punctuation that Opal's parser or `ds.table()` reject are replaced, the same
+  at every site, when every server runs dsOMOP 2.10.9; labels declared in a
+  recipe follow the same rule (`"under 18"` is published as `under_18`). The
+  codebook keeps the exact names (`names`); `options(dsomop.safe_labels =
+  FALSE)` keeps exact names in the published labels (they then work in
+  `ds.omop.table()` but not in dsBase's `ds.table()` on Opal).
+- dsBaseClient conventions (see `?dsomop_conventions`): every function that
+  contacts the servers accepts `datasources` (`NULL` uses the OMOP session's
+  connections, or `DSI::datashield.connections_find()`); result views use
+  `type = "split"`, `"combine"` or `"both"` with the real default in the
+  signature; single-output assigning functions accept `newobj`. Old names keep
+  working with a one-time message: `conns`, `scope`, `pool`, `policy`
+  (`ds.omop.query.pool()`, now `pooling_policy`), `new_name` (now `newobj`),
+  `type` in `ds.omop.merge()` (now `join`) and `combine` (now `scope_combine`
+  in `ds.omop.analysis.run()`, `ds.omop.meta.effect_estimate()` and
+  `recipe_execute()`). With no connections given, `ds.omop.connect()` and
+  `ds.omop.server.version()` now find them like dsBaseClient does (they used
+  only DSI's default connections), and the DP functions use the `"omop"`
+  session's connections first.
+- Count and table readers (`ds.omop.table.stats()`, `ds.omop.domain.coverage()`,
+  `ds.omop.date.counts()`, `ds.omop.value.counts()`, `ds.omop.crosstab()`,
+  `ds.omop.concept.locate()`, `ds.omop.achilles.results()`) now return per-server
+  and pooled results by default, like `ds.dim()` and `ds.table()`; readers of
+  means and distributions stay per server. `type = "pooled"` now means
+  `"both"`, as `scope = "pooled"` always did.
+- One rule when pooling is impossible: `type = "both"` keeps the per-server
+  results with `pooled = NULL` and `meta$pooling_reason`, and `type =
+  "combine"` stops with the reason. `ds.omop.dp.release()`,
+  `ds.omop.analysis.run()`, `ds.omop.ohdsi.results()` and the catalog readers
+  used to stop for `"both"` too. Pooled results describe their method in
+  `meta$pooling`, and printing shows the view type. With one server, a pooled
+  result equal to that server's answer is not printed twice.
+- More readers return a `dsomop_result` with `type`:
+  `ds.omop.disclosure.settings()` (pooled: the negotiated federation contract),
+  `ds.omop.tables()` and `ds.omop.columns()` (pooled: what every server has),
+  `ds.omop.cohort.list()`, `ds.omop.plan.preview()`, `ds.omop.plan.validate()`,
+  `recipe_preview()`, `recipe_validate()`, `ds.omop.cdm.source()`,
+  `ds.omop.cdm.version()`, `ds.omop.dp.status()` and the vocabulary readers.
+  The old per-server list is `$per_site`, and `res$<server>` and
+  `res[["<server>"]]` still work; code that loops over the result itself must
+  loop over `$per_site`.
+- Corrected pooled views: missingness now pools (with dsOMOP 2.10.9 servers;
+  older ones give `pooled = NULL` with the reason); value counts keep
+  `n_persons`; concept prevalence follows `metric` and `top_n` and keeps
+  `n_records`; drilldowns keep the date range and missingness; table
+  statistics keep `date_range`; cross-tabs keep their axis metadata; histogram
+  bins are matched by their edges, so bins suppressed on different servers no
+  longer shift; `ds.omop.value.histogram()` keeps the per-server histograms
+  when only the shared range fails.
+- `as.data.frame()` of a split result stacks every server with a `server`
+  column (it returned the first server only). `recipe_preview_stats()` returns
+  one frame per server with a `table` column (it listed tables as servers).
+- Smaller fixes: `ds.omop.date.counts()` accepts `cohort`;
+  `ds.omop.comorbidity()` refuses two different tables instead of ignoring
+  `tableB`, and uses the table's own concept column; `ds.omop.status()`
+  reports ping errors per server; `recipe_explain()` takes `offline`;
+  `ds.omop.prevalence()` and `ds.omop.distribution()` take `pooling_policy`;
+  `ds.omop.concept.list()` labels its summed `total_count` as an upper bound
+  and adds `total_count_max`; `pooling_policy` is validated on entry; call code
+  records non-default arguments such as `pooling_policy`;
+  `ds.omop.achilles.heel()` is documented as always refusing.
+
+# dsOMOPClient 2.10.8 (2026-11-19)
+
+- With dsOMOP 2.10.8 servers, automatic vocabulary lists are adaptive: each
+  server climbs the vocabulary hierarchy only as far as DataSHIELD's rule
+  needs, so many observed diagnoses publish with the concepts of a few groups
+  instead of a whole terminology.
+- Long public lists travel as fingerprints: servers send their list's digest,
+  the client reads each distinct list once, and servers holding the same list
+  rebuild the shared levels from it (checked by digest). Naming provenance stays
+  on the client. Results equal the full transport, which older servers keep.
+- With dsOMOP 2.10.8 servers, the level rule counts a person's repeated value
+  once: a person-level variable repeated on the event rows of a long output,
+  stacked or joined, is weighed against its people, as in a wide output. A
+  long output whose observed levels passed only through such repetition now
+  gets its automatic vocabulary list, or is refused with the rule named.
+- Corrected: `ds.omop.filter()` and `ds.omop.bind_rows()` work on reconciled
+  recipe outputs and keep their shared levels, and `ds.omop.table()` and
+  `ds.omop.drop_empty_levels()` work on their results (needs dsOMOP 2.10.8).
+
 # dsOMOPClient 2.10.7 (2026-11-19)
 
 - With dsOMOP 2.10.7 servers, a concept column with more observed levels than

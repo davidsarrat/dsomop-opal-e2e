@@ -1351,7 +1351,10 @@ omopDomainCoverageDS <- function(omop_symbol) {
 #' @param cohort Cohort scope: a cohort temp table name, a cohort_definition_id,
 #'   or NULL. Takes precedence over \code{cohort_table}.
 #' @param cohort_table Character; legacy cohort temp table for filtering (NULL)
-#' @return Data frame with missingness rates
+#' @return Data frame with \code{column_name}, \code{missing_rate} and, from
+#'   dsOMOP 2.10.9, the banded counts behind the rate: \code{n_total} (the
+#'   scoped persons, or rows for tables without persons) and \code{n_missing}
+#'   (released only when \code{missing_rate} is).
 #' @examples
 #' \dontrun{
 #' missing <- omopMissingnessDS("omop", "condition_occurrence")
@@ -2931,8 +2934,41 @@ omopAnalysisRunAssignDS <- function(omop_symbol, name, params = list(),
   list(levels = observed, safe = !length(rules), rules = rules)
 }
 
+# The observations a column's levels are weighed against under DataSHIELD's
+# density rule, which dsBase asFactorDS1 applies to a column's length (dsOMOP
+# 2.10.8). A person's repeated value counts once: copies of it stacked, joined
+# or broadcast onto other rows are not more observations. A wide output has
+# one row per person, so its count is its rows; without a person key, rows.
+.densityObservations <- function(df, values) {
+  key <- .omopPersonKeys(df)
+  if (!length(key) || length(values) != nrow(df)) return(as.numeric(length(values)))
+  p <- match(df[[key[[1L]]]], unique(df[[key[[1L]]]]))
+  v <- match(values, unique(values))
+  width <- max(c(v, 1L))
+  pair <- if (max(c(p, 0L)) * as.numeric(width) < .Machine$integer.max) (p - 1L) * width + v else
+    (as.numeric(p) - 1) * width + v
+  as.numeric(sum(!duplicated(pair)))
+}
+
+# The same count over the chunks of one output keeps distinct person/value
+# keys only up to a size that decides every verdict of the level rule (and,
+# in practice, its rule names): memory stays bounded.
+.densityBound <- function() {
+  s <- .omopDisclosureSettings()
+  density <- suppressWarnings(as.numeric(s$nfilter_levels_density))
+  if (length(density) != 1L || is.na(density) || density <= 0) return(1)
+  max(ceiling(as.numeric(s$nfilter_levels_max) / density) + 1, 1e5)
+}
+.densityKeys <- function(person, values, seen = character(), bound = .densityBound()) {
+  if (length(seen) >= bound) return(seen)
+  value <- as.character(values)
+  value[is.na(value)] <- "\001"
+  head(union(seen, unique(paste(as.character(person), value, sep = "\002"))), bound)
+}
+
 .omopConceptLevelAssessment <- function(df, col, person_col = NULL) {
-  .omopConceptDiscovery(.conceptIdText(df[[col]]), nrow(df))
+  ids <- .conceptIdText(df[[col]])
+  .omopConceptDiscovery(ids, .densityObservations(df, ids))
 }
 
 # --- Levels that hold values, for models (dsOMOP 2.10.7) ---
@@ -2960,11 +2996,12 @@ omopAnalysisRunAssignDS <- function(omop_symbol, name, params = list(),
 
 # Which levels hold a value at this site is an observed-level release: it
 # follows the DataSHIELD rule of discovery (dsBase asFactorDS1), k levels in
-# use against nfilter.levels.max and nfilter.levels.density times the rows.
+# use against nfilter.levels.max and nfilter.levels.density times the
+# observations (rows, a person's repeated value once).
 .factorLevelsInUse <- function(df, col) {
   f <- df[[col]]
   used <- levels(f)[levels(f) %in% as.character(f[!is.na(f)])]
-  c(.omopConceptDiscovery(used, nrow(df)), list(used = used))
+  c(.omopConceptDiscovery(used, .densityObservations(df, f)), list(used = used))
 }
 
 .factorOccurrenceReport <- function(df, columns) {
@@ -3033,6 +3070,65 @@ omopAnalysisRunAssignDS <- function(omop_symbol, name, params = list(),
 
 # Rebuild a factor with fewer levels in the same class: shared levels stay
 # unused levels inside model frames, so design matrices still line up.
+# A copy for tables and summaries (dsOMOP 2.10.9). At this site, the values of
+# a category held by fewer than nfilter.tab distinct people become missing, so
+# dsBase's small-cell checks pass on the rest: those counts were never released,
+# and now they no longer block every other category. While the people made
+# missing number 1 to nfilter.tab - 1, the next smallest category (then the
+# first in level order) is made missing too, so that a total minus a table
+# never gives a small count. With joint = TRUE the categories are the cells of
+# the listed columns together (a two-way table). Levels stay the shared set;
+# the copy keeps its rows; nothing is returned to the client.
+.factorSuppressSmall <- function(df, columns, joint = FALSE) {
+  cols <- .factorModelColumns(df, if (length(columns)) columns else "*")
+  key <- .omopPersonKeys(df)
+  if (!length(key)) stop("Small categories are counted per person: this table has no person key.", call. = FALSE)
+  threshold <- as.numeric(.omopDisclosureSettings()$nfilter_tab)
+  p <- match(df[[key[[1L]]]], unique(df[[key[[1L]]]]))
+  persons <- max(c(p, 1L))
+  contracts <- attr(df, "omop_concepts") %||% list()
+  physical <- attr(df, "omop_column_names")
+  key_of <- function(col) if (length(physical) && col %in% physical) names(physical)[match(col, physical)] else col
+  for (group in if (isTRUE(joint)) list(cols) else as.list(cols)) {
+    # One code per category (or cell); rows missing in any listed column are in none.
+    code <- as.numeric(as.integer(df[[group[[1L]]]]))
+    for (col in group[-1L]) code <- (code - 1) * max(nlevels(df[[col]]), 1L) + as.integer(df[[col]])
+    hit <- which(!is.na(code))
+    if (!length(hit)) next
+    cells <- sort(unique(code[hit]))
+    index <- match(code[hit], cells)
+    first <- !duplicated((as.numeric(index) - 1) * persons + p[hit])
+    people <- tabulate(index[first], nbins = length(cells))
+    small <- which(people < threshold)
+    suppressed <- function(s) sum(!duplicated(p[hit][index %in% s]))
+    total <- suppressed(small)
+    rest <- setdiff(seq_along(cells), small)
+    rest <- rest[order(people[rest], rest)]
+    while (total > 0 && total < threshold && length(rest)) {
+      small <- c(small, rest[[1L]]); rest <- rest[-1L]
+      total <- suppressed(small)
+    }
+    drop <- hit[index %in% small]
+    if (!length(drop)) next
+    for (col in group) {
+      f <- df[[col]]
+      f[drop] <- NA
+      df[[col]] <- f
+      c <- contracts[[key_of(col)]]
+      if (!is.null(c) && length(c$ids) == nrow(df)) {
+        c$ids[drop] <- NA
+        contracts[[key_of(col)]] <- c
+      }
+    }
+  }
+  if (length(contracts)) attr(df, "omop_concepts") <- contracts
+  # A copy is not a sealed DP input: never carry the source's DP lineage.
+  attr(df, "dsomop_dp_provenance") <- NULL
+  attr(df, "dsomop_dp_filter_state") <- NULL
+  attr(df, "dsomop_dp_release_persons") <- NULL
+  df
+}
+
 .factorKeep <- function(f, keep) {
   values <- as.character(f)
   if (inherits(f, "dsomop_category_factor")) {
@@ -3093,10 +3189,20 @@ omopAnalysisRunAssignDS <- function(omop_symbol, name, params = list(),
 #' follows the same DataSHIELD rule: a column whose levels in use fail it is
 #' reported without levels. No counts are returned.
 #'
+#' With \code{fingerprint = TRUE} (dsOMOP 2.10.8), a plain concept column's
+#' long public list (500 or more declared vocabulary records) is reported as its
+#' length and digest instead of its records; \code{list_records} returns those
+#' records once, only for a column this site's report admits. Both carry
+#' vocabulary metadata only.
+#'
 #' @param df A data frame or staged descriptor previously assigned server-side
 #'   by \code{\link{omopPlanExecuteDS}}.
 #' @param occurring Optional encoded \code{list(columns = )}: factor column
 #'   names, or \code{"*"} for every published factor column.
+#' @param fingerprint Optional encoded logical: report long public lists by
+#'   digest (\code{lists}) instead of by record.
+#' @param list_records Optional column name: return the public list records of
+#'   that column (a fingerprinted report's list), for the client to read once.
 #' @return A named list with \code{levels} (named list mapping
 #'   each safe concept-id column to its character levels), \code{unsafe}
 #'   (character vector of concept-id columns that failed the disclosure gate),
@@ -3106,11 +3212,22 @@ omopAnalysisRunAssignDS <- function(omop_symbol, name, params = list(),
 #'   identities, stable keys and evidence binding.
 #' @seealso \code{\link{omopAsFactorColumnsDS}}, \code{\link{.assertSafeLevels}}
 #' @export
-omopFactorLevelsDS <- function(df, occurring = NULL) {
+omopFactorLevelsDS <- function(df, occurring = NULL, fingerprint = NULL, list_records = NULL) {
   if (!is.null(occurring)) return(.factorOccurrenceReport(df, .ds_arg(occurring)$columns))
-  if (inherits(df, "FlowerDatasetDescriptor") && !is.null(df$metadata$concept_presentation)) return(.conceptStageReport(df))
-  if (is.data.frame(df) && (!is.null(attr(df, "omop_concepts")) ||
-      !is.null(attr(df, "omop_generated_columns")) || !is.null(attr(df,"omop_numbers")) || !is.null(attr(df,"omop_codebook_schema")))) return(.conceptLevelReport(df))
+  fingerprint <- isTRUE(.ds_arg(fingerprint)) || !is.null(list_records)
+  staged <- inherits(df, "FlowerDatasetDescriptor") && !is.null(df$metadata$concept_presentation)
+  tagged <- is.data.frame(df) && (!is.null(attr(df, "omop_concepts")) ||
+      !is.null(attr(df, "omop_generated_columns")) || !is.null(attr(df,"omop_numbers")) || !is.null(attr(df,"omop_codebook_schema")))
+  report <- if (staged) .conceptStageReport(df, fingerprint = fingerprint) else if (tagged) .conceptLevelReport(df, fingerprint = fingerprint) else NULL
+  if (!is.null(list_records)) {
+    # A public list is returned only for a column this site's report admits.
+    if (is.null(report)) stop("No public concept list for this column.", call. = FALSE)
+    # The same refreshed records the report's digest was computed from.
+    contracts <- if (staged) local({ meta <- .conceptStageData(df); .conceptRefresh(meta$contracts, meta$generated, meta$handle)$contracts }) else
+      .conceptRefresh(attr(df, "omop_concepts") %||% list(), list(), attr(df, "omop_presentation_handle"))$contracts
+    return(.conceptListRecords(report, contracts, unlist(.ds_arg(list_records), use.names = FALSE)))
+  }
+  if (!is.null(report)) return(report)
   cap <- .omopDisclosureSettings()$nfilter_levels_max
   empty <- list(levels = list(), unsafe = character(0), unsafe_rules = list(), nfilter_levels_max = cap)
   if (!is.data.frame(df) || !.is_omop.table(df)) {
@@ -3131,6 +3248,13 @@ omopFactorLevelsDS <- function(df, occurring = NULL) {
   cols <- setdiff(cols, attr(df, "omop_concept_codes"))
   if (length(cols) == 0L) {
     return(empty)
+  }
+  # Observations are counted per person. A copy without its person key (a
+  # column subset by another package keeps the class, not the key) cannot be
+  # weighed, so none of its levels is released.
+  if (!length(.omopPersonKeys(df))) {
+    return(list(levels = list(), unsafe = cols, nfilter_levels_max = cap,
+                unsafe_rules = setNames(rep(list("person key"), length(cols)), cols)))
   }
   safe <- list()
   unsafe <- character(0)
@@ -3183,6 +3307,14 @@ omopAsFactorColumnsDS <- function(df, spec, table_column = NULL) {
   if (is.list(decoded) && identical(decoded$kind, "drop_levels")) {
     if (!is.null(table_column)) stop("Dropping levels takes no table column.", call. = FALSE)
     return(.factorDropLevels(df, decoded$columns))
+  }
+  if (is.list(decoded) && identical(decoded$kind, "suppress_small")) {
+    if (!is.null(table_column)) stop("Small categories take no table column.", call. = FALSE)
+    return(.factorSuppressSmall(df, as.character(unlist(decoded$columns, use.names = FALSE)), isTRUE(decoded$joint)))
+  }
+  # A two-way table names its two columns in one encoded argument.
+  if (is.character(table_column) && length(table_column) == 1L && startsWith(table_column, "B64:")) {
+    table_column <- as.character(unlist(.ds_arg(table_column), use.names = FALSE))
   }
   if (!is.null(table_column) && inherits(df, "FlowerDatasetDescriptor")) {
     stop("Table analysis requires an in-memory published concept factor.", call. = FALSE)
@@ -3245,8 +3377,13 @@ omopAsFactorColumnsDS <- function(df, spec, table_column = NULL) {
   # The site's own verdict on its observed values comes first. A coverage
   # answer is given only for columns whose observed levels this site could
   # release anyway, so success or failure cannot probe which values occur.
+  # Without its person key a copy cannot be weighed: no answer at all.
+  if (length(allowed_cols) && !length(.omopPersonKeys(source))) {
+    stop("Concept factor assignment refused by this site's factor-level rule (person key).", call. = FALSE)
+  }
   for (col in allowed_cols) {
-    verdict <- .omopConceptDiscovery(.conceptIdText(source[[col]]), nrow(source))
+    ids <- .conceptIdText(source[[col]])
+    verdict <- .omopConceptDiscovery(ids, .densityObservations(source, ids))
     if (!isTRUE(verdict$safe)) {
       stop("Concept factor assignment refused by this site's factor-level rule (",
            paste(verdict$rules, collapse = " / "), ").", call. = FALSE)

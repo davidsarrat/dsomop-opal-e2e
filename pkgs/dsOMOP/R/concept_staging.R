@@ -28,6 +28,7 @@
   schema <- attr(df,"omop_codebook_schema")
   if (!length(contracts) && !length(generated) && !length(numbers) && is.null(schema)) return(descriptor)
   totals <- nrow(df)
+  observations <- lapply(contracts, function(c) .densityObservations(df, c$ids))
   support <- lapply(contracts, function(c) {
     ids <- unique(c$ids[!is.na(c$ids)])
     setNames(rep(1L, length(ids)), ids)
@@ -39,7 +40,7 @@
     handle = attr(df, "omop_presentation_handle"),
     names = attr(df, "omop_column_names") %||% setNames(names(df), names(df)),
     reference_support = reference_support,
-    support = support, total = totals))
+    support = support, total = totals, observations = observations))
   descriptor
 }
 
@@ -48,7 +49,7 @@
   .ds_arg(descriptor$metadata$concept_presentation)
 }
 
-.conceptStageReport <- function(descriptor, discover = TRUE) {
+.conceptStageReport <- function(descriptor, discover = TRUE, fingerprint = FALSE) {
   meta <- .conceptStageData(descriptor)
   refreshed <- .conceptRefresh(meta$contracts, meta$generated, meta$handle)
   meta$contracts <- refreshed$contracts; meta$generated <- refreshed$generated
@@ -59,18 +60,24 @@
   for (col in names(meta$contracts)) {
     c <- meta$contracts[[col]]
     support <- unlist(meta$support[[col]], use.names = TRUE)
-    a <- .conceptAssessIds(c, names(support), meta$total, meta$reference_support, discover)
+    a <- .conceptAssessIds(c, names(support), meta$observations[[col]] %||% meta$total, meta$reference_support, discover)
     if (!a$safe) {
       out$unsafe <- c(out$unsafe, col)
       out$unsafe_rules[[col]] <- c(a$rules, if (identical(c$auto_levels, "too_long")) "dsomop.auto_declared_levels_max")
       next
     }
     ids <- union(a$levels, as.character(unlist(c$declared, use.names = FALSE)))
+    listed <- if (isTRUE(fingerprint)) .conceptListPart(c) else character()
+    if (length(listed)) {
+      out$lists[[col]] <- list(n = length(listed), digest = .conceptListDigest(c$records, listed))
+      ids <- setdiff(ids, listed)
+    }
     out$levels[[col]] <- ids
     out$concepts[[col]] <- unname(c$records[ids])
     if (identical(c$kind, "date")) out$calendars[[col]] <- c$calendar
     if (identical(c$kind, "category")) out$categories[[col]] <- c$category
     if (length(c$reference_keys)) out$reference_names[[col]] <- unique(as.character(unlist(c$reference_keys,use.names=FALSE)))
+    if (isTRUE(c$resolved$safe_labels)) out$safe_columns <- c(out$safe_columns, col)
   }
   refused_keys <- character()
   for (key in names(meta$generated)) {
@@ -88,6 +95,8 @@
   out$keys <- setdiff(names(meta$names), refused_keys)
   out$numbers <- meta$numbers %||% list()
   if(!is.null(meta$schema))out$schema<-meta$schema
+  # Capability: this server applies dsBase-safe labels when the client asks.
+  out$safe_labels <- TRUE
   out$evidence <- .conceptEvidence(out)
   out
 }
@@ -108,7 +117,7 @@
   if (!identical(as.integer(spec$concept_protocol), 1L)) {
     stop("A complete concept presentation protocol is required for this staged output.", call. = FALSE)
   }
-  report <- .conceptStageReport(descriptor)
+  report <- .conceptStageReport(descriptor, fingerprint = isTRUE(spec$fingerprint))
   .conceptSiteVerdict(report)
   meta <- .conceptStageData(descriptor)
   .conceptCheckEvidence(report, spec, !is.null(meta$handle))
@@ -119,11 +128,24 @@
     stop("Incomplete disclosure-safe staged concept contract.", call. = FALSE)
   }
   mappings <- list()
+  # Fingerprints are checked against the same refreshed records as the report
+  # (read again only when a compact column needs them).
+  compact <- any(vapply(names(meta$contracts), function(col) !is.null(spec$columns[[col]]$list), logical(1)))
+  refreshed <- if (compact) .conceptRefresh(meta$contracts, meta$generated, meta$handle)$contracts
   for (col in names(meta$contracts)) {
     shared <- spec$columns[[col]]
+    if (!is.null(shared$list)) {
+      shared <- .conceptExpandShared(refreshed[[col]], shared)
+      # Later steps (the chunk rewrite) read the complete shared column.
+      spec$columns[[col]] <- shared
+    }
     if (identical(meta$contracts[[col]]$kind, "date") && !identical(.jcsCanonical(shared$calendar), .jcsCanonical(meta$contracts[[col]]$calendar))) .dateReject("Changed staged calendar identity.")
     if(identical(meta$contracts[[col]]$kind,"category")&&!identical(.jcsCanonical(shared$category),.jcsCanonical(meta$contracts[[col]]$category))) .categoryReject("Changed staged category contract.","category_domain_incompatible")
-    .conceptValidateResolution(shared, meta$contracts[[col]]$records[report$levels[[col]]])
+    .conceptValidateResolution(shared, meta$contracts[[col]]$records[union(report$levels[[col]], .conceptListPart(meta$contracts[[col]]))])
+    if (isTRUE(spec$safe_labels)) {
+      shared <- .conceptSafeShared(shared)
+      spec$columns[[col]] <- shared
+    }
     ids <- as.character(unlist(shared$ids, use.names = FALSE))
     labels <- unname(.categoryNullableStrings(shared$labels))
     levels <- as.character(unlist(shared$levels, use.names = FALSE))
@@ -211,6 +233,7 @@
   reference_rows <- list()
   identities <- list()
   total_rows <- 0L
+  keys <- list(); bound <- .densityBound()
   .publishReadChunks(descriptor, function(frame) {
     if (is.null(prototype)) {
       prototype <<- frame[FALSE, , drop = FALSE]
@@ -221,10 +244,13 @@
     }
     concept_cols <- names(columns)[vapply(columns, .conceptColumn, logical(1))]
     total_rows <<- total_rows + nrow(frame)
+    key <- .omopPersonKeys(frame)
     for (col in intersect(concept_cols, names(frame))) {
       ids <- .conceptIdText(frame[[col]])
       observed <- unique(ids[!is.na(ids)])
       identities[[col]] <<- union(identities[[col]], observed)
+      # A person's repeated value counts once over every chunk.
+      if (length(key)) keys[[col]] <<- .densityKeys(frame[[key[[1L]]]], ids, keys[[col]] %||% character(), bound)
 
     }
   })
@@ -236,8 +262,12 @@
   reference_support <- attr(descriptor, "omop_reference_support")
   attr(sample, "omop_reference_support") <- reference_support
   attr(sample, "omop_concept_reference") <- reference
-  # The sample holds distinct identities; the level rule uses the output rows.
+  # The sample holds distinct identities; the level rule uses the output's
+  # observations (its rows, a person's repeated value once).
   attr(sample, "omop_total_rows") <- total_rows
+  observations <- lapply(setNames(names(identities), names(identities)), function(col)
+    if (is.null(keys[[col]])) total_rows else length(keys[[col]]))
+  attr(sample, "omop_density_observations") <- observations
   raw_sample <- sample
   sample <- .conceptPresent(ctx, sample, columns)
   updated <- .conceptStageCapture(sample, descriptor)
@@ -249,6 +279,7 @@
   })
   names(mappings) <- names(meta$contracts)
   meta$total <- total_rows
+  meta$observations <- observations[intersect(names(observations), names(meta$contracts))]
   if (!is.null(reference_support)) {
     meta$reference_support <- reference_support
   }

@@ -23,13 +23,13 @@ test_that('A27 pooled ds.table and protected-object ds.glm use aligned categorie
         paste(capture.output(print(DSI::datashield.errors())),collapse='; ')))
     })
   },.package='DSI')
-  pooled <- ds.omop.table('Analysis','education',conns=ctx$conns)
+  pooled <- as.table(ds.omop.table('Analysis','education',conns=ctx$conns))
   expected <- Reduce('+',lapply(frames,function(x) table(x$education)))
   names(dimnames(expected)) <- 'Analysis$education'
   expect_equal(pooled,expected)
   expect_equal(as.numeric(pooled),c(24,24,6,0))
   expect_identical(dimnames(pooled)[[1L]],levels(frames[[1L]]$education))
-  expect_equal(ds.omop.table('Analysis','education',conns=rev(ctx$conns)),pooled)
+  expect_equal(as.table(ds.omop.table('Analysis','education',conns=rev(ctx$conns))),pooled)
   # No key extraction or class/seal stripping: dsBase receives the published
   # protected table through its normal data= route.
   # A category absent globally is not estimable. The declared recode can
@@ -45,18 +45,37 @@ test_that('A27 pooled ds.table and protected-object ds.glm use aligned categorie
 })
 
 
- test_that('A27 table completion refuses partial and suppressed dsBase results', {
-  counts <- array(c(24,24,6),dim=3,dimnames=list(c('a','b','c')))
-  result <- list(validity.message='Data in all studies were valid',
-    output.list=list(TABLES.COMBINED_all.sources_counts=counts))
-  complete <- .conceptCompleteTable(result,c('a','b','c','declared'),'x')
-  expect_identical(as.numeric(complete),c(24,24,6,0))
-  expect_identical(dimnames(complete)[[1L]],c('a','b','c','declared'))
+test_that('table completion restores labels and declared zero categories, and refuses odd counts', {
+  counts <- array(c(24, 24, 6), dim = 3, dimnames = list(c('C1', 'C2', 'C3')))
+  by_site <- array(c(20, 4, 6, 4, 20, 0), dim = c(3, 2), dimnames = list(c('C1', 'C2', 'C3'), c('site1', 'site2')))
+  result <- list(validity.message = 'Data in all studies were valid', output.list = list(
+    TABLE_rvar.by.study_row.props = by_site / rowSums(by_site),
+    TABLE_rvar.by.study_col.props = sweep(by_site, 2, colSums(by_site), "/"),
+    TABLE_rvar.by.study_counts = by_site,
+    TABLES.COMBINED_all.sources_proportions = counts / sum(counts),
+    TABLES.COMBINED_all.sources_counts = counts))
+  labels <- list(C = c('a', 'b', 'c', 'declared'))
+  out <- .conceptTableComplete(result, labels)$output.list
+  expect_identical(as.numeric(out$TABLES.COMBINED_all.sources_counts), c(24, 24, 6, 0))
+  expect_identical(dimnames(out$TABLES.COMBINED_all.sources_counts)[[1L]], labels$C)
+  expect_identical(out$TABLE_rvar.by.study_counts['declared', ], c(site1 = 0, site2 = 0))
+  expect_identical(colnames(out$TABLE_rvar.by.study_counts), c('site1', 'site2'))
+  expect_true(all(is.na(out$TABLE_rvar.by.study_row.props['declared', ])))
+  expect_identical(unname(out$TABLE_rvar.by.study_col.props['declared', ]), c(0, 0))
+  expect_identical(unname(out$TABLES.COMBINED_all.sources_proportions[['declared']]), 0)
+  # As ds.table(): valid sites with the validity message (a failed site is left out, never zero-filled).
   partial <- result; partial$validity.message <- 'At least one study failed'
-  expect_error(.conceptCompleteTable(partial,c('a','b','c','declared'),'x'),'Every retained site')
-  suppressed <- result; suppressed$output.list[[1L]][1L] <- NA_real_
-  expect_error(.conceptCompleteTable(suppressed,c('a','b','c','declared'),'x'),'do not match')
-  expect_error(.conceptCompleteTable(result,c('a','b','declared'),'x'),'do not match')
+  expect_identical(.conceptTableComplete(partial, labels)$validity.message, 'At least one study failed')
+  odd <- result; odd$output.list$TABLES.COMBINED_all.sources_counts[1L] <- NA_real_
+  expect_error(.conceptTableComplete(odd, labels), 'do not match')
+  unknown <- result; dimnames(unknown$output.list$TABLES.COMBINED_all.sources_counts)[[1L]][3L] <- 'C9'
+  expect_error(.conceptTableComplete(unknown, labels), 'do not match')
+  # Two-way tables: first column C, second column D.
+  two <- array(c(3, 4, 5, 6), dim = c(2, 2), dimnames = list(c('C1', 'C2'), c('D1', 'D2')))
+  both <- .conceptTableComplete(list(validity.message = 'Data in all studies were valid',
+    output.list = list(TABLES.COMBINED_all.sources_counts = two)), list(C = c('x', 'y'), D = c('u', 'v', 'w')))
+  expect_identical(dimnames(both$output.list$TABLES.COMBINED_all.sources_counts), list(c('x', 'y'), c('u', 'v', 'w')))
+  expect_identical(as.numeric(both$output.list$TABLES.COMBINED_all.sources_counts[, 'w']), c(0, 0))
 })
 
 
@@ -93,12 +112,12 @@ test_that('A27 public pooled tables preserve free text and delimiter collisions'
       FreeText = setNames(c(22,22,4,0), unlist(cases[[symbol]], use.names=FALSE)),
       MergedComma = c('comma,label'=44, Same=4, comma=0, label=0))
     inventory <- DSI::datashield.symbols(ctx$conns)
-    pooled <- ds.omop.table(symbol, 'education', ctx$conns)
+    pooled <- as.table(ds.omop.table(symbol, 'education', ctx$conns))
     expect_equal(pooled, expected, info = symbol)
     expect_equal(setNames(as.numeric(pooled), dimnames(pooled)[[1L]]), explicit, info = symbol)
     expect_equal(sum(pooled), 48, info = symbol)
     expect_identical(vapply(frames, function(f) sum(is.na(f$education)), 0L), c(site1=6L,site2=0L,site3=0L))
-    expect_equal(ds.omop.table(symbol, 'education', rev(ctx$conns)), pooled)
+    expect_equal(as.table(ds.omop.table(symbol, 'education', rev(ctx$conns))), pooled)
     expect_identical(.clf_frames(ctx, symbol), frames)
     expect_equal(DSI::datashield.symbols(ctx$conns), inventory)
   }
@@ -118,7 +137,11 @@ test_that('A27 public pooled tables preserve free text and delimiter collisions'
     }
     list(validity.message='At least one study failed')
   }, .package='dsBaseClient')
-  expect_error(ds.omop.table('DelimiterCollision', 'education', ctx$conns), 'Every retained site')
+  # As ds.table(): a failed site is reported in the validity message, never zero-filled.
+  refused <- ds.omop.table('DelimiterCollision', 'education', ctx$conns)
+  expect_identical(refused$validity.message, 'At least one study failed')
+  expect_null(refused$output.list)
+  expect_error(as.table(refused), 'At least one study failed')
   expect_equal(DSI::datashield.symbols(ctx$conns), inventory)
   expect_identical(.clf_frames(ctx, 'DelimiterCollision'), frames)
 })

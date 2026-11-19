@@ -1607,10 +1607,10 @@ omop.date_handling <- function(mode = "remove", reference = "index",
 #' @keywords internal
 .prepare_plan_for_federation <- function(plan, symbol, conns) {
   if (length(conns) > 1L && is.null(plan$harmonization)) {
-    plan <- ds.omop.plan.harmonize(
+    plan <- .quiet_aliases(ds.omop.plan.harmonize(
       plan, mode = "intersection", strict = TRUE,
       symbol = symbol, conns = conns
-    )
+    ))
     contract <- plan$harmonization
     required <- c("version", "mode", "manifest", "schema", "plan_signature")
     if (!is.list(contract) || !all(required %in% names(contract)) ||
@@ -1649,9 +1649,19 @@ omop.date_handling <- function(mode = "remove", reference = "index",
 #' @param plan An \code{omop_plan} object.
 #' @param symbol Character; name of the OMOP session symbol on the
 #'   server (default \code{"omop"}).
-#' @param conns DSI connection object(s). If \code{NULL}, uses the
-#'   connections stored in the session.
-#' @return A named list (one element per server). Each server's result is the
+#' @param conns Deprecated alias of \code{datasources}, kept for backward
+#'   compatibility (a one-time message names the new argument).
+#' @param datasources DataSHIELD connections (a named list of
+#'   \code{DSConnection} objects). \code{NULL} (the default) uses the OMOP
+#'   session's connections, or \code{DSI::datashield.connections_find()} when
+#'   no session exists. See \link{dsomop_conventions}.
+#' @param type Result view: \code{"split"} (default) or \code{"both"}.
+#'   Previews are per server: \code{"both"} returns \code{pooled = NULL}
+#'   with \code{meta$pooling_reason}, and \code{"combine"} stops before
+#'   contacting the servers. See \link{dsomop_conventions}.
+#' @return A \code{dsomop_result} whose \code{$per_site} is the named list
+#'   (one element per server) returned by earlier versions;
+#'   \code{res$<server>} still reaches one server's payload. Each server's result is the
 #'   preview payload, whose \code{$validation} sub-list reports
 #'   \code{valid} (logical), \code{errors}, \code{warnings}, and
 #'   \code{available_tables}. No raw rows or SQL are returned; the shared
@@ -1669,10 +1679,19 @@ omop.date_handling <- function(mode = "remove", reference = "index",
 #'   \code{\link{ds.omop.plan.execute}}
 #' @export
 ds.omop.plan.validate <- function(plan, symbol = "omop",
-                                  conns = NULL) {
-  if (.v2_is_plan_v2(plan)) return(.plan_v2_preview(plan, symbol, conns))
+                                  conns = NULL,
+                                  type = "split",
+                                  datasources = NULL) {
+  conns <- .datasources_arg(datasources, conns, "ds.omop.plan.validate")
+  result_type <- .resolve_result_type(type, default_type = "split")
+  reason <- "Plan validations are per server and cannot be combined."
+  .combine_unavailable(result_type, reason)
+  if (.v2_is_plan_v2(plan)) {
+    return(.plan_preview_result(.plan_v2_preview(plan, symbol, conns),
+                                "ds.omop.plan.validate", result_type, reason, symbol))
+  }
   session <- .get_session(symbol)
-  conns <- conns %||% session$conns
+  conns <- .resolve_datasources(conns, symbol, session)
   plan <- .prepare_plan_for_federation(plan, symbol, conns)
   contract <- .session_harmonization_for_connections(session, conns)
   if (!is.null(contract)) {
@@ -1680,11 +1699,11 @@ ds.omop.plan.validate <- function(plan, symbol = "omop",
     .validate_plan_harmonization(plan, contract)
   }
 
-  .ds_safe_aggregate(
+  .plan_preview_result(.ds_safe_aggregate(
     conns,
     expr = call("omopPlanPreviewDS",
                 session$res_symbol, .ds_encode(plan))
-  )
+  ), "ds.omop.plan.validate", result_type, reason, symbol)
 }
 
 #' Preview a plan (server-side dry run)
@@ -1711,9 +1730,19 @@ ds.omop.plan.validate <- function(plan, symbol = "omop",
 #' @param plan An \code{omop_plan} object.
 #' @param symbol Character; name of the OMOP session symbol on the
 #'   server (default \code{"omop"}).
-#' @param conns DSI connection object(s). If \code{NULL}, uses the
-#'   connections stored in the session.
-#' @return A named list (one element per server). Each server's result holds
+#' @param conns Deprecated alias of \code{datasources}, kept for backward
+#'   compatibility (a one-time message names the new argument).
+#' @param datasources DataSHIELD connections (a named list of
+#'   \code{DSConnection} objects). \code{NULL} (the default) uses the OMOP
+#'   session's connections, or \code{DSI::datashield.connections_find()} when
+#'   no session exists. See \link{dsomop_conventions}.
+#' @param type Result view: \code{"split"} (default) or \code{"both"}.
+#'   Previews are per server: \code{"both"} returns \code{pooled = NULL}
+#'   with \code{meta$pooling_reason}, and \code{"combine"} stops before
+#'   contacting the servers. See \link{dsomop_conventions}.
+#' @return A \code{dsomop_result} whose \code{$per_site} is the named list
+#'   (one element per server) returned by earlier versions;
+#'   \code{res$<server>} still reaches one server's payload. Each server's result holds
 #'   \code{$validation} (see \code{\link{ds.omop.plan.validate}}),
 #'   \code{$band_width} (the count-banding granularity), and \code{$outputs},
 #'   a per-output list with \code{columns}, \code{missing_columns},
@@ -1734,10 +1763,19 @@ ds.omop.plan.validate <- function(plan, symbol = "omop",
 #'   \code{\link{ds.omop.plan.execute}}
 #' @export
 ds.omop.plan.preview <- function(plan, symbol = "omop",
-                                 conns = NULL) {
-  if (.v2_is_plan_v2(plan)) return(.plan_v2_preview(plan, symbol, conns))
+                                 conns = NULL,
+                                 type = "split",
+                                 datasources = NULL) {
+  conns <- .datasources_arg(datasources, conns, "ds.omop.plan.preview")
+  result_type <- .resolve_result_type(type, default_type = "split")
+  reason <- "Plan previews are per server and cannot be combined."
+  .combine_unavailable(result_type, reason)
+  if (.v2_is_plan_v2(plan)) {
+    return(.plan_preview_result(.plan_v2_preview(plan, symbol, conns),
+                                "ds.omop.plan.preview", result_type, reason, symbol))
+  }
   session <- .get_session(symbol)
-  conns <- conns %||% session$conns
+  conns <- .resolve_datasources(conns, symbol, session)
   plan <- .prepare_plan_for_federation(plan, symbol, conns)
   contract <- .session_harmonization_for_connections(session, conns)
   if (!is.null(contract)) {
@@ -1745,11 +1783,21 @@ ds.omop.plan.preview <- function(plan, symbol = "omop",
     .validate_plan_harmonization(plan, contract)
   }
 
-  .ds_safe_aggregate(
+  .plan_preview_result(.ds_safe_aggregate(
     conns,
     expr = call("omopPlanPreviewDS",
                 session$res_symbol, .ds_encode(plan))
-  )
+  ), "ds.omop.plan.preview", result_type, reason, symbol)
+}
+
+# Wrap the per-server preview/validation payloads in a dsomop_result.
+.plan_preview_result <- function(raw, fn, result_type, reason, symbol) {
+  .result_type_view(dsomop_result(
+    per_site = raw, pooled = NULL,
+    meta = list(call_code = .build_code(fn, plan = "<plan>",
+                                        type = result_type,
+                                        symbol = symbol))),
+    result_type, reason)
 }
 
 #' Execute a plan and create server-side tables
@@ -1816,8 +1864,12 @@ ds.omop.plan.preview <- function(plan, symbol = "omop",
 #'   }
 #' @param symbol Character; name of the OMOP session symbol on the
 #'   server (default \code{"omop"}).
-#' @param conns DSI connection object(s). If \code{NULL}, uses the
-#'   connections stored in the session.
+#' @param conns Deprecated alias of \code{datasources}, kept for backward
+#'   compatibility (a one-time message names the new argument).
+#' @param datasources DataSHIELD connections (a named list of
+#'   \code{DSConnection} objects). \code{NULL} (the default) uses the OMOP
+#'   session's connections, or \code{DSI::datashield.connections_find()} when
+#'   no session exists. See \link{dsomop_conventions}.
 #' @param output_mode Character; \code{"memory"} (default, backwards
 #'   compatible) or \code{"staged"} (writes server-local files and returns
 #'   descriptors). Arrow provides Parquet; without it the server uses CSV.
@@ -1831,6 +1883,14 @@ ds.omop.plan.preview <- function(plan, symbol = "omop",
 #'   site lacks it, a v1 plan uses the 2.10.2 legacy call everywhere with one
 #'   warning, and \code{on_small_site} does not change that call; a language-2
 #'   plan is refused before assignment.
+#' @param small_categories Character; \code{"keep"} (the default) publishes
+#'   the outputs as computed. \code{"missing"} then makes, at each site, the
+#'   values of categories held by fewer than \code{nfilter.tab} people missing
+#'   in every published factor column, with secondary suppression (see
+#'   \code{\link{ds.omop.drop_small_categories}}), so that dsBase's
+#'   \code{ds.table()} and \code{ds.summary()} accept those columns. Levels,
+#'   labels and the codebook stay as published. In-memory outputs only; every
+#'   server needs dsOMOP 2.10.9.
 #' @details Loading tables never depends on differential privacy. After a
 #'   memory execution, concept columns are converted to factors harmonized
 #'   across servers (see \code{ds.omop.plan.options}).
@@ -1874,9 +1934,81 @@ ds.omop.plan.execute <- function(plan, out = NULL,
                                  symbol = "omop",
                                  conns = NULL,
                                  output_mode = "memory",
-                                 on_small_site = c("error", "skip")) {
-  .plan_execute_impl(plan, out = out, symbol = symbol, conns = conns,
-                     output_mode = output_mode, on_small_site = on_small_site)
+                                 on_small_site = c("error", "skip"),
+                                 datasources = NULL,
+                                 small_categories = c("keep", "missing")) {
+  conns <- .datasources_arg(datasources, conns, "ds.omop.plan.execute")
+  small_categories <- match.arg(small_categories)
+  if (identical(small_categories, "missing")) .plan_small_categories_check(symbol, conns, output_mode)
+  result <- .plan_execute_impl(plan, out = out, symbol = symbol, conns = conns,
+                               output_mode = output_mode, on_small_site = on_small_site)
+  if (identical(small_categories, "missing")) .plan_small_categories(symbol, conns)
+  invisible(result)
+}
+
+# small_categories = "missing" is checked before anything is published.
+.plan_small_categories_check <- function(symbol, conns, output_mode) {
+  if (!identical(output_mode, "memory")) {
+    stop("small_categories = \"missing\" applies to in-memory outputs; staged outputs release no counts.",
+         call. = FALSE)
+  }
+  session <- .get_session(symbol)
+  conns <- .resolve_datasources(conns, symbol, session)
+  .model_levels_assert_servers(session, names(conns), "2.10.9", "small_categories = \"missing\"")
+}
+
+# After publication, each output with factor columns is replaced by its copy
+# with small categories missing (the suppression of
+# ds.omop.drop_small_categories(); levels and contracts are kept). Every site
+# that published must use the same names; skipped sites take no part.
+.plan_small_categories <- function(symbol, conns) {
+  session <- .get_session(symbol)
+  conns <- .resolve_datasources(conns, symbol, session)
+  owned <- session$last_publication
+  sites <- intersect(names(owned)[vapply(owned, function(x) length(unlist(x)) > 0L, logical(1))], names(conns))
+  symbols <- lapply(owned[sites], function(x) sort(unique(unlist(x, use.names = FALSE))))
+  if (!length(sites) || !all(vapply(symbols, identical, logical(1), symbols[[1L]]))) {
+    warning("small_categories = \"missing\" needs the same output names at every site; the outputs were ",
+            "published unchanged (use ds.omop.drop_small_categories() on each).", call. = FALSE)
+    return(invisible(character()))
+  }
+  conns <- conns[sites]
+  replaced <- character()
+  for (x in symbols[[1L]]) {
+    reports <- .ds_safe_aggregate(conns, expr = call("omopFactorLevelsDS", as.name(x)))
+    if (length(attr(reports, "ds_errors")) || !all(names(conns) %in% names(reports))) {
+      warning("small_categories = \"missing\": '", x, "' was published unchanged; its levels could not be read: ",
+              paste(unlist(attr(reports, "ds_errors"), use.names = FALSE), collapse = "; "), call. = FALSE)
+      next
+    }
+    if (!length(unlist(lapply(reports, function(r) c(names(r$levels), r$unsafe))))) next
+    inventory <- unlist(.plan_symbol_inventory(conns, "Small categories"), use.names = FALSE)
+    copy <- NULL
+    for (attempt in seq_len(10L)) {
+      candidate <- .generate_symbol("dsOsmallout")
+      if (!candidate %in% inventory) { copy <- candidate; break }
+    }
+    if (is.null(copy)) stop("Could not reserve a symbol for the small-category copy of '", x, "'.", call. = FALSE)
+    tryCatch(.assign_expr_atomic(conns, copy,
+      expr = call("omopAsFactorColumnsDS", as.name(x),
+                  .ds_encode(list(kind = "suppress_small", columns = list(), joint = FALSE))),
+      context = "Small categories", session_symbol = symbol, required_symbols = x),
+      error = function(e) stop("small_categories = \"missing\": '", x, "' was published, but its small ",
+                               "categories could not be made missing: ", conditionMessage(e), call. = FALSE))
+    # The copy takes the published name at every site.
+    done <- character(); failed <- character()
+    DSI::datashield.assign.expr(conns, x, as.symbol(copy),
+      success = function(server) done <<- c(done, server),
+      error = function(server, message) failed[[server]] <<- message)
+    tryCatch(DSI::datashield.rm(conns, copy), error = function(e) NULL)
+    if (length(failed) || !setequal(done, names(conns))) {
+      stop("small_categories = \"missing\": '", x, "' has small categories missing on ",
+           paste(done, collapse = ", "), " only (", paste(failed, collapse = "; "),
+           "). Publish it again.", call. = FALSE)
+    }
+    replaced <- c(replaced, x)
+  }
+  invisible(replaced)
 }
 
 # Shared plan executor. Loading tables uses the core method
@@ -1901,9 +2033,10 @@ ds.omop.plan.execute <- function(plan, out = NULL,
   harmonize_factors <- TRUE
   session <- .get_session(symbol)
   session$concept_presentation <- NULL
+  session$last_publication <- NULL
   assign(symbol, session, envir = .dsomop_client_env)
   presentation_key <- .conceptPlanKey(plan)
-  conns <- conns %||% session$conns
+  conns <- .resolve_datasources(conns, symbol, session)
   if (.ohdsiHasImportedValidity(plan)) {
     language <- .v2_server_language(session, names(conns))
     capable <- vapply(names(conns), function(s) {
@@ -2132,6 +2265,7 @@ ds.omop.plan.execute <- function(plan, out = NULL,
     .record_session_outputs(symbol, unlist(owned, recursive = FALSE))
     session <- .get_session(symbol)
     session$concept_presentation <- list(key=presentation_key,sites=names(conns),components=presentation)
+    session$last_publication <- owned
     assign(symbol, session, envir=.dsomop_client_env)
     answer<-if (standard) out else inventories
     codebooks<-lapply(presentation,function(x)attr(x,"codebook"))
@@ -2645,7 +2779,8 @@ ds.omop.plan.execute <- function(plan, out = NULL,
 #' @param .retry Internal flag allowing one evidence refresh.
 #' @return Permitted resolution text invisibly, for the client publication receipt.
 #' @keywords internal
-.harmonizeOneSymbol <- function(sym, conns, .retry = TRUE) {
+.harmonizeOneSymbol <- function(sym, conns, .retry = TRUE,
+                                .fingerprint = getOption("dsomop.fingerprint_levels", TRUE)) {
   expected_servers <- names(conns)
   aggregate_success <- character(0)
   aggregate_errors <- character(0)
@@ -2660,8 +2795,11 @@ ds.omop.plan.execute <- function(plan, out = NULL,
   per_server <- list()
   for (target in unique(unname(sym))) {
     sites <- names(sym)[sym == target]
+    # dsOMOP 2.10.8 sends long public lists as fingerprints when asked.
+    expr <- if (isTRUE(.fingerprint)) call("omopFactorLevelsDS", as.symbol(target), fingerprint = TRUE) else
+      call("omopFactorLevelsDS", as.symbol(target))
     values <- tryCatch(DSI::datashield.aggregate(
-      conns[sites], call("omopFactorLevelsDS", as.symbol(target)),
+      conns[sites], expr,
       success = function(server, value) {
         aggregate_success <<- c(aggregate_success, server)
       },
@@ -2690,6 +2828,11 @@ ds.omop.plan.execute <- function(plan, out = NULL,
     names(aggregate_errors), missing_results, null_results, invalid_results,
     setdiff(expected_servers, aggregate_success)
   ))
+  # A server before 2.10.8 does not know the argument: collect plainly.
+  if (length(failed) > 0L && isTRUE(.fingerprint) && length(aggregate_errors) &&
+      all(grepl("unused argument", unlist(aggregate_errors), fixed = TRUE))) {
+    return(.harmonizeOneSymbol(sym, conns, .retry = .retry, .fingerprint = FALSE))
+  }
   if (length(failed) > 0L) {
     stop("Concept-factor level collection failed or was incomplete on: ",
          paste(failed, collapse = ", "), ". ",
@@ -2700,11 +2843,42 @@ ds.omop.plan.execute <- function(plan, out = NULL,
          } else "", call. = FALSE)
   }
   per_server <- per_server[expected_servers]
+  # A fingerprinted list is fetched once when every holder has the same one;
+  # different lists (versions, adaptive containers) are fetched from each.
+  compact <- list()
+  for (col in unique(unlist(lapply(per_server, function(x) names(x$lists)), use.names = FALSE))) {
+    holders <- names(per_server)[vapply(per_server, function(x) !is.null(x$lists[[col]]), logical(1))]
+    digests <- unique(vapply(holders, function(site) as.character(per_server[[site]]$lists[[col]]$digest), ""))
+    for (site in if (length(digests) == 1L) holders[[1L]] else holders) {
+      got <- tryCatch(DSI::datashield.aggregate(conns[site],
+        call("omopFactorLevelsDS", as.symbol(sym[[site]]), list_records = col))[[site]], error = function(e) e)
+      if (inherits(got, "error") || !identical(as.character(got$digest), as.character(per_server[[site]]$lists[[col]]$digest))) {
+        stop("Concept-factor level collection failed: the public list of '", col, "' could not be read on ", site,
+             ". Execution-owned artifacts were revoked and removed.", call. = FALSE)
+      }
+      per_server[[site]]$concepts[[col]] <- c(per_server[[site]]$concepts[[col]], got$records)
+      per_server[[site]]$levels[[col]] <- c(as.character(unlist(per_server[[site]]$levels[[col]])),
+                                            vapply(got$records, function(r) as.character(r$id), ""))
+      # Servers rebuild from a fingerprint only if every one holds that list.
+      if (length(digests) == 1L && setequal(holders, names(per_server)))
+        compact[[col]] <- list(digest = digests, n = per_server[[site]]$lists[[col]]$n, records = got$records)
+    }
+  }
+  fingerprinted <- isTRUE(.fingerprint) && any(vapply(per_server, function(x) !is.null(x$concept_protocol), logical(1)))
   spec <- if (any(vapply(per_server, function(x) !is.null(x$concept_protocol), logical(1)))) {
     .conceptUnionReports(per_server)
   } else .unionConceptLevels(per_server)
   if (length(spec) == 0L) {
     return(invisible(NULL))
+  }
+  broadcast <- .conceptSpecForServers(spec)
+  # dsBase-safe labels (dsOMOP 2.10.9), only when every site applies them.
+  safe_labels <- !isFALSE(getOption("dsomop.safe_labels", TRUE)) &&
+    all(vapply(per_server, function(x) isTRUE(x$safe_labels), logical(1)))
+  if (safe_labels) broadcast$safe_labels <- TRUE
+  if (fingerprinted) {
+    broadcast$fingerprint <- TRUE
+    for (col in names(compact)) broadcast$columns[[col]] <- .conceptCompactShared(broadcast$columns[[col]], compact[[col]])
   }
   assign_success <- character(0)
   assign_errors <- character(0)
@@ -2713,7 +2887,7 @@ ds.omop.plan.execute <- function(plan, out = NULL,
     sites <- names(sym)[sym == target]
     tryCatch(DSI::datashield.assign.expr(
       conns[sites], symbol = target,
-      expr = call("omopAsFactorColumnsDS", as.symbol(target), .ds_encode(spec)),
+      expr = call("omopAsFactorColumnsDS", as.symbol(target), .ds_encode(broadcast)),
       success = function(server) {
         assign_success <<- c(assign_success, server)
       },
@@ -2735,7 +2909,8 @@ ds.omop.plan.execute <- function(plan, out = NULL,
          paste(failed, collapse = ", "), ". ", detail, call. = FALSE)
   }
   lines<-attr(spec,"concept_explain") %||% character()
-  if(!is.null(spec$schema))attr(lines,"codebook")<-list(schema=spec$schema,categories=spec$columns)
+  categories<-if(isTRUE(safe_labels))lapply(spec$columns,.conceptSafeColumn) else spec$columns
+  if(!is.null(spec$schema))attr(lines,"codebook")<-list(schema=spec$schema,categories=categories)
   invisible(lines)
 }
 
@@ -3458,10 +3633,10 @@ ds.omop.plan.execute <- function(plan, out = NULL,
     stop("The plan changed after schema harmonization; call ",
          "ds.omop.plan.harmonize() again.", call. = FALSE)
   }
-  comparison <- ds.omop.compare(
+  comparison <- .quiet_aliases(ds.omop.compare(
     symbol = symbol, conns = conns,
     tables = names(contract$manifest$tables %||% list())
-  )
+  ))
   if (length(comparison$column_errors %||% character(0)) > 0L) {
     stop("Cannot revalidate the harmonized plan because schema introspection ",
          "is incomplete.", call. = FALSE)
@@ -3501,8 +3676,12 @@ ds.omop.plan.execute <- function(plan, out = NULL,
 #'   never weakened.
 #' @param symbol Character; name of the OMOP session symbol on the
 #'   server (default \code{"omop"}).
-#' @param conns DSI connection object(s). If \code{NULL}, uses the
-#'   connections stored in the session.
+#' @param conns Deprecated alias of \code{datasources}, kept for backward
+#'   compatibility (a one-time message names the new argument).
+#' @param datasources DataSHIELD connections (a named list of
+#'   \code{DSConnection} objects). \code{NULL} (the default) uses the OMOP
+#'   session's connections, or \code{DSI::datashield.connections_find()} when
+#'   no session exists. See \link{dsomop_conventions}.
 #' @return The harmonized \code{omop_plan} with outputs adjusted for
 #'   cross-server compatibility.
 #' @examples
@@ -3520,7 +3699,9 @@ ds.omop.plan.harmonize <- function(plan,
                                    mode = "intersection",
                                    strict = TRUE,
                                    symbol = "omop",
-                                   conns = NULL) {
+                                   conns = NULL,
+                                   datasources = NULL) {
+  conns <- .datasources_arg(datasources, conns, "ds.omop.plan.harmonize")
   if (!is.character(mode) || length(mode) != 1L || is.na(mode)) {
     stop("mode must be 'intersection'.", call. = FALSE)
   }
@@ -3552,9 +3733,9 @@ ds.omop.plan.harmonize <- function(plan,
     stop("Plan has semantics that cannot be safely harmonized: ",
          paste(manifest$issues, collapse = "; "), ".", call. = FALSE)
   }
-  comparison <- ds.omop.compare(
+  comparison <- .quiet_aliases(ds.omop.compare(
     symbol, conns, tables = names(manifest$tables)
-  )
+  ))
   column_errors <- comparison$column_errors %||% character(0)
   if (length(column_errors) > 0L) {
     stop("Cannot establish a common column contract for table(s): ",

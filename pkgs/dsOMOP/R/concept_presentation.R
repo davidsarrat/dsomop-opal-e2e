@@ -125,6 +125,11 @@
            else paste0("standard_concept = ", .quoteLiteral(standard, handle)), ")")
   }, "")
   where <- paste0(valid, " AND (", paste(same, collapse = " OR "), ")")
+  # Climb the public hierarchy only as far as needed; else (or on any failure)
+  # the kinds' list.
+  adaptive <- tryCatch(.conceptAdaptiveContainers(handle, bp, found, leftover, kind_keys, where, n, limit),
+                       error = function(e) NULL)
+  if (!is.null(adaptive)) return(adaptive)
   size <- suppressWarnings(as.numeric(.executeQuery(handle,
     paste0("SELECT COUNT(*) AS n FROM ", table, " WHERE ", where))$n))
   if (length(size) != 1L || is.na(size)) return(character())
@@ -134,8 +139,144 @@
             kinds = kind_keys)
 }
 
+# Adaptive containers (2.10.8): instead of every concept of the observed kinds,
+# declare the descendants of a few public hierarchy containers that hold the
+# observed values, climbing concept_ancestor only as far as the DataSHIELD rule
+# needs. At each separation every observed concept takes one ancestor (fewest
+# descendants, then smallest ID; the nearest lower one when its hierarchy skips
+# that separation or ends lower; itself when it has none). The first separation
+# whose containers, with the kinds and the leftover values, pass the rule once
+# is kept, and the list is the valid descendants of those containers of the
+# observed kinds.
+# Only the containers and kinds come from the data, and they are counted under
+# the rule (they never leave the server as such); the list is vocabulary
+# metadata, as calendars declare every period of their observed years.
+.conceptAdaptiveContainers <- function(handle, bp, found, leftover, kind_keys, kind_where, n, limit) {
+  tables <- bp$tables$table_name[bp$tables$present_in_db]
+  fields <- c("ancestor_concept_id", "descendant_concept_id", "min_levels_of_separation")
+  if (!"concept_ancestor" %in% tables || !all(fields %in% bp$columns$concept_ancestor$column_name)) return(NULL)
+  ancestry <- .qualifyTable(handle, "concept_ancestor", .resolveTableSchema(handle, "concept_ancestor", "Vocabulary"))
+  concept <- .qualifyTable(handle, "concept", .resolveTableSchema(handle, "concept", "Vocabulary"))
+  observed <- unique(.conceptIdText(found$concept_id))
+  up <- do.call(rbind, lapply(.sqlIdChunks(observed), function(chunk) .executeQuery(handle, paste0(
+    "SELECT descendant_concept_id, ancestor_concept_id, min_levels_of_separation FROM ", ancestry,
+    " WHERE min_levels_of_separation > 0 AND descendant_concept_id IN (", chunk, ")"))))
+  if (is.null(up) || !nrow(up)) return(NULL)
+  up <- data.frame(descendant = .conceptIdText(up$descendant_concept_id), ancestor = .conceptIdText(up$ancestor_concept_id),
+                   separation = suppressWarnings(as.numeric(up$min_levels_of_separation)), stringsAsFactors = FALSE)
+  up <- up[!is.na(up$separation) & up$ancestor != up$descendant, , drop = FALSE]
+  if (!nrow(up)) return(NULL)
+  candidates <- unique(up$ancestor)
+  counts <- do.call(rbind, lapply(.sqlIdChunks(candidates), function(chunk) .executeQuery(handle, paste0(
+    "SELECT ancestor_concept_id, COUNT(*) AS n FROM ", ancestry, " WHERE ancestor_concept_id IN (", chunk,
+    ") GROUP BY ancestor_concept_id"))))
+  size_of <- setNames(suppressWarnings(as.numeric(counts$n)), .conceptIdText(counts$ancestor_concept_id))
+  up$size <- unname(size_of[up$ancestor]); up$size[is.na(up$size)] <- Inf
+  # One ordering serves every height: per concept, highest separation first,
+  # then fewest descendants, then smallest ID.
+  up <- up[order(up$descendant, -up$separation, up$size, suppressWarnings(as.numeric(up$ancestor)), method = "radix"), , drop = FALSE]
+  for (s in sort(unique(up$separation))) {
+    # Each concept's ancestor at this height, or the nearest one below it
+    # (hierarchies may skip separations); a concept with none is its own
+    # container.
+    below <- up[up$separation <= s, , drop = FALSE]
+    first <- below[!duplicated(below$descendant), , drop = FALSE]
+    picks <- first$ancestor[match(observed, first$descendant)]
+    picks[is.na(picks)] <- observed[is.na(picks)]
+    containers <- unique(picks)
+    keys <- c(paste0("subtree:", containers), kind_keys)
+    if (!.omopConceptDiscovery(c(keys, leftover), n)$safe) next
+    # Every container's descendants, and observed containers themselves (a
+    # vocabulary need not list a concept as its own ancestor); all containers
+    # are counted under the rule.
+    alone <- intersect(containers, observed)
+    parents <- containers
+    # An admin's large nfilter.levels.max keeps every IN list short too.
+    under <- paste0("(", paste0("ancestor_concept_id IN (", .sqlIdChunks(parents), ")", collapse = " OR "), ")")
+    within <- paste0(kind_where, " AND concept_id IN (SELECT descendant_concept_id FROM ", ancestry, " WHERE ", under, ")")
+    size <- if (length(parents)) suppressWarnings(as.numeric(.executeQuery(handle,
+      paste0("SELECT COUNT(*) AS n FROM ", concept, " WHERE ", within))$n)) else 0
+    if (length(size) != 1L || is.na(size)) return(NULL)
+    # Higher containers only grow the list: past the limit here, it stays so.
+    if (size + length(alone) > limit) return(NULL)
+    listed <- if (size > 0) .conceptIdText(.executeQuery(handle,
+      paste0("SELECT concept_id FROM ", concept, " WHERE ", within))$concept_id) else character()
+    return(structure(union(listed, alone), kinds = keys))
+  }
+  NULL
+}
+
+# Fingerprint transport (2.10.8). A long public list of a plain concept column
+# travels as its digest: the declared identities whose records come from the
+# vocabulary (or decimal fallback), never user labels or observed values. Each
+# site still decides its own verdict; the list is only ever returned for a
+# column that passes it.
+.CONCEPT_LIST_MIN <- 500L
+.conceptListPart <- function(c) {
+  if (!is.null(c$kind) || isTRUE(c$reference_admitted)) return(character())
+  declared <- unique(as.character(unlist(c$declared, use.names = FALSE)))
+  if (length(declared) < .CONCEPT_LIST_MIN) return(character())
+  plain <- declared[vapply(c$records[declared], function(r)
+    is.list(r) && (r$origin %||% "") %in% c("vocabulary", "fallback"), logical(1))]
+  if (length(plain) < .CONCEPT_LIST_MIN) return(character())
+  plain[.conceptIdOrder(plain)]
+}
+.conceptListDigest <- function(records, ids) {
+  r <- records[ids]
+  field <- function(key) vapply(r, function(x) {
+    v <- x[[key]]
+    if (is.null(v) || !length(v) || is.na(v[[1L]])) "" else as.character(v[[1L]])
+  }, "", USE.NAMES = FALSE)
+  text <- paste(ids, field("name"), field("vocabulary"), field("version"), field("label"), field("origin"),
+                sep = "\t", collapse = "\n")
+  unclass(as.character(openssl::sha256(charToRaw(enc2utf8(text)))))
+}
+# Rebuild a compact shared column: the site's own copy of the list (checked by
+# its digest), the shared extra identities and the labels that differ from the
+# list's own resolution. The result equals the client's complete resolution.
+.conceptExpandShared <- function(c, shared) {
+  listed <- .conceptListPart(c)
+  if (!length(listed) || !identical(as.integer(unlist(shared$list$n)), length(listed)) ||
+      !identical(.conceptListDigest(c$records, listed), as.character(unlist(shared$list$digest)))) {
+    stop("The shared concept list changed; reconcile again.", call. = FALSE)
+  }
+  own <- .conceptResolve(unname(c$records[listed]))
+  extra <- as.character(unlist(shared$ids, use.names = FALSE))
+  labels <- setNames(own$labels, own$ids)
+  vocabulary <- setNames(unname(own$vocabulary), own$ids)
+  labels[extra] <- unname(.categoryNullableStrings(shared$labels))
+  vocabulary[extra] <- as.character(unlist(shared$vocabulary, use.names = FALSE))
+  ids <- union(listed, extra)
+  ids <- ids[.conceptIdOrder(ids)]
+  full <- shared
+  full$list <- NULL
+  full$ids <- ids
+  full$labels <- unname(labels[ids])
+  full$levels <- unique(unname(labels[ids]))
+  full$vocabulary <- unname(vocabulary[ids])
+  # The client's digest of its complete resolution: rebuilt exactly, or refused.
+  # A consistency check only; the rebuilt column then passes the same
+  # validation as a complete shared column.
+  rebuilt <- unclass(as.character(openssl::sha256(charToRaw(enc2utf8(paste(full$ids, full$labels, full$vocabulary,
+    sep = "\t", collapse = "\n"))))))
+  if (!identical(rebuilt, as.character(unlist(shared$list$resolution)))) {
+    stop("The shared concept resolution could not be rebuilt; reconcile again.", call. = FALSE)
+  }
+  full
+}
+# The records of a column's public list, for the client to fetch once.
+.conceptListRecords <- function(report, contracts, col) {
+  if (!is.character(col) || length(col) != 1L || is.na(col) || is.null(report$lists[[col]])) {
+    stop("No public concept list for this column.", call. = FALSE)
+  }
+  listed <- .conceptListPart(contracts[[col]])
+  list(column = col, digest = report$lists[[col]]$digest, records = unname(contracts[[col]]$records[listed]))
+}
+
 .conceptPresent <- function(ctx, frame, columns) {
-  n <- attr(frame, "omop_total_rows") %||% nrow(frame)
+  # Staged samples carry each column's observations over the whole output.
+  counted <- attr(frame, "omop_density_observations")
+  total <- attr(frame, "omop_total_rows")
   out <- .conceptPresentOnce(ctx, frame, columns)
   # A column that would be refused, and only such a column, is presented again
   # with its public list declared; recipes that publish are unchanged.
@@ -145,6 +286,7 @@
   too_long <- character()
   for (col in intersect(intersect(names(contracts), names(columns)), names(frame))) {
     c <- contracts[[col]]
+    n <- counted[[col]] %||% total %||% .densityObservations(frame, c$ids)
     if (isTRUE(.conceptAssessIds(c, c$ids, n)$safe)) next
     if (identical(c$kind, "date")) {
       dated <- tryCatch(.dateAutoDeclared(frame[[col]], n), error = function(e) NULL)
@@ -325,11 +467,11 @@
 
 .conceptAssess <- function(df, col, contract, discover = TRUE) {
   if (length(contract$ids) != nrow(df)) stop("Incomplete concept identity metadata.", call. = FALSE)
-  .conceptAssessIds(contract, contract$ids, nrow(df),
+  .conceptAssessIds(contract, contract$ids, .densityObservations(df, contract$ids),
     if(isTRUE(attr(df,"omop_concept_reference")))attr(df,"omop_reference_support"), discover)
 }
 
-.conceptLevelReport <- function(df, discover = TRUE) {
+.conceptLevelReport <- function(df, discover = TRUE, fingerprint = FALSE) {
   contracts <- attr(df, "omop_concepts") %||% list()
   refreshed <- .conceptRefresh(contracts, attr(df, "omop_generated_columns") %||% list(), attr(df, "omop_presentation_handle"))
   contracts <- refreshed$contracts
@@ -346,11 +488,17 @@
       next
     }
     permitted <- union(a$levels, c$declared)
+    listed <- if (isTRUE(fingerprint)) .conceptListPart(c) else character()
+    if (length(listed)) {
+      out$lists[[col]] <- list(n = length(listed), digest = .conceptListDigest(c$records, listed))
+      permitted <- setdiff(permitted, listed)
+    }
     out$levels[[col]] <- permitted
     out$concepts[[col]] <- unname(c$records[permitted])
     if (identical(c$kind, "date")) out$calendars[[col]] <- c$calendar
     if (identical(c$kind, "category")) out$categories[[col]] <- c$category
     if (length(c$reference_keys)) out$reference_names[[col]] <- unique(unname(c$reference_keys))
+    if (isTRUE(c$resolved$safe_labels)) out$safe_columns <- c(out$safe_columns, col)
   }
   generated <- refreshed$generated
   out$generated <- list()
@@ -370,15 +518,18 @@
   out$numbers <- attr(df,"omop_numbers") %||% list()
   out$keys <- setdiff(names(attr(df, "omop_column_names")) %||% names(df), refused_keys)
   if(!is.null(attr(df,"omop_codebook_schema")))out$schema<-attr(df,"omop_codebook_schema")
+  # Capability: this server applies dsBase-safe labels when the client asks.
+  out$safe_labels <- TRUE
   out$evidence <- .conceptEvidence(out)
   out
 }
 
 .conceptRelevel <- function(df, spec, table_column = NULL) {
+  # A table copy tokenises one column, or two for a two-way table.
   if (!is.null(table_column) &&
       (!.is_omop.table(df) || !is.character(table_column) ||
-       length(table_column) != 1L || is.na(table_column) ||
-       !table_column %in% names(attr(df, "omop_concepts")))) {
+       !length(table_column) %in% 1:2 || anyNA(table_column) || anyDuplicated(table_column) ||
+       !all(table_column %in% names(attr(df, "omop_concepts"))))) {
     stop("Table analysis requires a published concept column in an omop.table.", call. = FALSE)
   }
   provenance <- NULL
@@ -389,7 +540,7 @@
   original <- df
   # The site's own verdict on its observed levels applies at assignment too:
   # a column this site refuses is never relevelled, whatever evidence is sent.
-  report <- .conceptLevelReport(df)
+  report <- .conceptLevelReport(df, fingerprint = isTRUE(spec$fingerprint))
   .conceptSiteVerdict(report)
   .conceptCheckEvidence(report, spec, !is.null(attr(df, "omop_presentation_handle")))
   # Legacy factor-only calls leave numeric values and semantics untouched.
@@ -406,10 +557,16 @@
   for (col in names(contracts)) {
     c <- contracts[[col]]
     shared <- spec$columns[[col]]
+    if (!is.null(shared$list)) {
+      shared <- .conceptExpandShared(c, shared)
+      spec$columns[[col]] <- shared
+    }
     if (identical(c$kind, "date") && !identical(.jcsCanonical(shared$calendar), .jcsCanonical(c$calendar))) .dateReject("Changed shared calendar identity.")
     if(identical(c$kind,"category")&&!identical(.jcsCanonical(shared$category),.jcsCanonical(c$category))) .categoryReject("Changed category contract.","category_domain_incompatible")
     a <- .conceptAssess(df, col, c, discover = FALSE)
     .conceptValidateResolution(shared, c$records[union(a$levels,c$declared)])
+    # Labels every dsBase function carries, when the client asks for them.
+    if (isTRUE(spec$safe_labels) && is.null(table_column)) shared <- .conceptSafeShared(shared)
     ids <- as.character(unlist(shared$ids, use.names = FALSE))
     labels <- unname(.categoryNullableStrings(shared$labels))
     levels <- as.character(unlist(shared$levels, use.names = FALSE))
@@ -422,11 +579,11 @@
     }
     values <- labels[match(c$ids, ids)]
     df[[col]] <- if (identical(c$kind,"category")) .categoryFactor(values,shared) else if ((c$kind %||% "") %in% c("date","number")) .dateOrdered(values, levels = levels) else .conceptFactor(values, levels = levels)
-    if (identical(col, table_column)) {
+    if (col %in% table_column) {
       # One token per resolved category, including deliberate recode merges.
       # Only ASCII tokens cross dsBase's comma-delimited level transport.
       # Relabelling levels preserves every factor code and actual NA exactly.
-      levels(df[[col]]) <- paste0("C", seq_along(levels))
+      levels(df[[col]]) <- paste0(c("C", "D")[[match(col, table_column)]], seq_along(levels))
     }
     c$resolved <- shared
     contracts[[col]] <- c
@@ -561,14 +718,16 @@
 }
 
 .conceptEvidence <- function(report) {
-  keys<-c("concepts","generated","keys","reference_names","numbers","schema","categories")
+  keys<-c("concepts","generated","keys","reference_names","numbers","schema","categories","lists")
   evidence<-setNames(lapply(keys,function(k)report[[k]]),keys)
   as.character(openssl::sha256(charToRaw(.conceptEncode(evidence))))
 }
 
 .conceptCheckEvidence <- function(report, spec, required = FALSE) {
   if (required || length(spec$evidence)) {
-    if (!.conceptEvidence(report) %in% as.character(unlist(spec$evidence, use.names = FALSE))) {
+    # A report already carries its digest; encoding it again doubles the cost.
+    evidence <- report$evidence %||% .conceptEvidence(report)
+    if (!evidence %in% as.character(unlist(spec$evidence, use.names = FALSE))) {
       stop('Concept presentation evidence changed; reconcile again.', call. = FALSE)
     }
   }
