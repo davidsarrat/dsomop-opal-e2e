@@ -1605,6 +1605,22 @@ section("G24", "dsBase-safe labels, small categories and ds.table()-shaped table
           "ds.omop.table() returns ds.table()'s object (per site and combined) and two-way tables with small cells made missing",
           sprintf("one-way shaped: %s; two-way cells 0 or >= 3: %s; %s", shaped, two_way,
                   paste(c(if (!is.null(t1) && !t1$ok) last_server_error(t1$error), if (!is.null(t2) && !t2$ok) last_server_error(t2$error)), collapse = " | ")))
+  # Publishing with small categories missing: dsBase's summary and table and ds.omop.table() work on the output,
+  # which keeps its contract; ds.omop.table() also passes a contract-free copy's factor to ds.table().
+  rs <- if (pub$ok) capture_ds("G24: recipe_execute(Q6 + sex -> G_rs, small_categories = missing)",
+    recipe_execute(r, out = c(lab = "G_rs"), symbol = s$symbol, datasources = s$conns, small_categories = "missing")) else NULL
+  rs_ok <- !is.null(rs) && rs$ok
+  rs_sum <- if (rs_ok) capture_ds("G24: dsBaseClient::ds.summary(G_rs$q6)", dsBaseClient::ds.summary(paste0("G_rs$", col), datasources = s$conns)) else NULL
+  rs_tab <- if (rs_ok) capture_ds("G24: ds.omop.table(G_rs, q6)", ds.omop.table("G_rs", col, datasources = s$conns)) else NULL
+  copy_tab <- if (!is.null(small) && small$ok) capture_ds("G24: ds.omop.table(G_small, q6)", ds.omop.table("G_small", col, datasources = s$conns)) else NULL
+  valid <- function(x) !is.null(x) && x$ok && identical(x$value$validity.message, "Data in all studies were valid")
+  rs_summary <- !is.null(rs_sum) && rs_sum$ok && all(vapply(rs_sum$value, is.list, logical(1)))
+  verdict("G24d", if (rs_ok && rs_summary && valid(rs_tab) && valid(copy_tab)) "PASS" else "FAIL",
+          "recipe_execute(small_categories = \"missing\") publishes outputs that ds.summary(), ds.table() and ds.omop.table() accept",
+          sprintf("published: %s; ds.summary valid: %s; ds.omop.table valid: %s; ds.omop.table on the drop_small_categories copy valid: %s; %s",
+                  rs_ok, rs_summary, valid(rs_tab), valid(copy_tab),
+                  paste(c(if (!is.null(rs) && !rs$ok) last_server_error(rs$error), if (!is.null(rs_tab) && !rs_tab$ok) last_server_error(rs_tab$error),
+                          if (!is.null(copy_tab) && !copy_tab$ok) last_server_error(copy_tab$error)), collapse = " | ")))
 })
 
 section("G3b", "how long the automatic data generation takes on this CDM", function() {
