@@ -1,0 +1,183 @@
+# Populations, index dates and study recipes
+
+## Imported populations in 2.10.5
+
+Import OHDSI definitions to attach the executable `ohdsi-import-1`
+vocabulary validity policy. A matching capable server checks included
+and excluded public concepts; unsupported clauses refuse with structural
+diagnostics from `recipe_circe_check()`. `recipe_circe_support()`
+describes the directional subset. An explicit coverage declaration
+overrides the imported coverage default. Edits retain source provenance
+and mark the population as a derivative; they do not establish
+equivalence with the original phenotype. Keep half-open numeric ranges
+and authenticated safe-bin filters in native recipes.
+
+This chapter follows the 2.10.5 recipe API contract. Examples are not
+evaluated during documentation builds because they need authenticated
+connections and study-specific concept definitions. Use matching client
+and server packages and check the server’s advertised operations before
+execution. A recipe describes work beside the database; patient rows
+stay on the DataSHIELD server.
+
+## Start with a study question
+
+Suppose we want adults starting metformin, with a year of observable
+history, and follow them for myocardial infarction. Concept IDs below
+are illustrative: review their vocabulary definitions and descendants
+for your study.
+
+``` r
+library(dsOMOPClient)
+metformin <- omop_concept_set(1503297, descendants = TRUE)
+diabetes <- omop_concept_set(201826, descendants = TRUE)
+mi <- omop_event("condition_occurrence", 432984, descendants = TRUE)
+
+study <- omop_study(
+  index = omop_new_users(metformin, washout_days = 365,
+                         select = "first_eligible", by = "ingredient"),
+  require = list(age = c(18, NA),
+                 has = list(omop_event("condition_occurrence", diabetes))),
+  baseline = list(age = omop_age(), sex = omop_sex(),
+                  visits = omop_count("visit_occurrence", before = 365)),
+  outcomes = list(mi = mi),
+  follow_up = list(start = 1, end = 365,
+                   censor = c("observation_end", "death")),
+  outputs = c("baseline", "survival"), name = "metformin_study")
+print(study)
+recipe_to_code(study)
+```
+
+The simple layer returns an ordinary advanced recipe. `print()` shows
+its choices and `recipe_to_code()` makes them reproducible. It uses
+episode grain, relative dates and priority ties. Baseline becomes a wide
+output; one outcome becomes survival, while multiple outcomes become
+competing risk (the first selected cause, not every later event). `long`
+uses outcome events; `panel` counts them in 30-day bins. Those outputs
+require outcomes; baseline requires variables. With no explicit
+follow-up settings, start is day 1, the end is unbounded, and
+observation end and death censor follow-up.
+
+`omop_new_users()` indexes drug eras (default gap 30 days), uses the
+interval end for the episode end, and requires the washout to be
+observed and free of the drug on days -365 through -1. Giving that
+population to `omop_study()` keeps its index and criteria and adds
+`require`. The default `require$has` looks through the index day;
+`no_history_of` stops the day before it.
+
+## Make the population explicit
+
+Use the advanced layer when the index, coverage, eligibility or output
+grain needs a different policy. Here the first eligible exposure is
+selected; this is deliberately an exposure-indexed example, not the
+era-indexed expansion of the previous study.
+
+``` r
+rx <- omop_event("drug_exposure", metformin)
+pop <- omop_population(
+  id = "users", label = "Eligible metformin starts",
+  index = omop_index(rx, select = "first_eligible",
+                     end = omop_end("observation_end")),
+  coverage = omop_coverage(policy = "unique", on_ambiguous = "drop",
+                           on_missing = "drop"),
+  filters = list(
+    omop_observed(before = 365),
+    omop_has_not(rx, window = omop_window(-365, -1)),
+    omop_has(omop_event("condition_occurrence", diabetes),
+             window = omop_window(NULL, 0)),
+    omop_age_is(min = 18)))
+
+recipe <- omop_recipe(
+  populations = list(users = pop),
+  variables = list(age = omop_age(), sex = omop_sex()),
+  outputs = list(baseline = omop_output(
+    "baseline", format = "wide", rows = "users", grain = "episode",
+    columns = c("age", "sex"))))
+```
+
+`first` selects a candidate before eligibility; an ineligible first
+candidate can therefore leave no episode. `first_eligible` evaluates
+each candidate’s criteria and then selects. `all` keeps recurrent
+qualifying episodes. An index offset applies before coverage lookup. By
+default an index must lie in one unique observation period; ambiguous
+candidates are dropped privately. `on_ambiguous = "error"` requests a
+bounded typed refusal instead. Union coverage can bridge a declared gap
+for episode construction, but observed-day reducers still count only
+recorded observed days.
+
+Windows use inclusive whole days. A missing required anchor makes a
+criterion UNKNOWN, including absence and `count == 0`; NOT of UNKNOWN
+remains UNKNOWN. Only TRUE candidates survive. An available event with
+no rows is different from an unavailable table: `on_missing_table =
+"unavailable"` makes criteria UNKNOWN and features NA, rather than
+manufacturing absence or zero.
+
+## Combine criteria and populations
+
+A predicate inside one event must hold on the same row. Separate
+`omop_has()` criteria may be satisfied by different rows. Distinct visit
+counts ignore missing visit keys.
+
+``` r
+positive_lab <- omop_event("measurement", 3004410,
+                           where = omop_where(value_as_number >= 7))
+criterion <- omop_all(
+  omop_has(positive_lab, window = omop_window(-90, 0)),
+  omop_has(omop_event("visit_occurrence", 9201),
+           window = omop_window(-365, 0), distinct = "visit"))
+child <- omop_population(id = "lab_users", parent_id = "users",
+                         filters = list(criterion))
+recipe <- recipe_add_population(recipe, child)
+```
+
+A child without its own index inherits its parent’s episodes before
+evaluating index-relative criteria. A child with its own index keeps
+those episodes and intersects the parent’s persons. Union, intersection
+and difference are private population operations; small operands are
+allowed. Only a final published patient component must meet
+`nfilter.subset`, measured in distinct persons, not episode rows. An
+empty final patient component has support zero.
+
+A persisted results cohort is another index source:
+
+``` r
+external <- omop_population(id = "external",
+  index = omop_index(list(cohort_definition_id = 42),
+                     end = omop_end("event_end")))
+```
+
+Its start/end come from the cohort rows; the ordinary coverage and end
+rules still apply. A cohort identifier used as a selector must be
+positive. Existing `ds.omop.cohort.create()`, `.combine()` and
+`.from_table()` workflows remain available; cohort handles are private
+inputs, not a way to retrieve rows.
+
+## Inspect, execute and retain the inventory
+
+``` r
+ds.omop.server.version(conns)[c("server", "published", "running", "ready")]
+recipe_lint(recipe)
+recipe_validate(recipe, conns = conns)
+recipe_explain(recipe, conns = conns)
+plan <- recipe_to_plan(recipe)
+result <- recipe_execute(recipe, out = c(baseline = "D_baseline"),
+                         conns = conns, on_small_site = "error")
+```
+
+`conns` is your existing DataSHIELD connection list. Explain describes
+the plan and capabilities without private candidate or support counts.
+Execution returns the server’s committed inventory: retain it, since
+occupied symbol names cause fresh names to be allocated. A partial `out`
+mapping publishes only those mapped roots unless `publish` is explicitly
+supplied.
+
+With the default strict server, a small final root causes federation
+rollback. `on_small_site = "skip"` keeps passing sites and returns NULL
+for a small site. On a non-strict server, `error` returns passing
+families with a warning and `partial` status; `skip` commits nothing at
+that site if any family is small. Technical failures always raise errors
+and trigger cleanup. The client reads `omopPlanStatusDS` before deleting
+its execution symbol.
+
+Continue with [outputs and
+reducers](https://isglobal-brge.github.io/dsOMOPClient/articles/v04_extraction.md)
+to build analysis columns, including education level and cause of death.

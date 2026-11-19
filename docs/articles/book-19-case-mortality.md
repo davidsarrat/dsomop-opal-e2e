@@ -1,0 +1,287 @@
+# 19\. Case study: cause-specific mortality by age, sex and period
+
+**What you will learn**
+
+Define a calendar-year risk set, calculate cause-specific deaths and
+person-years, and compare crude rates by sex, age at period start and
+year.
+
+**You need:** the Opal login from [Getting
+started](https://isglobal-brge.github.io/dsOMOPClient/articles/book-00-start.md)
+and [the cause-of-death
+capstone](https://isglobal-brge.github.io/dsOMOPClient/articles/book-18-capstone.md).
+This chapter uses `omop.questionnaire`.
+
+## Research question
+
+How do recorded cause-specific mortality rates differ between 2023 and
+2024? The questionnaire data have deaths in both years. Everyone is
+observed from 2019 through 2025, with observation for this analysis
+stopping at death. Thus the population alive at each year’s start can
+contribute the whole year or time up to death. In a dataset with gaps or
+later entry, intersect each observation interval with the analysis year
+as well.
+
+``` r
+library(dsOMOPClient)
+conns <- ds.omop.login("https://localhost:8443", user = "administrator",
+  password = "password", resource = "omop.questionnaire", server = "site")$conns
+```
+
+## Find the causes
+
+``` r
+catalogue <- ds.omop.concept.lookup(c(900201L, 900202L), datasources = conns)$pooled
+catalogue[c("concept_id", "concept_name", "domain_id")]
+```
+
+| concept\_id | concept\_name         | domain\_id |
+| ----------: | :-------------------- | :--------- |
+|      900201 | Myocardial infarction | Condition  |
+|      900202 | Pneumonia             | Condition  |
+
+``` r
+ds.omop.concept.prevalence("death", type = "both", datasources = conns)$pooled
+```
+
+| concept\_id | concept\_name         | n\_persons | n\_records |
+| ----------: | :-------------------- | ---------: | ---------: |
+|      900201 | Myocardial infarction |         20 |         20 |
+|      900202 | Pneumonia             |         10 |         10 |
+
+``` r
+mi <- omop_event("death", 900201L)
+pneumonia <- omop_event("death", 900202L)
+```
+
+Myocardial infarction is **900201** and Pneumonia is **900202**. The
+inventory’s person counts are rounded down to multiples of five: 20 and
+10 indicate bands 20–24 and 10–14. They are not period-specific
+numerators; we calculate those next.
+
+## Define age for everyone at risk
+
+Age at death cannot classify survivors’ person-time. Use completed age
+at the **start of the year**, preserving missing age where the birth
+date is incomplete. Each binary cause indicator looks only within the
+selected year. A missing cause is distinct from no recorded death from
+that cause.
+
+``` r
+period_recipe <- function(start, days) {
+  window <- omop_window(0, days - 1, anchor = start)
+  omop_recipe(variables = list(
+    sex = omop_sex(),
+    age = omop_age_at(start),
+    death_days = omop_time_between(start, "death"),
+    mi = omop_variable(event = mi, reducer = omop_reduce("binary", window = window)),
+    pneumonia = omop_variable(event = pneumonia, reducer = omop_reduce("binary", window = window))))
+}
+recipe_execute(period_recipe("2024-01-01", 366), out = "D_2024", datasources = conns)
+ds.omop.filter("D_2024", expr = omop_where(is.na(death_days) | death_days >= 0),
+  newobj = "D_alive_2024", datasources = conns)
+ds.omop.mutate("D_alive_2024", potential_days = coalesce(death_days, 366),
+  risk_days = ifelse(potential_days > 366, 366, potential_days),
+  age_group = ifelse(is.na(age), "Missing", ifelse(age < 40, "under 40", "40 and over")),
+  cause = ifelse(mi == 1, "Myocardial infarction",
+    ifelse(pneumonia == 1, "Pneumonia", "Neither selected cause")),
+  newobj = "D_risk_2024", datasources = conns)
+```
+
+Remove people already dead before January 1. A survivor contributes 366
+days in 2024; someone who dies contributes elapsed days to death,
+excluding the death day. We convert days to person-years using
+**365.25**, a fixed unit conversion; it does not change the actual
+366-day calendar boundary.
+
+## Look at deaths before calculating rates
+
+``` r
+dsBaseClient::ds.table("D_risk_2024$cause",
+  "D_risk_2024$sex", useNA = "always",
+  datasources = conns)$output.list$TABLES.COMBINED_all.sources_counts
+```
+
+|                        | F | M | NA |
+| :--------------------- | -: | -: | -: |
+| Myocardial infarction  | 4 | 8 |  0 |
+| Neither selected cause | 6 | 6 |  0 |
+| Pneumonia              | 3 | 3 |  0 |
+| NA                     | 0 | 0 |  0 |
+
+F means female and M means male. In 2024 there are four female and eight
+male myocardial-infarction deaths, and three pneumonia deaths in each
+sex. Six people of each sex survive the year. The “Neither selected
+cause” row contains survivors in this dataset; in another study it could
+also contain other causes. The denominators include survivors’ time.
+
+``` r
+dsBaseClient::ds.table("D_risk_2024$cause",
+  "D_risk_2024$age_group", useNA = "always",
+  datasources = conns)$output.list$TABLES.COMBINED_all.sources_counts
+```
+
+|                        | 40 and over | Missing | under 40 | NA |
+| :--------------------- | ----------: | ------: | -------: | -: |
+| Myocardial infarction  |           6 |       6 |        0 |  0 |
+| Neither selected cause |          12 |       0 |        0 |  0 |
+| Pneumonia              |           0 |       0 |        6 |  0 |
+| NA                     |           0 |       0 |        0 |  0 |
+
+Six pneumonia deaths are under 40 at period start. Six
+myocardial-infarction deaths are 40 or over and six have missing age.
+Keep the missing-age group in the calculation so that these deaths and
+their person-time do not disappear.
+
+## Calculate crude rates and uncertainty
+
+The following function combines only released aggregates. Multiplying a
+released mean by its valid N obtains the total for that same column.
+Every cause indicator and the time column must describe the same
+complete roster. The exact Poisson interval treats person-time as fixed
+and deaths as a Poisson count.
+
+``` r
+released_rates <- function(table, group, year) {
+  days <- dsBaseClient::ds.mean(paste0(table, "$risk_days"),
+    type = "combine", datasources = conns)$Global.Mean
+  py <- days[1, "EstimatedMean"] * days[1, "Nvalid"] / 365.25
+  do.call(rbind, lapply(c(mi = "Myocardial infarction", pneumonia = "Pneumonia"), function(cause) {
+    variable <- if (cause == "Pneumonia") "pneumonia" else "mi"
+    x <- dsBaseClient::ds.mean(paste0(table, "$", variable),
+      type = "combine", datasources = conns)$Global.Mean
+    stopifnot(x[1, "Nvalid"] == days[1, "Nvalid"], x[1, "Nmissing"] == 0,
+      days[1, "Nmissing"] == 0)
+    deaths <- round(x[1, "EstimatedMean"] * x[1, "Nvalid"])
+    ci <- stats::poisson.test(deaths, T = py)$conf.int * 1000
+    data.frame(Year = year, Group = group, Cause = cause, People = days[1, "Nvalid"],
+      Deaths = deaths, Person_years = py, Rate_per_1000 = 1000 * deaths / py,
+      Lower_95 = ci[1], Upper_95 = ci[2])
+  }))
+}
+rates_2024 <- released_rates("D_risk_2024", "All", 2024)
+rates_2024
+```
+
+| Year | Group | Cause                 | People | Deaths | Person\_years | Rate\_per\_1000 | Lower\_95 | Upper\_95 |
+| ---: | :---- | :-------------------- | -----: | -----: | ------------: | --------------: | --------: | --------: |
+| 2024 | All   | Myocardial infarction |     30 |     12 |         22.03 |          544.74 |    281.48 |    951.56 |
+| 2024 | All   | Pneumonia             |     30 |      6 |         22.03 |          272.37 |     99.96 |    592.84 |
+
+In 2024, 30 people contribute 22.03 person-years. The
+myocardial-infarction rate is 544.74 per 1,000 person-years (95% CI
+281.48–951.56), and the pneumonia rate is 272.37 (99.96–592.84). These
+intervals are wide because only 12 myocardial-infarction deaths and six
+pneumonia deaths support the respective rate estimates. These are
+**crude** rates: they do not adjust for the age distribution. The
+intentionally high mortality in this small synthetic population is a
+teaching example, not an estimate for a clinical population.
+
+## Use each group’s own denominator
+
+``` r
+sex_rates <- do.call(rbind, lapply(c("F", "M"), function(label) {
+  ds.omop.filter("D_risk_2024", var = "sex", op = "==", value = label,
+    newobj = paste0("D_sex_", label), datasources = conns)
+  released_rates(paste0("D_sex_", label), if (label == "F") "Female" else "Male", 2024)
+}))
+age_rates <- do.call(rbind, lapply(c("under 40", "40 and over", "Missing"), function(label) {
+  object <- paste0("D_age_", match(label, c("under 40", "40 and over", "Missing")))
+  ds.omop.filter("D_risk_2024", var = "age_group", op = "==", value = label,
+    newobj = object, datasources = conns)
+  released_rates(object, label, 2024)
+}))
+sex_rates
+```
+
+| Year | Group  | Cause                 | People | Deaths | Person\_years | Rate\_per\_1000 | Lower\_95 | Upper\_95 |
+| ---: | :----- | :-------------------- | -----: | -----: | ------------: | --------------: | --------: | --------: |
+| 2024 | Female | Myocardial infarction |     13 |      4 |          9.55 |          418.98 |    114.16 |   1072.77 |
+| 2024 | Female | Pneumonia             |     13 |      3 |          9.55 |          314.24 |     64.80 |    918.34 |
+| 2024 | Male   | Myocardial infarction |     17 |      8 |         12.48 |          640.93 |    276.71 |   1262.89 |
+| 2024 | Male   | Pneumonia             |     17 |      3 |         12.48 |          240.35 |     49.57 |    702.40 |
+
+``` r
+age_rates
+```
+
+| Year | Group       | Cause                 | People | Deaths | Person\_years | Rate\_per\_1000 | Lower\_95 | Upper\_95 |
+| ---: | :---------- | :-------------------- | -----: | -----: | ------------: | --------------: | --------: | --------: |
+| 2024 | under 40    | Myocardial infarction |      6 |      0 |          1.20 |            0.00 |      0.00 |   3076.17 |
+| 2024 | under 40    | Pneumonia             |      6 |      6 |          1.20 |         5003.42 |   1836.17 |  10890.35 |
+| 2024 | 40 and over | Myocardial infarction |     18 |      6 |         17.53 |          342.31 |    125.62 |    745.08 |
+| 2024 | 40 and over | Pneumonia             |     18 |      0 |         17.53 |            0.00 |      0.00 |    210.46 |
+| 2024 | Missing     | Myocardial infarction |      6 |      6 |          3.30 |         1817.16 |    666.87 |   3955.20 |
+| 2024 | Missing     | Pneumonia             |      6 |      0 |          3.30 |            0.00 |      0.00 |   1117.22 |
+
+The male myocardial-infarction rate is 640.93 per 1,000 person-years
+(95% CI 276.71–1,262.89), against 418.98 (114.16–1,072.77) in females.
+The intervals overlap. Under-40 pneumonia has six deaths in only 1.20
+person-years, giving 5,003.42 per 1,000 person-years: a rate can exceed
+1,000 because it is not a percentage. Age-specific rates use the age
+group’s own time, including survivors. A zero observed count has a
+positive upper confidence limit; it does not establish that the
+underlying rate is zero. Small cells may be withheld in other datasets;
+never replace a withheld result with zero.
+
+## Exercises
+
+**1. Repeat the analysis for 2023.** Use 365 calendar days. Does the
+same number of deaths imply the same rate?
+
+Solution 1
+
+``` r
+recipe_execute(period_recipe("2023-01-01", 365), out = "D_2023", datasources = conns)
+ds.omop.filter("D_2023", expr = omop_where(is.na(death_days) | death_days >= 0),
+  newobj = "D_alive_2023", datasources = conns)
+ds.omop.mutate("D_alive_2023", potential_days = coalesce(death_days, 365),
+  risk_days = ifelse(potential_days > 365, 365, potential_days),
+  newobj = "D_risk_2023", datasources = conns)
+rates_2023 <- released_rates("D_risk_2023", "All", 2023)
+rbind(rates_2023, rates_2024)
+```
+
+| Year | Group | Cause                 | People | Deaths | Person\_years | Rate\_per\_1000 | Lower\_95 | Upper\_95 |
+| ---: | :---- | :-------------------- | -----: | -----: | ------------: | --------------: | --------: | --------: |
+| 2023 | All   | Myocardial infarction |     48 |     12 |         39.93 |          300.49 |    155.27 |    524.90 |
+| 2023 | All   | Pneumonia             |     48 |      6 |         39.93 |          150.25 |     55.14 |    327.02 |
+| 2024 | All   | Myocardial infarction |     30 |     12 |         22.03 |          544.74 |    281.48 |    951.56 |
+| 2024 | All   | Pneumonia             |     30 |      6 |         22.03 |          272.37 |     99.96 |    592.84 |
+
+Both years have 12 myocardial-infarction and six pneumonia deaths. The
+2023 risk set contains 48 people; the 2024 risk set contains 30 after
+excluding 18 earlier deaths. In 2023, 39.93 person-years give rates of
+300.49 for myocardial infarction (95% CI 155.27–524.90) and 150.25 for
+pneumonia (55.14–327.02). More person-time in 2023 gives lower rates
+despite equal numerators.
+
+**2. Distinguish a risk from a rate.** What fraction of those alive at
+the start of 2024 die from each cause during that year?
+
+Solution 2
+
+``` r
+data.frame(Cause = rates_2024$Cause,
+  Deaths = rates_2024$Deaths, People_at_start = rates_2024$People,
+  Percent = 100 * rates_2024$Deaths / rates_2024$People)
+```
+
+| Cause                 | Deaths | People\_at\_start | Percent |
+| :-------------------- | -----: | ----------------: | ------: |
+| Myocardial infarction |     12 |                30 |      40 |
+| Pneumonia             |      6 |                30 |      20 |
+
+The risks are 40% for myocardial infarction and 20% for pneumonia over
+2024. Their denominator is 30 people, whereas the rate denominator is
+person-years. This simple risk calculation relies on complete follow-up
+to death or year end.
+
+## Recap
+
+Restrict both deaths and person-time to the same year. Define age for
+survivors as well as decedents, preserve missing-age time, and report
+counts, denominators, rates and uncertainty together.
+
+**Next:** [20. Case study: celecoxib versus
+diclofenac](https://isglobal-brge.github.io/dsOMOPClient/articles/book-20-case-gibleed.md).
