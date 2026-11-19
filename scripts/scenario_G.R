@@ -1505,12 +1505,22 @@ section("G23", "adaptive hierarchy levels, fingerprint transport and verbs on pu
   dims <- if (b$ok) capture_ds("G23: dsBaseClient::ds.dim(G_adaptive, G_adaptive_b)",
     list(src = dsBaseClient::ds.dim("G_adaptive", type = "split", datasources = s$conns),
          out = dsBaseClient::ds.dim("G_adaptive_b", type = "split", datasources = s$conns))) else NULL
-  rows <- if (!is.null(dims) && dims$ok) vapply(names(dims$value$src), function(k)
-    identical(as.numeric(dims$value$out[[k]][[1L]]), 2 * as.numeric(dims$value$src[[k]][[1L]])), logical(1)) else FALSE
-  verdict("G23c", if (f$ok && b$ok && all(rows)) "PASS" else "FAIL",
-          "filter and bind_rows work on a reconciled recipe output (failed before 2.10.8)",
-          sprintf("filter: %s; bind_rows: %s; stacked rows double the source: %s; %s", f$ok, b$ok, paste(rows, collapse = "/"),
-                  paste(c(if (!f$ok) last_server_error(f$error), if (!b$ok) last_server_error(b$error)), collapse = " | ")))
+  # ds.dim names its answers after the object: compare the sites by position.
+  rows <- if (!is.null(dims) && dims$ok) mapply(function(src, out) identical(as.numeric(out[[1L]]), 2 * as.numeric(src[[1L]])),
+                                                 dims$value$src, dims$value$out) else FALSE
+  # Level reports on the results read the rows they keep or stack.
+  levels_of <- function(x) lapply(DSI::datashield.aggregate(s$conns, call("omopFactorLevelsDS", as.symbol(x))),
+                                  function(r) list(unsafe = r$unsafe, levels = r$levels$q5_first_value))
+  reports <- if (f$ok && b$ok) capture_ds("G23: omopFactorLevelsDS(G_adaptive, G_adaptive_f, G_adaptive_b)",
+    lapply(c("G_adaptive", "G_adaptive_f", "G_adaptive_b"), levels_of)) else NULL
+  same <- !is.null(reports) && reports$ok && identical(reports$value[[2L]], reports$value[[1L]]) &&
+    identical(reports$value[[3L]], reports$value[[1L]])
+  verdict("G23c", if (f$ok && b$ok && length(rows) && all(rows) && same) "PASS" else "FAIL",
+          "filter and bind_rows work on a reconciled recipe output, and level reports read their rows (failed before 2.10.8)",
+          sprintf("filter: %s; bind_rows: %s; stacked rows double the source: %s; level reports equal the source's: %s; %s",
+                  f$ok, b$ok, paste(rows, collapse = "/"), same,
+                  paste(c(if (!f$ok) last_server_error(f$error), if (!b$ok) last_server_error(b$error),
+                          if (!is.null(reports) && !reports$ok) last_server_error(reports$error)), collapse = " | ")))
 })
 
 section("G3b", "how long the automatic data generation takes on this CDM", function() {
