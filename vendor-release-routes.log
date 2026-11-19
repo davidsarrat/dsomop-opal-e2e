@@ -1,0 +1,51 @@
+dsOMOP: optional database drivers not installed: odbc. Install with: install.packages(c('odbc'))
+dsOMOP v2.10.7 loaded. OMOP CDM resource resolver registered.
+✔ | F W  S  OK | Context
+
+⠏ |          0 | vendor-release-routes                                          
+⠋ |          1 | vendor-release-routes                                          
+⠹ |          3 | vendor-release-routes                                          
+⠼ |          5 | vendor-release-routes                                          [vendor-versions] postgresql server PostgreSQL 16.14 (Debian 16.14-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+
+⠋ |      1  30 | vendor-release-routes                                          
+⠼ |      1  34 | vendor-release-routes                                          
+⠏ |      1  89 | vendor-release-routes                                          NOTICE:  drop cascades to table dsomop_it_16216_9ae8966d_results.achilles_results
+
+NOTICE:  drop cascades to 2 other objects
+DETAIL:  drop cascades to table dsomop_it_16216_9ae8966d_vocab.concept
+drop cascades to table dsomop_it_16216_9ae8966d_vocab.concept_ancestor
+
+NOTICE:  drop cascades to 11 other objects
+DETAIL:  drop cascades to table dsomop_it_16216_9ae8966d_cdm.cdm_source
+drop cascades to table dsomop_it_16216_9ae8966d_cdm.person
+drop cascades to table dsomop_it_16216_9ae8966d_cdm.observation_period
+drop cascades to table dsomop_it_16216_9ae8966d_cdm.condition_occurrence
+drop cascades to table dsomop_it_16216_9ae8966d_cdm.drug_exposure
+drop cascades to table dsomop_it_16216_9ae8966d_cdm.procedure_occurrence
+drop cascades to table dsomop_it_16216_9ae8966d_cdm.measurement
+drop cascades to table dsomop_it_16216_9ae8966d_cdm.observation
+drop cascades to table dsomop_it_16216_9ae8966d_cdm.visit_occurrence
+drop cascades to table dsomop_it_16216_9ae8966d_cdm.device_exposure
+drop cascades to table dsomop_it_16216_9ae8966d_cdm.death
+
+[vendor-versions] mysql server 8.4.11
+
+⠦ |      1 106 | vendor-release-routes                                          
+⠏ |      1 109 | vendor-release-routes                                          
+⠋ |      1 110 | vendor-release-routes                                          
+⠼ |      1 164 | vendor-release-routes                                          [vendor-versions] mariadb server 11.4.12-MariaDB-ubu2404
+
+⠹ |      1 182 | vendor-release-routes                                          
+⠦ |      1 186 | vendor-release-routes                                          
+⠹ |      1 232 | vendor-release-routes                                          
+✔ |      1 257 | vendor-release-routes [74.3s]
+
+══ Results ═════════════════════════════════════════════════════════════════════
+Duration: 74.3 s
+
+── Skipped tests (1) ───────────────────────────────────────────────────────────
+• {duckdb} is not installed (1): 'test-vendor-release-routes.R:306:3'
+
+[ FAIL 0 | WARN 0 | SKIP 1 | PASS 257 ]
+
+vendor-release-routes: 5 tests, 258 expectations: 0 failed, 1 skipped, 0 errors, 0 warnings, 257 passed
