@@ -1431,6 +1431,88 @@ section("G22", "automatic vocabulary levels, their limit and model copies on a s
           sprintf("1,000 levels %.1f s; 5,000 levels %.1f s; 14,000 levels %.1f s", q1$secs, q2$secs, q3b$secs))
 })
 
+section("G23", "adaptive hierarchy levels, fingerprint transport and verbs on published outputs (2.10.8)", function() {
+  if (utils::packageVersion("dsOMOPClient") < "2.10.8") {
+    verdict("G23", "INFO", "adaptive levels and fingerprints (dsOMOP 2.10.8)", "not run: the candidate client predates 2.10.8")
+    return(invisible())
+  }
+  if (!identical(psql_value("SELECT count(*) FROM pg_database WHERE datname = 'omopauto'", db = "postgres"), "1"))
+    stop("G23 needs the omopauto database that G22 builds")
+  # A hierarchy E2EHier: root, 5 groups, 50 subgroups (10 per group), 5,000 leaves (100 per subgroup), all answers of
+  # question Q5; 1,000 people answer with 60 leaves spread over subgroups 1-6.
+  psql(paste(
+    "INSERT INTO cdm.vocabulary (vocabulary_id, vocabulary_name, vocabulary_reference, vocabulary_version, vocabulary_concept_id)",
+    "VALUES ('E2EHier', 'E2E synthetic hierarchy', 'e2e', 'v1', 0);",
+    "INSERT INTO cdm.concept (concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept,",
+    "  concept_code, valid_start_date, valid_end_date, invalid_reason)",
+    "SELECT id, 'E2E finding ' || id, 'Observation', 'E2EHier', 'Answer', 'S', 'H' || id, DATE '2000-01-01', DATE '2099-12-31', NULL",
+    "FROM (SELECT 2100200000 AS id UNION ALL SELECT 2100200000 + g FROM generate_series(1, 5) g",
+    "      UNION ALL SELECT 2100200100 + s FROM generate_series(0, 49) s",
+    "      UNION ALL SELECT 2100201000 + l FROM generate_series(0, 4999) l) ids;",
+    "INSERT INTO cdm.concept (concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept,",
+    "  concept_code, valid_start_date, valid_end_date, invalid_reason)",
+    "VALUES (2100100005, 'E2E question 5', 'Observation', 'E2EAuto', 'Question', 'S', 'Q5', DATE '2000-01-01', DATE '2099-12-31', NULL);",
+    "INSERT INTO cdm.concept_ancestor (ancestor_concept_id, descendant_concept_id, min_levels_of_separation, max_levels_of_separation)",
+    "SELECT concept_id, concept_id, 0, 0 FROM cdm.concept WHERE vocabulary_id = 'E2EHier'",
+    "UNION ALL SELECT 2100200000, 2100200000 + g, 1, 1 FROM generate_series(1, 5) g",
+    "UNION ALL SELECT 2100200000, 2100200100 + s, 2, 2 FROM generate_series(0, 49) s",
+    "UNION ALL SELECT 2100200000, 2100201000 + l, 3, 3 FROM generate_series(0, 4999) l",
+    "UNION ALL SELECT 2100200001 + s / 10, 2100200100 + s, 1, 1 FROM generate_series(0, 49) s",
+    "UNION ALL SELECT 2100200001 + l / 1000, 2100201000 + l, 2, 2 FROM generate_series(0, 4999) l",
+    "UNION ALL SELECT 2100200100 + l / 100, 2100201000 + l, 1, 1 FROM generate_series(0, 4999) l;",
+    "INSERT INTO cdm.observation (observation_id, person_id, observation_concept_id, observation_date,",
+    "  observation_type_concept_id, value_as_concept_id)",
+    "SELECT 950000000 + p.i, p.person_id, 2100100005, p.d, 38000280, 2100201000 + ((p.i % 60) / 10) * 100 + (p.i % 10)",
+    "FROM (SELECT person_id, d, row_number() OVER (ORDER BY person_id) AS i FROM",
+    "  (SELECT DISTINCT ON (person_id) person_id, observation_period_start_date AS d FROM cdm.observation_period",
+    "   ORDER BY person_id, observation_period_start_date) op) p WHERE p.i <= 1000;",
+    "ANALYZE;"), db = "omopauto", label = "synthetic hierarchy E2EHier and question Q5")
+  question <- function(q) omop_variable(event = omop_event("observation", name = paste0("q", q),
+                                                           concepts = omop_concept_set(2100100000L + q)),
+                                        reducer = omop_reduce("first_value", value = "value_as_concept_id"))
+  run <- function(s, q, out) {
+    r <- omop_recipe(variables = list(question(q)), outputs = omop_output(name = "auto", type = "wide"),
+                     options = list(translate_concepts = FALSE))
+    res <- capture_ds(sprintf("%s: recipe_execute(Q%d -> %s)", s$label, q, out),
+                      recipe_execute(r, out = c(auto = out), symbol = s$symbol, conns = s$conns))
+    book <- if (res$ok) tryCatch(recipe_codebook(res$value)[[1L]]$columns, error = function(e) NULL) else NULL
+    lv <- if (!is.null(book)) book$levels[[match(paste0("q", q, "_first_value"), book$name)]] else NULL
+    list(ok = res$ok, error = res$error, secs = res$secs, keys = as.character(unlist(lv$keys %||% lv$labels)))
+  }
+  s <- open_session("G23", servers = c("SiteA", "SiteB"), resource = "omop_data.gibleed_auto")
+  on.exit(close_session(s), add = TRUE)
+  if (!isTRUE(s$ok)) stop("no G23 session: ", s$error)
+  q5 <- run(s, 5L, "G_adaptive")
+  verdict("G23a", if (q5$ok && length(q5$keys) == 606L) "PASS" else "FAIL",
+          "60 observed answers in 6 subgroups of a 5,056-concept hierarchy publish with those subgroups' 606 concepts",
+          sprintf("published: %s; levels: %d (the whole kind holds 5,056); %.1f s; %s", q5$ok, length(q5$keys), q5$secs,
+                  if (!q5$ok) last_server_error(q5$error) else ""))
+  fast <- run(s, 2L, "G_fp_fast")
+  options(dsomop.fingerprint_levels = FALSE)
+  full <- run(s, 2L, "G_fp_full")
+  options(dsomop.fingerprint_levels = NULL)
+  verdict("G23b", if (fast$ok && full$ok && length(fast$keys) == 5000L && identical(fast$keys, full$keys)) "PASS" else "FAIL",
+          "a 5,000-concept list shared by both connections publishes from fingerprints with the levels of the full transport",
+          sprintf("fingerprints %s in %.1f s; full %s in %.1f s; identical levels: %s", fast$ok, fast$secs, full$ok, full$secs,
+                  identical(fast$keys, full$keys)))
+  verdict("G23d", "INFO", "publication time of 5,000 automatic levels, fingerprints versus full transport (two connections)",
+          sprintf("fingerprints %.1f s; full %.1f s", fast$secs, full$secs))
+  f <- capture_ds("G23: ds.omop.filter(G_adaptive -> G_adaptive_f)",
+                  ds.omop.filter("G_adaptive", expr = omop_where(!is.na(q5_first_value)), newobj = "G_adaptive_f",
+                                 symbol = s$symbol, conns = s$conns))
+  b <- capture_ds("G23: ds.omop.bind_rows(G_adaptive, G_adaptive_f -> G_adaptive_b)",
+                  ds.omop.bind_rows("G_adaptive", "G_adaptive_f", newobj = "G_adaptive_b", symbol = s$symbol, conns = s$conns))
+  dims <- if (b$ok) capture_ds("G23: dsBaseClient::ds.dim(G_adaptive, G_adaptive_b)",
+    list(src = dsBaseClient::ds.dim("G_adaptive", type = "split", datasources = s$conns),
+         out = dsBaseClient::ds.dim("G_adaptive_b", type = "split", datasources = s$conns))) else NULL
+  rows <- if (!is.null(dims) && dims$ok) vapply(names(dims$value$src), function(k)
+    identical(as.numeric(dims$value$out[[k]][[1L]]), 2 * as.numeric(dims$value$src[[k]][[1L]])), logical(1)) else FALSE
+  verdict("G23c", if (f$ok && b$ok && all(rows)) "PASS" else "FAIL",
+          "filter and bind_rows work on a reconciled recipe output (failed before 2.10.8)",
+          sprintf("filter: %s; bind_rows: %s; stacked rows double the source: %s; %s", f$ok, b$ok, paste(rows, collapse = "/"),
+                  paste(c(if (!f$ok) last_server_error(f$error), if (!b$ok) last_server_error(b$error)), collapse = " | ")))
+})
+
 section("G3b", "how long the automatic data generation takes on this CDM", function() {
   g <- INFO$admin_generation
   tm <- INFO$timing
